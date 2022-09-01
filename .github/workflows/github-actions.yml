@@ -11,7 +11,7 @@ on:
 env:
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: creame-githubaction-bucket
-  CD_APP_NAME: creame-codedepoly-app
+  CD_APP_NAME: creame-codedeploy-app
   CD_GROUP_NAME: creame-dev-deployment-group
 
 permissions:
