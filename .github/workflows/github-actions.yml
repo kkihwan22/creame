@@ -1,5 +1,5 @@
 # Github Repository Actions 페이지에 나타낼 이름
-name: Deploy costarica-api
+name: Deploy creame-api
 
 # event trigger
 on:
