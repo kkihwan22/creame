@@ -1,0 +1,41 @@
+server:
+  port: 8888
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rdb-creame.c7f9pyzwo76e.ap-northeast-2.rds.amazonaws.com:3306/creame?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC&tinyInt1isBit=false
+    # tinyInt1isBit=false ??
+    username: ENC(k31nYERmMfe2UC7+oLrtkhN7VZsPD3gY)
+    password: ENC(/raIjRYjBTHDa+SVZzYiDymssHl+PF0J)
+    hikari:
+      auto-commit: false
+      connection-test-query: SELECT 1
+      minimum-idle: 10
+      maximum-pool-size: 50
+      transaction-isolation: TRANSACTION_READ_UNCOMMITTED
+      pool-name: dbpool-costarica
+  jpa:
+    hibernate:
+      ddl-auto: validate # validate (?? ? ??) | update | none | create | create-drop
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy # ????
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy # ????
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+#  /resource ?? ?? schema.sql, data.sql ? ???? ??? ??
+#  sql:
+#    init:
+#      mode: EMBEDDED
+#  h2:
+#    console:
+#      enabled: true
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
