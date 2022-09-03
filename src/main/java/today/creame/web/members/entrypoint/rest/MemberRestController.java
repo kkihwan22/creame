@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import today.creame.web.members.applications.MemberService;
-import today.creame.web.members.applications.model.MemberRegisterParameter;
+import today.creame.web.members.application.MemberService;
+import today.creame.web.members.application.model.MemberRegisterParameter;
 import today.creame.web.share.entrypoint.ResponseBody;
 import today.creame.web.share.entrypoint.ResponseBodyFactory;
 

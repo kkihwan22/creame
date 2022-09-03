@@ -1,4 +1,4 @@
-package today.creame.web.members.applications.model;
+package today.creame.web.members.application.model;
 
 import lombok.Getter;
 import lombok.ToString;
