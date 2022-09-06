@@ -39,3 +39,10 @@ spring:
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
+
+services:
+  external:
+    sms:
+      host: https://api.coolsms.co.kr
+      api-key: NCSZMUTYDUZDROYQ
+      secret-key: T5LJMVQPY4EORYKNOTM5QYHVQ4CZFW13
