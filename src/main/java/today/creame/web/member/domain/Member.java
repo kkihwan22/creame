@@ -1,4 +1,4 @@
-package today.creame.web.members.domain;
+package today.creame.web.member.domain;
 
 import lombok.Getter;
 import lombok.ToString;

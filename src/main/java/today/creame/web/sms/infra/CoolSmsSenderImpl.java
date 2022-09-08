@@ -24,7 +24,7 @@ public class CoolSmsSenderImpl implements SmsSender {
     private final CoolSmsClient coolSmsClient;
 
     @Override
-    public void sendOne(String to, String text) {
+    public void sendOne(String to, String content) {
         LocalDateTime datetime = LocalDateTime.now();
         String salt = SaltSupport.generate();
         ResponseEntity<CoolSmsClient.SimpleMessageResponse> response =
@@ -34,7 +34,7 @@ public class CoolSmsSenderImpl implements SmsSender {
                                 datetime,
                                 salt,
                                 SignatureSupport.generateSignature(property.getSecretKey(), datetime, salt)),
-                        Map.of("message", new CoolSmsClient.SimpleMessageRequest(to, from, text))
+                        Map.of("message", new CoolSmsClient.SimpleMessageRequest(to, from, content))
                 );
         log.debug("response: {}", response);
     }

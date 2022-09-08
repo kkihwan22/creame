@@ -1,4 +1,4 @@
-package today.creame.web.members.entrypoint.rest;
+package today.creame.web.member.entrypoint.rest;
 
 
 import lombok.RequiredArgsConstructor;
@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import today.creame.web.members.application.MemberService;
-import today.creame.web.members.application.model.MemberRegisterParameter;
+import today.creame.web.member.application.MemberService;
+import today.creame.web.member.application.model.MemberRegisterParameter;
 import today.creame.web.share.entrypoint.ResponseBody;
 import today.creame.web.share.entrypoint.ResponseBodyFactory;
 

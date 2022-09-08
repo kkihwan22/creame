@@ -1,8 +1,8 @@
-package today.creame.web.members.application.model;
+package today.creame.web.member.application.model;
 
 import lombok.Getter;
 import lombok.ToString;
-import today.creame.web.members.domain.Member;
+import today.creame.web.member.domain.Member;
 
 @Getter @ToString
 public class MemberRegisterParameter {

@@ -1,11 +1,11 @@
-package today.creame.web.members.application;
+package today.creame.web.member.application;
 
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import today.creame.web.members.application.model.MemberRegisterParameter;
-import today.creame.web.members.domain.Member;
+import today.creame.web.member.application.model.MemberRegisterParameter;
+import today.creame.web.member.domain.Member;
 
 @RequiredArgsConstructor
 @Service

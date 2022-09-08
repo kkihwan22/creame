@@ -5,19 +5,21 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  jackson:
+    property-naming-strategy: SNAKE_CASE
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://rdb-creame.c7f9pyzwo76e.ap-northeast-2.rds.amazonaws.com:3306/creame?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC&tinyInt1isBit=false
+    url: jdbc:mysql://rdb-creame.c7f9pyzwo76e.ap-northeast-2.rds.amazonaws.com:3306/creame?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC
     # tinyInt1isBit=false ??
-    username: ENC(k31nYERmMfe2UC7+oLrtkhN7VZsPD3gY)
-    password: ENC(/raIjRYjBTHDa+SVZzYiDymssHl+PF0J)
+    username: developer
+    password: 7gv3y3#j+Xc6
     hikari:
       auto-commit: false
       connection-test-query: SELECT 1
       minimum-idle: 10
       maximum-pool-size: 50
       transaction-isolation: TRANSACTION_READ_UNCOMMITTED
-      pool-name: dbpool-costarica
+      pool-name: dbpool-creame
   jpa:
     hibernate:
       ddl-auto: validate # validate (?? ? ??) | update | none | create | create-drop
@@ -28,6 +30,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
 #  /resource ?? ?? schema.sql, data.sql ? ???? ??? ??
 #  sql:
 #    init:
@@ -46,3 +49,11 @@ services:
       host: https://api.coolsms.co.kr
       api-key: NCSZMUTYDUZDROYQ
       secret-key: T5LJMVQPY4EORYKNOTM5QYHVQ4CZFW13
+
+logging:
+  level:
+    root: debug
+    org.springframework: warn
+    org.springframework.web: info
+    org.hibernate: debug
+    springfox: info
