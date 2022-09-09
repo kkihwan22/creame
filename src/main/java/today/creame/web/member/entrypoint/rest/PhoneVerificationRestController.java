@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.member.application.PhoneVerificationService;
-import today.creame.web.member.entrypoint.rest.model.PhoneVerificationRequest;
-import today.creame.web.member.entrypoint.rest.model.PhoneVerificationResponse;
+import today.creame.web.member.entrypoint.rest.model.PhoneVerificationCodeRequest;
+import today.creame.web.member.entrypoint.rest.model.PhoneVerificationCodeResponse;
+import today.creame.web.member.entrypoint.rest.model.PhoneVerifyingRequest;
 import today.creame.web.share.entrypoint.ResponseBody;
 import today.creame.web.share.entrypoint.ResponseBodyFactory;
 
@@ -22,10 +23,28 @@ public class PhoneVerificationRestController {
     private final Logger log = LoggerFactory.getLogger(PhoneVerificationRestController.class);
     private final PhoneVerificationService phoneVerificationService;
 
-    @PostMapping("/phone-verification/code-request")
-    public ResponseEntity<ResponseBody<PhoneVerificationResponse>> requestCode(
+    @PostMapping("/phone-verification")
+    public ResponseEntity<ResponseBody<Void>> verifyCode(
             @RequestBody @Valid
-            PhoneVerificationRequest request,
+            PhoneVerifyingRequest request,
+            BindingResult bindingResult) {
+
+        log.debug("request: {}", request);
+
+        // TODO: Bad Request 처리 구체화
+        if (bindingResult.hasErrors()) {
+            log.info(" [ Bad Request ] error count : {}", bindingResult.getErrorCount());
+        }
+
+        phoneVerificationService.verifyCode(request.getToken(), request.getPhoneNumber(), request.getVerifyCode());
+
+        return ResponseEntity.ok(ResponseBodyFactory.success(null));
+    }
+
+    @PostMapping("/phone-verification/code-request")
+    public ResponseEntity<ResponseBody<PhoneVerificationCodeResponse>> requestCode(
+            @RequestBody @Valid
+            PhoneVerificationCodeRequest request,
             BindingResult bindingResult) {
 
         log.debug("request: {} ", request);
@@ -34,10 +53,12 @@ public class PhoneVerificationRestController {
             log.info(" [ Bad Request ] error count : {}", bindingResult.getErrorCount());
         }
 
-        String token = phoneVerificationService.requestCode(request.getPhoneNumber());
+        Long token = phoneVerificationService.requestCode(request.getPhoneNumber());
 
-        log.debug("token: {}", token);
+        log.debug("token : {}", token);
 
-        return ResponseEntity.ok(ResponseBodyFactory.success(new PhoneVerificationResponse(token)));
+        return ResponseEntity.ok(ResponseBodyFactory.success(new PhoneVerificationCodeResponse(Long.toString(token))));
     }
+
+
 }

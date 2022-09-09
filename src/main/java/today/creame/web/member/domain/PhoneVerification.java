@@ -8,6 +8,8 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import today.creame.web.share.convert.BooleanToCharConverter;
 
 import javax.persistence.*;
@@ -35,7 +37,7 @@ public class PhoneVerification {
     @Convert(converter = BooleanToCharConverter.class)
     @Column(name = "authed",
             columnDefinition = "char(1)")
-    private Boolean authed;
+    private Boolean verified;
 
     @Convert(converter = BooleanToCharConverter.class)
     @Column(name = "expired",
@@ -49,11 +51,40 @@ public class PhoneVerification {
     @Column(name = "expired_dt")
     private LocalDateTime expiredDateTime;
 
+    @CreatedDate
     @Column(name = "created_dt")
     private LocalDateTime createdDateTime;
 
+    @LastModifiedDate
     @Column(name = "updated_dt")
     private LocalDateTime updatedDateTime;
+
+    public boolean afterVerifyTime() {
+        LocalDateTime now = LocalDateTime.now();
+        if (this.createdDateTime.isAfter(now.plusMinutes(3))) {
+            this.expired = true;;
+            this.expiredDateTime = now;
+        }
+
+        return expired;
+    }
+
+    public boolean isMissMatchDigit(int digit) {
+        if (this.digit == digit) {
+            return false;
+        }
+
+        this.failedCount++;
+        if (failedCount >= 3) {
+            this.expired = true;
+            this.expiredDateTime = LocalDateTime.now();
+        }
+        return true;
+    }
+
+    public void successVerify() {
+        this.verified = true;
+    }
 
     public PhoneVerification(String phoneNumber, Integer digit) {
         this.phoneNumber = phoneNumber;

@@ -6,11 +6,11 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @Getter @ToString
-public class PhoneVerificationResponse {
+public class PhoneVerificationCodeResponse {
 
     private String token;
 
-    public PhoneVerificationResponse(String token) {
+    public PhoneVerificationCodeResponse(String token) {
         this.token = token;
     }
 }
