@@ -2,6 +2,7 @@ package today.creame.web.share.entrypoint;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,7 +29,7 @@ public class AppRestControllerAdvisor {
     public ResponseEntity<ResponseBody<List<Error>>> handleBusinessException(RuntimeException e) {
         BusinessException exception = (BusinessException) e;
         LOG.error("[ error ] point : {}", e.getClass().getSimpleName());
-        LOG.error("[ error ] reason : {}", e);
+        LOG.error("[ error ] message : {}", e.getMessage());
 
         List<Error> errors = Optional.ofNullable(exception.getErrors()).orElse(Collections.emptyList());
         return ResponseEntity.badRequest()
@@ -36,11 +37,19 @@ public class AppRestControllerAdvisor {
                         exception.getCode(), exception.getMessage(), "", errors));
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ResponseBody<Void>> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        LOG.error("[ error ] point : {}", e.getClass().getSimpleName());
+        LOG.error("[ error ] message : {}", e.getMessage());
+        // TODO : 구성하기
+        return null;
+    }
+
     @ExceptionHandler(UnknownException.class)
     public ResponseEntity<ResponseBody<Void>> handleUnknownException(RuntimeException e) {
         UnknownException exception = (UnknownException) e;
         LOG.error("[ error ] point : {}", e.getClass().getSimpleName());
-        LOG.error("[ error ] reason : {}", e);
+        LOG.error("[ error ] message : {}", e.getMessage());
 
         return ResponseEntity.badRequest()
                 .body(ResponseBodyFactory.failure(

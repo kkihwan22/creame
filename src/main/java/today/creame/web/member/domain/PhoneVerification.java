@@ -10,7 +10,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import today.creame.web.share.convert.BooleanToCharConverter;
+import today.creame.web.share.domain.converter.BooleanToCharConverter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

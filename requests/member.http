@@ -1,0 +1,11 @@
+### 회원가입
+
+POST http://localhost:8888/v1/members
+Content-Type: application/json
+
+{
+  "email": "second-user@creame.co.kr",
+  "password": "1234",
+  "nickname": "second-user",
+  "phone_number": "01043219899"
+}

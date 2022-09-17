@@ -4,6 +4,6 @@ import today.creame.web.member.application.model.MemberRegisterParameter;
 
 public interface MemberService {
 
-    void registerMember(MemberRegisterParameter parameter);
+    Long registerMember(MemberRegisterParameter parameter);
 }
 

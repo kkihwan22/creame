@@ -23,7 +23,7 @@ public class PhoneVerificationRestController {
     private final Logger log = LoggerFactory.getLogger(PhoneVerificationRestController.class);
     private final PhoneVerificationService phoneVerificationService;
 
-    @PostMapping("/phone-verification")
+    @PostMapping("/v1/phone-verification")
     public ResponseEntity<ResponseBody<Void>> verifyCode(
             @RequestBody @Valid
             PhoneVerifyingRequest request,
@@ -41,7 +41,7 @@ public class PhoneVerificationRestController {
         return ResponseEntity.ok(ResponseBodyFactory.success(null));
     }
 
-    @PostMapping("/phone-verification/code-request")
+    @PostMapping("/v1/phone-verification/code-request")
     public ResponseEntity<ResponseBody<PhoneVerificationCodeResponse>> requestCode(
             @RequestBody @Valid
             PhoneVerificationCodeRequest request,
@@ -59,6 +59,4 @@ public class PhoneVerificationRestController {
 
         return ResponseEntity.ok(ResponseBodyFactory.success(new PhoneVerificationCodeResponse(Long.toString(token))));
     }
-
-
 }

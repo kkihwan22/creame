@@ -1,4 +1,4 @@
-package today.creame.web.share.convert;
+package today.creame.web.share.domain.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
