@@ -21,7 +21,7 @@ public class MemberRestController {
     private final Logger log = LoggerFactory.getLogger(MemberRestController.class);
     private final MemberService memberService;
 
-    @PostMapping("/v1/members")
+    @PostMapping("/public/v1/members")
     public ResponseEntity<ResponseBody<SimpleResponseData<Long>>> registerMember(@RequestBody MemberRegisterRequest request, BindingResult bindingResult) {
         log.debug("[ request ] : {}", request);
         Long id = memberService.registerMember(request.to());

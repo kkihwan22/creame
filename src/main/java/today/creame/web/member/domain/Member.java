@@ -1,6 +1,5 @@
 package today.creame.web.member.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -12,10 +11,7 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import static javax.persistence.CascadeType.REMOVE;
-import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @NoArgsConstructor

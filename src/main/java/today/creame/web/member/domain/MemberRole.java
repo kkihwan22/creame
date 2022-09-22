@@ -1,9 +1,12 @@
 package today.creame.web.member.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import today.creame.web.member.domain.converter.MemberRoleConverter;
+import today.creame.web.member.domain.converter.MemberRoleCodeConverter;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
 import javax.persistence.*;
@@ -15,7 +18,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "member_role")
 @DynamicInsert
 @DynamicUpdate
-@Getter @ToString
+@Getter @ToString(exclude = {"member"})
 public class MemberRole extends BaseCreatedAndUpdatedDateTime {
 
     @Id
@@ -27,7 +30,7 @@ public class MemberRole extends BaseCreatedAndUpdatedDateTime {
     @Setter
     private Member member;
 
-    @Convert(converter = MemberRoleConverter.class)
+    @Convert(converter = MemberRoleCodeConverter.class)
     @Column(name = "code_name")
     private MemberRoleCode codeName;
 

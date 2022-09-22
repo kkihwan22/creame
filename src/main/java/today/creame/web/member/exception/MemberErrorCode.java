@@ -11,9 +11,9 @@ public enum MemberErrorCode {
     ;
 
     @Getter
-    private int code;
+    private final int code;
     @Getter
-    private String message;
+    private final String message;
 
     MemberErrorCode(int code, String message) {
         this.code = code;

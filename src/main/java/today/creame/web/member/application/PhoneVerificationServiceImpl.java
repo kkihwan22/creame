@@ -9,9 +9,9 @@ import today.creame.web.member.application.model.SmsSendEvent;
 import today.creame.web.member.application.support.RandomNumberSupport;
 import today.creame.web.member.domain.PhoneVerification;
 import today.creame.web.member.domain.PhoneVerificationJpaRepository;
-import today.creame.web.member.exception.ExpiredTokenException;
-import today.creame.web.member.exception.NotMatchedTokenException;
+import today.creame.web.member.exception.ExpiredVerifyTokenException;
 import today.creame.web.member.exception.NotMatchedVerifyCodeException;
+import today.creame.web.member.exception.NotMatchedVerifyTokenException;
 
 import javax.transaction.Transactional;
 
@@ -24,7 +24,7 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
 
 
     @Transactional(dontRollbackOn = {
-            ExpiredTokenException.class, NotMatchedVerifyCodeException.class
+            ExpiredVerifyTokenException.class, NotMatchedVerifyCodeException.class
     })
     @Override
     public void verifyCode(String token, String phoneNumber, String code) {
@@ -32,19 +32,19 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
                 .findById(Long.parseLong(token))
                 .orElseThrow(() -> {
                     log.info("Not matched token. token: {}", token);
-                    throw new NotMatchedTokenException();
+                    throw new NotMatchedVerifyTokenException();
                 });
 
         if (phoneVerification.getExpired() || phoneVerification.getVerified()) {
             log.info("Already expired or verified token. expired status: {}, verified status: {}"
                     , phoneVerification.getExpired()
                     , phoneVerification.getVerified());
-            throw new ExpiredTokenException();
+            throw new ExpiredVerifyTokenException();
         }
 
         if (phoneVerification.afterVerifyTime()) {
             log.info("Expired token. [ reason ] - time over!");
-            throw new ExpiredTokenException();
+            throw new ExpiredVerifyTokenException();
         }
 
         if (phoneVerification.isMissMatchDigit(Integer.parseInt(code))) {
@@ -56,7 +56,7 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
             log.info("Not matched phone number. request phone number: {}, saved phone number : {}"
                     , phoneNumber
                     , phoneVerification.getPhoneNumber());
-            throw new NotMatchedTokenException();
+            throw new NotMatchedVerifyTokenException();
         }
 
         phoneVerification.successVerify();

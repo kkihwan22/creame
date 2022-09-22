@@ -52,8 +52,9 @@ services:
 
 logging:
   level:
-    root: debug
+    root: info
+    today.creame: debug
     org.springframework: warn
-    org.springframework.web: info
+    org.springframework.web: warn
     org.hibernate: debug
     springfox: info

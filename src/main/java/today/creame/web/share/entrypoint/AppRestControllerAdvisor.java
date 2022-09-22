@@ -38,11 +38,11 @@ public class AppRestControllerAdvisor {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ResponseBody<Void>> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+    public ResponseEntity<ResponseBody<SimpleResponseData<String>>> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
         LOG.error("[ error ] point : {}", e.getClass().getSimpleName());
         LOG.error("[ error ] message : {}", e.getMessage());
         // TODO : 구성하기
-        return null;
+        return ResponseEntity.internalServerError().body(ResponseBodyFactory.failure(-1, "관리자에게 문의하세요", "", new SimpleResponseData<>("failure")));
     }
 
     @ExceptionHandler(UnknownException.class)
