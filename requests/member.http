@@ -4,10 +4,10 @@ POST http://localhost:8888/public/v1/members
 Content-Type: application/json
 
 {
-  "email": "test-user@creame.co.kr",
+  "email": "user0948@gmail.com",
   "password": "1234",
-  "nickname": "test-user-nick",
-  "phone_number": "01033339999"
+  "nickname": "user0948",
+  "phone_number": "01009270949"
 }
 
 ### 로그인

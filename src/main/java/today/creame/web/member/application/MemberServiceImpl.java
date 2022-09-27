@@ -16,17 +16,20 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
     private final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
     private final MemberJpaRepository memberJpaRepository;
+    private final MemberRoleJpaRepository memberRoleJpaRepository;
 
     @Transactional
     @Override
     public Long registerMember(MemberRegisterParameter parameter) {
-        // 인증여부 확인.!
-        // phone 번호 등록 수정
+        // todo: 인증여부 확인.!
+        // todo: phone 번호 등록 수정
 
         Member registerMember = parameter.toMember();
+        memberJpaRepository.save(registerMember);
+
         MemberRole role = new MemberRole(null, MemberRoleCode.USER);
         registerMember.addRole(role);
-        memberJpaRepository.save(registerMember);
+        memberRoleJpaRepository.save(role);
 
         log.debug("register member: {}", registerMember);
         log.debug("roles: {}", registerMember.getRoles());
