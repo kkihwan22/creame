@@ -43,6 +43,7 @@ jasypt:
   encryptor:
     bean: jasyptStringEncryptor
 
+# todo: sms 에 캡슐환 된 상태로 구조 변경
 services:
   external:
     sms:

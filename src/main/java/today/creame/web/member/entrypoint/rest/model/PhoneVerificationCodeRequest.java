@@ -13,8 +13,7 @@ import javax.validation.constraints.Pattern;
 public class PhoneVerificationCodeRequest {
 
     @NotBlank(message = "전화번호를 입력해주세요.")
-    @Length(min = 11, max = 11, message = "전화번호의 길이는 11글자입니다.")
-    @Pattern(regexp = "[0-9]", message = "허용되지 않은 문자가 있습니다.")
+    @Pattern(regexp = "[0-9]{11}", message = "허용되지 않은 문자가 있습니다.")
     private String phoneNumber;
 
     public PhoneVerificationCodeRequest(String phoneNumber) {

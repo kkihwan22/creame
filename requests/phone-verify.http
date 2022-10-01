@@ -1,0 +1,19 @@
+### 인증번호 요청
+
+POST http://localhost:8888/public/v1/phone-verification/code-request
+Content-Type: application/json
+
+{
+  "phone_number": "01039960399"
+}
+
+### 휴대폰 인증요청
+
+POST http://localhost:8888/public/v1/phone-verification
+Content-Type: application/json
+
+{
+  "token": "11",
+  "phone_number": "01039960399",
+  "verify_code": "832269"
+}

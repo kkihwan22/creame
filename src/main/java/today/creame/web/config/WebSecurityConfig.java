@@ -36,6 +36,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final Logger log = LoggerFactory.getLogger(WebSecurityConfig.class);
     private final UserDetailsService creameUserDetailsServiceImpl;
 
+    private static final String[] PERMIT_URL_ARRAY = {
+            "/v3/api-docs/**", "/swagger-ui/**", "/_health", "/public/**"
+    };
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(creameUserDetailsServiceImpl).passwordEncoder(passwordEncoder());
@@ -53,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(corsConfigurationSource());
 
         http.authorizeHttpRequests(request -> {
-            request.antMatchers("/_health", "/public/**").permitAll();
+            request.antMatchers(PERMIT_URL_ARRAY).permitAll();
             request.antMatchers("/admin/**")
                     .hasRole("ADMIN");
 

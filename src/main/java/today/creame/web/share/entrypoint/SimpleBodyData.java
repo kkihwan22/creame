@@ -3,12 +3,12 @@ package today.creame.web.share.entrypoint;
 import lombok.Getter;
 import lombok.Setter;
 
-public class SimpleResponseData <T> {
+public class SimpleBodyData<T> {
 
     @Getter @Setter
     private T result;
 
-    public SimpleResponseData(T result) {
+    public SimpleBodyData(T result) {
         this.result = result;
     }
 

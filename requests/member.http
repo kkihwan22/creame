@@ -4,10 +4,11 @@ POST http://localhost:8888/public/v1/members
 Content-Type: application/json
 
 {
-  "email": "user0948@gmail.com",
+  "email": "1041@gmail.com",
   "password": "1234",
-  "nickname": "user0948",
-  "phone_number": "01009270949"
+  "nickname": "user11111",
+  "phone_number": "01009270930",
+  "phone_verified_code": "1234"
 }
 
 ### 로그인

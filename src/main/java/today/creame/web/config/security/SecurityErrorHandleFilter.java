@@ -11,9 +11,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import today.creame.web.config.security.exception.SecurityErrorCode;
 import today.creame.web.config.security.exception.TokenExpiredException;
 import today.creame.web.config.security.exception.UnauthorizationException;
-import today.creame.web.share.entrypoint.ResponseBody;
-import today.creame.web.share.entrypoint.ResponseBodyFactory;
-import today.creame.web.share.entrypoint.SimpleResponseData;
+import today.creame.web.share.entrypoint.Body;
+import today.creame.web.share.entrypoint.BodyFactory;
+import today.creame.web.share.entrypoint.SimpleBodyData;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -53,11 +53,11 @@ public class SecurityErrorHandleFilter extends OncePerRequestFilter {
     private void writeValue(HttpServletResponse response, HttpStatus status, SecurityErrorCode error) throws IOException {
         response.setStatus(status.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        ResponseBody<SimpleResponseData<String>> body = ResponseBodyFactory.failure(
+        Body<SimpleBodyData<String>> body = BodyFactory.failure(
                 error.getCode(),
                 error.getMessage(),
                 "",
-                new SimpleResponseData<>("error"));
+                new SimpleBodyData<>("error"));
         new ObjectMapper().writeValue(response.getOutputStream(), ResponseEntity.of(Optional.of(body)));
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import today.creame.web.member.domain.Token;
-import today.creame.web.share.entrypoint.ResponseBodyFactory;
+import today.creame.web.share.entrypoint.BodyFactory;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +64,7 @@ public class CreameAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         mapper.writeValue(
-                response.getOutputStream(), ResponseEntity.ok(ResponseBodyFactory.success(data)));
+                response.getOutputStream(), ResponseEntity.ok(BodyFactory.success(data)));
 
     }
 }

@@ -21,8 +21,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Override
     public Long registerMember(MemberRegisterParameter parameter) {
-        // todo: 인증여부 확인.!
-        // todo: phone 번호 등록 수정
+        // todo : 인증여부 확인 로직 구체화
 
         Member registerMember = parameter.toMember();
         memberJpaRepository.save(registerMember);

@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import today.creame.web.share.exception.BusinessException;
 import today.creame.web.share.exception.UnknownException;
+import today.creame.web.share.exception.model.ErrorBodyData;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * TODO
@@ -26,33 +25,33 @@ public class AppRestControllerAdvisor {
     private final Logger LOG = LoggerFactory.getLogger(AppRestControllerAdvisor.class);
 
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ResponseBody<List<Error>>> handleBusinessException(RuntimeException e) {
+    public ResponseEntity<Body<List<ErrorBodyData>>> handleBusinessException(RuntimeException e) {
         BusinessException exception = (BusinessException) e;
         LOG.error("[ error ] point : {}", e.getClass().getSimpleName());
         LOG.error("[ error ] message : {}", e.getMessage());
 
-        List<Error> errors = Optional.ofNullable(exception.getErrors()).orElse(Collections.emptyList());
+        List<ErrorBodyData> errors = Optional.ofNullable(exception.getErrors()).orElse(Collections.emptyList());
         return ResponseEntity.badRequest()
-                .body(ResponseBodyFactory.failure(
+                .body(BodyFactory.failure(
                         exception.getCode(), exception.getMessage(), "", errors));
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ResponseBody<SimpleResponseData<String>>> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+    public ResponseEntity<Body<SimpleBodyData<String>>> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
         LOG.error("[ error ] point : {}", e.getClass().getSimpleName());
         LOG.error("[ error ] message : {}", e.getMessage());
         // TODO : 구성하기
-        return ResponseEntity.internalServerError().body(ResponseBodyFactory.failure(-1, "관리자에게 문의하세요", "", new SimpleResponseData<>("failure")));
+        return ResponseEntity.internalServerError().body(BodyFactory.failure(-1, "관리자에게 문의하세요", "", new SimpleBodyData<>("failure")));
     }
 
     @ExceptionHandler(UnknownException.class)
-    public ResponseEntity<ResponseBody<Void>> handleUnknownException(RuntimeException e) {
+    public ResponseEntity<Body<Void>> handleUnknownException(RuntimeException e) {
         UnknownException exception = (UnknownException) e;
         LOG.error("[ error ] point : {}", e.getClass().getSimpleName());
         LOG.error("[ error ] message : {}", e.getMessage());
 
         return ResponseEntity.badRequest()
-                .body(ResponseBodyFactory.failure(
+                .body(BodyFactory.failure(
                         exception.getCode(), exception.getMessage(), "", null));
     }
 }

@@ -17,13 +17,13 @@ public class MemberRegisterParameter {
             final String email,
             final String nickname,
             final String password,
-            final String token,
+            final String phoneVerifiedCode,
             final String phoneNumber) {
 
         this.email = email;
         this.nickname = nickname;
         this.password = password;
-        this.token = token;
+        this.token = phoneVerifiedCode;
         this.phoneNumber = phoneNumber;
     }
 

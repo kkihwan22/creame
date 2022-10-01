@@ -12,37 +12,36 @@ import today.creame.web.member.application.PhoneVerificationService;
 import today.creame.web.member.entrypoint.rest.model.PhoneVerificationCodeRequest;
 import today.creame.web.member.entrypoint.rest.model.PhoneVerificationCodeResponse;
 import today.creame.web.member.entrypoint.rest.model.PhoneVerifyingRequest;
-import today.creame.web.share.entrypoint.ResponseBody;
-import today.creame.web.share.entrypoint.ResponseBodyFactory;
+import today.creame.web.share.entrypoint.*;
 
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-public class PhoneVerificationRestController {
+public class PhoneVerificationRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(PhoneVerificationRestController.class);
     private final PhoneVerificationService phoneVerificationService;
 
     @PostMapping("/public/v1/phone-verification")
-    public ResponseEntity<ResponseBody<Void>> verifyCode(
+    public ResponseEntity<Body<SimpleBodyData<String>>> verifyCode(
             @RequestBody @Valid
             PhoneVerifyingRequest request,
             BindingResult bindingResult) {
-
         log.debug("request: {}", request);
 
-        // TODO: Bad Request 처리 구체화
-        if (bindingResult.hasErrors()) {
-            log.info(" [ Bad Request ] error count : {}", bindingResult.getErrorCount());
-        }
+        hasError(bindingResult);
 
-        phoneVerificationService.verifyCode(request.getToken(), request.getPhoneNumber(), request.getVerifyCode());
+        phoneVerificationService.verifyCode(
+                request.getToken(),
+                request.getPhoneNumber(),
+                request.getVerifyCode()
+        );
 
-        return ResponseEntity.ok(ResponseBodyFactory.success(null));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
     @PostMapping("/public/v1/phone-verification/code-request")
-    public ResponseEntity<ResponseBody<PhoneVerificationCodeResponse>> requestCode(
+    public ResponseEntity<Body<SimpleBodyData<String>>> requestCode(
             @RequestBody @Valid
             PhoneVerificationCodeRequest request,
             BindingResult bindingResult) {
@@ -57,6 +56,6 @@ public class PhoneVerificationRestController {
 
         log.debug("token : {}", token);
 
-        return ResponseEntity.ok(ResponseBodyFactory.success(new PhoneVerificationCodeResponse(Long.toString(token))));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(String.valueOf(token))));
     }
 }
