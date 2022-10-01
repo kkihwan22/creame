@@ -8,7 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import today.creame.web.member.exception.NotFoundMemberException;
 
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,14 +33,14 @@ class MemberTokenJpaRepositoryTest {
                 .orElseThrow(NotFoundMemberException::new);
         log.debug("findMember:{}", findMember);
 
-        MemberToken memberToken = new MemberToken(null, findMember.getId(), refreshToken);
+        MemberToken memberToken = new MemberToken(null, findMember, refreshToken);
         memberTokenJpaRepository.save(memberToken);
         memberTokenJpaRepository.flush();
 
 
-        List<MemberToken> memberTokenByRefreshToken = memberTokenJpaRepository.findMemberTokenByRefreshToken(refreshToken);
+        Optional<MemberToken> memberTokenByRefreshToken = memberTokenJpaRepository.findMemberTokenByRefreshToken(refreshToken);
 
-        assertEquals(1, memberTokenByRefreshToken.size());
+        assertNotNull(memberTokenByRefreshToken.get());
     }
 
 }

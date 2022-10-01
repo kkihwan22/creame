@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import today.creame.web.config.security.exception.InvalidTokenException;
-import today.creame.web.config.security.exception.NotExistTokenException;
+import today.creame.web.config.security.exception.TokenNotExistException;
 import today.creame.web.member.domain.Token;
 import today.creame.web.member.domain.TokenType;
 import today.creame.web.member.domain.TokenVerified;
@@ -41,7 +41,7 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
         } else {
             String authorizationHeader = Optional
                     .ofNullable(request.getHeader(AUTHORIZATION))
-                    .orElseThrow(NotExistTokenException::new);
+                    .orElseThrow(TokenNotExistException::new);
 
             if (!authorizationHeader.startsWith("Bearer ")) {
                 throw new InvalidTokenException();

@@ -6,23 +6,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import today.creame.web.member.domain.Token;
+import today.creame.web.member.domain.TokenType;
+import today.creame.web.member.entrypoint.event.model.RefreshTokenEvent;
 import today.creame.web.share.entrypoint.BodyFactory;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 
 public class CreameAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -34,6 +33,7 @@ public class CreameAuthenticationFilter extends UsernamePasswordAuthenticationFi
         super(authenticationManager);
         this.authenticationManager = authenticationManager;
     }
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
@@ -49,6 +49,7 @@ public class CreameAuthenticationFilter extends UsernamePasswordAuthenticationFi
         }
 
         log.debug(" [ LoginRequest ] {}", loginRequest);
+
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
         return authenticationManager.authenticate(token);
     }
@@ -57,14 +58,25 @@ public class CreameAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication)
             throws IOException {
-        User user = (User) authentication.getPrincipal();
+        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+
+        String username = user.getUsername();
+        Set<SimpleGrantedAuthority> authorities = user.getAuthorities();
+
+        Token refresh =TokenType.REFRESH_TOKEN.factory(username, authorities);
+        log.info("[ refresh token ] {}", refresh);
+
+        Token access = TokenType.ACCESS_TOKEN.factory(username, authorities);
+        log.info("[ access token ] {}", access);
+
+
         Map<String, String> data = new HashMap<>();
-        data.put("refresh_token", Token.refreshToken(user.getUsername(), user.getAuthorities()).getValue());
-        data.put("access_token", Token.accessToken(user.getUsername(), user.getAuthorities()).getValue());
+        data.put("refresh_token", refresh.getValue());
+        data.put("access_token", access.getValue());
+
+        eventPublisher.publishEvent(new RefreshTokenEvent(user.getId(), refresh.getValue()));
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        mapper.writeValue(
-                response.getOutputStream(), ResponseEntity.ok(BodyFactory.success(data)));
-
+        mapper.writeValue(response.getOutputStream(), ResponseEntity.ok(BodyFactory.success(data)));
     }
 }

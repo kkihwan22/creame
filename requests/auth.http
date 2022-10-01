@@ -1,0 +1,19 @@
+### 로그인
+
+POST {{host}}/public/v1/login
+Content-Type: application/json
+
+{
+  "username": "user0930@gmail.com",
+  "password" : "1234"
+}
+
+### access token 재발급
+
+POST {{host}}/public/v1/token/refresh
+Content-Type: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJleHAiOjE2NjYxMDg0NTYsImF1dGhvcml0aWVzIjoiVVNFUiIsInVzZXJuYW1lIjoidXNlcjA5MzBAZ21haWwuY29tIn0.LnHYlfAVd_76ackNxo7BOul6cI4_OB-n0zlVo7RIwg0
+
+{
+
+}

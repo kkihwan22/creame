@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import today.creame.web.member.application.model.SmsSendEvent;
+import today.creame.web.sms.entrypoint.listener.model.SmsSendEvent;
 import today.creame.web.sms.application.SmsService;
 
 @RequiredArgsConstructor
@@ -15,8 +15,8 @@ public class SmsEventListener {
     private final SmsService smsService;
 
     @EventListener
-    public void handleSmsSendEvent(SmsSendEvent event) {
+    public void listenSmsSendEvent(SmsSendEvent event) {
         log.debug("event: {}", event);
-        smsService.send(event.getPhoneNumber(), event.getDigit());
+        smsService.send(event.getPhoneNumber(), event.getBody());
     }
 }

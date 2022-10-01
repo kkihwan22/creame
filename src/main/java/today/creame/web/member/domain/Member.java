@@ -54,6 +54,10 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
         this.status = status;
     }
 
+    public Member(Long id) {
+        this(id, null, null, null, null, null);
+    }
+
     public void addRole(MemberRole role) {
         if (roles == null) {
             roles = new ArrayList<>();

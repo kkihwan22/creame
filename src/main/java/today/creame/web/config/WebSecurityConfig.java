@@ -3,8 +3,8 @@ package today.creame.web.config;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.*;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,18 +15,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import today.creame.web.config.security.CreameAuthenticationFilter;
-import today.creame.web.config.security.CreameAuthorizationFilter;
-import today.creame.web.config.security.SecurityErrorHandleFilter;
+import org.springframework.web.cors.*;
+import today.creame.web.config.security.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 @RequiredArgsConstructor
 @EnableWebSecurity(debug = true)
@@ -35,6 +29,7 @@ import java.util.stream.Collectors;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final Logger log = LoggerFactory.getLogger(WebSecurityConfig.class);
     private final UserDetailsService creameUserDetailsServiceImpl;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     private static final String[] PERMIT_URL_ARRAY = {
             "/v3/api-docs/**", "/swagger-ui/**", "/_health", "/public/**"
@@ -49,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CreameAuthenticationFilter creameAuthenticationFilter = new CreameAuthenticationFilter(authenticationManagerBean());
+        creameAuthenticationFilter.setApplicationEventPublisher(applicationEventPublisher);
         creameAuthenticationFilter.setFilterProcessesUrl("/public/*/login");
 
         http.csrf().disable().httpBasic().disable().formLogin().disable().logout().disable();

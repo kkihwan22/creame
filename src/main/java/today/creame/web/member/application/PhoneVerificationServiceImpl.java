@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import today.creame.web.member.application.model.SmsSendEvent;
+import today.creame.web.sms.entrypoint.listener.model.SmsSendEvent;
 import today.creame.web.member.application.support.RandomNumberSupport;
 import today.creame.web.member.domain.PhoneVerification;
 import today.creame.web.member.domain.PhoneVerificationJpaRepository;

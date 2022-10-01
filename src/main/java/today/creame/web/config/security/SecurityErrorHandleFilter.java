@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.filter.OncePerRequestFilter;
 import today.creame.web.config.security.exception.SecurityErrorCode;
-import today.creame.web.config.security.exception.TokenExpiredException;
+import today.creame.web.config.security.exception.AccessTokenExpiredException;
 import today.creame.web.config.security.exception.UnauthorizationException;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
@@ -36,9 +36,9 @@ public class SecurityErrorHandleFilter extends OncePerRequestFilter {
 
         try {
             filterChain.doFilter(request, response);
-        } catch (TokenExpiredException e) {
+        } catch (AccessTokenExpiredException e) {
             logger.info("토큰의 유효기간이 만료되었습니다.");
-            this.writeValue(response, UNAUTHORIZED, SecurityErrorCode.EXPIRED_TOKEN);
+            this.writeValue(response, UNAUTHORIZED, SecurityErrorCode.EXPIRED_ACCESS_TOKEN);
 
         } catch (UnauthorizationException e) {
             logger.info("유효하지 않는 토큰입니다. 원인 -[{}]", e);
