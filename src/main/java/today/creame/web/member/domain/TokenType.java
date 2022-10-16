@@ -1,9 +1,9 @@
 package today.creame.web.member.domain;
 
+import java.util.Set;
 import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.*;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public enum TokenType {
 
@@ -18,7 +18,7 @@ public enum TokenType {
         this.expireTime = expireTime;
     }
 
-    public Token factory(String username, Set<SimpleGrantedAuthority> authorities) {
-        return Token.build(this, username, authorities);
+    public Token factory(UserDetails userDetails) {
+        return Token.build(this, userDetails);
     }
 }

@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import today.creame.web.config.security.exception.InvalidTokenException;
@@ -57,7 +58,10 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
                 throw new InvalidTokenException();
             }
 
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(verify.getUsername(), null, verify.getAuthorities());
+            UserDetails userDetails = verify.getUserDetails();
+            log.debug("[ UserDetails ] {}", (CustomUserDetails) userDetails);
+
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
             filterChain.doFilter(request, response);

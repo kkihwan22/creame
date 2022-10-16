@@ -20,3 +20,9 @@ Content-Type: application/json
   "username": "test-user@creame.co.kr",
   "password" : "1234"
 }
+
+### 로그인 후 정보
+
+GET {{host}}/api/v1/me
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6InRlc3QtdXNlci1uaWNrIiwiaWQiOjI4LCJleHAiOjE2NjU5MzYxMjgsImF1dGhvcml0aWVzIjoiVVNFUiIsInVzZXJuYW1lIjoidGVzdC11c2VyQGNyZWFtZS5jby5rciJ9.OVVXHd64QBayLjI8alj97LHiBow2IaJpj_X-vNMQRdI

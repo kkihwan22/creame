@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import today.creame.web.config.security.CustomUserDetails;
 import today.creame.web.config.security.exception.TokenNotExistException;
 import today.creame.web.member.application.model.RefreshTokenParameter;
 import today.creame.web.member.domain.*;
@@ -46,7 +47,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .map(role -> new SimpleGrantedAuthority(role.getCodeName().name()))
                 .collect(Collectors.toSet());
 
-        Token accessToken = TokenType.ACCESS_TOKEN.factory(member.getEmail(), authorities);
+        Token accessToken = TokenType.ACCESS_TOKEN.factory(new CustomUserDetails(member.getId(), member.getNickname(), member.getEmail(), "", authorities));
 
         log.debug("new access token: {}", accessToken);
         return accessToken.getValue();

@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import today.creame.web.config.security.CustomUserDetails;
 import today.creame.web.config.security.exception.AccessTokenExpiredException;
 import today.creame.web.member.exception.ExpiredVerifyTokenException;
 
@@ -32,15 +34,19 @@ public class Token {
         this.type = type;
     }
 
-
-    public static Token build(TokenType type, String username, Set<SimpleGrantedAuthority> authorities) {
+    public static Token build(TokenType type, UserDetails userDetails) {
+        CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+        log.debug(" [JWT] customUserDetails : {} ", customUserDetails);
 
         return new Token(JWT.create()
-                .withIssuer(ISS)
-                .withClaim("exp", Instant.now().getEpochSecond() + type.getExpireTime())
-                .withClaim("username", username)
-                .withClaim("authorities", Token.convertToString(authorities))
-                .sign(ALGORITHM), type);
+            .withIssuer(ISS)
+            .withClaim("exp", Instant.now().getEpochSecond() + type.getExpireTime())
+            .withClaim("username", customUserDetails.getUsername())
+            .withClaim("nickname", customUserDetails.getNickname())
+            .withClaim("id", customUserDetails.getId())
+            .withClaim("authorities", Token.convertToString(customUserDetails.getAuthorities()))
+            .sign(ALGORITHM), type);
+
     }
 
     public TokenVerified verify() {
@@ -56,20 +62,30 @@ public class Token {
                 throw new ExpiredVerifyTokenException();
             }
 
-            String username = decoded.getClaim("username").asString();
-            String authorities = decoded.getClaim("authorities").asString();
-            return TokenVerified.success(username, authorities);
-
+            return TokenVerified.success(extraPayload(decoded));
         } catch (TokenExpiredException e) {
             log.info("[ Token ] 만료되었습니다. {}", e);
             throw new AccessTokenExpiredException();
         } catch (Exception e) {
             DecodedJWT decoded = JWT.decode(value);
             log.info("[ error ] verifying token. e : ", e);
-            String username = decoded.getClaim("username").asString();
-            String authorities = decoded.getClaim("authorities").asString();
-            return TokenVerified.failure(username, authorities);
+            return TokenVerified.failure(extraPayload(decoded));
         }
+    }
+
+    private UserDetails extraPayload(DecodedJWT decoded) {
+        Long id = decoded.getClaim("id").asLong();
+        String username = decoded.getClaim("username").asString();
+        String nickname = decoded.getClaim("nickname").asString();
+        String authorities = decoded.getClaim("authorities").asString();
+
+        log.debug(" Extra ID : {}", id);
+
+        Set<SimpleGrantedAuthority> roles = Arrays.stream(authorities.split(","))
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toSet());
+
+        return new CustomUserDetails(id, nickname, username, "", roles);
     }
 
     private static String convertToString(Set<SimpleGrantedAuthority> authorities) {
