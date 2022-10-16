@@ -4,9 +4,10 @@ import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberStatus;
+import today.creame.web.share.model.BaseParameter;
 
 @Getter @ToString
-public class MemberRegisterParameter {
+public class MemberRegisterParameter implements BaseParameter {
     private final String email;
     private final String nickname;
     private final String password;
@@ -27,7 +28,8 @@ public class MemberRegisterParameter {
         this.phoneNumber = phoneNumber;
     }
 
-    public Member toMember() {
+    @Override
+    public Member toEntity() {
         return new Member(null, email, password, nickname, phoneNumber, MemberStatus.ACTIVE);
     }
 }

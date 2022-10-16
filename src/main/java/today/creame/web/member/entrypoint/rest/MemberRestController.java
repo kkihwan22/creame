@@ -6,9 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import today.creame.web.config.security.CustomUserDetails;
+import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.MemberService;
+import today.creame.web.member.application.model.MeResult;
+import today.creame.web.member.entrypoint.rest.model.MeResponse;
 import today.creame.web.member.entrypoint.rest.model.MemberRegisterRequest;
 import today.creame.web.share.entrypoint.*;
 
@@ -20,6 +25,7 @@ import javax.validation.Valid;
 public class MemberRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(MemberRestController.class);
     private final MemberService memberService;
+    private final MemberQuery memberQuery;
 
     @ApiOperation(value = "회원가입", notes = "회원가입 시 사용하는 요청이다.")
     @ApiResponses({
@@ -37,10 +43,16 @@ public class MemberRestController implements BaseRestController {
 
         hasError(bindingResult);
 
-        Long id = memberService.registerMember(request.to());
+        Long id = memberService.registerMember(request.toParameter());
         log.debug("register member id: {}", id);
 
         SimpleBodyData<Long> result = new SimpleBodyData<>(id);
         return ResponseEntity.ok(BodyFactory.success(result));
+    }
+
+    @GetMapping("/api/v1/me")
+    public ResponseEntity<Body<MeResponse>> getMe(@AuthenticationPrincipal CustomUserDetails user) {
+        MeResult me = memberQuery.getMe(user.getId());
+        return ResponseEntity.ok(BodyFactory.success(new MeResponse(me)));
     }
 }

@@ -1,5 +1,16 @@
 package today.creame.web.member.domain;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -7,12 +18,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.member.domain.converter.MemberStatusConverter;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @NoArgsConstructor
 @Entity
@@ -62,8 +67,11 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
         if (roles == null) {
             roles = new ArrayList<>();
         }
+
         roles.add(role);
-        role.setMember(this);
+        if (role.getMember() != this) {
+            role.setMember(this);
+        }
     }
 
     public void removeRole(MemberRole role) {

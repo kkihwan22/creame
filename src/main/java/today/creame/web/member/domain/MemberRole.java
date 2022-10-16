@@ -26,8 +26,7 @@ public class MemberRole extends BaseCreatedAndUpdatedDateTime {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
-    @Setter
+    @JoinColumn(name = "member_id", insertable = false, updatable = false)
     private Member member;
 
     @Convert(converter = MemberRoleCodeConverter.class)
@@ -37,5 +36,17 @@ public class MemberRole extends BaseCreatedAndUpdatedDateTime {
     public MemberRole(Long id, MemberRoleCode codeName) {
         this.id = id;
         this.codeName = codeName;
+    }
+
+    public void setMember(Member member) {
+        if (this.member != null) {
+            this.member.getRoles().remove(this);
+        }
+
+        this.member = member;
+
+        if (!member.getRoles().contains(this)) {
+            member.addRole(this);
+        }
     }
 }
