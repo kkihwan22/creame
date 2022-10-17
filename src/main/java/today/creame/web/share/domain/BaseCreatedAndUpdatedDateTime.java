@@ -12,9 +12,9 @@ public abstract class BaseCreatedAndUpdatedDateTime {
 
     @Column(name = "created_dt")
     @Getter
-    private LocalDateTime createdDateTime;
+    protected LocalDateTime createdDateTime;
 
     @Column(name = "updated_dt")
     @Getter
-    private LocalDateTime updatedDateTime;
+    protected LocalDateTime updatedDateTime;
 }

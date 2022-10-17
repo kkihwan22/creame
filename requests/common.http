@@ -1,0 +1,20 @@
+### PreSigned URL
+
+POST {{host}}/public/v1/temp-profile-image
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="files"; filename="common.http"
+
+< ./common.http
+
+#--boundary
+#Content-Disposition: form-data; name="second"; filename="input-second.txt"
+#
+#// A temporary 'input-second.txt' file with the 'Text' content will be created and uploaded
+#Text
+#--boundary
+#Content-Disposition: form-data; name="third";
+#
+#// The 'input.txt' file contents will be sent as plain text.
+#< ./input.txt --boundary--

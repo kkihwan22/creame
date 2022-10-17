@@ -2,6 +2,10 @@ server:
   port: 8888
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 40MB
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -11,8 +15,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://rdb-creame.c7f9pyzwo76e.ap-northeast-2.rds.amazonaws.com:3306/creame?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC
     # tinyInt1isBit=false ??
-    username: developer
-    password: 7gv3y3#j+Xc6
+    # username: developer
+    username: ENC(DFXaDe/wgo4HzmpZ35XZBUFe7ANBMKBL)
+    password: ENC(JdZ7/UOKRzJ2xblyENpWYGXy/mzBGBil)
+    #password: 7gv3y3#j+Xc6
     hikari:
       auto-commit: false
       connection-test-query: SELECT 1
@@ -20,6 +26,7 @@ spring:
       maximum-pool-size: 50
       transaction-isolation: TRANSACTION_READ_UNCOMMITTED
       pool-name: dbpool-creame
+
   jpa:
     hibernate:
       ddl-auto: validate # validate (?? ? ??) | update | none | create | create-drop
@@ -48,8 +55,27 @@ services:
   external:
     sms:
       host: https://api.coolsms.co.kr
-      api-key: NCSZMUTYDUZDROYQ
-      secret-key: T5LJMVQPY4EORYKNOTM5QYHVQ4CZFW13
+      # api-key: NCSZMUTYDUZDROYQ
+      api-key: ENC(flAOE2cNFc3MXk+EXCegfVa55/DE+Go1qqUgv5UB7Jk=)
+      # secret-key: T5LJMVQPY4EORYKNOTM5QYHVQ4CZFW13
+      secret-key: ENC(6z7KXRNXQNj/8WV/4eoehtkF8EukPbbp9ja7qD0VUVfN6zGioZAegLfB5TRN669d)
+
+cloud:
+  aws:
+    credentials:
+      #access-key: AKIAZYVZOIJOX4QIK66X
+      access-key: ENC(ai7Khouca0Eo4/wMoQ/ZoJsxfjOrhT9MeWD+8XGzAaY=)
+      #secret-key: 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
+      secret-key: ENC(uN2oFlFp4yLnYjJN4pseHXgDaAgDoO4fovikrJD3UHLMyQa9elVbI0kAU9TCQGFJ4lcwS3HABfE=)
+    # profile-name: creame.service
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+    s3:
+      bucket: today.cream.file
+
 
 logging:
   level:
@@ -59,3 +85,6 @@ logging:
     org.springframework.web: warn
     org.hibernate: debug
     springfox: info
+    com.amazonaws.util.EC2MetadataUtils: ERROR
+
+

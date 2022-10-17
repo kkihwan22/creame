@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableEncryptableProperties
 public class JasyptConfig {
-    private final static String ENC_KEY = "costarica-service";
+    private final static String ENC_KEY = "creame-service";
 
     @Bean(name = "jasyptStringEncryptor")
     public StringEncryptor stringEncryptor() {
