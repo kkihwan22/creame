@@ -1,0 +1,16 @@
+### 인플루언스 신청
+
+POST {{host}}/public/v1/influence/applications
+Content-Type: application/json
+
+{
+  "name": "진기환",
+  "nickname": "아쓰남",
+  "email": "jinkh@gmail.com",
+  "phone_number": "01009270930",
+  "introduction": "안녕하세요. 잘부탁드립니다.",
+  "categories": [
+    "DATING", "BEAUTY"
+  ],
+  "profile_image_ids": [1,2,3]
+}
