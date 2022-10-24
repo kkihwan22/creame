@@ -1,9 +1,8 @@
-package today.creame.web.member.entrypoint.rest.model;
+package today.creame.web.member.entrypoint.rest.io;
 
 import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.member.application.model.MeResult;
-import today.creame.web.member.domain.MemberRole;
 import today.creame.web.member.domain.MemberRoleCode;
 
 @Getter @ToString

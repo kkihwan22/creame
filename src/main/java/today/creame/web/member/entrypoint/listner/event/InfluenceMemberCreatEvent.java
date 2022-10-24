@@ -1,20 +1,14 @@
-package today.creame.web.influence.application.model;
+package today.creame.web.member.entrypoint.listner.event;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.Column;
-import javax.persistence.Convert;
 import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.influence.domain.InfluenceApplication;
-import today.creame.web.influence.domain.InfluenceApplicationStatus;
-import today.creame.web.influence.domain.converter.InfluenceApplicationStatusToStringConverter;
 
 @Getter @ToString
-public class InfluenceApplicationResult {
-
-    private Long id;
+public class InfluenceMemberCreatEvent {
     private String name;
     private String nickname;
     private String phoneNumber;
@@ -22,11 +16,8 @@ public class InfluenceApplicationResult {
     private String introduction;
     private List<String> categories;
     private List<Long> profileImages;
-    private String status;
 
-    public InfluenceApplicationResult(InfluenceApplication result) {
-
-        this.id = result.getId();
+    public InfluenceMemberCreatEvent(InfluenceApplication result) {
         this.name = result.getName();
         this.nickname = result.getNickname();
         this.phoneNumber = result.getPhoneNumber();
@@ -35,6 +26,5 @@ public class InfluenceApplicationResult {
 
         this.categories = Arrays.stream(result.getCategories().split(",")).collect(Collectors.toList());
         this.profileImages = Arrays.stream(result.getProfileImages().split(",")).map(Long::valueOf).collect(Collectors.toList());
-        this.status = result.getStatus().name();
     }
 }

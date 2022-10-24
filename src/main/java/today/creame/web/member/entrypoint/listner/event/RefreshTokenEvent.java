@@ -1,4 +1,4 @@
-package today.creame.web.member.entrypoint.event.model;
+package today.creame.web.member.entrypoint.listner.event;
 
 import lombok.Getter;
 import lombok.ToString;

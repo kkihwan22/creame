@@ -1,4 +1,4 @@
-package today.creame.web.member.entrypoint.rest.model;
+package today.creame.web.member.entrypoint.rest.io;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

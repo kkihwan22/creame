@@ -10,7 +10,7 @@ import today.creame.web.influence.application.model.InfluenceApplicationParamete
 import today.creame.web.influence.domain.InfluenceApplication;
 import today.creame.web.influence.domain.InfluenceApplicationJpaRepository;
 import today.creame.web.influence.exception.NotFoundApplicationException;
-import today.creame.web.member.entrypoint.event.model.InfluenceMemberCreatEvent;
+import today.creame.web.member.entrypoint.listner.event.InfluenceMemberCreatEvent;
 
 @RequiredArgsConstructor
 @Service
@@ -37,7 +37,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
             .orElseThrow(() -> new NotFoundApplicationException());
         log.debug("find application: {}", application);
         application.approve();
-        publisher.publishEvent(new InfluenceMemberCreatEvent());
+        publisher.publishEvent(new InfluenceMemberCreatEvent(application));
     }
 
     @Transactional

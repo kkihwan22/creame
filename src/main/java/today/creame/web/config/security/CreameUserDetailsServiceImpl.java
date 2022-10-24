@@ -35,7 +35,7 @@ public class CreameUserDetailsServiceImpl implements UserDetailsService {
 
         Set<SimpleGrantedAuthority> authorities = findMember.getRoles()
                 .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getCodeName().name()))
+                .map(role -> new SimpleGrantedAuthority("ROLE_".concat(role.getCodeName().name())))
                 .collect(Collectors.toSet());
 
         return new CustomUserDetails(findMember.getId(), findMember.getNickname(), findMember.getEmail(), new BCryptPasswordEncoder().encode(findMember.getPassword()), authorities);

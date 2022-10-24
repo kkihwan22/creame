@@ -1,4 +1,4 @@
-package today.creame.web.member.entrypoint.event;
+package today.creame.web.member.entrypoint.listner;
 
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -7,7 +7,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import today.creame.web.member.application.AuthenticationService;
 import today.creame.web.member.application.model.RefreshTokenParameter;
-import today.creame.web.member.entrypoint.event.model.RefreshTokenEvent;
+import today.creame.web.member.entrypoint.listner.event.RefreshTokenEvent;
 
 @RequiredArgsConstructor
 @Component

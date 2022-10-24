@@ -14,8 +14,8 @@ import today.creame.web.config.security.CustomUserDetails;
 import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.MemberService;
 import today.creame.web.member.application.model.MeResult;
-import today.creame.web.member.entrypoint.rest.model.MeResponse;
-import today.creame.web.member.entrypoint.rest.model.MemberRegisterRequest;
+import today.creame.web.member.entrypoint.rest.io.MeResponse;
+import today.creame.web.member.entrypoint.rest.io.MemberRegisterRequest;
 import today.creame.web.share.entrypoint.*;
 
 import javax.validation.Valid;

@@ -1,4 +1,4 @@
-package today.creame.web.influence.entrypoint.model;
+package today.creame.web.influence.entrypoint.rest.io;
 
 import java.util.List;
 import javax.validation.constraints.Email;

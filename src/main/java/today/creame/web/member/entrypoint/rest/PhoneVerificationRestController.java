@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.member.application.PhoneVerificationService;
-import today.creame.web.member.entrypoint.rest.model.PhoneVerificationCodeRequest;
-import today.creame.web.member.entrypoint.rest.model.PhoneVerificationCodeResponse;
-import today.creame.web.member.entrypoint.rest.model.PhoneVerifyingRequest;
+import today.creame.web.member.entrypoint.rest.io.PhoneVerificationCodeRequest;
+import today.creame.web.member.entrypoint.rest.io.PhoneVerifyingRequest;
 import today.creame.web.share.entrypoint.*;
 
 import javax.validation.Valid;

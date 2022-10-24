@@ -1,9 +1,8 @@
-package today.creame.web.member.entrypoint.rest.model;
+package today.creame.web.member.entrypoint.rest.io;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;

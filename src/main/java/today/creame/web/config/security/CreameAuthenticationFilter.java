@@ -9,11 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import today.creame.web.member.domain.Token;
 import today.creame.web.member.domain.TokenType;
-import today.creame.web.member.entrypoint.event.model.RefreshTokenEvent;
+import today.creame.web.member.entrypoint.listner.event.RefreshTokenEvent;
 import today.creame.web.share.entrypoint.BodyFactory;
 
 import javax.servlet.FilterChain;

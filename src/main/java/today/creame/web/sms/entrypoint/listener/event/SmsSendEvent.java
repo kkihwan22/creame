@@ -1,4 +1,4 @@
-package today.creame.web.sms.entrypoint.listener.model;
+package today.creame.web.sms.entrypoint.listener.event;
 
 import lombok.Getter;
 import lombok.ToString;
