@@ -1,0 +1,59 @@
+package today.creame.web.influence.domain;
+
+import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
+
+@NoArgsConstructor
+@Entity
+@Table(name = "influence_profile_image")
+@DynamicInsert
+@DynamicUpdate
+@Getter @ToString
+public class InfluenceProfileImage extends BaseCreatedAndUpdatedDateTime {
+
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "influence_id")
+    private Influence influence;
+
+    @Column(name = "file_resource_id")
+    private Long fileResourceId;
+
+    @Column(name = "file_resource_uri")
+    private String fileResourceUri;
+
+    @Column(name = "deleted")
+    private Boolean deleted;
+
+    @Column(name = "order_no")
+    private int orderNumber;
+
+    public void addInfluence(Influence influence) {
+        if (this.influence != null) {
+            this.influence.getCategories().remove(this);
+        }
+
+        this.influence = influence;
+
+        if (!influence.getProfileImages().contains(this)) {
+            influence.addInfluenceProfileImage(this);
+        }
+    }
+}
