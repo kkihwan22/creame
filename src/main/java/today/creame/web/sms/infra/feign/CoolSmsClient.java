@@ -1,5 +1,6 @@
 package today.creame.web.sms.infra.feign;
 
+import java.util.Map;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -8,8 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import today.creame.web.config.FeignConfig;
-
-import java.util.Map;
 
 @FeignClient(
         name = "CoolSmsClient",

@@ -1,8 +1,8 @@
 package today.creame.web.config.security.exception;
 
-import lombok.Getter;
-
 import static today.creame.web.config.security.exception.SecurityErrorCode.EXPIRED_ACCESS_TOKEN;
+
+import lombok.Getter;
 
 public class AccessTokenExpiredException extends RuntimeException {
     @Getter

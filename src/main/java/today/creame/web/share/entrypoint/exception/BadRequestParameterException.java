@@ -1,10 +1,8 @@
 package today.creame.web.share.entrypoint.exception;
 
-
+import java.util.List;
 import today.creame.web.share.exception.BusinessException;
 import today.creame.web.share.exception.model.ErrorBodyData;
-
-import java.util.*;
 
 public class BadRequestParameterException extends BusinessException {
     public BadRequestParameterException(List<ErrorBodyData> errors) {

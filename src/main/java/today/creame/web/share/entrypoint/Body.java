@@ -1,9 +1,8 @@
 package today.creame.web.share.entrypoint;
 
+import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.Objects;
 
 @Getter @ToString
 public class Body<T> {

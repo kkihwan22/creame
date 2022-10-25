@@ -1,8 +1,6 @@
 package today.creame.web.member.domain;
 
-import java.util.Set;
 import lombok.Getter;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public enum TokenType {

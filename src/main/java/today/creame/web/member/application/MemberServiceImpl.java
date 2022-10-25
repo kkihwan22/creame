@@ -1,13 +1,16 @@
 package today.creame.web.member.application;
 
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import today.creame.web.member.application.model.MemberRegisterParameter;
-import today.creame.web.member.domain.*;
-
-import javax.transaction.Transactional;
+import today.creame.web.member.domain.Member;
+import today.creame.web.member.domain.MemberJpaRepository;
+import today.creame.web.member.domain.MemberRole;
+import today.creame.web.member.domain.MemberRoleCode;
+import today.creame.web.member.domain.MemberRoleJpaRepository;
 
 @RequiredArgsConstructor
 @Service

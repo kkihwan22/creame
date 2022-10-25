@@ -1,7 +1,6 @@
 package today.creame.web.influence.domain;
 
 import javax.persistence.Convert;
-import javax.persistence.Converter;
 import javax.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;

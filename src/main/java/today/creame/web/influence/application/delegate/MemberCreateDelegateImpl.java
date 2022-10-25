@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceApplication;
 import today.creame.web.member.application.MemberService;
 import today.creame.web.member.application.model.MemberRegisterParameter;

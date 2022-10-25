@@ -1,11 +1,10 @@
 package today.creame.web.member.entrypoint.rest.io;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 @NoArgsConstructor
 @Getter @ToString

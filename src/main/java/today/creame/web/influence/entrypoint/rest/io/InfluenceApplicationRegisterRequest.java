@@ -8,8 +8,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.ToString;
-import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.application.model.InfluenceApplicationParameter;
+import today.creame.web.influence.domain.Category;
 import today.creame.web.share.model.BaseRequest;
 
 @Getter @ToString

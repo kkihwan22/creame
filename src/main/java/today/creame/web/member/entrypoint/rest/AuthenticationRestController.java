@@ -3,10 +3,15 @@ package today.creame.web.member.entrypoint.rest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.member.application.AuthenticationService;
-import today.creame.web.share.entrypoint.*;
+import today.creame.web.share.entrypoint.Body;
+import today.creame.web.share.entrypoint.BodyFactory;
+import today.creame.web.share.entrypoint.SimpleBodyData;
 
 @RequiredArgsConstructor
 @RestController

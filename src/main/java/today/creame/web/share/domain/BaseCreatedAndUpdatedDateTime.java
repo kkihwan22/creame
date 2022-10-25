@@ -1,10 +1,9 @@
 package today.creame.web.share.domain;
 
-import lombok.Getter;
-
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import java.time.LocalDateTime;
+import lombok.Getter;
 
 
 @MappedSuperclass

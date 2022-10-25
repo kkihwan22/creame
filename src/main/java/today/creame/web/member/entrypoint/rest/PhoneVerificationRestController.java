@@ -1,5 +1,6 @@
 package today.creame.web.member.entrypoint.rest;
 
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.member.application.PhoneVerificationService;
 import today.creame.web.member.entrypoint.rest.io.PhoneVerificationCodeRequest;
 import today.creame.web.member.entrypoint.rest.io.PhoneVerifyingRequest;
-import today.creame.web.share.entrypoint.*;
-
-import javax.validation.Valid;
+import today.creame.web.share.entrypoint.BaseRestController;
+import today.creame.web.share.entrypoint.Body;
+import today.creame.web.share.entrypoint.BodyFactory;
+import today.creame.web.share.entrypoint.SimpleBodyData;
 
 @RequiredArgsConstructor
 @RestController

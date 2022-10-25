@@ -1,7 +1,10 @@
 package today.creame.web.member.entrypoint.rest;
 
-
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,16 +12,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.config.security.CustomUserDetails;
 import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.MemberService;
 import today.creame.web.member.application.model.MeResult;
 import today.creame.web.member.entrypoint.rest.io.MeResponse;
 import today.creame.web.member.entrypoint.rest.io.MemberRegisterRequest;
-import today.creame.web.share.entrypoint.*;
-
-import javax.validation.Valid;
+import today.creame.web.share.entrypoint.BaseRestController;
+import today.creame.web.share.entrypoint.Body;
+import today.creame.web.share.entrypoint.BodyFactory;
+import today.creame.web.share.entrypoint.SimpleBodyData;
 
 @Api("[ 회원 ] Api's")
 @RequiredArgsConstructor

@@ -3,13 +3,9 @@ package today.creame.web.influence.application.model;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.Column;
-import javax.persistence.Convert;
 import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.influence.domain.InfluenceApplication;
-import today.creame.web.influence.domain.InfluenceApplicationStatus;
-import today.creame.web.influence.domain.converter.InfluenceApplicationStatusToStringConverter;
 
 @Getter @ToString
 public class InfluenceApplicationResult {

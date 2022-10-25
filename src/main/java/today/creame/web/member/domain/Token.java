@@ -4,6 +4,10 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.ToString;
 import org.slf4j.Logger;
@@ -14,10 +18,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import today.creame.web.config.security.CustomUserDetails;
 import today.creame.web.config.security.exception.AccessTokenExpiredException;
 import today.creame.web.member.exception.ExpiredVerifyTokenException;
-
-import java.time.Instant;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Getter @ToString
 public class Token {

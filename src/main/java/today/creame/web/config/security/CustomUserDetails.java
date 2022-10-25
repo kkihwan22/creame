@@ -1,11 +1,10 @@
 package today.creame.web.config.security;
 
+import java.util.Set;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.*;
 
 @Getter @ToString
 public class CustomUserDetails implements UserDetails {

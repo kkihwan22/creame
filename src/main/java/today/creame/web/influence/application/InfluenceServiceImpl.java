@@ -6,11 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
-import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
-import today.creame.web.influence.domain.InfluenceProfileImage;
 
 @RequiredArgsConstructor
 @Service

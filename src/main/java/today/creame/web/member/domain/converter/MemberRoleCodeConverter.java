@@ -1,11 +1,8 @@
 package today.creame.web.member.domain.converter;
 
-import today.creame.web.member.domain.MemberRole;
-import today.creame.web.member.domain.MemberRoleCode;
-import today.creame.web.member.domain.MemberStatus;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import today.creame.web.member.domain.MemberRoleCode;
 
 @Converter
 public class MemberRoleCodeConverter implements AttributeConverter<MemberRoleCode, String> {
