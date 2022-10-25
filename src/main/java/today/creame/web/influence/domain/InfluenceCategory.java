@@ -45,6 +45,10 @@ public class InfluenceCategory extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "category")
     private Category category;
 
+    public InfluenceCategory(String categoryName) {
+        this.category = Category.valueOf(categoryName);
+    }
+
 
     public void addInfluence(Influence influence) {
         if (this.influence != null) {

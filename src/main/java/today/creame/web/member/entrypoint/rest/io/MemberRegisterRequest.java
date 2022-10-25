@@ -31,6 +31,6 @@ public class MemberRegisterRequest implements BaseRequest<MemberRegisterParamete
 
     @Override
     public MemberRegisterParameter toParameter() {
-        return new MemberRegisterParameter(email, nickname, password, phoneVerifiedCode, phoneNumber);
+        return new MemberRegisterParameter(email, nickname, password, phoneNumber);
     }
 }

@@ -11,11 +11,11 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -23,7 +23,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.influence.domain.converter.InfluenceRankToStringConverter;
 import today.creame.web.influence.domain.converter.InfluenceStatusToStringConverter;
-import today.creame.web.member.domain.MemberRole;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 @NoArgsConstructor
 @Entity
@@ -139,6 +138,29 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @OneToMany(mappedBy = "influence", fetch = LAZY)
     private List<InfluenceProfileImage> profileImages;
 
+    public Influence(
+        Long memberId,
+        String name,
+        String nickname,
+        String phoneNumber,
+        String email,
+        String introduction
+    ) {
+        this.memberId = memberId;
+        this.extensionNumber = String.valueOf(memberId); // todo: API 연동 시 로직 확인
+        this.name = name;
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.introduction = introduction;
+
+        this.rank = Rank.WHITE;
+        this.connected = false;
+
+        this.coinPaid = new Pricing(100, PriceUnit.MIN);
+        this.postPaid = new Pricing(200, PriceUnit.MIN);
+
+        this.status = InfluenceStatus.OPENED;
+    }
 
     public void addInfluenceCategory(InfluenceCategory category) {
         if (categories == null) {

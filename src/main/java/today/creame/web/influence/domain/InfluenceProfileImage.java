@@ -56,4 +56,11 @@ public class InfluenceProfileImage extends BaseCreatedAndUpdatedDateTime {
             influence.addInfluenceProfileImage(this);
         }
     }
+
+    public InfluenceProfileImage(Long fileResourceId, String fileResourceUri, int orderNumber) {
+        this.fileResourceId = fileResourceId;
+        this.fileResourceUri = fileResourceUri;
+        this.deleted = false;
+        this.orderNumber = orderNumber;
+    }
 }

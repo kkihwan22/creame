@@ -44,6 +44,8 @@ public class MemberRestController implements BaseRestController {
 
         hasError(bindingResult);
 
+        // todo: [ phone verified code 검증 로직 ]
+
         Long id = memberService.registerMember(request.toParameter());
         log.debug("register member id: {}", id);
 

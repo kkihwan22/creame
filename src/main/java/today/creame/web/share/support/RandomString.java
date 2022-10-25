@@ -15,7 +15,9 @@ public class RandomString {
     public static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public static final String lower = upper.toLowerCase(Locale.ROOT);
     public static final String digits = "0123456789";
+    public static final String special = "!@#$%^&";
     public static final String alphanum = upper + lower + digits;
+    public static final String specialaplanum = alphanum + special;
     private final Random random;
     private final char[] symbols;
     private final char[] buf;
@@ -47,6 +49,10 @@ public class RandomString {
      */
     public RandomString() {
         this(21);
+    }
+
+    public static RandomString generatePassword() {
+        return new RandomString(10, new SecureRandom(), specialaplanum);
     }
 
 }
