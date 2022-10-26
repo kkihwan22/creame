@@ -17,6 +17,7 @@ import today.creame.web.member.domain.MemberTokenJpaRepository;
 import today.creame.web.member.domain.Token;
 import today.creame.web.member.domain.TokenType;
 import today.creame.web.member.domain.TokenVerified;
+import today.creame.web.share.support.BearerTokenSupporter;
 
 @RequiredArgsConstructor
 @Service
@@ -37,7 +38,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public String issueAccessTokenByRefreshToken(String refreshToken) {
 
         MemberToken findToken = memberTokenJpaRepository
-                .findMemberTokenByRefreshToken(refreshToken)
+                .findMemberTokenByRefreshToken(BearerTokenSupporter.extract(refreshToken))
                 .orElseThrow(TokenNotExistException::new);
 
         log.debug("find token :{}", findToken);

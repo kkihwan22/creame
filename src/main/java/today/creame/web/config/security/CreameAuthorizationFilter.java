@@ -21,6 +21,7 @@ import today.creame.web.config.security.exception.TokenNotExistException;
 import today.creame.web.member.domain.Token;
 import today.creame.web.member.domain.TokenType;
 import today.creame.web.member.domain.TokenVerified;
+import today.creame.web.share.support.BearerTokenSupporter;
 
 @RequiredArgsConstructor
 @Component
@@ -43,13 +44,9 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
                     .ofNullable(request.getHeader(AUTHORIZATION))
                     .orElseThrow(TokenNotExistException::new);
 
-            if (!authorizationHeader.startsWith("Bearer ")) {
-                throw new InvalidTokenException();
-            }
+            String key = BearerTokenSupporter.extract(authorizationHeader);
 
-            String key = authorizationHeader.substring("Bearer ".length());
             Token requestToken = new Token(key, TokenType.ACCESS_TOKEN);
-
             TokenVerified verify = requestToken.verify();
 
             if (!verify.isVerified()) {
