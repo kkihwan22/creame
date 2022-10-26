@@ -45,7 +45,7 @@ public class MemberServiceImpl implements MemberService {
         memberJpaRepository.save(registerMember);
 
         MemberRole role = new MemberRole(null, MemberRoleCode.USER);
-        registerMember.addRole(role);
+        role.setMember(registerMember);
         memberRoleJpaRepository.save(role);
 
         log.debug("register member: {}", registerMember);

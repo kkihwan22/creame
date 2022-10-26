@@ -48,7 +48,7 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     private MemberStatus status;
 
     @OneToMany(mappedBy = "member")
-    private List<MemberRole> roles;
+    private List<MemberRole> roles = new ArrayList<>();
 
     public Member(Long id, String email, String password, String nickname, String phoneNumber, MemberStatus status) {
         this.id = id;

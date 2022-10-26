@@ -29,7 +29,7 @@ public class InfluenceProfileImage extends BaseCreatedAndUpdatedDateTime {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "influence_id")
+    @JoinColumn(name = "influence_id", nullable = false)
     private Influence influence;
 
     @Column(name = "file_resource_id")
@@ -56,10 +56,10 @@ public class InfluenceProfileImage extends BaseCreatedAndUpdatedDateTime {
         }
     }
 
-    public InfluenceProfileImage(Long fileResourceId, String fileResourceUri, int orderNumber) {
+    public InfluenceProfileImage(Long fileResourceId, String fileResourceUri, Boolean deleted, int orderNumber) {
         this.fileResourceId = fileResourceId;
         this.fileResourceUri = fileResourceUri;
-        this.deleted = false;
+        this.deleted = deleted;
         this.orderNumber = orderNumber;
     }
 }

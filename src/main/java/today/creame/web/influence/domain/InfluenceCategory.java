@@ -34,8 +34,7 @@ public class InfluenceCategory extends BaseCreatedAndUpdatedDateTime {
     @ManyToOne
     @JoinColumn(
         name = "influence_id",
-        insertable = false,
-        updatable = false
+        nullable = false
     )
     private Influence influence;
 
@@ -55,7 +54,7 @@ public class InfluenceCategory extends BaseCreatedAndUpdatedDateTime {
 
         this.influence = influence;
 
-        if (!influence.getProfileImages().contains(this)) {
+        if (!influence.getCategories().contains(this)) {
             influence.addInfluenceCategory(this);
         }
     }

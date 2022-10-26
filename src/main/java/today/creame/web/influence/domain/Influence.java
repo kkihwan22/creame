@@ -149,6 +149,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.extensionNumber = String.valueOf(memberId); // todo: API 연동 시 로직 확인
         this.name = name;
         this.nickname = nickname;
+        this.email = email;
         this.phoneNumber = phoneNumber;
         this.introduction = introduction;
 
@@ -186,5 +187,10 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     public void removeInfluenceCategory(InfluenceCategory category) {
         categories.remove(category);
         category.addInfluence(null);
+    }
+
+    public void removeInfluenceProfileImage(InfluenceProfileImage profileImage) {
+        profileImages.remove(profileImage);
+        profileImage.addInfluence(null);
     }
 }

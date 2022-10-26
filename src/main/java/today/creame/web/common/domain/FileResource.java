@@ -26,7 +26,7 @@ public class FileResource extends BaseCreatedAndUpdatedDateTime {
     private Long id;
 
     @Column(name = "location")
-    private String object_key;
+    private String objectKey;
 
     @Column(name = "original_filename")
     private String originalFileName;
@@ -40,8 +40,8 @@ public class FileResource extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "deleted")
     private Boolean deleted;
 
-    public FileResource(String object_key, String originalFileName, String contentType, Long fileSize) {
-        this.object_key = object_key;
+    public FileResource(String objectKey, String originalFileName, String contentType, Long fileSize) {
+        this.objectKey = objectKey;
         this.originalFileName = originalFileName;
         this.contentType = contentType;
         this.fileSize = fileSize;

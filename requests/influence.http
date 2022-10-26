@@ -4,15 +4,15 @@ POST {{host}}/public/v1/influence/applications
 Content-Type: application/json
 
 {
-  "name": "진기환",
-  "nickname": "아쓰남",
-  "email": "jinkh@gmail.com",
-  "phone_number": "01009270930",
+  "name": "남생이",
+  "nickname": "남자연예인",
+  "email": "namja@hanmail.net",
+  "phone_number": "01022102626",
   "introduction": "안녕하세요. 잘부탁드립니다.",
   "categories": [
     "DATING", "BEAUTY"
   ],
-  "profile_image_ids": [1,2,3]
+  "profile_image_ids": [4,5]
 }
 
 ### 인플루언스 신청 조회
@@ -23,9 +23,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 ### 인플루언스 승인
 
-PATCH {{host}}/admin/v1/influence/applications/1/approve
+PATCH {{host}}/admin/v1/influence/applications/5/approve
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6InVzZXIwOTMwIiwiaWQiOjQwLCJleHAiOjE2NjY3NjM3ODIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSLFJPTEVfQURNSU4iLCJ1c2VybmFtZSI6InVzZXIwOTMwQGdtYWlsLmNvbSJ9.1MuF2KnejYHa07NvJUp81uASscZF7rX4N-SfxqtBA5g
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6InVzZXIwOTMwIiwiaWQiOjQwLCJleHAiOjE2NjY3NzQ1MjgsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSLFJPTEVfQURNSU4iLCJ1c2VybmFtZSI6InVzZXIwOTMwQGdtYWlsLmNvbSJ9.WlQk_L2BVgk14bPzhNENcZugJUpp53b-ET0mLW1IhZg
 
 
 
