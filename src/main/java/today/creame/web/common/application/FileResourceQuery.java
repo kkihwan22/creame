@@ -28,9 +28,18 @@ public class FileResourceQuery implements InfluenceProfileFileResourceQuery {
             .map(result ->
                 new InfluenceProfileImageFileResourceResult(
                     result.getId(),
-                    result.getObjectKey(),
+                    buildS3Uri(result),
                     result.getDeleted(),
                     orderNumber.getAndIncrement()))
             .collect(Collectors.toList());
+    }
+
+    private String buildS3Uri(FileResource resource) {
+        return new StringBuilder()
+            .append(resource.getContextName())
+            .append(resource.getBucketName())
+            .append("/")
+            .append(resource.getObjectKey())
+            .toString();
     }
 }

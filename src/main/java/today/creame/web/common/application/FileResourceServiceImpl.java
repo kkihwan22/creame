@@ -28,7 +28,9 @@ public class FileResourceServiceImpl implements FileResourceService {
 
     private final static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
     private final static DateTimeFormatter TIMESTAMP_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+    private final static String CONTEXT = "https://s3.ap-northeast-2.amazonaws.com/";
     private final static String BUCKET_NAME = "today.creame.file";
+
 
     @Override
     public Long temp(MultipartFile file) {
@@ -68,7 +70,8 @@ public class FileResourceServiceImpl implements FileResourceService {
             throw new UploadFailureException();
         }
 
-        FileResource fileResource = new FileResource(objectKey, originalFileName, contentType, fileSize);
+        FileResource fileResource =
+            new FileResource(CONTEXT, BUCKET_NAME, objectKey, originalFileName, contentType, fileSize);
         fileResourceJpaRepository.save(fileResource);
 
         log.debug("file resource:{}", fileResource);

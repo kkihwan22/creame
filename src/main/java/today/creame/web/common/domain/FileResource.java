@@ -25,7 +25,13 @@ public class FileResource extends BaseCreatedAndUpdatedDateTime {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(name = "location")
+    @Column(name = "context_name")
+    private String contextName;
+
+    @Column(name = "bucket_name")
+    private String bucketName;
+
+    @Column(name = "object_key")
     private String objectKey;
 
     @Column(name = "original_filename")
@@ -40,7 +46,16 @@ public class FileResource extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "deleted")
     private Boolean deleted;
 
-    public FileResource(String objectKey, String originalFileName, String contentType, Long fileSize) {
+    public FileResource(
+        String contextName,
+        String bucketName,
+        String objectKey,
+        String originalFileName,
+        String contentType,
+        Long fileSize
+    ) {
+        this.contextName = contextName;
+        this.bucketName = bucketName;
         this.objectKey = objectKey;
         this.originalFileName = originalFileName;
         this.contentType = contentType;
