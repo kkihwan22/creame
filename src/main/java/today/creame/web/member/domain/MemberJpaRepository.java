@@ -14,4 +14,8 @@ public interface MemberJpaRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m join fetch m.roles where m.email = :email")
     Optional<Member> findByUserDetails(String email);
+
+    Long countMemberByEmail(String email);
+    Long countMemberByNickname(String nickname);
+    Long countMemberByPhoneNumber(String phoneNumber);
 }
