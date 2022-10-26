@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.config.security.CustomUserDetails;
+import today.creame.web.config.security.exception.InvalidTokenException;
 import today.creame.web.config.security.exception.TokenNotExistException;
 import today.creame.web.member.application.model.RefreshTokenParameter;
 import today.creame.web.member.domain.Member;
@@ -46,10 +47,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Token token = new Token(findToken.getRefreshToken(), TokenType.REFRESH_TOKEN);
         TokenVerified verify = token.verify();
 
+        if (!verify.isVerified()) {
+            log.info("token invalid. value:{}", findToken.getRefreshToken());
+            throw new InvalidTokenException();
+        }
+
         Member member = findToken.getMember();
         Set<SimpleGrantedAuthority> authorities = member.getRoles()
                 .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getCodeName().name()))
+                .map(role -> new SimpleGrantedAuthority("ROLE_".concat(role.getCodeName().name())))
                 .collect(Collectors.toSet());
 
         Token accessToken = TokenType.ACCESS_TOKEN.factory(new CustomUserDetails(member.getId(), member.getNickname(), member.getEmail(), "", authorities));

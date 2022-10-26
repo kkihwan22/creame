@@ -4,7 +4,7 @@ POST {{host}}/public/v1/login
 Content-Type: application/json
 
 {
-  "username": "test-user@creame.co.kr",
+  "username": "user0930@gmail.com",
   "password" : "1234"
 }
 
@@ -18,4 +18,4 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 POST {{host}}/public/v1/token/refresh
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6InVzZXIwOTMwIiwiaWQiOjQwLCJleHAiOjE2NjcxOTk0ODQsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSLFJPTEVfQURNSU4iLCJ1c2VybmFtZSI6InVzZXIwOTMwQGdtYWlsLmNvbSJ9.h80swN5vxo2-3Q1kqQqXLNLTQXfmq7Z8HMMqs5lWAeE
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6InVzZXIwOTMwIiwiaWQiOjQwLCJleHAiOjE2NjczNTY5NzAsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSLFJPTEVfQURNSU4iLCJ1c2VybmFtZSI6InVzZXIwOTMwQGdtYWlsLmNvbSJ9.XzRfbUBJVfLuexhUwldUZBnGtwQqqSnr5Xxbb2ZFp0I
