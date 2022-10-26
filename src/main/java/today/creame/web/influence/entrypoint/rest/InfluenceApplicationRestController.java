@@ -56,7 +56,7 @@ public class InfluenceApplicationRestController implements BaseRestController {
         List<InfluenceApplicationStatus> conditionStatuses =  new ArrayList<>();
         if (statues.isBlank()) {
             Arrays.stream(InfluenceApplicationStatus.values())
-                .forEach(status -> conditionStatuses.add(status));
+                .forEach(conditionStatuses::add);
         } else {
             List<ErrorBodyData> errors = new ArrayList<>();
             Arrays.stream(statues.split(","))
@@ -83,8 +83,9 @@ public class InfluenceApplicationRestController implements BaseRestController {
     }
 
     @PatchMapping("/admin/v1/influence/applications/{id}/approve")
-    public void approve(@PathVariable Long id) {
-
+    public ResponseEntity<Body<SimpleBodyData<String>>> approve(@PathVariable Long id) {
+        influenceApplicationService.approve(id);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
     @PatchMapping("/admin/v1/influence/applications/{id}/reject")
