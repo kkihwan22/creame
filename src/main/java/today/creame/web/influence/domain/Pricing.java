@@ -6,18 +6,20 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import today.creame.web.influence.domain.converter.PriceUnitToStringConverter;
+import today.creame.web.influence.domain.converter.PriceTimeUnitToStringConverter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 @Getter @ToString
 public class Pricing {
     private int price;
-    @Convert(converter = PriceUnitToStringConverter.class)
-    private PriceUnit priceUnit;
+    private int priceTime;
+    @Convert(converter = PriceTimeUnitToStringConverter.class)
+    private PriceTimeUnit priceTimeUnit;
 
-    public Pricing(int price, PriceUnit priceUnit) {
+    public Pricing(int price, int priceTime, PriceTimeUnit priceTimeUnit) {
         this.price = price;
-        this.priceUnit = priceUnit;
+        this.priceTime = priceTime;
+        this.priceTimeUnit = priceTimeUnit;
     }
 }

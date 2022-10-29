@@ -2,7 +2,7 @@ package today.creame.web.influence.domain;
 
 import lombok.Getter;
 
-public enum PriceUnit {
+public enum PriceTimeUnit {
 
     SEC("second", "초"), MIN("minute", "분"), HOUR("hour", "시간")
 
@@ -13,7 +13,7 @@ public enum PriceUnit {
     @Getter
     private String label;
 
-    PriceUnit(String code, String label) {
+    PriceTimeUnit(String code, String label) {
         this.code = code;
         this.label = label;
     }

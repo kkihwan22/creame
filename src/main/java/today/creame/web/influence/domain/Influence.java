@@ -1,7 +1,6 @@
 package today.creame.web.influence.domain;
 
 import static javax.persistence.FetchType.LAZY;
-import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -34,11 +32,7 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 public class Influence extends BaseCreatedAndUpdatedDateTime {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
     private Long id;
-
-    @Column(name = "member_id")
-    private Long memberId;
 
     @Column(name = "extension_number")
     private String extensionNumber;
@@ -52,7 +46,10 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone_number")
+    @Column(
+        name = "phone_number",
+        columnDefinition = "char(11)"
+    )
     private String phoneNumber;
 
     @Convert(converter = InfluenceRankToStringConverter.class)
@@ -60,10 +57,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     private Rank rank;
 
     // todo: connected history 테이블 필요
-    @Column(
-        name = "connected",
-        columnDefinition = "char(1)"
-    )
+    @Column(name = "connected")
     private boolean connected;
 
     @Column(
@@ -107,6 +101,9 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "review_not_answer_cnt")
     private int reviewNotAnswerCount;
 
+    @Column(name = "qna_cnt")
+    private int qnaCount;
+
     @Column(name = "qna_answer_cnt")
     private int qnaAnswerCount;
 
@@ -115,14 +112,16 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
     @AttributeOverrides({
         @AttributeOverride(name = "price", column = @Column(name = "coin_price")),
-        @AttributeOverride(name = "priceUnit", column = @Column(name = "coin_price_unit")),
+        @AttributeOverride(name = "priceTime", column = @Column(name = "coin_price_time")),
+        @AttributeOverride(name = "priceTimeUnit", column = @Column(name = "coin_price_time_unit")),
     })
     @Embedded
     private Pricing coinPaid;
 
     @AttributeOverrides({
         @AttributeOverride(name = "price", column = @Column(name = "post_price")),
-        @AttributeOverride(name = "priceUnit", column = @Column(name = "post_price_unit")),
+        @AttributeOverride(name = "priceTime", column = @Column(name = "post_price_time")),
+        @AttributeOverride(name = "priceTimeUnit", column = @Column(name = "post_price_time_unit")),
     })
     @Embedded
     private Pricing postPaid;
@@ -145,7 +144,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         String email,
         String introduction
     ) {
-        this.memberId = memberId;
+        this.id = memberId;
         this.extensionNumber = String.valueOf(memberId); // todo: API 연동 시 로직 확인
         this.name = name;
         this.nickname = nickname;
@@ -156,8 +155,8 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.rank = Rank.WHITE;
         this.connected = false;
 
-        this.coinPaid = new Pricing(100, PriceUnit.MIN);
-        this.postPaid = new Pricing(200, PriceUnit.MIN);
+        this.coinPaid = new Pricing(1000, 30, PriceTimeUnit.MIN);
+        this.postPaid = new Pricing(1300, 30, PriceTimeUnit.MIN);
 
         this.status = InfluenceStatus.OPENED;
     }
