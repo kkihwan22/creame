@@ -8,10 +8,10 @@ Content-Disposition: form-data; name="files"; filename="img_0.png"
 
 < ../HELP.md
 
-#--boundary
-#Content-Disposition: form-data; name="files"; filename="img_1.png"
-#
-#< ../img_1.png
+--boundary
+Content-Disposition: form-data; name="files"; filename="img_1.png"
+
+< ../img_1.png
 
 #--boundary
 #Content-Disposition: form-data; name="second"; filename="input-second.txt"
@@ -23,3 +23,5 @@ Content-Disposition: form-data; name="files"; filename="img_0.png"
 #
 #// The 'input.txt' file contents will be sent as plain text.
 #< ./input.txt --boundary--
+
+

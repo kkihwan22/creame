@@ -192,4 +192,16 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         profileImages.remove(profileImage);
         profileImage.addInfluence(null);
     }
+
+    public void updateConnect() {
+        this.connected = !(this.connected);
+    }
+
+    public void updateSns(SNS sns) {
+        this.sns = sns;
+    }
+
+    public void updateNotice(String notice) {
+        this.notice = notice;
+    }
 }
