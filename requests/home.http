@@ -1,0 +1,13 @@
+### home 조회
+
+GET {{host}}/public/v1/home
+Content-Type: application/json
+
+{
+
+}
+
+
+### 조회
+GET {{host}}/public/v1/home/list/influences?listType=&page=0
+Content-Type: application/json

@@ -15,6 +15,8 @@ public class CategoryToStringConverter implements AttributeConverter<Category, S
 
     @Override
     public Category convertToEntityAttribute(String dbData) {
-        return Category.valueOf(dbData);
+        return dbData != null
+            ? Category.valueOf(dbData)
+            : null;
     }
 }

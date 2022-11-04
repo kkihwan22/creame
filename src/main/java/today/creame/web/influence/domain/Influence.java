@@ -68,7 +68,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
     @AttributeOverrides({
         @AttributeOverride(name = "fileResourceId", column = @Column(name = "greetings_file_id")),
-        @AttributeOverride(name = "fileResourceUri", column = @Column(name = "greetings_location")),
+        @AttributeOverride(name = "fileResourceUri", column = @Column(name = "greetings_file_uri")),
     })
     @Embedded
     private Greetings greetings;
@@ -91,6 +91,9 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
     @Column(name = "rate")
     private float rete;
+
+    @Column(name = "rate_cnt")
+    private int rateCount;
 
     @Column(name = "review_cnt")
     private int reviewCount;

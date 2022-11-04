@@ -24,7 +24,7 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 @DynamicInsert
 @DynamicUpdate
 @Getter @ToString(exclude = {
-    "influenceId"
+    "influence"
 })
 public class InfluenceCategory extends BaseCreatedAndUpdatedDateTime {
     @Id

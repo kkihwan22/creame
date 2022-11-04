@@ -16,7 +16,9 @@ public class InfluenceApplicationStatusToStringConverter implements AttributeCon
     }
 
     @Override
-    public InfluenceApplicationStatus convertToEntityAttribute(String name) {
-        return InfluenceApplicationStatus.valueOf(name.toUpperCase());
+    public InfluenceApplicationStatus convertToEntityAttribute(String dbData) {
+        return dbData != null
+            ? InfluenceApplicationStatus.valueOf(dbData)
+            : null;
     }
 }

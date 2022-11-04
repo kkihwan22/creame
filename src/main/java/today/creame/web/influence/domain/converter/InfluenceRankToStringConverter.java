@@ -16,6 +16,8 @@ public class InfluenceRankToStringConverter implements AttributeConverter<Rank, 
 
     @Override
     public Rank convertToEntityAttribute(String dbData) {
-        return Rank.valueOf(dbData);
+        return dbData != null
+            ? Rank.valueOf(dbData)
+            : null;
     }
 }

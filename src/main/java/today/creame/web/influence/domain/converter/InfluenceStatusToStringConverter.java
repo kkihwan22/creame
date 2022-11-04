@@ -16,6 +16,8 @@ public class InfluenceStatusToStringConverter implements AttributeConverter<Infl
 
     @Override
     public InfluenceStatus convertToEntityAttribute(String dbData) {
-        return InfluenceStatus.valueOf(dbData);
+        return dbData != null
+            ? InfluenceStatus.valueOf(dbData)
+            : null;
     }
 }

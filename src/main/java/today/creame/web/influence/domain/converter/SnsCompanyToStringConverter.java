@@ -1,5 +1,6 @@
 package today.creame.web.influence.domain.converter;
 
+import java.util.Optional;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import today.creame.web.influence.domain.SnsCompany;
@@ -16,6 +17,8 @@ public class SnsCompanyToStringConverter implements AttributeConverter<SnsCompan
 
     @Override
     public SnsCompany convertToEntityAttribute(String dbData) {
-        return SnsCompany.valueOf(dbData);
+        return dbData != null
+            ? SnsCompany.valueOf(dbData)
+            : null;
     }
 }

@@ -16,6 +16,8 @@ public class PriceTimeUnitToStringConverter implements AttributeConverter<PriceT
 
     @Override
     public PriceTimeUnit convertToEntityAttribute(String dbData) {
-        return PriceTimeUnit.valueOf(dbData);
+        return dbData != null
+            ? PriceTimeUnit.valueOf(dbData)
+            : null;
     }
 }
