@@ -4,10 +4,12 @@ GET {{host}}/public/v1/home
 Content-Type: application/json
 
 {
-
 }
 
 
 ### 조회
-GET {{host}}/public/v1/home/list/influences?listType=&page=0
+GET {{host}}/public/v1/home/list/influences?listType=&page=0&size=20
 Content-Type: application/json
+
+{
+}

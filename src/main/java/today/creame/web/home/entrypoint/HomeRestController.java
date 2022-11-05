@@ -35,10 +35,10 @@ public class HomeRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new HomeResponse(hots, stat)));
     }
 
-    @GetMapping("/public/v1/home/list/influences")
+    @GetMapping("/public/v1/home/influences")
     public ResponseEntity<Body<List<InfluenceResult>>> listInfluence(
         @RequestParam(defaultValue = "all", required = false) String listType,
-        @RequestParam(defaultValue = "1") int page,
+        @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "20") int size,
         @RequestParam(required = false) String category,
         @RequestParam(required = false) String keyword) {

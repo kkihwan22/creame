@@ -19,7 +19,7 @@ public class InfluenceResult {
     private String extensionNumber;
     private String nickname;
     private float rate;
-    private float rateCount;
+    private int rateCount;
     private int reviewCount;
     private int qnaCount;
 
