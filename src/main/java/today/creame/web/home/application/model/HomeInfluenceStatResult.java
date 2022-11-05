@@ -11,13 +11,13 @@ import today.creame.web.influence.domain.InfluenceCategoryGroupByDTO;
 
 @Getter @ToString
 public class HomeInfluenceStatResult {
-    private final Map<String, Long> stat;
+    private final Map<String, Long> category;
 
     public HomeInfluenceStatResult(List<InfluenceCategoryGroupByDTO> results) {
-        stat = new HashMap<>();
-        Arrays.stream(Category.values()).forEach(category -> stat.put(category.name(), 0L));
+        category = new HashMap<>();
+        Arrays.stream(Category.values()).forEach(category -> this.category.put(category.name(), 0L));
         results.stream().forEach(item -> {
-            stat.put(item.getCategory().name(), item.getCount());
+            category.put(item.getCategory().name(), item.getCount());
         });
 
     }
