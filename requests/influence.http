@@ -1,3 +1,5 @@
+### 50
+
 ### 인플루언스 신청
 
 POST {{host}}/public/v1/influence/applications
@@ -26,6 +28,38 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 PATCH {{host}}/admin/v1/influence/applications/7/approve
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6InVzZXIwOTMwIiwiaWQiOjQwLCJleHAiOjE2NjcwNDY5NDksImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSLFJPTEVfQURNSU4iLCJ1c2VybmFtZSI6InVzZXIwOTMwQGdtYWlsLmNvbSJ9.Awu4wDNW0AmxkXGLjogcFYI4QUOc0bPqJV8kpGNt05M
+{
+}
+
+### 북마크 조회
+
+GET {{host}}/api/v1/influences/{{influence_id}}/bookmark
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6ImZpcnN0LXVzZXIiLCJpZCI6MjAsImV4cCI6MTY2NzcyNjM5MywiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJ1c2VybmFtZSI6ImZpcnN0LXVzZXJAY3JlYW1lLmNvLmtyIn0.fMjxReo-ktG2yyw3cO9roFvQC17hEMLCfruUOwRKrn8
+
+{
+
+}
+
+### 북마크 설정
+
+PATCH {{host}}/api/v1/influences/{{influence_id}}/bookmark/mark
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6ImZpcnN0LXVzZXIiLCJpZCI6MjAsImV4cCI6MTY2NzcyNjM5MywiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJ1c2VybmFtZSI6ImZpcnN0LXVzZXJAY3JlYW1lLmNvLmtyIn0.fMjxReo-ktG2yyw3cO9roFvQC17hEMLCfruUOwRKrn8
+
+{
+
+}
+
+### 북마크 취소
+
+PATCH {{host}}/api/v1/influences/{{influence_id}}/bookmark/cancel
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6ImZpcnN0LXVzZXIiLCJpZCI6MjAsImV4cCI6MTY2NzcyNjM5MywiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJ1c2VybmFtZSI6ImZpcnN0LXVzZXJAY3JlYW1lLmNvLmtyIn0.fMjxReo-ktG2yyw3cO9roFvQC17hEMLCfruUOwRKrn8
+
+{
+
+}
 
 
 

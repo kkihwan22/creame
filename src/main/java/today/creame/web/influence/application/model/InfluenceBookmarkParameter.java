@@ -3,6 +3,7 @@ package today.creame.web.influence.application.model;
 import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.influence.domain.InfluenceBookmark;
+import today.creame.web.influence.exception.ConflictBookmarkException;
 import today.creame.web.share.model.BaseParameter;
 
 @Getter @ToString
@@ -13,6 +14,10 @@ public class InfluenceBookmarkParameter implements BaseParameter<InfluenceBookma
     public InfluenceBookmarkParameter(Long myId, Long influenceId) {
         this.myId = myId;
         this.influenceId = influenceId;
+
+        if (myId.equals(influenceId)) {
+            throw new ConflictBookmarkException();
+        }
     }
 
     @Override

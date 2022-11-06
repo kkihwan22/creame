@@ -8,11 +8,21 @@ Content-Type: application/json
   "password" : "QIA@u!px0p"
 }
 
+### 로그인 (일반유저)
+
+POST {{host}}/public/v1/login
+Content-Type: application/json
+
+{
+  "username": "first-user@creame.co.kr",
+  "password" : "1234"
+}
+
 ### access token 재발급 (사용자)
 
 POST {{host}}/public/v1/token/refresh
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6ImZpcnN0LXVzZXIiLCJpZCI6MjAsImV4cCI6MTY2NzM1NTIxNSwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJ1c2VybmFtZSI6ImZpcnN0LXVzZXJAY3JlYW1lLmNvLmtyIn0.AauZNyDzCNa5CmclB1ye5ZOXYZt4_KB32VzH2h9vWI8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6ImZpcnN0LXVzZXIiLCJpZCI6MjAsImV4cCI6MTY2ODMyOTk5MywiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJ1c2VybmFtZSI6ImZpcnN0LXVzZXJAY3JlYW1lLmNvLmtyIn0.D0JRS-ixZVPVPxSBx8118gy-a9QyB37a21n4jJwP9EE
 
 ### access token 재발급 (관리자)
 

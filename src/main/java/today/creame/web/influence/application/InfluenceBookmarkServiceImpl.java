@@ -30,6 +30,8 @@ public class InfluenceBookmarkServiceImpl implements InfluenceBookmarkService {
             .findByMemberIdAndInfluenceId(parameter.getMyId(), parameter.getInfluenceId())
             .orElse(parameter.toEntity());
         bookmark.marked(parameter.getMyId());
+        log.debug("bookmark: {}", bookmark);
+        influenceBookmarkJpaRepository.save(bookmark);
     }
 
     @Transactional
@@ -39,5 +41,6 @@ public class InfluenceBookmarkServiceImpl implements InfluenceBookmarkService {
             .findByMemberIdAndInfluenceId(parameter.getMyId(), parameter.getInfluenceId())
             .orElse(parameter.toEntity());
         bookmark.canceled(parameter.getMyId());
+        influenceBookmarkJpaRepository.save(bookmark);
     }
 }
