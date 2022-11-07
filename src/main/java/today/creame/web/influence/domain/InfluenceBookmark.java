@@ -34,23 +34,21 @@ public class InfluenceBookmark extends BaseCreatedAndUpdatedDateTimeWithAudit {
 
     @Column(
         name = "bookmarked",
-        columnDefinition = "tinyint(1)"
+        columnDefinition = "BIT",
+        length = 1
     )
     private boolean bookmarked;
 
-    public InfluenceBookmark(Long memberId, Long influenceId, Long audit) {
+    public InfluenceBookmark(Long memberId, Long influenceId) {
         this.memberId = memberId;
         this.influenceId = influenceId;
-        this.createdBy = audit;
     }
 
-    public void marked(Long audit) {
-        this.updatedBy = audit;
+    public void marked() {
         bookmarked = true;
     }
 
-    public void canceled(Long audit) {
-        this.updatedBy = audit;
+    public void canceled() {
         bookmarked = false;
     }
 }

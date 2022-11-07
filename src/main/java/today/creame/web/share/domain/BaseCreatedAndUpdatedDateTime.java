@@ -5,7 +5,6 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import lombok.Getter;
 
-
 @MappedSuperclass
 public abstract class BaseCreatedAndUpdatedDateTime {
 

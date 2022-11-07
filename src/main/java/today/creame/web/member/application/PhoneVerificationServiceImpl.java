@@ -34,10 +34,11 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
                     throw new NotMatchedVerifyTokenException();
                 });
 
-        if (phoneVerification.getExpired() || phoneVerification.getVerified()) {
+        // TODO: refactoring -> entity 내부로 로직 이동!
+        if (phoneVerification.isExpired() || phoneVerification.isVerified()) {
             log.info("Already expired or verified token. expired status: {}, verified status: {}"
-                    , phoneVerification.getExpired()
-                    , phoneVerification.getVerified());
+                    , phoneVerification.isExpired()
+                    , phoneVerification.isVerified());
             throw new ExpiredVerifyTokenException();
         }
 

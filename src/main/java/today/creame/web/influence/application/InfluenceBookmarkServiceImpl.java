@@ -29,7 +29,7 @@ public class InfluenceBookmarkServiceImpl implements InfluenceBookmarkService {
         InfluenceBookmark bookmark = influenceBookmarkJpaRepository
             .findByMemberIdAndInfluenceId(parameter.getMyId(), parameter.getInfluenceId())
             .orElse(parameter.toEntity());
-        bookmark.marked(parameter.getMyId());
+        bookmark.marked();
         log.debug("bookmark: {}", bookmark);
         influenceBookmarkJpaRepository.save(bookmark);
     }
@@ -40,7 +40,7 @@ public class InfluenceBookmarkServiceImpl implements InfluenceBookmarkService {
         InfluenceBookmark bookmark = influenceBookmarkJpaRepository
             .findByMemberIdAndInfluenceId(parameter.getMyId(), parameter.getInfluenceId())
             .orElse(parameter.toEntity());
-        bookmark.canceled(parameter.getMyId());
+        bookmark.canceled();
         influenceBookmarkJpaRepository.save(bookmark);
     }
 }

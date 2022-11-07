@@ -22,6 +22,6 @@ public class InfluenceBookmarkParameter implements BaseParameter<InfluenceBookma
 
     @Override
     public InfluenceBookmark toEntity() {
-        return new InfluenceBookmark(this.myId, this.influenceId, this.myId);
+        return new InfluenceBookmark(this.myId, this.influenceId);
     }
 }

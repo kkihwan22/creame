@@ -61,4 +61,13 @@ public class FileResource extends BaseCreatedAndUpdatedDateTime {
         this.contentType = contentType;
         this.fileSize = fileSize;
     }
+
+    public String buildUri() {
+        return new StringBuilder()
+            .append(this.contextName)
+            .append(this.bucketName)
+            .append("/")
+            .append(objectKey)
+            .toString();
+    }
 }

@@ -38,8 +38,12 @@ public class InfluenceProfileImage extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "file_resource_uri")
     private String fileResourceUri;
 
-    @Column(name = "deleted")
-    private Boolean deleted;
+    @Column(
+        name = "deleted",
+        columnDefinition = "BIT",
+        length = 1
+    )
+    private boolean deleted;
 
     @Column(name = "order_no")
     private int orderNumber;

@@ -21,6 +21,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.influence.domain.converter.InfluenceRankToStringConverter;
 import today.creame.web.influence.domain.converter.InfluenceStatusToStringConverter;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
+
 @NoArgsConstructor
 @Entity
 @Table(name = "influence")

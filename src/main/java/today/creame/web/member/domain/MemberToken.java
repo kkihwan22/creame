@@ -30,13 +30,13 @@ public class MemberToken extends BaseCreatedAndUpdatedDateTime {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-//    @Column(name = "member_id")
-//    private Long memberId;
-
     @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(name = "refresh_token")
+    @Column(
+        name = "refresh_token",
+        columnDefinition = "TEXT"
+    )
     private String refreshToken;
 }

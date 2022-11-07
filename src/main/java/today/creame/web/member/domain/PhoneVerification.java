@@ -38,15 +38,18 @@ public class PhoneVerification {
     @Column(name = "digit")
     private Integer digit;
 
-    @Convert(converter = BooleanToCharConverter.class)
     @Column(name = "authed",
-            columnDefinition = "char(1)")
-    private Boolean verified;
+            columnDefinition = "BIT",
+            length = 1
+    )
+    private boolean verified;
 
-    @Convert(converter = BooleanToCharConverter.class)
-    @Column(name = "expired",
-            columnDefinition = "char(1)")
-    private Boolean expired;
+    @Column(
+        name = "expired",
+        columnDefinition = "BIT",
+        length = 1
+    )
+    private boolean expired;
 
     @Column(name = "failed_cnt",
             columnDefinition = "tinyint")
