@@ -60,7 +60,8 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     }
 
     public Member(Long id) {
-        this(id, null, null, null, null, null);
+        this.id = id;
+        // this(id, null, null, null, null, null);
     }
 
     public void addRole(MemberRole role) {

@@ -165,6 +165,10 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.status = InfluenceStatus.OPENED;
     }
 
+    public Influence(Long id) {
+        this.id = id;
+    }
+
     public void addInfluenceCategory(InfluenceCategory category) {
         if (categories == null) {
             categories = new ArrayList<>();
@@ -207,5 +211,10 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
     public void updateNotice(String notice) {
         this.notice = notice;
+    }
+
+    public void addQuestion() {
+        this.qnaCount = this.getQnaCount() + 1;
+        this.qnaNotAnswerCount = this.getReviewNotAnswerCount() + 1;
     }
 }

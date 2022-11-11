@@ -61,5 +61,13 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 }
 
+### Qna 등록
+POST {{host}}/api/v1/influences/{{influence_id}}/qna
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjY4MTU2NTU5LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoia2traGppbjEyMzRAZ21haWwuY29tIn0.AZc7X7rO1Ac3p1ZRi-RcWDvyjZCA8wMjc0cpUzEOOhw
+
+{
+  "content": "테스트로 등록합니다. "
+}
 
 
