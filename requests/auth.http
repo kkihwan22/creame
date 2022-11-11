@@ -1,4 +1,4 @@
-### 로그인
+### 로그인 (인플루언스) -- 50
 
 POST {{host}}/public/v1/login
 Content-Type: application/json
@@ -8,24 +8,24 @@ Content-Type: application/json
   "password" : "QIA@u!px0p"
 }
 
-### 로그인 (일반유저)
+### 로그인 (일반유저) -- 42
 
 POST {{host}}/public/v1/login
 Content-Type: application/json
 
 {
-  "username": "first-user@creame.co.kr",
+  "username": "ethan.bud99@gmail.com",
   "password" : "1234"
 }
 
-### access token 재발급 (사용자)
+### access token 재발급 (사용자) - 42
 
 POST {{host}}/public/v1/token/refresh
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjY4NDQ0NjcxLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoia2traGppbjEyMzRAZ21haWwuY29tIn0.E7P1Er3UPU3XrcMK8lhqjFn8k3qe4uvLnvFxdGKxTqI
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6ImV0aGFuIiwiaWQiOjQyLCJleHAiOjE2Njg3NjY4MjQsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJldGhhbi5idWQ5OUBnbWFpbC5jb20ifQ.8ZtEWqbXLUzVICxKBsiQJNbHEt0CN9RY6uhi2NYLQTA
 
 ### access token 재발급 (관리자)
 
 POST {{host}}/public/v1/token/refresh
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6InVzZXIwOTMwIiwiaWQiOjQwLCJleHAiOjE2NjczNTY5NzAsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSLFJPTEVfQURNSU4iLCJ1c2VybmFtZSI6InVzZXIwOTMwQGdtYWlsLmNvbSJ9.XzRfbUBJVfLuexhUwldUZBnGtwQqqSnr5Xxbb2ZFp0I
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjY4NzY2OTIwLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoia2traGppbjEyMzRAZ21haWwuY29tIn0.OOWXm7q7s01w3wd7jhpUTH64AlmIobv1O_UNS3aWDRY

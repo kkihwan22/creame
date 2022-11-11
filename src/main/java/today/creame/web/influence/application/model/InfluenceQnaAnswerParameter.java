@@ -7,12 +7,12 @@ import lombok.ToString;
 public class InfluenceQnaAnswerParameter {
 
     private Long id;
-    private Long answererId;
+    private Long qnaId;
     private String content;
 
-    public InfluenceQnaAnswerParameter(Long id, Long answererId, String content) {
+    public InfluenceQnaAnswerParameter(Long id, Long qnaId, String content) {
         this.id = id;
-        this.answererId = answererId;
+        this.qnaId = qnaId;
         this.content = content;
     }
 }

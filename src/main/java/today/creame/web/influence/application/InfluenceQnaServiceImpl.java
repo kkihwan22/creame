@@ -12,6 +12,7 @@ import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.domain.InfluenceQna;
 import today.creame.web.influence.domain.InfluenceQnaJpaRepository;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
+import today.creame.web.influence.exception.NotFoundQnAException;
 
 @RequiredArgsConstructor
 @Service
@@ -23,6 +24,8 @@ public class InfluenceQnaServiceImpl implements InfluenceQnaService {
     @Transactional
     @Override
     public void ask(InfluenceQnaAskParameter parameter) {
+        log.debug("parameter: {}", parameter);
+
         Influence influence = influenceJpaRepository.findById(parameter.getInfluenceId())
             .orElseThrow(NotFoundInfluenceException::new);
 
@@ -34,8 +37,13 @@ public class InfluenceQnaServiceImpl implements InfluenceQnaService {
         influenceQnaJpaRepository.save(influenceQna);
     }
 
+    @Transactional
     @Override
     public void answer(InfluenceQnaAnswerParameter parameter) {
+        log.debug("parameter: {}", parameter);
 
+        InfluenceQna qna = influenceQnaJpaRepository.findById(parameter.getQnaId()).orElseThrow(NotFoundQnAException::new);
+        log.debug("find qna: {}", qna);
+        qna.answer(parameter.getContent());
     }
 }

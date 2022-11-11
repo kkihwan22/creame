@@ -82,4 +82,10 @@ public class InfluenceQna extends BaseCreatedAndUpdatedDateTimeWithAudit {
         this.questions = new Content(content);
         this.status = QnaStatus.ASK;
     }
+
+    public void answer(String content) {
+        this.answers = new Content(content);
+        this.status = QnaStatus.ANSWER;
+        this.influence.answer();
+    }
 }

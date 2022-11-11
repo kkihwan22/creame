@@ -6,7 +6,7 @@ import lombok.ToString;
 import today.creame.web.influence.application.model.InfluenceQnaAskParameter;
 
 @Getter @ToString
-public class InfluenceCreateQnaRequest {
+public class InfluenceQnaContentRequest {
 
     @NotBlank(message = "내용을 등록해주세요.")
     private String content;

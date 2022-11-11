@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.config.security.CustomUserDetails;
 import today.creame.web.influence.application.InfluenceQnaService;
-import today.creame.web.influence.entrypoint.rest.io.InfluenceCreateQnaRequest;
+import today.creame.web.influence.application.model.InfluenceQnaAnswerParameter;
+import today.creame.web.influence.entrypoint.rest.io.InfluenceQnaContentRequest;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
@@ -30,12 +31,26 @@ public class InfluenceQnaRestController implements BaseRestController {
     public ResponseEntity<Body<SimpleBodyData<String>>> createQuestion(
         @PathVariable Long id,
         @AuthenticationPrincipal UserDetails userDetails,
-        @RequestBody @Valid InfluenceCreateQnaRequest request, BindingResult bindingResult) {
-
+        @RequestBody @Valid InfluenceQnaContentRequest request, BindingResult bindingResult) {
+        log.debug("request: {}", request);
         this.hasError(bindingResult);
 
         CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
         influenceQnaService.ask(request.toParameter(id, customUserDetails.getId()));
+
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData("success")));
+    }
+
+    @PostMapping("/api/v1/influences/{id}/qna/{qnaId}/answer")
+    public ResponseEntity<Body<SimpleBodyData<String>>> createAnswer(
+        @PathVariable Long id,
+        @PathVariable Long qnaId,
+        @RequestBody @Valid InfluenceQnaContentRequest request, BindingResult bindingResult) {
+
+        log.debug("request: {}", request);
+        this.hasError(bindingResult);
+
+        influenceQnaService.answer(new InfluenceQnaAnswerParameter(id, qnaId, request.getContent()));
 
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData("success")));
     }

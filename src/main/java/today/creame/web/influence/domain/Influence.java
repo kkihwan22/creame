@@ -217,4 +217,9 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.qnaCount = this.getQnaCount() + 1;
         this.qnaNotAnswerCount = this.getReviewNotAnswerCount() + 1;
     }
+
+    public void answer() {
+        this.qnaAnswerCount = this.qnaAnswerCount  + 1;
+        this.qnaNotAnswerCount = this.qnaNotAnswerCount -1;
+    }
 }
