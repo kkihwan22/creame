@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import today.creame.web.common.application.model.FileResourceResult;
 import today.creame.web.common.domain.FileResource;
 import today.creame.web.common.domain.FileResourceJpaRepository;
 import today.creame.web.common.exception.IllegalOriginalFileNameException;
@@ -33,7 +34,7 @@ public class FileResourceServiceImpl implements FileResourceService {
 
 
     @Override
-    public Long temp(MultipartFile file) {
+    public FileResourceResult temp(MultipartFile file) {
         LocalDateTime now = LocalDateTime.now();
         String date = now.format(DATE_FORMATTER);
         String timestamp = now.format(TIMESTAMP_FORMATTER);
@@ -75,7 +76,7 @@ public class FileResourceServiceImpl implements FileResourceService {
         fileResourceJpaRepository.save(fileResource);
 
         log.debug("file resource:{}", fileResource);
-        return fileResource.getId();
+        return new FileResourceResult(fileResource);
     }
 
     private String splitFileExtension(String originalFileName) {
