@@ -1,11 +1,9 @@
 package today.creame.web.config;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -27,6 +26,10 @@ import today.creame.web.config.security.CreameAuthenticationFilter;
 import today.creame.web.config.security.CreameAuthorizationFilter;
 import today.creame.web.config.security.SecurityErrorHandleFilter;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @EnableWebSecurity(debug = true)
 @EnableMethodSecurity
@@ -37,13 +40,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final ApplicationEventPublisher applicationEventPublisher;
 
     private static final String[] PERMIT_URL_ARRAY = {
-            "/v3/api-docs/**", "/swagger-ui/**", "/_health", "/public/**"
+            "/_health", "/public/**", "/pages/**", "/v3/api-docs/**", "/swagger-ui/**",
     };
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(creameUserDetailsServiceImpl).passwordEncoder(passwordEncoder());
         super.configure(auth);
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
     @Override
