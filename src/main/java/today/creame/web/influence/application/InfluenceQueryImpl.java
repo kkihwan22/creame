@@ -1,14 +1,5 @@
 package today.creame.web.influence.application;
 
-import static java.util.stream.Collectors.groupingBy;
-import static today.creame.web.influence.domain.InfluenceStatus.OPENED;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,15 +8,15 @@ import org.springframework.stereotype.Component;
 import today.creame.web.home.application.HomeInfluenceStatQuery;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
 import today.creame.web.influence.application.model.InfluenceResult;
-import today.creame.web.influence.domain.Category;
-import today.creame.web.influence.domain.Influence;
-import today.creame.web.influence.domain.InfluenceCategory;
-import today.creame.web.influence.domain.InfluenceCategoryGroupByDTO;
-import today.creame.web.influence.domain.InfluenceCategoryJpaRepository;
-import today.creame.web.influence.domain.InfluenceJpaRepository;
-import today.creame.web.influence.domain.InfluenceProfileImage;
-import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
-import today.creame.web.influence.domain.InfluenceStatus;
+import today.creame.web.influence.domain.*;
+import today.creame.web.influence.exception.NotFoundInfluenceException;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
+import static today.creame.web.influence.domain.InfluenceStatus.OPENED;
 
 @RequiredArgsConstructor
 @Component
@@ -33,6 +24,7 @@ public class InfluenceQueryImpl implements InfluenceQuery, HomeInfluenceStatQuer
     private final Logger log = LoggerFactory.getLogger(InfluenceQueryImpl.class);
 
     private final InfluenceJpaRepository influenceJpaRepository;
+    private final InfluenceBookmarkJpaRepository influenceBookmarkJpaRepository;
     private final InfluenceCategoryJpaRepository influenceCategoryJpaRepository;
     private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
 
@@ -59,6 +51,17 @@ public class InfluenceQueryImpl implements InfluenceQuery, HomeInfluenceStatQuer
 
         List<Influence> influences = influenceJpaRepository.findByIdIn(idSet);
         return getInfluenceResults(influences);
+    }
+
+    @Override
+    public InfluenceResult getInfluence(Long id) {
+        Influence influence = influenceJpaRepository
+                .findById(id)
+                .orElseThrow(NotFoundInfluenceException::new);
+        log.debug("influence:{}", influence);
+
+        InfluenceBookmark bookmark = influenceBookmarkJpaRepository.findById(id).orElse(null);
+        return new InfluenceResult(influence, bookmark);
     }
 
     private List<InfluenceResult> getInfluenceResults(List<Influence> influences) {

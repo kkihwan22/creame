@@ -5,12 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.ToString;
-import today.creame.web.influence.domain.Category;
-import today.creame.web.influence.domain.Greetings;
-import today.creame.web.influence.domain.Influence;
-import today.creame.web.influence.domain.InfluenceCategory;
-import today.creame.web.influence.domain.InfluenceProfileImage;
-import today.creame.web.influence.domain.Pricing;
+import today.creame.web.influence.domain.*;
 
 @Getter @ToString
 public class InfluenceResult {
@@ -42,8 +37,13 @@ public class InfluenceResult {
 
     private boolean connected;
     private boolean calling = false;
+    private boolean bookmarked = false;
 
-    public InfluenceResult(Influence influence, List<InfluenceCategory> categories, List<InfluenceProfileImage> profileImages) {
+    public InfluenceResult(
+            Influence influence,
+            InfluenceBookmark bookmark,
+            List<InfluenceCategory> categories,
+            List<InfluenceProfileImage> profileImages) {
         this.id = influence.getId();
         this.extensionNumber = influence.getExtensionNumber();
         this.nickname = influence.getNickname();
@@ -64,19 +64,35 @@ public class InfluenceResult {
 
         this.introduction = influence.getIntroduction();
         this.greetings = Optional.ofNullable(influence.getGreetings())
-            .map(Greetings::getFileResourceUri)
-            .orElse(null);
+                .map(Greetings::getFileResourceUri)
+                .orElse(null);
         this.notice = influence.getNotice();
         this.connected = influence.isConnected();
 
         this.categories = categories.stream()
-            .map(InfluenceCategory::getCategory)
-            .map(Category::name)
-            .collect(Collectors.toList());
+                .map(InfluenceCategory::getCategory)
+                .map(Category::name)
+                .collect(Collectors.toList());
 
         this.profileImages = profileImages.stream()
-            .map(InfluenceProfileImage::getFileResourceUri)
-            .collect(Collectors.toList());
+                .map(InfluenceProfileImage::getFileResourceUri)
+                .collect(Collectors.toList());
+
+        if (influence.getSns() != null) {
+            this.snsCompany = influence.getSns().getCompany().name();
+            this.snsAddress = influence.getSns().getAddress();
+        }
+
+        if (bookmark != null) {
+            this.bookmarked = bookmark.isBookmarked();
+        }
     }
 
+    public InfluenceResult(Influence influence, List<InfluenceCategory> categories, List<InfluenceProfileImage> profileImages) {
+        this(influence, null, categories, profileImages);
+    }
+
+    public InfluenceResult(Influence influence, InfluenceBookmark bookmark) {
+        this(influence, bookmark, influence.getCategories(), influence.getProfileImages());
+    }
 }
