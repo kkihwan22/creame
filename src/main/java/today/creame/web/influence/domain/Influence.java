@@ -91,7 +91,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     private int bookmarkCount;
 
     @Column(name = "rate")
-    private float rete;
+    private float rate;
 
     @Column(name = "rate_cnt")
     private int rateCount;
