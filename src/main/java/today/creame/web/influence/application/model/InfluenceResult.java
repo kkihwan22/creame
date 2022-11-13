@@ -11,7 +11,6 @@ import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.influence.domain.InfluenceProfileImage;
 import today.creame.web.influence.domain.Pricing;
-import today.creame.web.influence.domain.SNS;
 
 @Getter @ToString
 public class InfluenceResult {
@@ -48,7 +47,7 @@ public class InfluenceResult {
         this.id = influence.getId();
         this.extensionNumber = influence.getExtensionNumber();
         this.nickname = influence.getNickname();
-        this.rate = influence.getRete();
+        this.rate = influence.getRate();
         this.rateCount = influence.getRateCount();
         this.reviewCount = influence.getReviewCount();
         this.qnaCount = influence.getQnaCount();
