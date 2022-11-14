@@ -82,3 +82,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 {
   "content": "답변완료"
 }
+
+### Qna 조회
+GET {{host}}/public/v1/influences/{{influence_id}}/qna
+Content-Type: application/json
+
+{
+}

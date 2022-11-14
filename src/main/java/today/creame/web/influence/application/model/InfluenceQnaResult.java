@@ -1,5 +1,6 @@
 package today.creame.web.influence.application.model;
 
+import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.Getter;
