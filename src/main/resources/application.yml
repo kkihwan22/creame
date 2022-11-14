@@ -62,17 +62,13 @@ services:
   external:
     sms:
       host: https://api.coolsms.co.kr
-      # api-key: NCSZMUTYDUZDROYQ
       api-key: ENC(flAOE2cNFc3MXk+EXCegfVa55/DE+Go1qqUgv5UB7Jk=)
-      # secret-key: T5LJMVQPY4EORYKNOTM5QYHVQ4CZFW13
       secret-key: ENC(6z7KXRNXQNj/8WV/4eoehtkF8EukPbbp9ja7qD0VUVfN6zGioZAegLfB5TRN669d)
 
 cloud:
   aws:
     credentials:
-      #access-key: AKIAZYVZOIJOX4QIK66X
       access-key: ENC(ai7Khouca0Eo4/wMoQ/ZoJsxfjOrhT9MeWD+8XGzAaY=)
-      #secret-key: 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
       secret-key: ENC(uN2oFlFp4yLnYjJN4pseHXgDaAgDoO4fovikrJD3UHLMyQa9elVbI0kAU9TCQGFJ4lcwS3HABfE=)
     # profile-name: creame.service
     region:
