@@ -3,6 +3,7 @@ package today.creame.web.influence.domain;
 import static lombok.AccessLevel.PROTECTED;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import javax.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,9 +26,13 @@ public class Content {
     }
 
     public static Content secretContent(Content content, boolean secret) {
-        if (!secret) {
+        // 내 글이면 내용이 보인다.
+        if (secret) {
             return content;
         }
-        return new Content(null, content.updatedDateTime);
+
+        return content != null
+            ? new Content(null, content.updatedDateTime)
+            : null;
     }
 }
