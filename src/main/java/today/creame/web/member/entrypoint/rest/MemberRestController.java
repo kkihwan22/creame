@@ -13,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,5 +67,23 @@ public class MemberRestController implements BaseRestController {
         log.debug("customUserDetails: {}", customUserDetails);
         MeResult me = memberQuery.getMe(customUserDetails.getId());
         return ResponseEntity.ok(BodyFactory.success(new MeResponse(me)));
+    }
+
+    @GetMapping("/public/v1/members/phone-number/{phoneNumber}/exist")
+    public ResponseEntity<Body<SimpleBodyData<Boolean>>> existMemberByPhoneNumber(@PathVariable String phoneNumber) {
+        boolean result = memberQuery.existMemberByPhoneNumber(phoneNumber);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(result)));
+    }
+
+    @GetMapping("/public/v1/members/email/{email}/exist")
+    public ResponseEntity<Body<SimpleBodyData<Boolean>>> existMemberByEmail(@PathVariable String email) {
+        boolean result = memberQuery.existMemberByEmail(email);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(result)));
+    }
+
+    @GetMapping("/public/v1/members/nickname/{nickname}/exist")
+    public ResponseEntity<Body<SimpleBodyData<Boolean>>> existMemberByNickname(@PathVariable String nickname) {
+        boolean result = memberQuery.existMemberByNickname(nickname);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(result)));
     }
 }

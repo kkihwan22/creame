@@ -32,4 +32,22 @@ public class MemberQueryImpl implements MemberQuery {
 
         return new MeResult(id, findMember.getNickname(), roles);
     }
+
+    @Override
+    public boolean existMemberByNickname(String nickname) {
+        Long count = memberJpaRepository.countMemberByNickname(nickname);
+        return count > 0;
+    }
+
+    @Override
+    public boolean existMemberByEmail(String email) {
+        Long count = memberJpaRepository.countMemberByEmail(email);
+        return count > 0;
+    }
+
+    @Override
+    public boolean existMemberByPhoneNumber(String phoneNumber) {
+        Long count = memberJpaRepository.countMemberByPhoneNumber(phoneNumber);
+        return count > 0;
+    }
 }
