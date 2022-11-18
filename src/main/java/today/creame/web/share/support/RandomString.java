@@ -51,8 +51,11 @@ public class RandomString {
         this(21);
     }
 
-    public static RandomString generatePassword() {
+    public static RandomString password() {
         return new RandomString(10, new SecureRandom(), specialaplanum);
     }
 
+    public static RandomString token(int length) {
+        return new RandomString(length, new SecureRandom(), specialaplanum);
+    }
 }

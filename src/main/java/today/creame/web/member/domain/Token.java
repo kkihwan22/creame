@@ -17,7 +17,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import today.creame.web.config.security.CustomUserDetails;
 import today.creame.web.config.security.exception.AccessTokenExpiredException;
-import today.creame.web.member.exception.ExpiredVerifyTokenException;
+import today.creame.web.member.exception.AlreadyExpiredTokenException;
 
 @Getter @ToString
 public class Token {
@@ -59,7 +59,7 @@ public class Token {
             long now = Instant.now().getEpochSecond();
             if (exp < now) {
                 log.info("token expired. now : {}, exp : {}", now, exp);
-                throw new ExpiredVerifyTokenException();
+                throw new AlreadyExpiredTokenException();
             }
 
             return TokenVerified.success(extraPayload(decoded));

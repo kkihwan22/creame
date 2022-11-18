@@ -3,7 +3,6 @@ package today.creame.web.member.domain;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +17,11 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import today.creame.web.share.domain.converter.BooleanToCharConverter;
+import today.creame.web.member.exception.AlreadyExpiredTokenException;
+import today.creame.web.member.exception.AlreadyVerifiedTokenException;
+import today.creame.web.member.exception.ExceededFailedCountException;
+import today.creame.web.member.exception.NotMatchedCodeException;
+import today.creame.web.member.exception.NotMatchedPhoneNumberException;
 
 @NoArgsConstructor @AllArgsConstructor
 @Entity
@@ -35,8 +38,17 @@ public class PhoneVerification {
     @Column(name = "phone_number", columnDefinition = "char(11)")
     private String phoneNumber;
 
-    @Column(name = "digit")
+    @Column(
+        name = "digit",
+        columnDefinition = "char(6)"
+    )
     private Integer digit;
+
+    @Column(
+        name = "token",
+        columnDefinition = "char(10)"
+    )
+    private Long token;
 
     @Column(name = "authed",
             columnDefinition = "BIT",
@@ -55,8 +67,8 @@ public class PhoneVerification {
             columnDefinition = "tinyint")
     private int failedCount;
 
-    @Column(name = "expired_dt")
-    private LocalDateTime expiredDateTime;
+    @Column(name = "verified_dt")
+    private LocalDateTime verifiedDateTime;
 
     @CreatedDate
     @Column(name = "created_dt")
@@ -66,17 +78,46 @@ public class PhoneVerification {
     @Column(name = "updated_dt")
     private LocalDateTime updatedDateTime;
 
-    public boolean afterVerifyTime() {
+    public void verity(String phoneNumber, int digit) {
+        if (isExpired()) {
+            throw new AlreadyExpiredTokenException();
+        }
+
+        if (isVerified()) {
+            throw new AlreadyVerifiedTokenException();
+        }
+
+        if (this.afterVerifyTime()) {
+            throw new AlreadyExpiredTokenException();
+        }
+
+        if (!this.matchedDigit(digit)) {
+            throw new NotMatchedCodeException(this.failedCount);
+        }
+
+        if (!this.phoneNumber.equals(phoneNumber)) {
+            throw new NotMatchedPhoneNumberException();
+        }
+
+        if (failedCount > 3) {
+            throw new ExceededFailedCountException();
+        }
+
+        this.verified = true;
+        this.verifiedDateTime = LocalDateTime.now();
+    }
+
+    private boolean afterVerifyTime() {
         LocalDateTime now = LocalDateTime.now();
         if (this.createdDateTime.isAfter(now.plusMinutes(3))) {
-            this.expired = true;;
-            this.expiredDateTime = now;
+            this.expired = true;
+            ;
         }
 
         return expired;
     }
 
-    public boolean isMissMatchDigit(int digit) {
+    public boolean matchedDigit(int digit) {
         if (this.digit == digit) {
             return false;
         }
@@ -84,18 +125,14 @@ public class PhoneVerification {
         this.failedCount++;
         if (failedCount >= 3) {
             this.expired = true;
-            this.expiredDateTime = LocalDateTime.now();
         }
         return true;
     }
 
-    public void successVerify() {
-        this.verified = true;
-    }
-
-    public PhoneVerification(String phoneNumber, Integer digit) {
+    public PhoneVerification(String phoneNumber, Integer digit, Long token) {
         this.phoneNumber = phoneNumber;
         this.digit = digit;
+        this.token = token;
     }
 
     @Override

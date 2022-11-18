@@ -19,7 +19,7 @@ public class MemberCreateDelegateImpl implements MemberCreateDelegate {
     @Transactional
     @Override
     public Long createMember(InfluenceApplication application) {
-        String password = RandomString.generatePassword().nextString();
+        String password = RandomString.password().nextString();
         log.debug(" [ password]: {}", password);
 
         Long id = memberService.registerMember(new MemberRegisterParameter(

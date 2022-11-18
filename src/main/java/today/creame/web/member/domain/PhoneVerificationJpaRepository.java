@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface PhoneVerificationJpaRepository extends JpaRepository<PhoneVerification, Long> {
 
     Optional<PhoneVerification> findByPhoneNumber(String phoneNumber);
+
+    Optional<PhoneVerification> findByToken(String token);
 }
