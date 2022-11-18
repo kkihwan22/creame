@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.home.application.HomeDisplayServiceFactory;
-import today.creame.web.home.application.HomeHotInfluenceQuery;
 import today.creame.web.home.application.HomeInfluenceStatQuery;
 import today.creame.web.home.application.model.DisplayParameter;
-import today.creame.web.home.application.model.HomeHotInfluenceResult;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
 import today.creame.web.home.entrypoint.io.HomeResponse;
+import today.creame.web.influence.application.HotInfluenceQuery;
+import today.creame.web.influence.application.model.HotInfluenceResult;
 import today.creame.web.influence.application.model.InfluenceResult;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
@@ -24,13 +24,14 @@ import today.creame.web.share.entrypoint.BodyFactory;
 @RestController
 public class HomeRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(HomeRestController.class);
-    private final HomeHotInfluenceQuery homeHotInfluenceQuery;
     private final HomeInfluenceStatQuery homeInfluenceStatQuery;
+    private final HotInfluenceQuery hotInfluenceQuery;
     private final HomeDisplayServiceFactory homeDisplayServiceFactory;
+
 
     @GetMapping("/public/v1/home")
     public ResponseEntity<Body<HomeResponse>> Home() {
-        List<HomeHotInfluenceResult> hots = homeHotInfluenceQuery.getHomeHotInfluence();
+        List<HotInfluenceResult> hots = hotInfluenceQuery.getHotInfluenceResults();
         HomeInfluenceStatResult stat = homeInfluenceStatQuery.getHomeInfluenceStat();
         return ResponseEntity.ok(BodyFactory.success(new HomeResponse(hots, stat)));
     }

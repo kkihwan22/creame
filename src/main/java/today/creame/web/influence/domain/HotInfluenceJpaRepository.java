@@ -1,6 +1,5 @@
-package today.creame.web.curation.domain;
+package today.creame.web.influence.domain;
 
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

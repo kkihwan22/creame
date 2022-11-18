@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.ToString;
-import today.creame.web.curation.domain.HotInfluence;
+import today.creame.web.influence.domain.HotInfluence;
 
 @Getter @ToString
 public class HomeHotInfluenceResult {
