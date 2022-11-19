@@ -10,4 +10,6 @@ public interface PhoneVerificationJpaRepository extends JpaRepository<PhoneVerif
     Optional<PhoneVerification> findByPhoneNumber(String phoneNumber);
 
     Optional<PhoneVerification> findByToken(String token);
+
+    Optional<PhoneVerification> findPhoneVerificationByToken(Long token);
 }

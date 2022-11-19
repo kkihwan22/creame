@@ -1,6 +1,9 @@
 package today.creame.web.member.application;
 
+import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,11 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 import today.creame.web.member.domain.PhoneVerification;
 import today.creame.web.member.domain.PhoneVerificationJpaRepository;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
-
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PhoneVerificationServiceImplTest {
@@ -57,6 +55,6 @@ class PhoneVerificationServiceImplTest {
                 Optional.of(given)
         );
 
-        verificationService.verifyCode("10", "01039960399", "123456");
+        verificationService.verify("10", "01039960399", "123456");
     }
 }

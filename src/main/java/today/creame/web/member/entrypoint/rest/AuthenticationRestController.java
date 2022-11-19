@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,5 +30,16 @@ public class AuthenticationRestController {
         log.debug("[ Authorization Header ] token : {} ", token);
         String newAccessToken = authenticationService.issueAccessTokenByRefreshToken(token);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData(newAccessToken)));
+    }
+
+    @GetMapping("/public/v1/my/email")
+    public void getMyEmail() {
+        // token,
+        //
+    }
+
+    @GetMapping("/public/v1/my/password")
+    public void getMyPassword() {
+
     }
 }

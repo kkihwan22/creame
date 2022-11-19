@@ -14,6 +14,7 @@ import today.creame.web.member.domain.MemberRoleJpaRepository;
 import today.creame.web.member.exception.ConflictMemberEmailException;
 import today.creame.web.member.exception.ConflictMemberNicknameException;
 import today.creame.web.member.exception.ConflictMemberPhoneNumberException;
+import today.creame.web.share.aspect.permit.Permit;
 
 @RequiredArgsConstructor
 @Service
@@ -23,9 +24,21 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRoleJpaRepository memberRoleJpaRepository;
 
     @Transactional
+    @Permit
     @Override
     public Long registerMember(MemberRegisterParameter parameter) {
+        this.validation(parameter);
+        return this.register(parameter.toEntity());
+    }
 
+    @Transactional
+    @Override
+    public Long registerMemberInfluence(MemberRegisterParameter parameter) {
+        this.validation(parameter);
+        return this.register(parameter.toEntity());
+    }
+
+    private void validation(MemberRegisterParameter parameter) {
         if (memberJpaRepository.countMemberByEmail(parameter.getEmail()) > 0) {
             log.info(" 요청하신 이메일({})은 이미 사용 중입니다.", parameter.getEmail());
             throw new ConflictMemberEmailException();
@@ -40,8 +53,9 @@ public class MemberServiceImpl implements MemberService {
             log.info(" 요청하신 휴대전화 번호({})는 이미 사용 중입니다.", parameter.getPhoneNumber());
             throw new ConflictMemberPhoneNumberException();
         }
+    }
 
-        Member registerMember = parameter.toEntity();
+    private Long register(Member registerMember) {
         memberJpaRepository.save(registerMember);
 
         MemberRole role = new MemberRole(null, MemberRoleCode.USER);

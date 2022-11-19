@@ -32,10 +32,10 @@ public class PhoneVerificationRestController implements BaseRestController {
 
         hasError(bindingResult);
 
-        phoneVerificationService.verifyCode(
-                request.getToken(),
-                request.getPhoneNumber(),
-                request.getVerifyCode()
+        phoneVerificationService.verify(
+            request.getToken(),
+            request.getPhoneNumber(),
+            request.getVerifyCode()
         );
 
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));

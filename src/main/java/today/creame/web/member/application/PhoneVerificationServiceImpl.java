@@ -21,20 +21,21 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
     private final PhoneVerificationJpaRepository phoneVerificationJpaRepository;
     private final ApplicationEventPublisher publisher;
 
-
-    @Transactional(dontRollbackOn = {
-        AlreadyExpiredTokenException.class, NotMatchedCodeException.class
-    })
+    @Transactional(
+        dontRollbackOn = {
+            AlreadyExpiredTokenException.class,
+            NotMatchedCodeException.class
+        })
     @Override
-    public void verifyCode(String token, String phoneNumber, String code) {
+    public void verify(Long token, String phoneNumber, Integer code) {
         PhoneVerification phoneVerification = phoneVerificationJpaRepository
-            .findByToken(token)
-                .orElseThrow(() -> {
-                    log.info("Not matched token. token: {}", token);
-                    throw new NotMatchedTokenException();
-                });
+            .findPhoneVerificationByToken(token)
+            .orElseThrow(() -> {
+                log.info("Not matched token. token: {}", token);
+                throw new NotMatchedTokenException();
+            });
 
-        phoneVerification.verity(phoneNumber, Integer.parseInt(code));
+        phoneVerification.verity(phoneNumber, code);
     }
 
     @Transactional
@@ -50,5 +51,17 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
         publisher.publishEvent(new SmsSendEvent(phoneNumber, String.valueOf(digit)));
 
         return token;
+    }
+
+    @Override
+    public boolean isVerified(Long token) {
+        PhoneVerification phoneVerification = phoneVerificationJpaRepository
+            .findPhoneVerificationByToken(token)
+            .orElseThrow(() -> {
+                log.info("Not matched token. token: {}", token);
+                throw new NotMatchedTokenException();
+            });
+
+        return phoneVerification.isVerified();
     }
 }

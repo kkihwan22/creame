@@ -50,8 +50,7 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     @OneToMany(mappedBy = "member")
     private List<MemberRole> roles = new ArrayList<>();
 
-    public Member(Long id, String email, String password, String nickname, String phoneNumber, MemberStatus status) {
-        this.id = id;
+    public Member(String email, String password, String nickname, String phoneNumber, MemberStatus status) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
@@ -61,7 +60,6 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
 
     public Member(Long id) {
         this.id = id;
-        // this(id, null, null, null, null, null);
     }
 
     public void addRole(MemberRole role) {

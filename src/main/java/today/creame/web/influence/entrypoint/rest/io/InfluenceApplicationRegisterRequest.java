@@ -10,10 +10,10 @@ import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.influence.application.model.InfluenceApplicationParameter;
 import today.creame.web.influence.domain.Category;
-import today.creame.web.share.model.BaseRequest;
 
-@Getter @ToString
-public class InfluenceApplicationRegisterRequest implements BaseRequest<InfluenceApplicationParameter> {
+@Getter
+@ToString
+public class InfluenceApplicationRegisterRequest {
 
     @NotBlank(message = "이름을 입력해주세요.")
     private String name;
@@ -40,7 +40,6 @@ public class InfluenceApplicationRegisterRequest implements BaseRequest<Influenc
     @NotNull
     private List<Long> profileImageIds;
 
-    @Override
     public InfluenceApplicationParameter toParameter() {
         return new InfluenceApplicationParameter(
             name,

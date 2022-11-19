@@ -22,11 +22,8 @@ public class MemberCreateDelegateImpl implements MemberCreateDelegate {
         String password = RandomString.password().nextString();
         log.debug(" [ password]: {}", password);
 
-        Long id = memberService.registerMember(new MemberRegisterParameter(
-            application.getEmail(),
-            application.getNickname(),
-            password,
-            application.getPhoneNumber()));
+        Long id = memberService.registerMemberInfluence(
+            new MemberRegisterParameter(application.getEmail(), application.getNickname(), password, application.getPhoneNumber(), null));
 
         log.debug("create member id: {}", id);
         return id;
