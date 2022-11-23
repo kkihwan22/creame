@@ -44,7 +44,7 @@ public class FileResource extends BaseCreatedAndUpdatedDateTime {
     private Long fileSize;
 
     @Column(name = "deleted")
-    private Boolean deleted;
+    private boolean deleted;
 
     public FileResource(
         String contextName,

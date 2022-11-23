@@ -9,7 +9,6 @@ public enum SecurityErrorCode {
     EXPIRED_REFRESH_TOKEN(102, "만료 된 (리프레쉬) 토큰입니다."),
     INVALID_TOKEN(103, "토큰 정보가 유효하지 않습니다."),
     NOT_EXIST_TOKEN(104, "존재하지 않는 토큰입니다."),
-
     ;
 
     @Getter

@@ -14,7 +14,6 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://rdb-creame.c7f9pyzwo76e.ap-northeast-2.rds.amazonaws.com:3306/creame?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC
-    # tinyInt1isBit=false ??
     username: ENC(DFXaDe/wgo4HzmpZ35XZBUFe7ANBMKBL)
     password: ENC(JdZ7/UOKRzJ2xblyENpWYGXy/mzBGBil)
     hikari:

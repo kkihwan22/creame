@@ -3,8 +3,13 @@ package today.creame.web.config.security.exception;
 import static today.creame.web.config.security.exception.SecurityErrorCode.EXPIRED_ACCESS_TOKEN;
 
 import lombok.Getter;
+import today.creame.web.share.exception.BusinessException;
 
-public class AccessTokenExpiredException extends RuntimeException {
+public class AccessTokenExpiredException extends BusinessException {
     @Getter
     private final static SecurityErrorCode errorCode = EXPIRED_ACCESS_TOKEN;
+
+    public AccessTokenExpiredException() {
+        super(errorCode.getCode(), errorCode.getMessage());
+    }
 }

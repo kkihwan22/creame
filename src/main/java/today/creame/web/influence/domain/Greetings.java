@@ -1,13 +1,13 @@
 package today.creame.web.influence.domain;
 
+import static lombok.AccessLevel.PROTECTED;
+
 import javax.persistence.Embeddable;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = PROTECTED)
 @Embeddable
 @Getter @ToString
 public class Greetings {

@@ -1,5 +1,8 @@
 package today.creame.web.config;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +27,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import today.creame.web.config.security.CreameAuthenticationFilter;
 import today.creame.web.config.security.CreameAuthorizationFilter;
-import today.creame.web.config.security.SecurityErrorHandleFilter;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import today.creame.web.config.security.ExceptionHandlerFilter;
 
 @RequiredArgsConstructor
 @EnableWebSecurity(debug = true)
@@ -76,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             http.addFilter(creameAuthenticationFilter);
             http.addFilterBefore(new CreameAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-            http.addFilterBefore(new SecurityErrorHandleFilter(), CreameAuthorizationFilter.class);
+            http.addFilterBefore(new ExceptionHandlerFilter(), CreameAuthorizationFilter.class);
         });
 
     }

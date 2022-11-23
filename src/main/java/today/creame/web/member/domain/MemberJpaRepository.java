@@ -12,10 +12,16 @@ public interface MemberJpaRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByEmail(String email);
 
+    Optional<Member> findByPhoneNumber(String phoneNumber);
+
+    Optional<Member> findByEmailAndPhoneNumber(String email, String phoneNumber);
+
     @Query("select m from Member m join fetch m.roles where m.email = :email")
     Optional<Member> findByUserDetails(String email);
 
     Long countMemberByEmail(String email);
+
     Long countMemberByNickname(String nickname);
+
     Long countMemberByPhoneNumber(String phoneNumber);
 }

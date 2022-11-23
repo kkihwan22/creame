@@ -21,6 +21,7 @@ import today.creame.web.config.security.CustomUserDetails;
 import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.MemberService;
 import today.creame.web.member.application.model.MeResult;
+import today.creame.web.member.entrypoint.rest.io.LostEmailRequest;
 import today.creame.web.member.entrypoint.rest.io.MeResponse;
 import today.creame.web.member.entrypoint.rest.io.MemberRegisterRequest;
 import today.creame.web.share.entrypoint.BaseRestController;
@@ -85,5 +86,17 @@ public class MemberRestController implements BaseRestController {
     public ResponseEntity<Body<SimpleBodyData<Boolean>>> existMemberByNickname(@PathVariable String nickname) {
         boolean result = memberQuery.existMemberByNickname(nickname);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(result)));
+    }
+
+    @GetMapping("/public/v1/lost/email")
+    public void getMyEmail(
+        @RequestBody @Valid LostEmailRequest request,
+        BindingResult bindingResult) {
+        log.debug("request: {}", request);
+    }
+
+    @GetMapping("/public/v1/lost/password")
+    public void getMyPassword() {
+
     }
 }

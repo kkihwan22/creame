@@ -5,7 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import today.creame.web.member.application.model.EmailLossParameter;
+import today.creame.web.member.application.model.MemberExpireParameter;
 import today.creame.web.member.application.model.MemberRegisterParameter;
+import today.creame.web.member.application.model.MemberUpdateParameter;
+import today.creame.web.member.application.model.NotificationSettingParameter;
+import today.creame.web.member.application.model.PasswordParameter;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.domain.MemberRole;
@@ -14,6 +19,7 @@ import today.creame.web.member.domain.MemberRoleJpaRepository;
 import today.creame.web.member.exception.ConflictMemberEmailException;
 import today.creame.web.member.exception.ConflictMemberNicknameException;
 import today.creame.web.member.exception.ConflictMemberPhoneNumberException;
+import today.creame.web.member.exception.NotFoundMemberException;
 import today.creame.web.share.aspect.permit.Permit;
 
 @RequiredArgsConstructor
@@ -36,6 +42,69 @@ public class MemberServiceImpl implements MemberService {
     public Long registerMemberInfluence(MemberRegisterParameter parameter) {
         this.validation(parameter);
         return this.register(parameter.toEntity());
+    }
+
+    @Permit
+    @Override
+    public String emailLoss(EmailLossParameter parameter) {
+        Member member = memberJpaRepository
+            .findByPhoneNumber(parameter.getPhoneNumber())
+            .orElseThrow(NotFoundMemberException::new);
+
+        String maskedEmail = member.getEmail().replaceAll("(?<=.{3}).(?=@)", "*");
+        log.debug("masked email: {}", maskedEmail);
+        return maskedEmail;
+    }
+
+    @Permit
+    @Override
+    public void passwordLoss(PasswordParameter parameter) {
+        Member member = memberJpaRepository
+            .findByEmailAndPhoneNumber(parameter.getEmail(), parameter.getPhoneNumber())
+            .orElseThrow(NotFoundMemberException::new);
+
+        // TODO: email 발송
+    }
+
+    @Transactional
+    @Permit
+    @Override
+    public void changeNickname(MemberUpdateParameter parameter) {
+        Member member = memberJpaRepository
+            .findById(parameter.getId())
+            .orElseThrow(NotFoundMemberException::new);
+        log.debug("find member: {}", member);
+        member.changedNickname(parameter.getNickname());
+    }
+
+    @Transactional
+    @Permit
+    @Override
+    public void changePassword(MemberUpdateParameter parameter) {
+        Member member = memberJpaRepository
+            .findById(parameter.getId())
+            .orElseThrow(NotFoundMemberException::new);
+        log.debug("find member: {}", member);
+        member.changedPassword(parameter.getPassword());
+    }
+
+    @Transactional
+    @Permit
+    @Override
+    public void expire(MemberExpireParameter parameter) {
+        // todo [ 탈퇴와 관련 확인 ]
+    }
+
+    @Transactional
+    @Permit
+    @Override
+    public void changedNotificationSetting(NotificationSettingParameter parameter) {
+        Member member = memberJpaRepository
+            .findById(parameter.getId())
+            .orElseThrow(NotFoundMemberException::new);
+        log.debug("find member: {}", member);
+
+        member.updateNotificationSetting(parameter.getCode(), parameter.isCondition());
     }
 
     private void validation(MemberRegisterParameter parameter) {

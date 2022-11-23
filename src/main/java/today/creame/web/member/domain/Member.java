@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Convert;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -47,6 +48,9 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "status")
     private MemberStatus status;
 
+    @Embedded
+    private NotificationSetting notificationSetting;
+
     @OneToMany(mappedBy = "member")
     private List<MemberRole> roles = new ArrayList<>();
 
@@ -76,5 +80,17 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     public void removeRole(MemberRole role) {
         roles.remove(role);
         role.setMember(null);
+    }
+
+    public void changedNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void changedPassword(String password) {
+        this.password = password;
+    }
+
+    public void updateNotificationSetting(NotificationSettingCode code, boolean condition) {
+        this.notificationSetting = new NotificationSetting(this.notificationSetting, code, condition);
     }
 }

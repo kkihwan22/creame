@@ -29,7 +29,7 @@ public class FileResourceQuery implements InfluenceProfileFileResourceQuery {
                 new InfluenceProfileImageFileResourceResult(
                     result.getId(),
                     buildS3Uri(result),
-                    result.getDeleted(),
+                    result.isDeleted(),
                     orderNumber.getAndIncrement()))
             .collect(Collectors.toList());
     }
