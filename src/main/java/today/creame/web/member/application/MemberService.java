@@ -16,12 +16,11 @@ public interface MemberService {
 
     void forgetPassword(ForgetPasswordParameter parameter);
 
-    void changeNickname(MemberUpdateParameter parameter);
+    void updateNickname(MemberUpdateParameter parameter);
 
-    void changePassword(MemberUpdateParameter parameter);
+    void updatePassword(MemberUpdateParameter parameter);
 
     void expire(MemberExpireParameter parameter);
 
     void changedNotificationSetting(NotificationSettingParameter parameter);
 }
-

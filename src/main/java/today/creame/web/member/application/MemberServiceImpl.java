@@ -70,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Permit
     @Override
-    public void changeNickname(MemberUpdateParameter parameter) {
+    public void updateNickname(MemberUpdateParameter parameter) {
         Member member = memberJpaRepository
             .findById(parameter.getId())
             .orElseThrow(NotFoundMemberException::new);
@@ -81,7 +81,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Permit
     @Override
-    public void changePassword(MemberUpdateParameter parameter) {
+    public void updatePassword(MemberUpdateParameter parameter) {
         Member member = memberJpaRepository
             .findById(parameter.getId())
             .orElseThrow(NotFoundMemberException::new);

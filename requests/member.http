@@ -48,6 +48,16 @@ Content-Type: application/json
   "phone_number": "01039960399"
 }
 
+### 닉네임 변경
+
+PATCH {{host}}/api/v1/members/42/nickname
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6ImV0aGFuIiwiaWQiOjQyLCJleHAiOjE2NjkzODc2NDMsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJldGhhbi5idWQ5OUBnbWFpbC5jb20ifQ.-f1kp3O-hPNcHGw5IDVDGCxR8e-EKZ3JYEPQUR9FdSo
+
+{
+  "nickname": "빵구똥구"
+}
+
 ### 알림 설정 변경
 
 PATCH {{host}}/api/v1/members/42/notifications/SMS/ON

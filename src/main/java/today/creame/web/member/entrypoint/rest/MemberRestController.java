@@ -24,11 +24,14 @@ import today.creame.web.member.application.MemberService;
 import today.creame.web.member.application.model.ForgetEmailParameter;
 import today.creame.web.member.application.model.ForgetPasswordParameter;
 import today.creame.web.member.application.model.MeResult;
+import today.creame.web.member.application.model.MemberUpdateParameter;
 import today.creame.web.member.application.model.NotificationSettingParameter;
 import today.creame.web.member.domain.NotificationSettingItem;
 import today.creame.web.member.entrypoint.rest.io.ForgetEmailRequest;
 import today.creame.web.member.entrypoint.rest.io.ForgetPasswordRequest;
 import today.creame.web.member.entrypoint.rest.io.MeResponse;
+import today.creame.web.member.entrypoint.rest.io.MemberNicknameUpdateRequest;
+import today.creame.web.member.entrypoint.rest.io.MemberPasswordUpdateRequest;
 import today.creame.web.member.entrypoint.rest.io.MemberRegisterRequest;
 import today.creame.web.share.domain.OnOffCondition;
 import today.creame.web.share.entrypoint.BaseRestController;
@@ -126,13 +129,23 @@ public class MemberRestController implements BaseRestController {
     }
 
     @PatchMapping("/api/v1/members/{id}/nickname")
-    public ResponseEntity<Body<SimpleBodyData<String>>> changeNickname() {
-        return null;
+    public ResponseEntity<Body<SimpleBodyData<String>>> updateNickname(
+        @PathVariable Long id,
+        @RequestBody @Valid MemberNicknameUpdateRequest request, BindingResult bindingResult
+    ) {
+        hasError(bindingResult);
+        memberService.updateNickname(new MemberUpdateParameter(id, null, request.getNickname()));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
     @PatchMapping("/api/v1/members/{id}/password")
-    public ResponseEntity<Body<SimpleBodyData<String>>> changePassword() {
-        return null;
+    public ResponseEntity<Body<SimpleBodyData<String>>> updatePassword(
+        @PathVariable Long id,
+        @RequestBody @Valid MemberPasswordUpdateRequest request, BindingResult bindingResult
+    ) {
+        hasError(bindingResult);
+        memberService.updatePassword(new MemberUpdateParameter(id, request.getPassword(), null));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
     @PatchMapping("/api/v1/members/{id}/notifications/{item}/{condition}")
