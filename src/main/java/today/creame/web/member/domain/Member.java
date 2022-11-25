@@ -90,7 +90,7 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
         this.password = password;
     }
 
-    public void updateNotificationSetting(NotificationSettingCode code, boolean condition) {
+    public void updateNotificationSetting(NotificationSettingItem code, boolean condition) {
         this.notificationSetting = new NotificationSetting(this.notificationSetting, code, condition);
     }
 }

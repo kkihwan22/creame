@@ -13,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,14 +21,21 @@ import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.config.security.CustomUserDetails;
 import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.MemberService;
+import today.creame.web.member.application.model.ForgetEmailParameter;
+import today.creame.web.member.application.model.ForgetPasswordParameter;
 import today.creame.web.member.application.model.MeResult;
-import today.creame.web.member.entrypoint.rest.io.LostEmailRequest;
+import today.creame.web.member.application.model.NotificationSettingParameter;
+import today.creame.web.member.domain.NotificationSettingItem;
+import today.creame.web.member.entrypoint.rest.io.ForgetEmailRequest;
+import today.creame.web.member.entrypoint.rest.io.ForgetPasswordRequest;
 import today.creame.web.member.entrypoint.rest.io.MeResponse;
 import today.creame.web.member.entrypoint.rest.io.MemberRegisterRequest;
+import today.creame.web.share.domain.OnOffCondition;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
 import today.creame.web.share.entrypoint.SimpleBodyData;
+import today.creame.web.share.entrypoint.validator.EnumConstraint;
 
 @Api("[ 회원 ] Api's")
 @RequiredArgsConstructor
@@ -88,15 +96,53 @@ public class MemberRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(result)));
     }
 
-    @GetMapping("/public/v1/lost/email")
-    public void getMyEmail(
-        @RequestBody @Valid LostEmailRequest request,
+    @PostMapping("/public/v1/forget-email")
+    public ResponseEntity<Body<SimpleBodyData<String>>> forgetMyEmail(
+        @RequestBody @Valid ForgetEmailRequest request,
         BindingResult bindingResult) {
         log.debug("request: {}", request);
+
+        String result = memberService.forgetEmail(new ForgetEmailParameter(request.getToken(), request.getPhoneNumber()));
+        log.debug("result: {}", request);
+
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(result)));
     }
 
-    @GetMapping("/public/v1/lost/password")
-    public void getMyPassword() {
+    @PostMapping("/public/v1/forget-password")
+    public ResponseEntity<Body<SimpleBodyData<String>>> forgetMyPassword(
+        @RequestBody @Valid ForgetPasswordRequest request,
+        BindingResult bindingResult
+    ) {
+        log.debug("request: {}", request);
 
+        hasError(bindingResult);
+
+        memberService.forgetPassword(new ForgetPasswordParameter(
+            request.getEmail(),
+            request.getPhoneNumber(),
+            request.getToken()));
+
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("Email 발송.")));
+    }
+
+    @PatchMapping("/api/v1/members/{id}/nickname")
+    public ResponseEntity<Body<SimpleBodyData<String>>> changeNickname() {
+        return null;
+    }
+
+    @PatchMapping("/api/v1/members/{id}/password")
+    public ResponseEntity<Body<SimpleBodyData<String>>> changePassword() {
+        return null;
+    }
+
+    @PatchMapping("/api/v1/members/{id}/notifications/{item}/{condition}")
+    public ResponseEntity<Body<SimpleBodyData<String>>> changeNotificationSettings(
+        @PathVariable Long id,
+        @PathVariable @EnumConstraint(enumClass = NotificationSettingItem.class, ignoreCase = true) NotificationSettingItem item,
+        @PathVariable @EnumConstraint(enumClass = OnOffCondition.class, ignoreCase = true) OnOffCondition condition
+    ) {
+        memberService.changedNotificationSetting(
+            new NotificationSettingParameter(id, item, condition.getCondition()));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }

@@ -9,7 +9,7 @@ import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.exception.ConflictConnectionStatusException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
-import today.creame.web.share.domain.OnOffStatus;
+import today.creame.web.share.domain.OnOffCondition;
 
 @RequiredArgsConstructor
 @Service
@@ -19,17 +19,17 @@ public class InfluenceConnectedServiceImpl implements InfluenceConnectedService 
 
     @Transactional
     @Override
-    public void patchConnectionStatus(Long id, OnOffStatus status) {
+    public void patchConnectionStatus(Long id, OnOffCondition status) {
 
         Influence influence = influenceJpaRepository.findById(id)
             .orElseThrow(NotFoundInfluenceException::new);
         log.debug("find influence:{}", influence);
 
-        if (status == OnOffStatus.ON && influence.isConnected()) {
+        if (status == OnOffCondition.ON && influence.isConnected()) {
             throw new ConflictConnectionStatusException();
         }
 
-        if (status == OnOffStatus.OFF && !influence.isConnected()) {
+        if (status == OnOffCondition.OFF && !influence.isConnected()) {
             throw new ConflictConnectionStatusException();
         }
 

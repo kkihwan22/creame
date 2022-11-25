@@ -7,12 +7,17 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Constraint(validatedBy = EnumValidator.class)
+@Constraint(validatedBy = EnumConstraintValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EnumValid {
-    String message() default "Invalid value. This is not permitted.";
+public @interface EnumConstraint {
+    String message() default "존재하지 않는 코드입니다.";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
+
     Class<? extends java.lang.Enum<?>> enumClass();
+
+    boolean ignoreCase() default false;
 }

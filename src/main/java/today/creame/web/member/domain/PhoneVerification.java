@@ -118,14 +118,16 @@ public class PhoneVerification {
     }
 
     public boolean matchedDigit(int digit) {
-        if (this.digit == digit) {
+        if (this.digit != digit) {
+            this.failedCount++;
             return false;
         }
 
-        this.failedCount++;
         if (failedCount >= 3) {
             this.expired = true;
+            return false;
         }
+
         return true;
     }
 

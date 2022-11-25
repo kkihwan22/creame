@@ -38,7 +38,7 @@ public class NotificationSetting {
     )
     private boolean recentInfluence;
 
-    public NotificationSetting(NotificationSetting current, NotificationSettingCode code, boolean condition) {
+    public NotificationSetting(NotificationSetting current, NotificationSettingItem code, boolean condition) {
         this.sms = current.sms;
         this.email = current.email;
         this.event = current.event;
