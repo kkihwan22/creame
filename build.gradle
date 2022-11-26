@@ -25,6 +25,9 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 
@@ -47,6 +50,7 @@ dependencies {
     // implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation group: 'com.auth0', name: 'java-jwt', version: '3.19.2'
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation group: 'com.github.iamport', name: 'iamport-rest-client-java', version: '0.2.22'
 
     // implementation 'org.springframework.boot:spring-boot-starter-webflux'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
