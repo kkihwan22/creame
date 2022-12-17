@@ -12,8 +12,6 @@ import today.creame.web.home.application.model.DisplayParameter;
 import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.model.InfluenceResult;
 
-;
-
 @RequiredArgsConstructor
 @Service
 public class HomeDisplayByCategoryServiceImpl implements HomeDisplayService {
