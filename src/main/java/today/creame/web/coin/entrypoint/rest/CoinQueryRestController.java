@@ -31,7 +31,7 @@ public class CoinQueryRestController implements BaseRestController {
     }
 
     @GetMapping("/api/v1/my-coins/history")
-    public ResponseEntity<Body<List<MyCoinHistoryResponse>>> myCoinUsedHistory(
+    public ResponseEntity<Body<List<MyCoinHistoryResponse>>> getMyCoinUsedHistory(
         @RequestParam(required = false, defaultValue = "1") int month
     ) {
         Long id = SecurityContextSupporter.get().getId();
