@@ -51,6 +51,7 @@ dependencies {
     implementation group: 'com.auth0', name: 'java-jwt', version: '3.19.2'
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
     implementation group: 'com.github.iamport', name: 'iamport-rest-client-java', version: '0.2.22'
+    implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws-parameter-store-config'
 
     // implementation 'org.springframework.boot:spring-boot-starter-webflux'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -67,6 +68,7 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.3"
+        mavenBom "io.awspring.cloud:spring-cloud-aws-dependencies:2.3.3"
     }
 }
 
