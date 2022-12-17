@@ -7,17 +7,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import today.creame.web.sms.application.adapter.SmsSender;
+import today.creame.web.sms.application.SmsSender;
 import today.creame.web.sms.infra.config.SmsConfig;
 import today.creame.web.sms.infra.feign.CoolSmsClient;
 import today.creame.web.sms.infra.support.SaltSupport;
 import today.creame.web.sms.infra.support.SignatureSupport;
 
-
 @RequiredArgsConstructor
 @Component
-public class CoolSmsSenderImpl implements SmsSender {
-    private final Logger log = LoggerFactory.getLogger(CoolSmsSenderImpl.class);
+public class CoolSmsSenderAdapter implements SmsSender {
+    private final Logger log = LoggerFactory.getLogger(CoolSmsSenderAdapter.class);
     private final String from = "0220881955";
     private final SmsConfig property;
     private final CoolSmsClient coolSmsClient;
@@ -27,7 +26,7 @@ public class CoolSmsSenderImpl implements SmsSender {
         LocalDateTime datetime = LocalDateTime.now();
         String salt = SaltSupport.generate();
         ResponseEntity<CoolSmsClient.SimpleMessageResponse> response =
-                coolSmsClient.sendOne(
+            coolSmsClient.sendOne(
                         authorization(
                                 property.getApiKey(),
                                 datetime,

@@ -1,4 +1,4 @@
-package today.creame.web.sms.application.adapter;
+package today.creame.web.sms.application;
 
 public interface SmsSender {
 

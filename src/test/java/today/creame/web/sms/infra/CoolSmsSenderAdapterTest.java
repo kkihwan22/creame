@@ -6,10 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 @SpringBootTest
-class CoolSmsSenderImplTest {
+class CoolSmsSenderAdapterTest {
 
     @Autowired
-    private CoolSmsSenderImpl sender;
+    private CoolSmsSenderAdapter sender;
 
     @Test
     void test_send_success() {
