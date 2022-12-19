@@ -1,12 +1,13 @@
-package today.creame.web.influence.application.model;
+package today.creame.web.matching.applicaton.model;
 
 import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.influence.domain.Category;
 import today.creame.web.matching.domain.ReviewKinds;
 
-@Getter @ToString
-public class InfluenceReviewWriteParameter {
+@Getter
+@ToString
+public class ReviewWriteParameter {
 
     private Long influenceId;
     private int rate;

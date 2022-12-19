@@ -1,10 +1,12 @@
 package today.creame.web.share.support;
 
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import today.creame.web.config.security.CustomUserDetails;
+import today.creame.web.config.security.exception.UnauthorizationException;
 
 public class SecurityContextSupporter {
     private final static Logger log = LoggerFactory.getLogger(SecurityContextSupporter.class);
@@ -19,5 +21,11 @@ public class SecurityContextSupporter {
         CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
         log.debug("principal: {}", principal);
         return principal;
+    }
+
+    public static Long getId() {
+        return Optional.ofNullable(SecurityContextSupporter.get())
+            .orElseThrow(() -> new UnauthorizationException())
+            .getId();
     }
 }

@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import today.creame.web.matching.domain.converter.MatchingStatusToStringConverter;
+import today.creame.web.matching.domain.converter.TelecomCompanyToStringConverter;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTimeWithAudit;
 
 @NoArgsConstructor
@@ -34,8 +37,9 @@ public class Matching extends BaseCreatedAndUpdatedDateTimeWithAudit {
     @Column(name = "member_id")
     private Long memberId;
 
-    @Column(name = "status")
-    private MatchingStatus progressStatus;
+    @Convert(converter = MatchingStatusToStringConverter.class)
+    @Column(name = "progress")
+    private MatchingStatus status;
 
     @Column(name = "req_dt")
     private LocalDateTime requestDateTime;
@@ -46,6 +50,7 @@ public class Matching extends BaseCreatedAndUpdatedDateTimeWithAudit {
     @Column(name = "end_dt")
     private LocalDateTime endedDateTime;
 
+    @Convert(converter = TelecomCompanyToStringConverter.class)
     @Column(name = "tel_company")
     private TelecomCompanyCode telecomCompany;
 

@@ -3,6 +3,7 @@ package today.creame.web.matching.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import today.creame.web.matching.domain.converter.ReviewKindsToStringConverter;
 
 @NoArgsConstructor
 @Entity
@@ -24,6 +26,7 @@ public class ReviewKindsStat {
     @Column(name = "influence_id")
     private Long influenceId;
 
+    @Convert(converter = ReviewKindsToStringConverter.class)
     @Column(name = "kinds")
     private ReviewKinds kinds;
 

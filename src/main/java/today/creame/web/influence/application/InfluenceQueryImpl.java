@@ -1,5 +1,14 @@
 package today.creame.web.influence.application;
 
+import static java.util.stream.Collectors.groupingBy;
+import static today.creame.web.influence.domain.InfluenceStatus.OPENED;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,15 +17,17 @@ import org.springframework.stereotype.Component;
 import today.creame.web.home.application.HomeInfluenceStatQuery;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
 import today.creame.web.influence.application.model.InfluenceResult;
-import today.creame.web.influence.domain.*;
+import today.creame.web.influence.domain.Category;
+import today.creame.web.influence.domain.Influence;
+import today.creame.web.influence.domain.InfluenceBookmark;
+import today.creame.web.influence.domain.InfluenceBookmarkJpaRepository;
+import today.creame.web.influence.domain.InfluenceCategory;
+import today.creame.web.influence.domain.InfluenceCategoryGroupByDTO;
+import today.creame.web.influence.domain.InfluenceCategoryJpaRepository;
+import today.creame.web.influence.domain.InfluenceJpaRepository;
+import today.creame.web.influence.domain.InfluenceProfileImage;
+import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
-
-import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.groupingBy;
-import static today.creame.web.influence.domain.InfluenceStatus.OPENED;
 
 @RequiredArgsConstructor
 @Component
@@ -56,12 +67,35 @@ public class InfluenceQueryImpl implements InfluenceQuery, HomeInfluenceStatQuer
     @Override
     public InfluenceResult getInfluence(Long id) {
         Influence influence = influenceJpaRepository
-                .findById(id)
-                .orElseThrow(NotFoundInfluenceException::new);
+            .findById(id)
+            .orElseThrow(NotFoundInfluenceException::new);
         log.debug("influence:{}", influence);
 
         InfluenceBookmark bookmark = influenceBookmarkJpaRepository.findById(id).orElse(null);
         return new InfluenceResult(influence, bookmark);
+    }
+
+    @Override
+    public List<InfluenceResult> listByBookmarked(Long memberId, boolean called) {
+        List<InfluenceBookmark> bookmarks = influenceBookmarkJpaRepository.findInfluenceBookmarksByMemberIdAndBookmarked(memberId, true);
+        log.debug("bookmarks: {}", bookmarks);
+
+        List<Influence> results = influenceJpaRepository.findByIdIn(
+            bookmarks.stream().map(InfluenceBookmark::getInfluenceId).collect(Collectors.toSet())
+        );
+
+        log.debug("results: {}", results);
+
+        if (called) {
+            // todo
+        }
+
+        return this.getInfluenceResults(results);
+    }
+
+    @Override
+    public List<InfluenceResult> listByInfluences(Set<Long> ids) {
+        return this.getInfluenceResults(influenceJpaRepository.findByIdIn(ids));
     }
 
     private List<InfluenceResult> getInfluenceResults(List<Influence> influences) {
