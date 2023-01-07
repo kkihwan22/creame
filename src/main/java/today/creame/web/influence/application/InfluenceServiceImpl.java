@@ -13,6 +13,9 @@ import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.influence.domain.InfluenceCategoryJpaRepository;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
+import today.creame.web.influence.exception.ConflictConnectionStatusException;
+import today.creame.web.influence.exception.NotFoundInfluenceException;
+import today.creame.web.share.domain.OnOffCondition;
 
 @RequiredArgsConstructor
 @Service
@@ -45,5 +48,24 @@ public class InfluenceServiceImpl implements InfluenceService {
         influenceProfileImageJpaRepository.saveAll(influence.getProfileImages());
 
         return influence.getId();
+    }
+
+    @Transactional
+    @Override
+    public void patchConnectionStatus(Long id, OnOffCondition status) {
+
+        Influence influence = influenceJpaRepository.findById(id)
+            .orElseThrow(NotFoundInfluenceException::new);
+        log.debug("find influence:{}", influence);
+
+        if (status == OnOffCondition.ON && influence.isConnected()) {
+            throw new ConflictConnectionStatusException();
+        }
+
+        if (status == OnOffCondition.OFF && !influence.isConnected()) {
+            throw new ConflictConnectionStatusException();
+        }
+
+        influence.updateConnect();
     }
 }

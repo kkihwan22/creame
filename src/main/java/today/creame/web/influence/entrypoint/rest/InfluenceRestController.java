@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import today.creame.web.influence.application.InfluenceConnectedService;
 import today.creame.web.influence.application.InfluenceNoticeService;
 import today.creame.web.influence.application.InfluenceQuery;
+import today.creame.web.influence.application.InfluenceService;
 import today.creame.web.influence.application.InfluenceSnsService;
-import today.creame.web.influence.application.model.InfluenceResult;
 import today.creame.web.influence.domain.SNS;
 import today.creame.web.influence.entrypoint.rest.io.NoticeGetResponse;
 import today.creame.web.influence.entrypoint.rest.io.NoticeUpdateRequest;
@@ -35,10 +34,9 @@ import today.creame.web.share.entrypoint.SimpleBodyData;
 public class InfluenceRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(InfluenceRestController.class);
     private final InfluenceQuery influenceQuery;
+    private final InfluenceService influenceService;
     private final InfluenceSnsService influenceSnsService;
     private final InfluenceNoticeService influenceNoticeService;
-    private final InfluenceConnectedService influenceConnectedService;
-
 
     // 인사말 upload -> 이건 여기가 아닌 다른 곳 (admin?)
 
@@ -48,12 +46,7 @@ public class InfluenceRestController implements BaseRestController {
 
     // 1:1 문의 조회 (답변달기)
 
-    @GetMapping("/public/v1/influences/{id}")
-    public ResponseEntity<Body<InfluenceResult>> getInfluence(@PathVariable Long id) {
-        InfluenceResult result = influenceQuery.getInfluence(id);
-        log.debug("result: {}", result);
-        return ResponseEntity.ok(BodyFactory.success(result));
-    }
+
 
     @GetMapping("/api/v1/influence/{id}/notice")
     public ResponseEntity<Body<NoticeGetResponse>> getNotice(@PathVariable Long id) {
@@ -88,16 +81,15 @@ public class InfluenceRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
-
-    @PatchMapping("/api/v1/influence/{id}/connection/on")
+    @PatchMapping("/api/v1/influence/{id}/online")
     public ResponseEntity<Body<SimpleBodyData<String>>> onConnection(@PathVariable Long id) {
-        influenceConnectedService.patchConnectionStatus(id, ON);
+        influenceService.patchConnectionStatus(id, ON);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
-    @PatchMapping("/api/v1/influence/{id}/connection/off")
+    @PatchMapping("/api/v1/influence/{id}/offline")
     public ResponseEntity<Body<SimpleBodyData<String>>> offConnection(@PathVariable Long id) {
-        influenceConnectedService.patchConnectionStatus(id, OFF);
+        influenceService.patchConnectionStatus(id, OFF);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }

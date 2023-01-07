@@ -32,6 +32,13 @@ public class InfluenceQueryRestController implements BaseRestController {
     private final MatchingQueryService matchingQueryService;
     private final ReviewQueryService reviewQueryService;
 
+    @GetMapping("/public/v1/influences/{id}")
+    public ResponseEntity<Body<InfluenceResult>> getInfluence(@PathVariable Long id) {
+        InfluenceResult result = influenceQuery.getInfluence(id);
+        log.debug("result: {}", result);
+        return ResponseEntity.ok(BodyFactory.success(result));
+    }
+
     // 바톰메뉴 (단골- 상담사) / p.78
     @GetMapping("/public/v1/influences-bookmark")
     public ResponseEntity<Body<List<InfluenceResult>>> getBookmarkedInfluences() {
