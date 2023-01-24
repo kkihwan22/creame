@@ -11,7 +11,7 @@ import today.creame.web.influence.exception.NotFoundInfluenceException;
 @RequiredArgsConstructor
 @Service
 public class InfluenceNoticeServiceImpl implements InfluenceNoticeService {
-    private final Logger log = LoggerFactory.getLogger(InfluenceSnsServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(InfluenceNoticeServiceImpl.class);
     private final InfluenceJpaRepository influenceJpaRepository;
 
     @Override

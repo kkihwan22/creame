@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.influence.application.InfluenceNoticeService;
 import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.InfluenceService;
-import today.creame.web.influence.application.InfluenceSnsService;
 import today.creame.web.influence.domain.SNS;
 import today.creame.web.influence.entrypoint.rest.io.NoticeGetResponse;
 import today.creame.web.influence.entrypoint.rest.io.NoticeUpdateRequest;
@@ -35,10 +34,8 @@ public class InfluenceRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(InfluenceRestController.class);
     private final InfluenceQuery influenceQuery;
     private final InfluenceService influenceService;
-    private final InfluenceSnsService influenceSnsService;
     private final InfluenceNoticeService influenceNoticeService;
 
-    // 인사말 upload -> 이건 여기가 아닌 다른 곳 (admin?)
 
     // 상담상품관리 (조회, 수정)
 
@@ -67,7 +64,7 @@ public class InfluenceRestController implements BaseRestController {
 
     @GetMapping("/api/v1/influence/{id}/sns")
     public ResponseEntity<Body<SnsGetResponse>> getSns(@PathVariable Long id) {
-        SNS sns = influenceSnsService.get(id);
+        SNS sns = influenceService.get(id);
         return ResponseEntity.ok(BodyFactory.success(new SnsGetResponse(sns)));
     }
 
@@ -76,8 +73,7 @@ public class InfluenceRestController implements BaseRestController {
         @PathVariable Long id,
         @Valid @RequestBody SnsUpdateRequest request, BindingResult bindingResult) {
         hasError(bindingResult);
-        influenceSnsService.update(id, new SNS(request.getSnsCompany(), request.getAddress()));
-
+        influenceService.update(id, new SNS(request.getSnsCompany(), request.getAddress()));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
@@ -90,6 +86,15 @@ public class InfluenceRestController implements BaseRestController {
     @PatchMapping("/api/v1/influence/{id}/offline")
     public ResponseEntity<Body<SimpleBodyData<String>>> offConnection(@PathVariable Long id) {
         influenceService.patchConnectionStatus(id, OFF);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @PatchMapping("/api/v1/influence/{id}/item/{index}")
+    public ResponseEntity<Body<SimpleBodyData<String>>> changeItem(
+        @PathVariable Long id,
+        @PathVariable Integer index
+    ) {
+        influenceService.changeItem(id, index);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }

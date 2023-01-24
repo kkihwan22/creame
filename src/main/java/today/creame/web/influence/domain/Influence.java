@@ -212,4 +212,8 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     public void putGreetings(Long id, String uri) {
         this.greetings = new Greetings(id, uri);
     }
+
+    public void changeItem(Integer index) {
+        this.item = ItemMap.get(index);
+    }
 }

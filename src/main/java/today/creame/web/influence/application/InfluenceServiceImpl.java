@@ -14,6 +14,7 @@ import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.influence.domain.InfluenceCategoryJpaRepository;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
+import today.creame.web.influence.domain.SNS;
 import today.creame.web.influence.exception.ConflictConnectionStatusException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.m2net.entrypoint.event.model.ConnectionUpdateEvent;
@@ -72,4 +73,30 @@ public class InfluenceServiceImpl implements InfluenceService {
         influence.updateConnect();
         publisher.publishEvent(new ConnectionUpdateEvent(id, status));
     }
+
+    @Transactional
+    @Override
+    public void changeItem(Long id, Integer index) {
+        Influence influence = influenceJpaRepository.findById(id)
+            .orElseThrow(NotFoundInfluenceException::new);
+        log.debug("find influence:{}", influence);
+        influence.changeItem(index);
+    } // TODO: 권한을 위해 parameter로 감싸야함.
+
+    @Override
+    public SNS get(Long id) {
+        Influence influence = influenceJpaRepository.findById(id)
+            .orElseThrow(NotFoundInfluenceException::new);
+        log.debug(" find influence: {}", influence);
+
+        return influence.getSns();
+    }
+
+    @Transactional
+    @Override
+    public void update(Long id, SNS sns) {
+        Influence influence = influenceJpaRepository.findById(id)
+            .orElseThrow(NotFoundInfluenceException::new);
+        log.debug(" find influence: {}", influence);
+    } // TODO: 권한을 위해 parameter로 감싸야함.
 }
