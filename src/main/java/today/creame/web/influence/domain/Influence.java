@@ -226,7 +226,11 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     }
 
     public void answer() {
-        this.qnaAnswerCount = this.qnaAnswerCount  + 1;
-        this.qnaNotAnswerCount = this.qnaNotAnswerCount -1;
+        this.qnaAnswerCount = this.qnaAnswerCount + 1;
+        this.qnaNotAnswerCount = this.qnaNotAnswerCount - 1;
+    }
+
+    public void putGreetings(Long id, String uri) {
+        this.greetings = new Greetings(id, uri);
     }
 }
