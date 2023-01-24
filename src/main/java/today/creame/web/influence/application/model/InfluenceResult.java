@@ -5,7 +5,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.ToString;
-import today.creame.web.influence.domain.*;
+import today.creame.web.influence.domain.Category;
+import today.creame.web.influence.domain.Greetings;
+import today.creame.web.influence.domain.Influence;
+import today.creame.web.influence.domain.InfluenceBookmark;
+import today.creame.web.influence.domain.InfluenceCategory;
+import today.creame.web.influence.domain.InfluenceProfileImage;
 
 @Getter @ToString
 public class InfluenceResult {
@@ -16,15 +21,7 @@ public class InfluenceResult {
     private int rateCount;
     private int reviewCount;
     private int qnaCount;
-
-    private int coinPrice;
-    private int coinPriceTime;
-    private String coinPriceTimeUnit;
-
-    private int postPrice;
-    private int postPriceTime;
-    private String postPriceTimeUnit;
-
+    private int item;
     private String snsCompany;
     private String snsAddress;
 
@@ -51,17 +48,7 @@ public class InfluenceResult {
         this.rateCount = influence.getRateCount();
         this.reviewCount = influence.getReviewCount();
         this.qnaCount = influence.getQnaCount();
-
-        Pricing coinPaid = influence.getCoinPaid();
-        this.coinPrice = coinPaid.getPrice();
-        this.coinPriceTime = coinPaid.getPriceTime();
-        this.coinPriceTimeUnit = coinPaid.getPriceTimeUnit().getLabel();
-
-        Pricing postPaid = influence.getPostPaid();
-        this.postPrice = postPaid.getPrice();
-        this.postPriceTime = postPaid.getPriceTime();
-        this.postPriceTimeUnit = postPaid.getPriceTimeUnit().getLabel();
-
+        this.item = influence.getItem().getIndex();
         this.introduction = influence.getIntroduction();
         this.greetings = Optional.ofNullable(influence.getGreetings())
                 .map(Greetings::getFileResourceUri)

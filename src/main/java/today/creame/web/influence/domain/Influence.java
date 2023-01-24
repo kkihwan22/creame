@@ -19,7 +19,7 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.influence.domain.converter.InfluenceRankToStringConverter;
-import today.creame.web.influence.domain.converter.InfluenceStatusToStringConverter;
+import today.creame.web.influence.domain.converter.ItemToIndexConverter;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
 @NoArgsConstructor
@@ -77,6 +77,10 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Embedded
     private Greetings greetings;
 
+    @Convert(converter = ItemToIndexConverter.class)
+    @Column(name = "item")
+    private Item item;
+
     @Column(
         name = "notice",
         columnDefinition = "text"
@@ -117,27 +121,6 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "qna_not_answer_cnt")
     private int qnaNotAnswerCount;
 
-    @AttributeOverrides({
-        @AttributeOverride(name = "price", column = @Column(name = "coin_price")),
-        @AttributeOverride(name = "priceTime", column = @Column(name = "coin_price_time")),
-        @AttributeOverride(name = "priceTimeUnit", column = @Column(name = "coin_price_time_unit")),
-    })
-    @Embedded
-    private Pricing coinPaid;
-
-    @AttributeOverrides({
-        @AttributeOverride(name = "price", column = @Column(name = "post_price")),
-        @AttributeOverride(name = "priceTime", column = @Column(name = "post_price_time")),
-        @AttributeOverride(name = "priceTimeUnit", column = @Column(name = "post_price_time_unit")),
-    })
-    @Embedded
-    private Pricing postPaid;
-
-    // TODO: 지우기
-    @Convert(converter = InfluenceStatusToStringConverter.class)
-    @Column(name = "status")
-    private InfluenceStatus status;
-
     @Column(name = "m2net_cid")
     private String m2NetCounselorId;
 
@@ -165,11 +148,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
         this.rank = Rank.WHITE;
         this.connected = false;
-
-        this.coinPaid = new Pricing(1000, 30, PriceTimeUnit.MIN);
-        this.postPaid = new Pricing(1300, 30, PriceTimeUnit.MIN);
-
-        this.status = InfluenceStatus.OPENED;
+        this.item = ItemMap.get(1);
     }
 
     public Influence(Long id) {

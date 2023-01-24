@@ -1,7 +1,6 @@
 package today.creame.web.influence.application;
 
 import static java.util.stream.Collectors.groupingBy;
-import static today.creame.web.influence.domain.InfluenceStatus.OPENED;
 
 import java.util.Collections;
 import java.util.List;
@@ -48,7 +47,7 @@ public class InfluenceQueryImpl implements InfluenceQuery, HomeInfluenceStatQuer
 
     @Override
     public List<InfluenceResult> listAll(Pageable pageable) {
-        List<Influence> content = influenceJpaRepository.findAllByStatusIn(List.of(OPENED), pageable);
+        List<Influence> content = influenceJpaRepository.findAllByBlocked(Boolean.FALSE, pageable);
         return getInfluenceResults(content);
     }
 
