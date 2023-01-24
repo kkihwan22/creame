@@ -21,7 +21,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import today.creame.web.member.domain.Token;
 import today.creame.web.member.domain.TokenType;
-import today.creame.web.member.entrypoint.listner.event.RefreshTokenEvent;
+import today.creame.web.member.entrypoint.event.model.TokenUpdateEvent;
 import today.creame.web.share.entrypoint.BodyFactory;
 
 
@@ -72,7 +72,7 @@ public class CreameAuthenticationFilter extends UsernamePasswordAuthenticationFi
         data.put("refresh_token", refresh.getValue());
         data.put("access_token", access.getValue());
 
-        eventPublisher.publishEvent(new RefreshTokenEvent(user.getId(), refresh.getValue()));
+        eventPublisher.publishEvent(new TokenUpdateEvent(user.getId(), refresh.getValue()));
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         mapper.writeValue(response.getOutputStream(), ResponseEntity.ok(BodyFactory.success(data)));

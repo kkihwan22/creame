@@ -1,16 +1,16 @@
-package today.creame.web.member.entrypoint.listner.event;
+package today.creame.web.member.entrypoint.event.model;
 
 import lombok.Getter;
 import lombok.ToString;
 
-@Getter @ToString
-public class RefreshTokenEvent {
+@Getter
+@ToString
+public class TokenUpdateEvent {
     private final Long memberId;
     private final String refreshToken;
 
-    public RefreshTokenEvent(Long memberId, String refreshToken) {
+    public TokenUpdateEvent(Long memberId, String refreshToken) {
         this.memberId = memberId;
         this.refreshToken = refreshToken;
     }
-
 }
