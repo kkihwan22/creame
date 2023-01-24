@@ -9,6 +9,7 @@ import today.creame.web.m2net.application.model.M2netCounselorCreateParameter;
 import today.creame.web.m2net.infra.feign.M2netCounselorClient;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateRequest;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateResponse;
+import today.creame.web.m2net.infra.feign.io.M2netCounselorStateRequest;
 
 @RequiredArgsConstructor
 @Service
@@ -27,5 +28,15 @@ public class M2NetCounselorServiceImpl implements M2netCounselorService {
         log.info(" Counselor Created. <");
 
         return response.getBody().getCsrid();
+    }
+
+    @Override
+    public void on(String cid) {
+        client.on(cid, M2netCounselorStateRequest.idle());
+    }
+
+    @Override
+    public void off(String cid) {
+        client.off(cid, M2netCounselorStateRequest.abse());
     }
 }
