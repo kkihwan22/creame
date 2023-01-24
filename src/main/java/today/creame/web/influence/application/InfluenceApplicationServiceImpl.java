@@ -5,18 +5,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import today.creame.web.influence.application.delegate.MemberCreateDelegate;
 import today.creame.web.influence.application.model.InfluenceApplicationParameter;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
 import today.creame.web.influence.domain.InfluenceApplication;
 import today.creame.web.influence.domain.InfluenceApplicationJpaRepository;
 import today.creame.web.influence.exception.NotFoundApplicationException;
+import today.creame.web.member.application.MemberService;
+import today.creame.web.member.application.model.MemberRegisterParameter;
+import today.creame.web.share.support.RandomString;
 
 @RequiredArgsConstructor
 @Service
 public class InfluenceApplicationServiceImpl implements InfluenceApplicationService {
     private final Logger log = LoggerFactory.getLogger(InfluenceApplicationServiceImpl.class);
-    private final MemberCreateDelegate memberCreateDelegate;
+    private final MemberService memberService;
     private final InfluenceService influenceService;
     private final InfluenceApplicationJpaRepository influenceApplicationJpaRepository;
 
@@ -38,7 +40,11 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
             .orElseThrow(NotFoundApplicationException::new);
         log.debug("find application: {}", application);
 
-        Long memberId = memberCreateDelegate.createMember(application);
+        String password = RandomString.password().nextString();
+        log.debug(" [ password]: {}", password);
+        Long memberId = memberService.registerMemberInfluence(
+            new MemberRegisterParameter(application.getEmail(), application.getNickname(), password, application.getPhoneNumber(), null));
+
         Long influenceId = influenceService.create(new InfluenceCreateParameter(memberId, application));
 
         log.debug("member:{}, influence:{}", memberId, influenceId);
