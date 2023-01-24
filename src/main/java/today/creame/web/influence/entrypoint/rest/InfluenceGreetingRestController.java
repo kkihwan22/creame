@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.influence.application.InfluenceGreetingsHistoryService;
@@ -36,7 +36,7 @@ public class InfluenceGreetingRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
-    @PutMapping("/api/v1/influence/{id}/greetings/{requestId}/approve")
+    @PatchMapping("/api/v1/influence/{id}/greetings/{requestId}/approve")
     public ResponseEntity<Body<SimpleBodyData<String>>> approve(
         @PathVariable Long id, @PathVariable Long requestId) {
         influenceGreetingsHistoryService.approve(new InfluenceGreetingApproveParameter(id, requestId));
