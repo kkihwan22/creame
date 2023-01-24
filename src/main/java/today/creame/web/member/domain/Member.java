@@ -44,6 +44,9 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "m2net_uid")
+    private String m2netUserId;
+
     @Convert(converter = MemberStatusConverter.class)
     @Column(name = "status")
     private MemberStatus status;
