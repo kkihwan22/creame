@@ -134,6 +134,9 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "status")
     private InfluenceStatus status;
 
+    @Column(name = "m2net_counselor_id")
+    private String m2NetCounselorId;
+
     @OneToMany(mappedBy = "influence", fetch = LAZY)
     private List<InfluenceCategory> categories;
 
