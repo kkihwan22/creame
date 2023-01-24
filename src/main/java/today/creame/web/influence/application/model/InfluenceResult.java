@@ -12,7 +12,8 @@ import today.creame.web.influence.domain.InfluenceBookmark;
 import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.influence.domain.InfluenceProfileImage;
 
-@Getter @ToString
+@Getter
+@ToString
 public class InfluenceResult {
     private Long id;
     private String extensionNumber;
@@ -22,6 +23,16 @@ public class InfluenceResult {
     private int reviewCount;
     private int qnaCount;
     private int item;
+
+    // TODO: 제거하기
+    private int coinPrice;
+    private int coinPriceTime;
+    private String coinPriceTimeUnit;
+    private int postPrice;
+    private int postPriceTime;
+    private String postPriceTimeUnit;
+    // 여기까지
+
     private String snsCompany;
     private String snsAddress;
 
