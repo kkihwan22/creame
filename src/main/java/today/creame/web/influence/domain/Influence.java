@@ -61,6 +61,9 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "connected")
     private boolean connected;
 
+    @Column(name = "blocked")
+    private boolean blocked;
+
     @Column(
         name = "introduction",
         columnDefinition = "text"
@@ -130,6 +133,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Embedded
     private Pricing postPaid;
 
+    // TODO: 지우기
     @Convert(converter = InfluenceStatusToStringConverter.class)
     @Column(name = "status")
     private InfluenceStatus status;
