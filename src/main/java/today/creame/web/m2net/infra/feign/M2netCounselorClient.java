@@ -9,7 +9,7 @@ import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateRequest;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateResponse;
 
 @FeignClient(
-    name = "CounselorClient",
+    name = "M2netCounselorClient",
     url = "http://passcall.co.kr:25205/csr- mgr",
     configuration = M2netHeaderConfig.class
 )
