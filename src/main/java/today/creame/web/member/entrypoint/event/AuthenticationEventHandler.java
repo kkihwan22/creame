@@ -11,12 +11,12 @@ import today.creame.web.member.entrypoint.event.model.TokenUpdateEvent;
 
 @RequiredArgsConstructor
 @Component
-public class AuthenticationEventListener {
-    private final Logger log = LoggerFactory.getLogger(AuthenticationEventListener.class);
+public class AuthenticationEventHandler {
+    private final Logger log = LoggerFactory.getLogger(AuthenticationEventHandler.class);
     private final AuthenticationService authenticationService;
 
     @EventListener
-    public void listen(TokenUpdateEvent event) {
+    public void handle(TokenUpdateEvent event) {
         log.debug("event: {}", event);
         authenticationService.saveRefreshToken(new RefreshTokenParameter(event.getMemberId(), event.getRefreshToken()));
     }

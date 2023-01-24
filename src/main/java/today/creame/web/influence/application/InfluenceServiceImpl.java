@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
@@ -15,6 +16,7 @@ import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
 import today.creame.web.influence.exception.ConflictConnectionStatusException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
+import today.creame.web.m2net.entrypoint.event.model.ConnectionUpdateEvent;
 import today.creame.web.share.domain.OnOffCondition;
 
 @RequiredArgsConstructor
@@ -25,6 +27,7 @@ public class InfluenceServiceImpl implements InfluenceService {
     private final InfluenceCategoryJpaRepository influenceCategoryJpaRepository;
     private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
     private final InfluenceProfileFileResourceQuery influenceProfileFileResourceQuery;
+    private final ApplicationEventPublisher publisher;
 
     @Transactional
     @Override
@@ -67,5 +70,6 @@ public class InfluenceServiceImpl implements InfluenceService {
         }
 
         influence.updateConnect();
+        publisher.publishEvent(new ConnectionUpdateEvent(id, status));
     }
 }
