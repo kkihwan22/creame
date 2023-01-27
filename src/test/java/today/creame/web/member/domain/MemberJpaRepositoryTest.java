@@ -1,5 +1,11 @@
 package today.creame.web.member.domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
+
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,11 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
 @AutoConfigureTestDatabase(replace = NONE)
 @DataJpaTest
@@ -26,7 +27,6 @@ class MemberJpaRepositoryTest {
         long count = memberJpaRepository.count();
 
         Member registerMember = new Member(
-                null,
                 "user1@creame.co.kr",
                 "1234",
                 "first user",
@@ -55,7 +55,6 @@ class MemberJpaRepositoryTest {
     void test_email_duplication() {
 
         Member firstMember = new Member(
-                null,
                 "user1@creame.co.kr",
                 "1234",
                 "first user",
@@ -65,7 +64,6 @@ class MemberJpaRepositoryTest {
         memberJpaRepository.save(firstMember);
 
         Member secondMember = new Member(
-                null,
                 "user1@creame.co.kr",
                 "1234",
                 "second user",
@@ -73,13 +71,26 @@ class MemberJpaRepositoryTest {
                 MemberStatus.ACTIVE);
 
         Exception exception =
-                assertThrows(
-                        DataIntegrityViolationException.class,
-                        () -> memberJpaRepository.save(secondMember)
-                );
+            assertThrows(
+                DataIntegrityViolationException.class,
+                () -> memberJpaRepository.save(secondMember)
+            );
 
         // memberJpaRepository.flush();
-        log.debug("error message: {}",exception.getMessage());
+        log.debug("error message: {}", exception.getMessage());
         assertNotNull(exception);
+    }
+
+    @Test
+    void test_update() {
+
+        Member m = new Member(
+            "user1000@creame.co.kr",
+            "1234",
+            "first user",
+            "01041234444",
+            MemberStatus.ACTIVE);
+        Member mSave = memberJpaRepository.save(m);
+        assertEquals(m, mSave);
     }
 }
