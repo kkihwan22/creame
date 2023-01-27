@@ -1,5 +1,10 @@
 package today.creame.web.member.domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
+
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -7,12 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
 
 @AutoConfigureTestDatabase(replace = NONE)
@@ -30,7 +29,7 @@ class PhoneVerificationJpaRepositoryTest {
         String phoneNumber = "01045671234";
         int digit = 156553;
 
-        PhoneVerification save = phoneVerificationJpaRepository.save(new PhoneVerification(phoneNumber, digit));
+        PhoneVerification save = phoneVerificationJpaRepository.save(new PhoneVerification(phoneNumber, digit, null));
         log.debug("saved: {}", save);
         phoneVerificationJpaRepository.flush();
 

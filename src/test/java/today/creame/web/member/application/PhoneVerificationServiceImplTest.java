@@ -2,7 +2,6 @@ package today.creame.web.member.application;
 
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,15 +34,9 @@ class PhoneVerificationServiceImplTest {
         );
 
         given = new PhoneVerification(
-                10L,
-                "01039960399",
-                123456,
-                Boolean.FALSE,
-                Boolean.FALSE,
-                0,
-                null,
-                LocalDateTime.now().minusMinutes(2),
-                LocalDateTime.now());
+            "01039960399",
+            123456,
+            null);
     }
 
     @Test
@@ -55,6 +48,6 @@ class PhoneVerificationServiceImplTest {
                 Optional.of(given)
         );
 
-        verificationService.verify("10", "01039960399", "123456");
+        verificationService.verify(10L, "01039960399", 123456);
     }
 }
