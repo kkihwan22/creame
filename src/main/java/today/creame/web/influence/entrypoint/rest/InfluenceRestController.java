@@ -36,14 +36,9 @@ public class InfluenceRestController implements BaseRestController {
     private final InfluenceService influenceService;
     private final InfluenceNoticeService influenceNoticeService;
 
-
-    // 상담상품관리 (조회, 수정)
-
     // 후기 조회 조회 (답변달기)
 
     // 1:1 문의 조회 (답변달기)
-
-
 
     @GetMapping("/api/v1/influence/{id}/notice")
     public ResponseEntity<Body<NoticeGetResponse>> getNotice(@PathVariable Long id) {
@@ -77,13 +72,13 @@ public class InfluenceRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
-    @PatchMapping("/api/v1/influence/{id}/online")
+    @PatchMapping("/api/v1/influence/{id}/connection/on")
     public ResponseEntity<Body<SimpleBodyData<String>>> onConnection(@PathVariable Long id) {
         influenceService.patchConnectionStatus(id, ON);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
-    @PatchMapping("/api/v1/influence/{id}/offline")
+    @PatchMapping("/api/v1/influence/{id}/connection/off")
     public ResponseEntity<Body<SimpleBodyData<String>>> offConnection(@PathVariable Long id) {
         influenceService.patchConnectionStatus(id, OFF);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
