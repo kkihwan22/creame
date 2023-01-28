@@ -27,6 +27,7 @@ import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
 import today.creame.web.share.entrypoint.SimpleBodyData;
+import today.creame.web.share.support.SecurityContextSupporter;
 
 @RequiredArgsConstructor
 @RestController
@@ -38,26 +39,12 @@ public class InfluenceQnaRestController implements BaseRestController {
     @GetMapping("/public/v1/influences/{id}/qna")
     public ResponseEntity<Body<List<InfluenceQnaResult>>> listByPaging(
         @PathVariable Long id,
-        @RequestParam(required = false, defaultValue = "0" ) int page,
-        @RequestParam(required = false, defaultValue = "20") int size
+        @RequestParam(required = false) int page,
+        @RequestParam(required = false) int size,
+        @RequestParam(required = false) boolean me
     ) {
-        List<InfluenceQnaResult> results = influenceQnaQuery.listByPaging(
-            new InfluenceQnaQueryParameter(page, size, Sort.unsorted(), false,  null));
-        log.debug("results: {}", results);
-
-        return ResponseEntity.ok(BodyFactory.success(results));
-    }
-
-    @GetMapping("/api/v1/influences/{id}/qna")
-    public ResponseEntity<Body<List<InfluenceQnaResult>>> listByPaging(
-        @PathVariable Long id,
-        @RequestParam(required = false, defaultValue = "0" ) int page,
-        @RequestParam(required = false, defaultValue = "20") int size,
-        @AuthenticationPrincipal UserDetails userDetails
-    ) {
-        CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
-        List<InfluenceQnaResult> results = influenceQnaQuery.listByPaging(
-            new InfluenceQnaQueryParameter(page, size, Sort.unsorted(), true, customUserDetails.getId()));
+        List<InfluenceQnaResult> results = influenceQnaQuery.pagingList(
+            new InfluenceQnaQueryParameter(page, size, Sort.unsorted(), this.getRequesterId(me)));
         log.debug("results: {}", results);
 
         return ResponseEntity.ok(BodyFactory.success(results));
@@ -89,5 +76,12 @@ public class InfluenceQnaRestController implements BaseRestController {
         influenceQnaService.answer(new InfluenceQnaAnswerParameter(id, qnaId, request.getContent()));
 
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData("success")));
+    }
+
+    private Long getRequesterId(Boolean me) {
+        if (me)
+            return SecurityContextSupporter.getId();
+
+        return null;
     }
 }

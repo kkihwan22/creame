@@ -16,12 +16,12 @@ public class InfluenceQnaResult {
     private Content question;
     private Content answer;
 
-    public InfluenceQnaResult(Long currentRequesterId, InfluenceQna qna) {
+    public InfluenceQnaResult(Long reqId, InfluenceQna qna) {
         this.id = qna.getId();
         Member questioner = qna.getQuestioner();
         this.questionerId = questioner.getId();
         this.status = qna.getStatus();
-        this.me = questioner.getId().equals(currentRequesterId);
+        this.me = questioner.getId().equals(reqId);
         this.question = Content.secretContent(qna.getQuestions(), me);
         this.answer = Content.secretContent(qna.getAnswers(), me);
     }

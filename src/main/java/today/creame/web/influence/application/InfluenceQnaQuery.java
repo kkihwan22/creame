@@ -5,6 +5,5 @@ import today.creame.web.influence.application.model.InfluenceQnaQueryParameter;
 import today.creame.web.influence.application.model.InfluenceQnaResult;
 
 public interface InfluenceQnaQuery {
-
-    List<InfluenceQnaResult> listByPaging(InfluenceQnaQueryParameter parameter);
+    List<InfluenceQnaResult> pagingList(InfluenceQnaQueryParameter parameter);
 }

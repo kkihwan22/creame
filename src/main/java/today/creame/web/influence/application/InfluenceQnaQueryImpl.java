@@ -3,7 +3,7 @@ package today.creame.web.influence.application;
 import static today.creame.web.influence.domain.QInfluenceQna.influenceQna;
 import static today.creame.web.member.domain.QMember.member;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +26,7 @@ public class InfluenceQnaQueryImpl implements InfluenceQnaQuery {
     private final JPAQueryFactory query;
 
     @Override
-    public List<InfluenceQnaResult> listByPaging(InfluenceQnaQueryParameter parameter) {
+    public List<InfluenceQnaResult> pagingList(InfluenceQnaQueryParameter parameter) {
         log.debug("parameter: {}", parameter);
 
         QInfluenceQna q = influenceQna;
@@ -36,7 +36,7 @@ public class InfluenceQnaQueryImpl implements InfluenceQnaQuery {
             .selectFrom(influenceQna)
             .join(influenceQna.questioner)
             .fetchJoin()
-            .where(isMe(parameter.me, parameter.requesterId))
+            .where(buildWhere(parameter))
             .offset(parameter.getPageable().getOffset())
             .limit(parameter.getPageable().getPageSize())
             .fetch();
@@ -44,11 +44,11 @@ public class InfluenceQnaQueryImpl implements InfluenceQnaQuery {
         return results.stream().map(result -> new InfluenceQnaResult(parameter.requesterId, result)).collect(Collectors.toList());
     }
 
-    private BooleanExpression isMe(boolean me, Long requesterId) {
-        if (!me) {
-            return null;
-        }
+    private BooleanBuilder buildWhere(InfluenceQnaQueryParameter parameter) {
+        BooleanBuilder where = new BooleanBuilder();
+        if (parameter.requesterId != null)
+            where.and(influenceQna.questioner.id.eq(parameter.requesterId));
 
-        return influenceQna.questioner.id.eq(requesterId);
+        return where;
     }
 }
