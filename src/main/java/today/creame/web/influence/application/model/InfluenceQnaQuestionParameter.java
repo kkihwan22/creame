@@ -5,14 +5,15 @@ import lombok.ToString;
 import today.creame.web.influence.domain.InfluenceQna;
 import today.creame.web.share.model.BaseParameter;
 
-@Getter @ToString
-public class InfluenceQnaAskParameter implements BaseParameter<InfluenceQna> {
+@Getter
+@ToString
+public class InfluenceQnaQuestionParameter implements BaseParameter<InfluenceQna> {
 
     private Long influenceId;
     private Long questionerId;
     private String content;
 
-    public InfluenceQnaAskParameter(Long influenceId, Long questionerId, String content) {
+    public InfluenceQnaQuestionParameter(Long influenceId, Long questionerId, String content) {
         this.influenceId = influenceId;
         this.questionerId = questionerId;
         this.content = content;

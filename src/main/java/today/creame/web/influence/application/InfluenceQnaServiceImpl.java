@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceQnaAnswerParameter;
-import today.creame.web.influence.application.model.InfluenceQnaAskParameter;
+import today.creame.web.influence.application.model.InfluenceQnaQuestionParameter;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.domain.InfluenceQna;
@@ -23,7 +23,7 @@ public class InfluenceQnaServiceImpl implements InfluenceQnaService {
 
     @Transactional
     @Override
-    public void ask(InfluenceQnaAskParameter parameter) {
+    public void ask(InfluenceQnaQuestionParameter parameter) {
         log.debug("parameter: {}", parameter);
 
         Influence influence = influenceJpaRepository.findById(parameter.getInfluenceId())

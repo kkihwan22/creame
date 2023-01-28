@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import today.creame.web.influence.application.model.InfluenceQnaAnswerParameter;
 import today.creame.web.influence.application.model.InfluenceQnaQueryParameter;
+import today.creame.web.influence.application.model.InfluenceQnaQuestionQueryParameter;
 import today.creame.web.influence.application.model.InfluenceQnaResult;
 import today.creame.web.influence.domain.InfluenceQna;
 import today.creame.web.influence.domain.InfluenceQnaJpaRepository;
@@ -42,6 +44,16 @@ public class InfluenceQnaQueryImpl implements InfluenceQnaQuery {
             .fetch();
 
         return results.stream().map(result -> new InfluenceQnaResult(parameter.requesterId, result)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<InfluenceQnaResult> pagingListByQuestions(InfluenceQnaQuestionQueryParameter parameter) {
+        return null;
+    }
+
+    @Override
+    public List<InfluenceQnaResult> pagingListByAnswers(InfluenceQnaAnswerParameter parameter) {
+        return null;
     }
 
     private BooleanBuilder buildWhere(InfluenceQnaQueryParameter parameter) {
