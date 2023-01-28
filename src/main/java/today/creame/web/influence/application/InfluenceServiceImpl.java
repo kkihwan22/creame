@@ -84,7 +84,7 @@ public class InfluenceServiceImpl implements InfluenceService {
     } // TODO: 권한을 위해 parameter로 감싸야함.
 
     @Override
-    public SNS get(Long id) {
+    public SNS getSNS(Long id) {
         Influence influence = influenceJpaRepository.findById(id)
             .orElseThrow(NotFoundInfluenceException::new);
         log.debug(" find influence: {}", influence);

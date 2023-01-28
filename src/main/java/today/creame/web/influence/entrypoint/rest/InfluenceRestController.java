@@ -59,7 +59,7 @@ public class InfluenceRestController implements BaseRestController {
 
     @GetMapping("/api/v1/influence/{id}/sns")
     public ResponseEntity<Body<SnsGetResponse>> getSns(@PathVariable Long id) {
-        SNS sns = influenceService.get(id);
+        SNS sns = influenceService.getSNS(id);
         return ResponseEntity.ok(BodyFactory.success(new SnsGetResponse(sns)));
     }
 

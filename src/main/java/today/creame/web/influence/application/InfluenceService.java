@@ -12,7 +12,7 @@ public interface InfluenceService {
 
     void changeItem(Long id, Integer index);
 
-    SNS get(Long id);
+    SNS getSNS(Long id);
 
     void update(Long id, SNS sns);
 }

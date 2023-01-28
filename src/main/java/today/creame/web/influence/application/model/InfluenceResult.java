@@ -23,6 +23,7 @@ public class InfluenceResult {
     private int reviewCount;
     private int qnaCount;
     private int item;
+    private String m2NetCounselorId;
 
     // TODO: 제거하기
     private int coinPrice;
@@ -60,6 +61,7 @@ public class InfluenceResult {
         this.reviewCount = influence.getReviewCount();
         this.qnaCount = influence.getQnaCount();
         this.item = influence.getItem().getIndex();
+        this.m2NetCounselorId = influence.getM2NetCounselorId();
         this.introduction = influence.getIntroduction();
         this.greetings = Optional.ofNullable(influence.getGreetings())
                 .map(Greetings::getFileResourceUri)
