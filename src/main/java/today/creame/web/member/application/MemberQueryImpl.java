@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import today.creame.web.member.application.model.MeResult;
+import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.domain.MemberRole;
@@ -31,6 +32,12 @@ public class MemberQueryImpl implements MemberQuery {
             .collect(Collectors.toList());
 
         return new MeResult(id, findMember.getNickname(), roles);
+    }
+
+    @Override
+    public MemberResult getId(Long id) {
+        Member findMember = memberJpaRepository.findById(id).orElseThrow(NotFoundMemberException::new);
+        return new MemberResult(findMember);
     }
 
     @Override
