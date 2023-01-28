@@ -39,17 +39,17 @@ public class Qna extends BaseCreatedAndUpdatedDateTimeWithAudit {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "content")
+    @Column(name = "content", columnDefinition = "text")
     private String content;
 
-    @OneToMany(mappedBy = "qna_attach", fetch = LAZY)
+    @OneToMany(mappedBy = "qna", fetch = LAZY)
     private List<QnaAttachedFile> attachedFiles;
 
     @Convert(converter = QnaProgressStatusToStringConverter.class)
     @Column(name = "status")
     private QnaProgressStatus status;
 
-    @Column(name = "reply")
+    @Column(name = "reply", columnDefinition = "text")
     private String reply;
 
     public static Qna createNew(QnaCategory category, String title, String content, List<QnaAttachedFile> attachedFiles) {
