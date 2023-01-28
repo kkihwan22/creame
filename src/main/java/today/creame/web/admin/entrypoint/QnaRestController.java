@@ -26,6 +26,7 @@ public class QnaRestController implements BaseRestController {
     public ResponseEntity<Body<SimpleBodyData<String>>> create(
         @Valid @RequestBody QnaCreateRequest request, BindingResult bindingResult
     ) {
+        hasError(bindingResult);
         qnaService.create(request.toParam());
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }

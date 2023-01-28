@@ -10,6 +10,7 @@ import today.creame.web.admin.application.model.QnaCreateParameter;
 import today.creame.web.admin.domain.Qna;
 import today.creame.web.admin.domain.QnaAttachedFile;
 import today.creame.web.admin.domain.QnaJapRepository;
+import today.creame.web.share.aspect.permit.Permit;
 
 @RequiredArgsConstructor
 @Service
@@ -18,6 +19,7 @@ public class QnaServiceImpl implements QnaService {
     private final QnaJapRepository qnaJapRepository;
 
     @Transactional
+    @Permit
     @Override
     public void create(QnaCreateParameter parameter) {
         Qna q = qnaJapRepository.save(Qna.createNew(
