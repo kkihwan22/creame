@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.config.security.CustomUserDetails;
-import today.creame.web.influence.application.InfluenceQnaQuery;
 import today.creame.web.influence.application.InfluenceQnaService;
+import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.model.InfluenceQnaAnswerParameter;
 import today.creame.web.influence.application.model.InfluenceQnaQueryParameter;
 import today.creame.web.influence.application.model.InfluenceQnaResult;
@@ -34,7 +34,7 @@ import today.creame.web.share.support.SecurityContextSupporter;
 public class InfluenceQnaRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(InfluenceQnaRestController.class);
     private final InfluenceQnaService influenceQnaService;
-    private final InfluenceQnaQuery influenceQnaQuery;
+    private final InfluenceQuery influenceQuery;
 
     @GetMapping("/public/v1/influences/{id}/qna")
     public ResponseEntity<Body<List<InfluenceQnaResult>>> listByPaging(
@@ -43,10 +43,9 @@ public class InfluenceQnaRestController implements BaseRestController {
         @RequestParam(required = false) int size,
         @RequestParam(required = false) boolean me
     ) {
-        List<InfluenceQnaResult> results = influenceQnaQuery.pagingList(
-            new InfluenceQnaQueryParameter(page, size, Sort.unsorted(), this.getRequesterId(me)));
+        List<InfluenceQnaResult> results = influenceQuery.pagingQnas(
+            new InfluenceQnaQueryParameter(PageRequest.of(page, size), this.getRequesterId(me), id, null));
         log.debug("results: {}", results);
-
         return ResponseEntity.ok(BodyFactory.success(results));
     }
 
