@@ -37,7 +37,7 @@ public class InfluenceQnaRestController implements BaseRestController {
     private final InfluenceQuery influenceQuery;
 
     @GetMapping("/public/v1/influences/{id}/qna")
-    public ResponseEntity<Body<List<InfluenceQnaResult>>> listByPaging(
+    public ResponseEntity<Body<List<InfluenceQnaResult>>> pagingListInfluenceQna(
         @PathVariable Long id,
         @RequestParam(required = false) int page,
         @RequestParam(required = false) int size,
@@ -46,6 +46,19 @@ public class InfluenceQnaRestController implements BaseRestController {
         List<InfluenceQnaResult> results = influenceQuery.pagingQnas(
             new InfluenceQnaQueryParameter(PageRequest.of(page, size), this.getRequesterId(me), id, null));
         log.debug("results: {}", results);
+        return ResponseEntity.ok(BodyFactory.success(results));
+    }
+
+    @GetMapping("/api/v1/influences/{id}/my-qnas")
+    public ResponseEntity<Body<List<InfluenceQnaResult>>> pagingListInfluenceMyAnswer(
+        @PathVariable Long id,
+        @RequestParam(required = false) int page,
+        @RequestParam(required = false) int size,
+        @RequestParam(required = false) boolean answered
+    ) {
+        List<InfluenceQnaResult> results = influenceQuery.pagingQnas(new InfluenceQnaQueryParameter(
+            PageRequest.of(page, size), null, id, answered));
+        log.debug("results: {]", results);
         return ResponseEntity.ok(BodyFactory.success(results));
     }
 
