@@ -32,7 +32,7 @@ public class InfluenceApplicationRegisterRequest {
     @NotBlank(message = "본인소개를 입력해주세요.")
     private String introduction;
 
-    @Size(max=4)
+    @Size(max = 5)
     @NotNull
     private List<Category> categories;
 
