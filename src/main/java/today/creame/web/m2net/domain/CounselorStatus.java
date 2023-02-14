@@ -1,4 +1,4 @@
-package today.creame.web.m2net.application.model;
+package today.creame.web.m2net.domain;
 
 import lombok.Getter;
 

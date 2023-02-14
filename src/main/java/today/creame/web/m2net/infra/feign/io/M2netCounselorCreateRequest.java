@@ -2,9 +2,8 @@ package today.creame.web.m2net.infra.feign.io;
 
 import lombok.Getter;
 import lombok.ToString;
-import today.creame.web.m2net.application.model.CounselorBillingMethod;
-import today.creame.web.m2net.application.model.CounselorStatus;
-import today.creame.web.m2net.application.model.M2netCounselorCreateParameter;
+import today.creame.web.m2net.domain.CounselorStatus;
+import today.creame.web.m2net.domain.DeductionMethod;
 
 @Getter
 @ToString
@@ -18,14 +17,14 @@ public class M2netCounselorCreateRequest {
     private int decamt;
     private String preflag;
 
-    public M2netCounselorCreateRequest(M2netCounselorCreateParameter parameter) {
-        this.csrnm = parameter.getNickname();
-        this.dtmfno = parameter.getInfluenceId().toString();
-        this.telno = parameter.getPhoneNumber();
-        this.dectm = parameter.getPriceUnitPerSecond();
-        this.decamt = parameter.getPricePerSecond();
+    public M2netCounselorCreateRequest(String csrnm, String dtmfno, String telno, int dectm, int decamt) {
+        this.csrnm = csrnm;
+        this.dtmfno = dtmfno;
+        this.telno = telno;
+        this.dectm = dectm;
+        this.decamt = decamt;
         this.state = CounselorStatus.IDLE.name();
         this.sortno = 1;
-        this.preflag = CounselorBillingMethod.ALL.getCode();
+        this.preflag = DeductionMethod.ALL.getCode();
     }
 }

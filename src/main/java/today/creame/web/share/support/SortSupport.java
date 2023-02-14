@@ -23,7 +23,7 @@ public class SortSupport {
         }
 
         String[] properties = sort.split(MAJOR_SEPARATOR);
-        log.debug("properties:{}", properties);
+        log.debug("properties:{}", properties.length);
 
         List<Order> orders = new ArrayList<>();
         for (String order : properties) {

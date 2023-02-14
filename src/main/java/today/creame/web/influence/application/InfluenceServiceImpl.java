@@ -17,8 +17,10 @@ import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
 import today.creame.web.influence.domain.SNS;
 import today.creame.web.influence.exception.ConflictConnectionStatusException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
-import today.creame.web.m2net.entrypoint.event.model.ConnectionUpdateEvent;
+import today.creame.web.m2net.infra.feign.M2netCounselorClient;
+import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateRequest;
 import today.creame.web.share.domain.OnOffCondition;
+import today.creame.web.share.event.ConnectionUpdateEvent;
 
 @RequiredArgsConstructor
 @Service
@@ -29,6 +31,7 @@ public class InfluenceServiceImpl implements InfluenceService {
     private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
     private final InfluenceProfileFileResourceQuery influenceProfileFileResourceQuery;
     private final ApplicationEventPublisher publisher;
+    private final M2netCounselorClient client;
 
     @Transactional
     @Override
@@ -51,6 +54,14 @@ public class InfluenceServiceImpl implements InfluenceService {
 
         influenceProfileImageJpaRepository.saveAll(influence.getProfileImages());
 
+        String cId = client.create(new M2netCounselorCreateRequest(
+            influence.getNickname(),
+            influence.getId().toString(),
+            influence.getPhoneNumber(),
+            influence.getItem().getPricePerTime(),
+            influence.getItem().getPrice())).getBody().getCsrid();
+
+        influence.updateCid(cId);
         return influence.getId();
     }
 

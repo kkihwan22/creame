@@ -22,9 +22,10 @@ public class M2netRestController {
     private final Logger log = LoggerFactory.getLogger(M2netRestController.class);
     private final M2netService m2netService;
 
-    @PostMapping("/public/v1/m2net/notice")
-    public String notify(@RequestBody M2netNoticeRequest request) {
+    @PostMapping("/public/v1/m2net/notice")  // todo : notice -> receipt 로 변경
+    public String receipt(@RequestBody M2netNoticeRequest request) {
         log.info("[ Notice ] request: {}", request);
+
         return "00";
     }
 

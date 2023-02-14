@@ -12,22 +12,27 @@ Content-Type: application/json
   "phone_number": "01031123398",
   "introduction": "안녕하세요. 잘부탁드립니다.",
   "categories": [
-    "DATING", "BEAUTY"
+    "DATING",
+    "BEAUTY"
   ],
-  "profile_image_ids": [4,5]
+  "profile_image_ids": [
+    4,
+    5
+  ]
 }
 
 ### 인플루언스 신청 조회
 
 GET {{host}}/admin/v1/influence/applications
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2MzgyNjQxLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.baKbm9rZI-N6qSCcQGA9JO5AyeDZZFJP-WANHzAMHUI
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2MzkxMDQ1LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.933XItxwhJutF5wNBq38xZkbEDueTD5IFC2PzqdeDPc
+
 
 ### 인플루언스 승인
 
-PATCH {{host}}/admin/v1/influence/applications/6/approve
+PATCH {{host}}/admin/v1/influence/applications/25/approve
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2MzgyNjQxLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.baKbm9rZI-N6qSCcQGA9JO5AyeDZZFJP-WANHzAMHUI
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2MzkyNDY1LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.f1eI1ZGJKRiDVMWbvVQspB4roeVsMpML1zPfuBGOJM0
 
 
 ### 인플루언스 조회

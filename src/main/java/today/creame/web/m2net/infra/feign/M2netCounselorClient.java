@@ -13,7 +13,7 @@ import today.creame.web.m2net.infra.feign.io.M2netCounselorStateRequest;
 
 @FeignClient(
     name = "M2netCounselorClient",
-    url = "http://passcall.co.kr:25205/csr- mgr",
+    url = "http://passcall.co.kr:25205/csr-mgr",
     configuration = M2netHeaderConfig.class
 )
 public interface M2netCounselorClient {

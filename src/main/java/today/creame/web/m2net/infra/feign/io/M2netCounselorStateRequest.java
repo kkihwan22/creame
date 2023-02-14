@@ -2,7 +2,7 @@ package today.creame.web.m2net.infra.feign.io;
 
 import lombok.Getter;
 import lombok.ToString;
-import today.creame.web.m2net.application.model.CounselorStatus;
+import today.creame.web.m2net.domain.CounselorStatus;
 
 @Getter
 @ToString

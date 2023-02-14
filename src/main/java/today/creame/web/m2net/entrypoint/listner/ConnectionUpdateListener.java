@@ -1,4 +1,4 @@
-package today.creame.web.m2net.entrypoint.event;
+package today.creame.web.m2net.entrypoint.listner;
 
 import static today.creame.web.share.domain.OnOffCondition.ON;
 
@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import today.creame.web.m2net.application.M2netCounselorService;
-import today.creame.web.m2net.entrypoint.event.model.ConnectionUpdateEvent;
+import today.creame.web.share.event.ConnectionUpdateEvent;
 
 @RequiredArgsConstructor
 @Component

@@ -216,4 +216,8 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     public void changeItem(Integer index) {
         this.item = ItemMap.get(index);
     }
+
+    public void updateCid(String cid) {
+        this.m2NetCounselorId = cid;
+    }
 }

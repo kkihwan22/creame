@@ -1,54 +1,48 @@
 package today.creame.web.m2net.entrypoint.rest.io;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import today.creame.web.m2net.application.model.M2netNoticeCommand;
+import today.creame.web.m2net.domain.DeductionMethod;
+import today.creame.web.m2net.domain.M2netReasonCode;
 
 @NoArgsConstructor
 @Getter
 @ToString
 public class M2netNoticeRequest {
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:dd:ss";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(M2netNoticeRequest.DATE_FORMAT);
 
-    @JsonProperty(value = "cpid")
-    private String cpId;
-
-    @JsonProperty(value = "csrid")
-    private String counselorId;
-
-    @JsonProperty(value = "dtmfNo")
-    private String dtmfNo;
-
-    @JsonProperty(value = "start")
+    private String cpid;
+    private String csrid;
+    private String dtmfno;
     private String start;
-
-    @JsonProperty(value = "end")
     private String end;
-
-    @JsonProperty(value = "eventtm")
-    private String eventTime;
-
-    @JsonProperty(value = "memId")
-    private String memberId;
-
-    @JsonProperty(value = "from")
+    private String eventtm;
+    private String membid;
     private String from;
-
-    @JsonProperty(value = "to")
     private String to;
-
-    @JsonProperty(value = "usetm")
-    private Integer usingSecond;
-
-    @JsonProperty(value = "amt")
-    private Integer amount;
-
-    @JsonProperty(value = "telno")
+    private Integer usetm;
+    private Integer amt;
     private String telno;
-
-    @JsonProperty(value = "preflag")
-    private String preFlag;
-
-    @JsonProperty(value = "reason")
     private String reason;
+    private String preflag;
+
+    public M2netNoticeCommand of() {
+        return new M2netNoticeCommand(
+            this.toString(),
+            this.csrid,
+            this.membid,
+            LocalDateTime.parse(this.start, FORMATTER),
+            LocalDateTime.parse(this.end, FORMATTER),
+            LocalDateTime.parse(this.eventtm, FORMATTER),
+            usetm,
+            amt,
+            M2netReasonCode.valueOf(reason.toUpperCase()),
+            DeductionMethod.valueOf(this.preflag)
+        );
+    }
 }
