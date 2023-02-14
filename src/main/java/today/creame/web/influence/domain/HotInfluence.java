@@ -1,7 +1,10 @@
 package today.creame.web.influence.domain;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -21,7 +24,11 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTimeWithAudit;
 public class HotInfluence extends BaseCreatedAndUpdatedDateTimeWithAudit {
 
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
+
+    @Column(name = "influence_id")
+    private Long influenceId;
 
     @Column(name = "extension_number")
     private String extensionNumber;
