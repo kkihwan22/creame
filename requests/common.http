@@ -25,3 +25,8 @@ Content-Disposition: form-data; name="files"; filename="img_0.png"
 #< ./input.txt --boundary--
 
 
+###
+
+GET {{host}}/public/v1/commons/item-code
+Content-Type: application/json
+

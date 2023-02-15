@@ -1,8 +1,10 @@
 package today.creame.web.influence.domain;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,5 +26,9 @@ public class ItemMap {
 
     public static Item get(Integer index) {
         return ItemMap.data.get(index);
+    }
+
+    public static List<Item> get() {
+        return data.values().stream().collect(Collectors.toList());
     }
 }
