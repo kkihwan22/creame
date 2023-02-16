@@ -1,8 +1,6 @@
 package today.creame.web.home.application.model;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.influence.domain.HotInfluence;
@@ -20,11 +18,8 @@ public class HomeHotInfluenceResult {
     public HomeHotInfluenceResult(HotInfluence influence) {
 
         this.id = influence.getId();
-        this.extensionNumber = influence.getExtensionNumber();
         this.title = influence.getTitle();
-        this.nickname = influence.getNickname();
         this.bannerImageUri = influence.getBannerImageUri();
-        this.categories = Arrays.stream(influence.getCategories().split(",")).collect(Collectors.toList());
     }
 
 }

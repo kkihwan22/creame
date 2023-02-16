@@ -30,31 +30,23 @@ public class HotInfluence extends BaseCreatedAndUpdatedDateTimeWithAudit {
     @Column(name = "influence_id")
     private Long influenceId;
 
-    @Column(name = "extension_number")
-    private String extensionNumber;
-
-    @Column(name = "nickname")
-    private String nickname;
-
     @Column(name = "title")
     private String title;
 
     @Column(name = "banner_image_uri")
     private String bannerImageUri;
 
-    @Column(name = "categories")
-    private String categories;
-
     @Column(name = "order_no")
     private int orderNumber;
 
-    public HotInfluence(Long id, String extensionNumber, String nickname, String title, String bannerImageUri, String categories, int orderNumber) {
-        this.id = id;
-        this.extensionNumber = extensionNumber;
-        this.nickname = nickname;
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    public HotInfluence(Long influenceId, String title, String bannerImageUri, int orderNumber) {
+        this.influenceId = influenceId;
         this.title = title;
         this.bannerImageUri = bannerImageUri;
-        this.categories = categories;
         this.orderNumber = orderNumber;
+        this.enabled = true;
     }
 }

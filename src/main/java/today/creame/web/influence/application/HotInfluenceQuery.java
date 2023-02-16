@@ -5,5 +5,5 @@ import today.creame.web.influence.application.model.HotInfluenceResult;
 
 public interface HotInfluenceQuery {
 
-    List<HotInfluenceResult> getHotInfluenceResults();
+    List<HotInfluenceResult> getHotInfluences();
 }

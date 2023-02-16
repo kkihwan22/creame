@@ -28,14 +28,15 @@ public class HomeRestController implements BaseRestController {
     private final HotInfluenceQuery hotInfluenceQuery;
     private final HomeDisplayServiceFactory homeDisplayServiceFactory;
 
-
+    // TODO: 2개로 나누기
     @GetMapping("/public/v1/home")
     public ResponseEntity<Body<HomeResponse>> Home() {
-        List<HotInfluenceResult> hots = hotInfluenceQuery.getHotInfluenceResults();
+        List<HotInfluenceResult> hots = hotInfluenceQuery.getHotInfluences();
         HomeInfluenceStatResult stat = homeInfluenceStatQuery.getHomeInfluenceStat();
         return ResponseEntity.ok(BodyFactory.success(new HomeResponse(hots, stat)));
     }
 
+    // TODO: refactoring
     @GetMapping("/public/v1/home/influences")
     public ResponseEntity<Body<List<InfluenceResult>>> listInfluence(
         @RequestParam(defaultValue = "all", required = false) String listType,

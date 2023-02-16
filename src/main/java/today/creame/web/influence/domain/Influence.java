@@ -11,6 +11,7 @@ import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -124,7 +125,8 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "m2net_cid")
     private String m2NetCounselorId;
 
-    @OneToMany(mappedBy = "influence", fetch = LAZY)
+    @OneToMany(fetch = LAZY)
+    @JoinColumn(name = "influenceId")
     private List<InfluenceCategory> categories;
 
     @OneToMany(mappedBy = "influence", fetch = LAZY)
@@ -159,11 +161,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         if (categories == null) {
             categories = new ArrayList<>();
         }
-
         categories.add(category);
-        if (category.getInfluence() != this) {
-            category.addInfluence(this);
-        }
     }
 
     public void addInfluenceProfileImage(InfluenceProfileImage profileImage) {
@@ -175,11 +173,6 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         if (profileImage.getInfluence() != this) {
             profileImage.addInfluence(this);
         }
-    }
-
-    public void removeInfluenceCategory(InfluenceCategory category) {
-        categories.remove(category);
-        category.addInfluence(null);
     }
 
     public void removeInfluenceProfileImage(InfluenceProfileImage profileImage) {

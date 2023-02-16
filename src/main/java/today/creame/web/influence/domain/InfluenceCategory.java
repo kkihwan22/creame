@@ -7,8 +7,6 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,12 +29,7 @@ public class InfluenceCategory extends BaseCreatedAndUpdatedDateTime {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(
-        name = "influence_id",
-        nullable = false
-    )
-    private Influence influence;
+    private Long influenceId;
 
     @Convert(converter = CategoryToStringConverter.class)
     @Column(name = "category")
@@ -44,18 +37,5 @@ public class InfluenceCategory extends BaseCreatedAndUpdatedDateTime {
 
     public InfluenceCategory(String categoryName) {
         this.category = Category.valueOf(categoryName);
-    }
-
-
-    public void addInfluence(Influence influence) {
-        if (this.influence != null) {
-            this.influence.getCategories().remove(this);
-        }
-
-        this.influence = influence;
-
-        if (!influence.getCategories().contains(this)) {
-            influence.addInfluenceCategory(this);
-        }
     }
 }

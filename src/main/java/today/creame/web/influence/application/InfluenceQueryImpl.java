@@ -65,12 +65,13 @@ public class InfluenceQueryImpl implements InfluenceQuery, HomeInfluenceStatQuer
         return getInfluenceResults(content);
     }
 
+    // TODO: 개선 필요!
     // by category 별 p8 연애, 뷰티, 스포츠
     @Override
     public List<InfluenceResult> listByCategory(String category, Pageable pageable) {
         List<InfluenceCategory> results = influenceCategoryJpaRepository.findByCategoryIs(Category.valueOf(category), pageable);
         Set<Long> idSet = results.stream()
-            .map(result -> result.getInfluence().getId())
+            .map(result -> result.getId())
             .collect(Collectors.toSet());
 
         List<Influence> influences = influenceJpaRepository.findByIdIn(idSet);
@@ -116,8 +117,8 @@ public class InfluenceQueryImpl implements InfluenceQuery, HomeInfluenceStatQuer
         log.debug("parameter: {}", parameter);
         // TODO: InfluenceQnaResult 에 바로 담기!!
         List<InfluenceQna> results = query
-            .selectFrom(influenceQna)
-            .join(influenceQna.questioner)
+            .selectFrom(q)
+            .join(q.questioner, m)
             .fetchJoin()
             .where(buildWhere(parameter))
             .orderBy(influenceQna.id.desc())
@@ -173,7 +174,7 @@ public class InfluenceQueryImpl implements InfluenceQuery, HomeInfluenceStatQuer
 
         Map<Long, List<InfluenceCategory>> mapCategories = results
             .stream()
-            .collect(groupingBy(result -> result.getInfluence().getId()));
+            .collect(groupingBy(result -> result.getInfluenceId()));
 
         return mapCategories;
     }

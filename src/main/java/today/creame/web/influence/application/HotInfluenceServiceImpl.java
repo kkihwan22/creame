@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.HotInfluenceUpdateParameter;
 import today.creame.web.influence.domain.Category;
-import today.creame.web.influence.domain.HotInfluence;
 import today.creame.web.influence.domain.HotInfluenceJpaRepository;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceCategory;
@@ -34,15 +33,15 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
             .map(Category::name)
             .collect(Collectors.joining(","));
 
-        HotInfluence hotInfluence = new HotInfluence(
-            id,
-            influence.getExtensionNumber(),
-            influence.getNickname(),
-            parameter.getTitle(),
-            parameter.getBannerImageUri(),
-            joinedCategories,
-            parameter.getOrderNumber());
+//        HotInfluence hotInfluence = new HotInfluence(
+//            id,
+//            influence.getExtensionNumber(),
+//            influence.getNickname(),
+//            parameter.getTitle(),
+//            parameter.getBannerImageUri(),
+//            joinedCategories,
+//            parameter.getOrderNumber());
 
-        hotInfluenceJpaRepository.save(hotInfluence);
+//        hotInfluenceJpaRepository.save(hotInfluence);
     }
 }
