@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.HotInfluenceUpdateParameter;
 import today.creame.web.influence.domain.Category;
+import today.creame.web.influence.domain.HotInfluence;
 import today.creame.web.influence.domain.HotInfluenceJpaRepository;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceCategory;
@@ -21,11 +22,13 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
     private final InfluenceJpaRepository influenceJpaRepository;
     private final HotInfluenceJpaRepository hotInfluenceJpaRepository;
 
+    // 인플루언스 등록 !!
+
     @Transactional
     @Override
-    public void update(HotInfluenceUpdateParameter parameter) {
-        Long id = parameter.getId();
-        Influence influence = influenceJpaRepository.findById(id)
+    public void create(HotInfluenceUpdateParameter parameter) {
+        Long influenceId = parameter.getInfluenceId();
+        Influence influence = influenceJpaRepository.findById(influenceId)
             .orElseThrow(NotFoundInfluenceException::new);
 
         String joinedCategories = influence.getCategories().stream()
@@ -33,15 +36,15 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
             .map(Category::name)
             .collect(Collectors.joining(","));
 
-//        HotInfluence hotInfluence = new HotInfluence(
-//            id,
-//            influence.getExtensionNumber(),
-//            influence.getNickname(),
-//            parameter.getTitle(),
-//            parameter.getBannerImageUri(),
-//            joinedCategories,
-//            parameter.getOrderNumber());
+        HotInfluence hotInfluence = new HotInfluence(
+            influenceId,
+            parameter.getTitle(),
+            parameter.getBannerImageUri(),
+            influence.getNickname(),
+            influence.getExtensionNumber(),
+            joinedCategories,
+            parameter.getOrderNumber());
 
-//        hotInfluenceJpaRepository.save(hotInfluence);
+        hotInfluenceJpaRepository.save(hotInfluence);
     }
 }

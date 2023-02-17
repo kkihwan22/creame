@@ -2,7 +2,9 @@ package today.creame.web.influence.application.model;
 
 import com.querydsl.core.annotations.QueryProjection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.influence.domain.Category;
@@ -20,18 +22,13 @@ public class HotInfluenceResult {
     private String bannerImageUri;
     private List<String> categories;
 
-    @QueryProjection
-    public HotInfluenceResult(HotInfluence hotInfluence, Influence influence) {
+    public HotInfluenceResult(HotInfluence hotInfluence) {
         this.id = hotInfluence.getId();
         this.influenceId = hotInfluence.getInfluenceId();
+        this.extensionNumber = hotInfluence.getExtensionNumber();
+        this.nickname = hotInfluence.getNickname();
         this.title = hotInfluence.getTitle();
         this.bannerImageUri = hotInfluence.getBannerImageUri();
-        this.extensionNumber = influence.getExtensionNumber();
-        this.nickname = influence.getNickname();
-    }
-
-    public void addCategory(Category category) {
-        if (this.categories == null) categories = new ArrayList<>();
-        categories.add(category.name());
+        this.categories = Arrays.stream(hotInfluence.getCategories().split(",")).collect(Collectors.toList());
     }
 }

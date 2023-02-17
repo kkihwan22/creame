@@ -3,15 +3,22 @@
 POST {{host}}/public/v1/temp-profile-image
 Content-Type: multipart/form-data; boundary=boundary
 
+
+
 --boundary
-Content-Disposition: form-data; name="files"; filename="img_0.png"
+Content-Disposition: form-data; name="files"; filename="20-57.png"
 
-< ../HELP.md
+< ../20-57.png
 
-#--boundary
-#Content-Disposition: form-data; name="files"; filename="img_1.png"
-#
-#< ../img_1.png
+--boundary
+Content-Disposition: form-data; name="files"; filename="20-57.png"
+
+< ../21-11.png
+
+--boundary
+Content-Disposition: form-data; name="files"; filename="20-57.png"
+
+< ../21-24.png
 
 #--boundary
 #Content-Disposition: form-data; name="second"; filename="input-second.txt"

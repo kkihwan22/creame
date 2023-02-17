@@ -31,7 +31,7 @@ public class HomeRestController implements BaseRestController {
     // TODO: 2개로 나누기
     @GetMapping("/public/v1/home")
     public ResponseEntity<Body<HomeResponse>> Home() {
-        List<HotInfluenceResult> hots = hotInfluenceQuery.getHotInfluences();
+        List<HotInfluenceResult> hots = hotInfluenceQuery.getEnabledHotInfluenceList();
         HomeInfluenceStatResult stat = homeInfluenceStatQuery.getHomeInfluenceStat();
         return ResponseEntity.ok(BodyFactory.success(new HomeResponse(hots, stat)));
     }
