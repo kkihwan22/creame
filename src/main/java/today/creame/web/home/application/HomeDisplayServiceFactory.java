@@ -29,8 +29,8 @@ public class HomeDisplayServiceFactory {
         }
     }
 
-    public HomeDisplayService factory(String type) {
+    public DisplayQuery factory(String type) {
         String beanName = ListType.valueOf(type.toUpperCase()).getBeanName();
-        return (HomeDisplayService) ApplicationContextSupporter.getBean(beanName);
+        return (DisplayQuery) ApplicationContextSupporter.getBean(beanName);
     }
 }
