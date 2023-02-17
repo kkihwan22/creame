@@ -4,13 +4,13 @@
 
 PUT {{host}}/admin/v1/banners/hot
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjE4NjYyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.1oIudQqkss8i-KYUiGo8j_wLSB3ebNW6vOX_RCaYuJY
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjQ0NzY3LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.3tXgqq0HM96GItvAMSUb71rTzc5XJycH78F8ku2pbMo
 
 {
-  "influence_id": 66,
+  "influence_id": 70,
   "title": "연애 인플루언스",
-  "banner_image_uri": "https://s3.ap-northeast-2.amazonaws.com/today.creame.file/temp/20230217/20230217022553-10001.png",
-  "order_number": "1"
+  "banner_image_uri": "https://s3.ap-northeast-2.amazonaws.com/today.creame.file/temp/20230217/20230217022559-10003.png",
+  "order_number": "2"
 }
 
 ### 인플루언스 신청 조회

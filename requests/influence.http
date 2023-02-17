@@ -6,16 +6,19 @@ POST {{host}}/public/v1/influence/applications
 Content-Type: application/json
 
 {
-  "name": "안정환",
-  "nickname": "안느",
-  "email": "ann@gmail.com",
-  "phone_number": "01031123398",
+  "name": "세번째",
+  "nickname": "이시대마지막인플루언스",
+  "email": "sec22@gmail.com",
+  "phone_number": "01077662249",
   "introduction": "안녕하세요. 잘부탁드립니다.",
   "categories": [
-
+    "DATING",
+    "BEAUTY"
   ],
   "profile_image_ids": [
-
+    158,
+    159,
+    160
   ]
 }
 
@@ -28,9 +31,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 ### 인플루언스 승인
 
-PATCH {{host}}/admin/v1/influence/applications/25/approve
+PATCH {{host}}/admin/v1/influence/applications/28/approve
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2MzkyNDY1LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.f1eI1ZGJKRiDVMWbvVQspB4roeVsMpML1zPfuBGOJM0
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjQ0NzY3LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.3tXgqq0HM96GItvAMSUb71rTzc5XJycH78F8ku2pbMo
 
 
 ### 인플루언스 조회

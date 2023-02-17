@@ -21,21 +21,22 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 @Table(name = "influence_category")
 @DynamicInsert
 @DynamicUpdate
-@Getter @ToString(exclude = {
-    "influence"
-})
+@Getter
+@ToString
 public class InfluenceCategory extends BaseCreatedAndUpdatedDateTime {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @Column(name = "influence_id")
     private Long influenceId;
 
     @Convert(converter = CategoryToStringConverter.class)
     @Column(name = "category")
     private Category category;
 
-    public InfluenceCategory(String categoryName) {
-        this.category = Category.valueOf(categoryName);
+    public InfluenceCategory(Long influenceId, Category category) {
+        this.influenceId = influenceId;
+        this.category = category;
     }
 }

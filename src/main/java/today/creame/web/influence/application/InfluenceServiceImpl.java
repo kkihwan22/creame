@@ -1,6 +1,7 @@
 package today.creame.web.influence.application;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
 import today.creame.web.influence.application.model.InfluenceProfileImageFileResourceResult;
+import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.influence.domain.InfluenceCategoryJpaRepository;
@@ -39,11 +41,12 @@ public class InfluenceServiceImpl implements InfluenceService {
         Influence influence = influenceJpaRepository.save(parameter.toEntity());
         log.debug("influence: {}", influence);
 
-        for (String item : parameter.getCategories()) {
-            influence.addInfluenceCategory(new InfluenceCategory(item));
-        }
-
-        influenceCategoryJpaRepository.saveAll(influence.getCategories());
+        influenceCategoryJpaRepository.saveAll(
+            parameter.getCategories()
+                .stream()
+                .map(category -> new InfluenceCategory(influence.getId(), Category.valueOf(category.toUpperCase())))
+                .collect(Collectors.toList())
+        );
 
         List<InfluenceProfileImageFileResourceResult> resultInfluenceProfileImages
             = influenceProfileFileResourceQuery.findInfluenceProfileImages(parameter.getProfileImages());

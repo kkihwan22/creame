@@ -126,7 +126,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     private String m2NetCounselorId;
 
     @OneToMany(fetch = LAZY)
-    @JoinColumn(name = "influenceId")
+    @JoinColumn(name = "influence_id")
     private List<InfluenceCategory> categories;
 
     @OneToMany(mappedBy = "influence", fetch = LAZY)
@@ -155,13 +155,6 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
     public Influence(Long id) {
         this.id = id;
-    }
-
-    public void addInfluenceCategory(InfluenceCategory category) {
-        if (categories == null) {
-            categories = new ArrayList<>();
-        }
-        categories.add(category);
     }
 
     public void addInfluenceProfileImage(InfluenceProfileImage profileImage) {
