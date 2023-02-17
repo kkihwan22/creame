@@ -3,6 +3,7 @@ package today.creame.web.influence.entrypoint.rest.io;
 import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -33,11 +34,11 @@ public class InfluenceApplicationRegisterRequest {
     private String introduction;
 
     @Size(max = 5)
-    @NotNull
+    @NotEmpty
     private List<Category> categories;
 
     @Size(max=4)
-    @NotNull
+    @NotEmpty
     private List<Long> profileImageIds;
 
     public InfluenceApplicationParameter toParameter() {
