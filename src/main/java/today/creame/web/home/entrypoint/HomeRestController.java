@@ -8,12 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import today.creame.web.home.application.HomeDisplayQuery;
 import today.creame.web.home.application.HomeDisplayServiceFactory;
-import today.creame.web.home.application.HomeInfluenceStatQuery;
 import today.creame.web.home.application.model.DisplayParameter;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
-import today.creame.web.home.entrypoint.io.HomeResponse;
-import today.creame.web.influence.application.HotInfluenceQuery;
 import today.creame.web.influence.application.model.HotInfluenceResult;
 import today.creame.web.influence.application.model.InfluenceResult;
 import today.creame.web.share.entrypoint.BaseRestController;
@@ -24,16 +22,20 @@ import today.creame.web.share.entrypoint.BodyFactory;
 @RestController
 public class HomeRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(HomeRestController.class);
-    private final HomeInfluenceStatQuery homeInfluenceStatQuery;
-    private final HotInfluenceQuery hotInfluenceQuery;
-    private final HomeDisplayServiceFactory homeDisplayServiceFactory;
+    private final HomeDisplayQuery homeDisplayQuery;
+    private final HomeDisplayServiceFactory homeDisplayServiceFactory; // todo: 개선
 
-    // TODO: 2개로 나누기
-    @GetMapping("/public/v1/home")
-    public ResponseEntity<Body<HomeResponse>> Home() {
-        List<HotInfluenceResult> hots = hotInfluenceQuery.getEnabledHotInfluenceList();
-        HomeInfluenceStatResult stat = homeInfluenceStatQuery.getHomeInfluenceStat();
-        return ResponseEntity.ok(BodyFactory.success(new HomeResponse(hots, stat)));
+    @GetMapping("/public/v1/home/top-banner")
+    public ResponseEntity<Body<List<HotInfluenceResult>>> enabledHotInfluenceList() {
+        List<HotInfluenceResult> results = homeDisplayQuery.queryEnabledInfluenceList();
+        log.debug("results: {}", results);
+        return ResponseEntity.ok(BodyFactory.success(results));
+    }
+
+    @GetMapping("/public/v1/home/influence/stat")
+    public ResponseEntity<Body<HomeInfluenceStatResult>> statInfluence() {
+        HomeInfluenceStatResult result = homeDisplayQuery.queryInfluenceStat();
+        return ResponseEntity.ok(BodyFactory.success(result));
     }
 
     // TODO: refactoring

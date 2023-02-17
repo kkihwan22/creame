@@ -4,6 +4,15 @@ GET {{host}}/public/v1/home
 Content-Type: application/json
 
 
+###
+GET {{host}}/public/v1/home/top-banner
+Content-Type: application/json
+
+###
+GET {{host}}/public/v1/home/influence/stat
+Content-Type: application/json
+
+
 ### 조회
 GET {{host}}/public/v1/home/influences?listType=RECOMMEND&page=0&size=20
 Content-Type: application/json

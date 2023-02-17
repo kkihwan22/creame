@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-import today.creame.web.home.application.HomeInfluenceStatQuery;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
 import today.creame.web.influence.application.model.InfluenceQnaQueryParameter;
 import today.creame.web.influence.application.model.InfluenceQnaResult;
@@ -40,7 +39,7 @@ import today.creame.web.member.domain.QMember;
 
 @RequiredArgsConstructor
 @Component
-public class InfluenceQueryImpl implements InfluenceQuery, HomeInfluenceStatQuery {
+public class InfluenceQueryImpl implements InfluenceQuery {
     private final Logger log = LoggerFactory.getLogger(InfluenceQueryImpl.class);
     private final InfluenceJpaRepository influenceJpaRepository;
     private final InfluenceBookmarkJpaRepository influenceBookmarkJpaRepository;
@@ -53,7 +52,7 @@ public class InfluenceQueryImpl implements InfluenceQuery, HomeInfluenceStatQuer
     private QMember m = member;
 
     @Override
-    public HomeInfluenceStatResult getHomeInfluenceStat() {
+    public HomeInfluenceStatResult queryInfluenceStat() {
         List<InfluenceCategoryGroupByDTO> results = influenceCategoryJpaRepository.groupByCount();
         log.debug("results : {}", results);
         return new HomeInfluenceStatResult(results);
