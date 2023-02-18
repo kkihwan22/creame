@@ -84,12 +84,12 @@ aws:
 
 logging:
   level:
-    root: info
-    today.creame: debug
+    root: error
+    today.creame: error
     org.springframework: warn
     org.springframework.web: warn
-    org.hibernate: debug
-    springfox: info
+    org.hibernate: error
+    springfox: error
     com.amazonaws.util.EC2MetadataUtils: ERROR
 
 
