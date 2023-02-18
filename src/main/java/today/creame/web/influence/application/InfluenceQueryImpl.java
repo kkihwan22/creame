@@ -32,7 +32,6 @@ import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.domain.InfluenceProfileImage;
 import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
 import today.creame.web.influence.domain.InfluenceQna;
-import today.creame.web.influence.domain.InfluenceQnaJpaRepository;
 import today.creame.web.influence.domain.QInfluenceQna;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.member.domain.QMember;
@@ -45,7 +44,6 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     private final InfluenceBookmarkJpaRepository influenceBookmarkJpaRepository;
     private final InfluenceCategoryJpaRepository influenceCategoryJpaRepository;
     private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
-    private final InfluenceQnaJpaRepository influenceQnaJpaRepository;
     private final JPAQueryFactory query;
 
     private QInfluenceQna q = influenceQna;
@@ -156,6 +154,9 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         Map<Long, List<InfluenceCategory>> mapCategories = this.groupByCategories(idSet);
         Map<Long, List<InfluenceProfileImage>> mapProfileImages = this.groupByProfileImages(idSet);
 
+        log.debug("map categories: {}", mapCategories);
+        log.debug("map profileImages: {}", mapProfileImages);
+
         return influences.stream()
             .map(influence -> {
                 Long key = influence.getId();
@@ -168,7 +169,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     }
 
     private Map<Long, List<InfluenceCategory>> groupByCategories(Set<Long> idSet) {
-        List<InfluenceCategory> results = influenceCategoryJpaRepository.findByIdIn(idSet);
+        List<InfluenceCategory> results = influenceCategoryJpaRepository.findByInfluenceIdIn(idSet);
         log.debug("results:{}", results);
 
         Map<Long, List<InfluenceCategory>> mapCategories = results
@@ -179,7 +180,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     }
 
     private Map<Long, List<InfluenceProfileImage>> groupByProfileImages(Set<Long> idSet) {
-        List<InfluenceProfileImage> results = influenceProfileImageJpaRepository.findByIdIn(idSet);
+        List<InfluenceProfileImage> results = influenceProfileImageJpaRepository.findByInfluence_IdIn(idSet);
         log.debug("results:{}", results);
 
         Map<Long, List<InfluenceProfileImage>> mapProfileImages = results
