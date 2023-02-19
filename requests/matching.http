@@ -1,0 +1,5 @@
+### 통화 전 통보
+
+PUT {{host}}/api/v1/m2net/pre-call/70
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM

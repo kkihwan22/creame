@@ -10,7 +10,7 @@ import today.creame.web.m2net.infra.feign.io.M2netPrecallResponse;
 
 @FeignClient(
     name = "M2netClient",
-    url = "http://passcall.co.kr:25205/etc- mgr",
+    url = "http://passcall.co.kr:25205/etc-mgr",
     configuration = M2netHeaderConfig.class
 )
 public interface M2netClient {

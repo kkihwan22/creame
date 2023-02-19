@@ -10,7 +10,7 @@ import today.creame.web.m2net.infra.feign.io.M2netUserCreateResponse;
 
 @FeignClient(
     name = "M2netUserClient",
-    url = "http://passcall.co.kr:25205/memb- mgr",
+    url = "http://passcall.co.kr:25205/memb-mgr",
     configuration = M2netHeaderConfig.class
 )
 public interface M2netUserClient {

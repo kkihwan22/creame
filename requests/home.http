@@ -1,9 +1,3 @@
-### home 조회
-
-GET {{host}}/public/v1/home
-Content-Type: application/json
-
-
 ###
 GET {{host}}/public/v1/home/top-banner
 Content-Type: application/json
