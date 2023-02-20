@@ -94,3 +94,18 @@ Content-Type: application/json
 
 {
 }
+
+### 인사말 등록
+POST {{host}}/api/v1/influence/50/greetings
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3NDkyMDE5LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.4zjWqz5zItJr45iZrec_LRT3VNYOXaOjjhFphmLE_xc
+
+{
+  "file_id": 166,
+  "file_uri": "https://s3.ap-northeast-2.amazonaws.com/today.creame.file/temp/20230219/20230219205438-10004.mp4"
+}
+
+### 인사말 조회
+GET {{host}}/api/v1/influence/50/greetings/latest
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3NDkyMDE5LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.4zjWqz5zItJr45iZrec_LRT3VNYOXaOjjhFphmLE_xc

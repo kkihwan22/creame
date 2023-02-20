@@ -1,5 +1,6 @@
 package today.creame.web.influence.application;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceGreetingApproveParameter;
 import today.creame.web.influence.application.model.InfluenceGreetingCreateParameter;
+import today.creame.web.influence.domain.GreetingsProgressStatus;
 import today.creame.web.influence.domain.InfluenceGreetingsHistory;
 import today.creame.web.influence.domain.InfluenceGreetingsHistoryJpaRepository;
 import today.creame.web.influence.exception.NotFoundGreetingsHistoryException;
@@ -18,10 +20,18 @@ public class InfluenceGreetingsHistoryServiceImpl implements InfluenceGreetingsH
     private final Logger log = LoggerFactory.getLogger(InfluenceGreetingsHistoryServiceImpl.class);
     private final InfluenceGreetingsHistoryJpaRepository influenceGreetingsHistoryJpaRepository;
 
-    @Override
+    @Transactional
     @Permit
+    @Override
     public void create(InfluenceGreetingCreateParameter parameter) {
-        influenceGreetingsHistoryJpaRepository.save(parameter.toEntity());
+        List<InfluenceGreetingsHistory> results = influenceGreetingsHistoryJpaRepository
+            .findByInfluence_IdAndStatusOrderByUpdatedByDesc(parameter.getInfluenceId(), GreetingsProgressStatus.REQUEST);
+
+        if (!results.isEmpty()) {
+            results.get(0).reRequest(parameter.getFileId(), parameter.getFileUri());
+        } else {
+            influenceGreetingsHistoryJpaRepository.save(parameter.toEntity());
+        }
     }
 
     @Transactional

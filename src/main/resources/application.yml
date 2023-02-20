@@ -87,7 +87,7 @@ logging:
     root: error
     today.creame: error
     org.springframework: warn
-    org.springframework.web: warn
+    org.springframework.web: error
     org.hibernate: error
     springfox: error
     com.amazonaws.util.EC2MetadataUtils: ERROR

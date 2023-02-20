@@ -10,6 +10,8 @@ public enum InfluenceErrorCode {
     CONFLICT_BOOKMARK_REQUEST(2003, "북마크 할 수 없습니다."),
     NOT_FOUND_QNA(2004, "존재하지 않는 QnA입니다."),
     NOT_FOUND_GREETING_HISTORY(2005, "인사말 요청이력을 찾을 수 없습니다."),
+    ILLEGAL_RE_REQUEST_GREETING_HISTORY(2006, "인사말을 재요청할 수 없습니다."),
+
     ;
 
     @Getter

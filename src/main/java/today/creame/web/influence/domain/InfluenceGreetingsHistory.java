@@ -17,6 +17,7 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.influence.domain.converter.GreetingsProgressStatusToStringConverter;
+import today.creame.web.influence.exception.IllegalReRequestGreetingsHistoryException;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTimeWithAudit;
 
 @NoArgsConstructor
@@ -56,7 +57,19 @@ public class InfluenceGreetingsHistory extends BaseCreatedAndUpdatedDateTimeWith
         this.status = GreetingsProgressStatus.REQUEST;
     }
 
+    public void reRequest(Long fileId, String fileUri) {
+        if (this.status != GreetingsProgressStatus.REQUEST) {
+            throw new IllegalReRequestGreetingsHistoryException();
+        }
+        this.fileId = fileId;
+        this.fileUri = fileUri;
+    }
+
     public void approve() {
+        if (this.status != GreetingsProgressStatus.REQUEST) {
+            throw new IllegalReRequestGreetingsHistoryException();
+        }
+
         this.influence.putGreetings(this.fileId, this.fileUri);
         this.status = GreetingsProgressStatus.APPROVAL;
     }
