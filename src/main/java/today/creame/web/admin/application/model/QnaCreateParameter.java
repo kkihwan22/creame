@@ -9,11 +9,12 @@ import lombok.ToString;
 import today.creame.web.admin.domain.QnaCategory;
 import today.creame.web.share.aspect.permit.PermitRule;
 import today.creame.web.share.model.BaseFileResource;
+import today.creame.web.share.model.BaseParameter;
 
 @NoArgsConstructor
 @Getter
 @ToString
-public class QnaCreateParameter {
+public class QnaCreateParameter implements BaseParameter {
     @PermitRule(type = INFLUENCE)
     private Long influenceId;
     private QnaCategory category;
@@ -27,5 +28,10 @@ public class QnaCreateParameter {
         this.title = title;
         this.content = content;
         this.attachedFiles = attachedFiles;
+    }
+
+    @Override
+    public Object toEntity() {
+        return null;
     }
 }

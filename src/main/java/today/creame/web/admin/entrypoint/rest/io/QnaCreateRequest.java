@@ -24,9 +24,9 @@ public class QnaCreateRequest {
     private String content;
 
     @NotNull
-    private List<BaseFileResource> attachedFiles;
+    private List<BaseFileResource> attachFiles;
 
     public QnaCreateParameter toParam() {
-        return new QnaCreateParameter(SecurityContextSupporter.get().getId(), this.category, this.title, this.content, this.attachedFiles);
+        return new QnaCreateParameter(SecurityContextSupporter.get().getId(), this.category, this.title, this.content, this.attachFiles);
     }
 }
