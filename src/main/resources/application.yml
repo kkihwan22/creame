@@ -85,7 +85,7 @@ aws:
 logging:
   level:
     root: error
-    today.creame: error
+    today.creame: debug
     org.springframework: warn
     org.springframework.web: error
     org.hibernate: error
