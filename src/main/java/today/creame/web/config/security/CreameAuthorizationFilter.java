@@ -46,6 +46,7 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
                     .orElseThrow(TokenNotExistException::new);
 
             String key = BearerTokenSupporter.extract(authorizationHeader);
+            log.debug("[access token] : {}", key);
 
             Token requestToken = new Token(key, TokenType.ACCESS_TOKEN);
             TokenVerified verify = requestToken.verify();
