@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.admin.application.model.QnaCreateParameter;
 import today.creame.web.admin.domain.QnaCategory;
-import today.creame.web.share.entrypoint.validator.EnumConstraint;
 import today.creame.web.share.model.BaseFileResource;
 import today.creame.web.share.support.SecurityContextSupporter;
 
@@ -15,7 +14,7 @@ import today.creame.web.share.support.SecurityContextSupporter;
 @ToString
 public class QnaCreateRequest {
 
-    @EnumConstraint(enumClass = QnaCategory.class)
+    @NotNull
     private QnaCategory category;
 
     @NotBlank
