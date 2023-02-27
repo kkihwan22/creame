@@ -40,7 +40,7 @@ public class InfluenceQueryRestController implements BaseRestController {
     }
 
     // 바톰메뉴 (단골- 상담사) / p.78
-    @GetMapping("/public/v1/influences-bookmark")
+    @GetMapping("/api/v1/influences-bookmark")
     public ResponseEntity<Body<List<InfluenceResult>>> getBookmarkedInfluences() {
         Long me = SecurityContextSupporter.getId();
         List<InfluenceResult> results = influenceQuery.listByBookmarked(me, false);
@@ -49,7 +49,7 @@ public class InfluenceQueryRestController implements BaseRestController {
     }
 
     // 바톰메뉴 (단골- 최근 통화 인플루언스) / p.78
-    @GetMapping("/public/v1/influences-recently")
+    @GetMapping("/api/v1/influences-recently")
     public ResponseEntity<Body<List<InfluenceResult>>> getRecentlyInfluences() {
         Long me = SecurityContextSupporter.getId();
         List<MatchingResult> matchingResults = matchingQueryService.recentlyMyMatching(me, true);
@@ -66,9 +66,6 @@ public class InfluenceQueryRestController implements BaseRestController {
         List<ReviewKindStatResult> results = reviewQueryService.getReviewKindsStatByInfluence(id);
         return ResponseEntity.ok(BodyFactory.success(new InfluenceReviewStatResponse(results)));
     }
-
-    // sort 구성
-    // "key|value,key|value"
 
     @GetMapping("/public/v1/influences/{id}/reviews")
     public void getReviewListOfInfluence(
