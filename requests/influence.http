@@ -121,3 +121,22 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
   "sns_company": "INSTAGRAM",
   "address": "https://instagram.com"
 }
+
+### 인플루언스 공지 등록
+PUT {{host}}/api/v1/influence/50/notice
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3NTc4MzkyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.yiTNfmMuolQsvE_UMp8MlDwdnR0m26Lnyip-L1oRZQY
+
+{
+  "content": "[ test ] 테스트 공지",
+  "attach_files": [
+    {
+      "file_id": 1,
+      "file_uri": "https://...."
+    },
+    {
+      "file_id": 2,
+      "file_uri": "https://...."
+    }
+  ]
+}

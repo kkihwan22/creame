@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceNoticeParameter;
 import today.creame.web.influence.application.model.InfluenceNoticeResult;
-import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.domain.InfluenceNotice;
 import today.creame.web.influence.domain.InfluenceNoticeJpaRepository;
 import today.creame.web.share.aspect.permit.Permit;
@@ -17,7 +16,6 @@ import today.creame.web.share.aspect.permit.Permit;
 @Service
 public class InfluenceNoticeServiceImpl implements InfluenceNoticeService {
     private final Logger log = LoggerFactory.getLogger(InfluenceNoticeServiceImpl.class);
-    private final InfluenceJpaRepository influenceJpaRepository;
     private final InfluenceNoticeJpaRepository influenceNoticeJpaRepository;
 
     @Override
@@ -33,10 +31,13 @@ public class InfluenceNoticeServiceImpl implements InfluenceNoticeService {
     @Transactional
     @Permit
     @Override
-    public void update(InfluenceNoticeParameter parameter) {
+    public void createOrUpdate(InfluenceNoticeParameter parameter) {
+        List<InfluenceNotice> result = influenceNoticeJpaRepository.findInfluenceNoticesByInfluenceIdAndDeleted(parameter.getInfluenceId(), false);
+        result.forEach(it -> it.delete());
+
         InfluenceNotice influenceNotice = parameter.toEntity();
+        ;
         influenceNoticeJpaRepository.save(influenceNotice);
-        log.debug("saved influence notice: {}", influenceNotice);
 
         parameter.getAttachFiles().forEach(it -> influenceNotice.attached(it));
     }

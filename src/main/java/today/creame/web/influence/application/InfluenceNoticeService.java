@@ -7,5 +7,5 @@ public interface InfluenceNoticeService {
 
     InfluenceNoticeResult get(Long id);
 
-    void update(InfluenceNoticeParameter parameter);
+    void createOrUpdate(InfluenceNoticeParameter parameter);
 }
