@@ -1,3 +1,357 @@
+GET http://43.201.3.68:8888/api/v1/influences-recently
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc3NTcwMDczLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.1nbVZKKLkCXn_H_fuRv8SzzUquTRQKNbeQX7y16CsFg
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-02-28T162302.200.json
+
+###
+
+GET http://43.201.3.68:8888/api/v1/influences-bookmark
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc3NTcwMDczLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.1nbVZKKLkCXn_H_fuRv8SzzUquTRQKNbeQX7y16CsFg
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-02-28T162233.200.json
+
+###
+
+POST http://43.201.3.68:8888/public/v1/login
+Content-Type: application/json
+Content-Length: 64
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "ethan.bud99@gmail.com",
+  "password" : "1234"
+}
+
+<> 2023-02-28T162113.200.json
+
+###
+
+GET http://43.201.3.68:8888/api/v1/me
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc3NDE0MjI3LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.2n7ntXtlaZe4VICTOQ4cdzD3CbKwOEhLovlJWkV6ybo
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-02-26T210400.200.json
+
+###
+
+POST http://43.201.3.68:8888/public/v1/login
+Content-Type: application/json
+Content-Length: 64
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "ethan.bud99@gmail.com",
+  "password" : "1234"
+}
+
+<> 2023-02-26T210347.200.json
+
+###
+
+GET http://43.201.3.68:8888/api/v1/me
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3NDE0MTkyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.BFGjvYTc9HmJ9tPy1ezLSNFzAjyGxQik0ATO7B8heg8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-02-26T210337.200.json
+
+###
+
+POST http://43.201.3.68:8888/public/v1/login
+Content-Type: application/json
+Content-Length: 70
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "kkkhjin1234@gmail.com",
+  "password" : "QIA@u!px0p"
+}
+
+<> 2023-02-26T210312.200.json
+
+###
+
+POST http://localhost:8888/api/v1/qna
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3Mzk4Njk4LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.zA2D63v-8kaXzZu8e02u7hpGeQgL2dGeWc_S75e2eeo
+Content-Length: 193
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+	"category":  "GENERAL",
+	"title":  "제목",
+	"content":  "본문",
+	"attach_files":  [
+			 {"file_id": 1, "file_uri" : "https://...."},
+			 {"file_id": 2, "file_uri" : "https://...."}
+		]
+}
+
+<> 2023-02-26T164802.200.json
+
+###
+
+POST http://localhost:8888/api/v1/qna
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3Mzk4Njk4LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.zA2D63v-8kaXzZu8e02u7hpGeQgL2dGeWc_S75e2eeo
+Content-Length: 193
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+	"category":  "GENERAL",
+	"title":  "제목",
+	"content":  "본문",
+	"attach_files":  [
+			 {"file_id": 1, "file_uri" : "https://...."},
+			 {"file_id": 2, "file_uri" : "https://...."}
+		]
+}
+
+<> 2023-02-26T164707.500.json
+
+###
+
+POST http://localhost:8888/api/v1/qna
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3Mzk4Njk4LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.zA2D63v-8kaXzZu8e02u7hpGeQgL2dGeWc_S75e2eeo
+Content-Length: 193
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+	"category":  "GENERAL",
+	"title":  "제목",
+	"content":  "본문",
+	"attach_files":  [
+			 {"file_id": 1, "file_uri" : "https://...."},
+			 {"file_id": 2, "file_uri" : "https://...."}
+		]
+}
+
+<> 2023-02-26T164512.500.json
+
+###
+
+POST http://43.201.3.68:8888/public/v1/token/refresh
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc4MDAxMDcyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.g-PTv-IN8xqku75jcoYz5NK7yVlZuOac0N2ACHcUZRo
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-02-26T164458.200.json
+
+###
+
+POST http://localhost:8888/api/v1/qna
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3Mzk3NDcyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.I7Qih9UHGhCrQ_eDIp32Rv3SkL4_u6te7CvdEThzxVQ
+Content-Length: 193
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+	"category":  "GENERAL",
+	"title":  "제목",
+	"content":  "본문",
+	"attach_files":  [
+			 {"file_id": 1, "file_uri" : "https://...."},
+			 {"file_id": 2, "file_uri" : "https://...."}
+		]
+}
+
+<> 2023-02-26T164441.401.json
+
+###
+
+POST http://localhost:8888/api/v1/qna
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3Mzk3NDcyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.I7Qih9UHGhCrQ_eDIp32Rv3SkL4_u6te7CvdEThzxVQ
+Content-Length: 193
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+	"category":  "GENERAL",
+	"title":  "제목",
+	"content":  "본문",
+	"attach_files":  [
+			 {"file_id": 1, "file_uri" : "https://...."},
+			 {"file_id": 2, "file_uri" : "https://...."}
+		]
+}
+
+<> 2023-02-26T164431.500.json
+
+###
+
+PATCH http://localhost:8888/admin/v1/influence/applications/25/approve
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2MzkyNDY1LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.f1eI1ZGJKRiDVMWbvVQspB4roeVsMpML1zPfuBGOJM0
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-02-26T164430-2.401.json
+
+###
+
+GET http://localhost:8888/admin/v1/influence/applications
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2MzkxMDQ1LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.933XItxwhJutF5wNBq38xZkbEDueTD5IFC2PzqdeDPc
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-02-26T164430-1.401.json
+
+###
+
+PUT http://localhost:8888/admin/v1/banners/hot
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjQ0NzY3LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.3tXgqq0HM96GItvAMSUb71rTzc5XJycH78F8ku2pbMo
+Content-Length: 206
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "influence_id": 70,
+  "title": "연애 인플루언스",
+  "banner_image_uri": "https://s3.ap-northeast-2.amazonaws.com/today.creame.file/temp/20230217/20230217022559-10003.png",
+  "order_number": "2"
+}
+
+<> 2023-02-26T164430.401.json
+
+###
+
+POST http://localhost:8888/api/v1/qna
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3Mzk3NDcyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.I7Qih9UHGhCrQ_eDIp32Rv3SkL4_u6te7CvdEThzxVQ
+Content-Length: 193
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+	"category":  "GENERAL",
+	"title":  "제목",
+	"content":  "본문",
+	"attach_files":  [
+			 {"file_id": 1, "file_uri" : "https://...."},
+			 {"file_id": 2, "file_uri" : "https://...."}
+		]
+}
+
+<> 2023-02-26T164301.400.json
+
+###
+
+POST http://43.201.3.68:8888/api/v1/qna
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3Mzk3NDcyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.I7Qih9UHGhCrQ_eDIp32Rv3SkL4_u6te7CvdEThzxVQ
+Content-Length: 193
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+	"category":  "GENERAL",
+	"title":  "제목",
+	"content":  "본문",
+	"attach_files":  [
+			 {"file_id": 1, "file_uri" : "https://...."},
+			 {"file_id": 2, "file_uri" : "https://...."}
+		]
+}
+
+<> 2023-02-26T163515.500.json
+
+###
+
+POST http://43.201.3.68:8888/api/v1/qna
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3Mzk3NDcyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.I7Qih9UHGhCrQ_eDIp32Rv3SkL4_u6te7CvdEThzxVQ
+Content-Length: 194
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+	"category":  "GENERAL",
+	"title":  "제목",
+	"content":  "본문",
+	"attach_files":  [
+			 {"file_id": 1, "file_uri" : "https://...."},
+			 {"file_id": 2, "file_uri" : "https://...."}
+		],
+}
+
+<> 2023-02-26T163506.400.json
+
+###
+
+PUT http://43.201.3.68:8888/api/v1/influence/50/sns
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3Mzk3NDcyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.I7Qih9UHGhCrQ_eDIp32Rv3SkL4_u6te7CvdEThzxVQ
+Content-Length: 68
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "sns_company": "INSTAGRAM", "address": "https://instagram.com"
+}
+
+<> 2023-02-26T162706.200.json
+
+###
+
+POST http://43.201.3.68:8888/public/v1/login
+Content-Type: application/json
+Content-Length: 70
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "kkkhjin1234@gmail.com",
+  "password" : "QIA@u!px0p"
+}
+
+<> 2023-02-26T162433.200.json
+
+###
+
 GET http://localhost:8888/api/v1/influence/50/greetings/latest
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3NDkyMDE5LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.4zjWqz5zItJr45iZrec_LRT3VNYOXaOjjhFphmLE_xc
@@ -374,342 +728,6 @@ User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2023-02-18T112347.404.json
-
-###
-
-GET http://localhost:8888/public/v1/home/influences?listType=ALL&page=0&size=20
-Content-Type: application/json
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-02-18T030130.200.json
-
-###
-
-GET http://localhost:8888/public/v1/home/influences?listType=RECOMMEND&page=0&size=20
-Content-Type: application/json
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-02-18T030118.200.json
-
-###
-
-PUT http://43.201.3.68:8888/admin/v1/banners/hot
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjQ0NzY3LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.3tXgqq0HM96GItvAMSUb71rTzc5XJycH78F8ku2pbMo
-Content-Length: 206
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "influence_id": 70,
-  "title": "연애 인플루언스",
-  "banner_image_uri": "https://s3.ap-northeast-2.amazonaws.com/today.creame.file/temp/20230217/20230217022559-10003.png",
-  "order_number": "2"
-}
-
-<> 2023-02-17T233806.200.json
-
-###
-
-PUT http://43.201.3.68:8888/admin/v1/banners/hot
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjQ0NzY3LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.3tXgqq0HM96GItvAMSUb71rTzc5XJycH78F8ku2pbMo
-Content-Length: 206
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "influence_id": 69,
-  "title": "연애 인플루언스",
-  "banner_image_uri": "https://s3.ap-northeast-2.amazonaws.com/today.creame.file/temp/20230217/20230217022558-10002.png",
-  "order_number": "2"
-}
-
-<> 2023-02-17T233755.200.json
-
-###
-
-PUT http://43.201.3.68:8888/admin/v1/banners/hot
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjE4NjYyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.1oIudQqkss8i-KYUiGo8j_wLSB3ebNW6vOX_RCaYuJY
-Content-Length: 206
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "influence_id": 69,
-  "title": "연애 인플루언스",
-  "banner_image_uri": "https://s3.ap-northeast-2.amazonaws.com/today.creame.file/temp/20230217/20230217022558-10002.png",
-  "order_number": "2"
-}
-
-<> 2023-02-17T233740.401.json
-
-###
-
-PATCH http://localhost:8888/admin/v1/influence/applications/28/approve
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjQ0NzY3LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.3tXgqq0HM96GItvAMSUb71rTzc5XJycH78F8ku2pbMo
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-02-17T233550.200.json
-
-###
-
-PATCH http://localhost:8888/admin/v1/influence/applications/27/approve
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjQ0NzY3LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.3tXgqq0HM96GItvAMSUb71rTzc5XJycH78F8ku2pbMo
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-02-17T233544.200.json
-
-###
-
-PATCH http://localhost:8888/admin/v1/influence/applications/27/approve
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjQ0NzY3LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.3tXgqq0HM96GItvAMSUb71rTzc5XJycH78F8ku2pbMo
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-02-17T232144.500.json
-
-###
-
-PATCH http://43.201.3.68:8888/admin/v1/influence/applications/27/approve
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjQ0NzY3LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.3tXgqq0HM96GItvAMSUb71rTzc5XJycH78F8ku2pbMo
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-02-17T232029.500.json
-
-###
-
-POST http://43.201.3.68:8888/public/v1/token/refresh
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2OTcyOTEzLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.nOc_FZKgjnE4jNmRFXbr9D_mDgknl0zZVoVhlW1Zp_w
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-02-17T231928.200.json
-
-###
-
-GET http://43.201.3.68:8888/admin/v1/influence/applications
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2MzkxMDQ1LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.933XItxwhJutF5wNBq38xZkbEDueTD5IFC2PzqdeDPc
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-02-17T231921.401.json
-
-###
-
-POST http://43.201.3.68:8888/public/v1/influence/applications
-Content-Type: application/json
-Content-Length: 298
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "세번째",
-  "nickname": "이시대마지막인플루언스",
-  "email": "sec22@gmail.com",
-  "phone_number": "01077662249",
-  "introduction": "안녕하세요. 잘부탁드립니다.",
-  "categories": [
-    "DATING",
-    "BEAUTY"
-  ],
-  "profile_image_ids": [
-    158, 159, 160
-  ]
-}
-
-<> 2023-02-17T231857.200.json
-
-###
-
-POST http://43.201.3.68:8888/public/v1/influence/applications
-Content-Type: application/json
-Content-Length: 269
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "두번째",
-  "nickname": "Second",
-  "email": "sec@gmail.com",
-  "phone_number": "01077662248",
-  "introduction": "안녕하세요. 잘부탁드립니다.",
-  "categories": [
-    "DATING",
-    "BEAUTY"
-  ],
-  "profile_image_ids": [
-    158, 159, 160
-  ]
-}
-
-<> 2023-02-17T231812.200.json
-
-###
-
-GET http://localhost:8888/public/v1/home/top-banner
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-02-17T180651.200.json
-
-###
-
-GET http://localhost:8888/public/v1/home/influence/stat
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-02-17T180606.200.json
-
-###
-
-GET http://localhost:8888/public/v1/home/influences
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-02-17T180540.200.json
-
-###
-
-POST http://localhost:8888/public/v1/influence/applications
-Content-Type: application/json
-Content-Length: 226
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "안정환",
-  "nickname": "안느",
-  "email": "ann@gmail.com",
-  "phone_number": "01031123398",
-  "introduction": "안녕하세요. 잘부탁드립니다.",
-  "categories": [
-
-  ],
-  "profile_image_ids": [
-
-  ]
-}
-
-<> 2023-02-17T164012.200.json
-
-###
-
-POST http://localhost:8888/public/v1/influence/applications
-Content-Type: application/json
-Content-Length: 230
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "안정환",
-  "nickname": "안느",
-  "email": "ann@gmail.com",
-  "phone_number": "01031123398",
-  "introduction": "안녕하세요. 잘부탁드립니다.",
-  "categories": [
-
-  ],
-  "profile_image_ids": [
-
-  ]
-}
-
-<> 2023-02-17T163926.400.json
-
-###
-
-GET http://localhost:8888/public/v1/home
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-02-17T161245.200.json
-
-###
-
-PUT http://localhost:8888/admin/v1/banners/hot
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjE4NjYyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.1oIudQqkss8i-KYUiGo8j_wLSB3ebNW6vOX_RCaYuJY
-Content-Length: 206
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "influence_id": 66,
-  "title": "연애 인플루언스",
-  "banner_image_uri": "https://s3.ap-northeast-2.amazonaws.com/today.creame.file/temp/20230217/20230217022553-10001.png",
-  "order_number": "1"
-}
-
-<> 2023-02-17T161221.200.json
-
-###
-
-PUT http://localhost:8888/admin/v1/banners/hot
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc2NjE4NjYyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.1oIudQqkss8i-KYUiGo8j_wLSB3ebNW6vOX_RCaYuJY
-Content-Length: 206
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "influence_id": 66,
-  "title": "연애 인플루언스",
-  "banner_image_uri": "https://s3.ap-northeast-2.amazonaws.com/today.creame.file/temp/20230217/20230217022553-10001.png",
-  "order_number": "1"
-}
-
-<> 2023-02-17T160959.500.json
 
 ###
 

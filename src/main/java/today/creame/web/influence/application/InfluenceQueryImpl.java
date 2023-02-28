@@ -29,6 +29,8 @@ import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.influence.domain.InfluenceCategoryGroupByDTO;
 import today.creame.web.influence.domain.InfluenceCategoryJpaRepository;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
+import today.creame.web.influence.domain.InfluenceNotice;
+import today.creame.web.influence.domain.InfluenceNoticeJpaRepository;
 import today.creame.web.influence.domain.InfluenceProfileImage;
 import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
 import today.creame.web.influence.domain.InfluenceQna;
@@ -41,6 +43,7 @@ import today.creame.web.member.domain.QMember;
 public class InfluenceQueryImpl implements InfluenceQuery {
     private final Logger log = LoggerFactory.getLogger(InfluenceQueryImpl.class);
     private final InfluenceJpaRepository influenceJpaRepository;
+    private final InfluenceNoticeJpaRepository influenceNoticeJpaRepository;
     private final InfluenceBookmarkJpaRepository influenceBookmarkJpaRepository;
     private final InfluenceCategoryJpaRepository influenceCategoryJpaRepository;
     private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
@@ -77,13 +80,15 @@ public class InfluenceQueryImpl implements InfluenceQuery {
 
     @Override
     public InfluenceResult getInfluence(Long id) {
+        // TODO: QueryDsl 로 변경
         Influence influence = influenceJpaRepository
             .findById(id)
             .orElseThrow(NotFoundInfluenceException::new);
         log.debug("influence:{}", influence);
 
         InfluenceBookmark bookmark = influenceBookmarkJpaRepository.findById(id).orElse(null);
-        return new InfluenceResult(influence, bookmark);
+        InfluenceNotice notice = influenceNoticeJpaRepository.findById(id).orElse(null);
+        return new InfluenceResult(influence, bookmark, notice);
     }
 
     @Override

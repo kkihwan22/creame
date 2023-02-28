@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.influence.application.InfluenceNoticeService;
-import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.InfluenceService;
+import today.creame.web.influence.application.model.InfluenceNoticeParameter;
+import today.creame.web.influence.application.model.InfluenceNoticeResult;
 import today.creame.web.influence.domain.SNS;
-import today.creame.web.influence.entrypoint.rest.io.NoticeGetResponse;
 import today.creame.web.influence.entrypoint.rest.io.NoticeUpdateRequest;
 import today.creame.web.influence.entrypoint.rest.io.SnsGetResponse;
 import today.creame.web.influence.entrypoint.rest.io.SnsUpdateRequest;
@@ -32,7 +32,6 @@ import today.creame.web.share.entrypoint.SimpleBodyData;
 @RestController
 public class InfluenceRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(InfluenceRestController.class);
-    private final InfluenceQuery influenceQuery;
     private final InfluenceService influenceService;
     private final InfluenceNoticeService influenceNoticeService;
 
@@ -41,9 +40,9 @@ public class InfluenceRestController implements BaseRestController {
     // 1:1 문의 조회 (답변달기)
 
     @GetMapping("/api/v1/influence/{id}/notice")
-    public ResponseEntity<Body<NoticeGetResponse>> getNotice(@PathVariable Long id) {
-        String notice = influenceNoticeService.get(id);
-        return ResponseEntity.ok(BodyFactory.success(new NoticeGetResponse(notice)));
+    public ResponseEntity<Body<InfluenceNoticeResult>> getNotice(@PathVariable Long id) {
+        InfluenceNoticeResult result = influenceNoticeService.get(id);
+        return ResponseEntity.ok(BodyFactory.success(result));
     }
 
     @PutMapping("/api/v1/influence/{id}/notice")
@@ -52,8 +51,7 @@ public class InfluenceRestController implements BaseRestController {
         @Valid @RequestBody NoticeUpdateRequest request, BindingResult bindingResult
     ) {
         hasError(bindingResult);
-        influenceNoticeService.update(id, request.getNotice());
-
+        influenceNoticeService.update(new InfluenceNoticeParameter(id, request.getContent(), request.getAttachFiles()));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 

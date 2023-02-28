@@ -1,7 +1,11 @@
 package today.creame.web.influence.application;
 
+import today.creame.web.influence.application.model.InfluenceNoticeParameter;
+import today.creame.web.influence.application.model.InfluenceNoticeResult;
+
 public interface InfluenceNoticeService {
 
-    String get(Long id);
-    void update(Long id, String notice);
+    InfluenceNoticeResult get(Long id);
+
+    void update(InfluenceNoticeParameter parameter);
 }

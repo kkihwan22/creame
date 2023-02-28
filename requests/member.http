@@ -11,21 +11,11 @@ Content-Type: application/json
   "phone_verified_code": "1111111111"
 }
 
-### 로그인
-
-POST {{host}}/public/v1/login
-Content-Type: application/json
-
-{
-  "username": "test-user@creame.co.kr",
-  "password": "1234"
-}
-
 ### 로그인 후 정보
 
 GET {{host}}/api/v1/me
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6InRlc3QtdXNlci1uaWNrIiwiaWQiOjI4LCJleHAiOjE2NjU5MzYxMjgsImF1dGhvcml0aWVzIjoiVVNFUiIsInVzZXJuYW1lIjoidGVzdC11c2VyQGNyZWFtZS5jby5rciJ9.OVVXHd64QBayLjI8alj97LHiBow2IaJpj_X-vNMQRdI
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc3NDE0MjI3LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.2n7ntXtlaZe4VICTOQ4cdzD3CbKwOEhLovlJWkV6ybo
 
 ### 이메일 찾기
 
@@ -66,3 +56,28 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 {
 }
+
+
+
+
+
+
+
+### 단골 (즐겨찾기 상담사)
+GET {{host}}/api/v1/influences-bookmark
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc3NTcwMDczLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.1nbVZKKLkCXn_H_fuRv8SzzUquTRQKNbeQX7y16CsFg
+
+### 단골 (최근 통화)
+GET {{host}}/api/v1/influences-recently
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc3NTcwMDczLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.1nbVZKKLkCXn_H_fuRv8SzzUquTRQKNbeQX7y16CsFg
+
+
+
+
+
+
+
+
+
