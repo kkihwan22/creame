@@ -3,6 +3,7 @@ package today.creame.web.influence.application.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.ToString;
@@ -27,6 +28,14 @@ public class InfluenceResult {
     private int qnaCount;
     private int item;
     private String m2NetCounselorId;
+
+    // TODO: 제거하기
+    private int coinPrice;
+    private int coinPriceTime;
+    private String coinPriceTimeUnit;
+    private int postPrice;
+    private int postPriceTime;
+    private String postPriceTimeUnit;
 
     private String snsCompany;
     private String snsAddress;
@@ -57,6 +66,15 @@ public class InfluenceResult {
         this.reviewCount = influence.getReviewCount();
         this.qnaCount = influence.getQnaCount();
         this.item = influence.getItem().getIndex();
+
+        this.coinPrice = influence.getItem().getPrice();
+        this.coinPriceTime = influence.getItem().getPricePerTime();
+        this.coinPriceTimeUnit = influence.getItem().getTimeUnit().name();
+
+        this.postPrice = 900;
+        this.postPriceTime = 30;
+        this.postPriceTimeUnit = TimeUnit.SECONDS.name();
+
         this.m2NetCounselorId = influence.getM2NetCounselorId();
         this.introduction = influence.getIntroduction();
         this.greetings = Optional.ofNullable(influence.getGreetings())
