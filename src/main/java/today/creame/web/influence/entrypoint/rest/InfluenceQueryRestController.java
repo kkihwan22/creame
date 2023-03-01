@@ -1,6 +1,5 @@
 package today.creame.web.influence.entrypoint.rest;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,7 +44,7 @@ public class InfluenceQueryRestController implements BaseRestController {
         Long me = SecurityContextSupporter.getId();
         List<InfluenceResult> results = influenceQuery.listByBookmarked(me, false);
         log.debug("results: {}", results);
-        return ResponseEntity.ok(BodyFactory.success(Collections.emptyList()));
+        return ResponseEntity.ok(BodyFactory.success(results));
     }
 
     // 바톰메뉴 (단골- 최근 통화 인플루언스) / p.78
