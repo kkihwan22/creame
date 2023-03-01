@@ -27,7 +27,11 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
 
-        log.debug("[ filter ] execute error filter.");
+        log.info("--------------------------------");
+        log.info("[ filter ] START.");
+        log.info("token: {} ", request.getHeader("Authorization"));
+        log.info("URL: {}", request.getRequestURI());
+        log.info("--------------------------------");
 
         try {
             filterChain.doFilter(request, response);

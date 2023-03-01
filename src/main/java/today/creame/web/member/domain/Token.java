@@ -79,8 +79,6 @@ public class Token {
         String nickname = decoded.getClaim("nickname").asString();
         String authorities = decoded.getClaim("authorities").asString();
 
-        log.debug(" Extra ID : {}", id);
-
         Set<SimpleGrantedAuthority> roles = Arrays.stream(authorities.split(","))
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toSet());

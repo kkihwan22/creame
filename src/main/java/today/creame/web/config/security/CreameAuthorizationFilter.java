@@ -31,7 +31,6 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        log.debug("[ filter ] execute authorization filter.");
 
         if (request.getServletPath().startsWith("/public")
                 || request.getServletPath().startsWith("/pages")
