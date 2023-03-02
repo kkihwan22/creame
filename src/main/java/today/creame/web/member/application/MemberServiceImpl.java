@@ -1,5 +1,6 @@
 package today.creame.web.member.application;
 
+import java.util.List;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -35,14 +36,14 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Long registerMember(MemberRegisterParameter parameter) {
         this.validation(parameter);
-        return this.register(parameter.toEntity());
+        return this.register(parameter.toEntity(), List.of(new MemberRole(null, MemberRoleCode.USER)));
     }
 
     @Transactional
     @Override
     public Long registerMemberInfluence(MemberRegisterParameter parameter) {
         this.validation(parameter);
-        return this.register(parameter.toEntity());
+        return this.register(parameter.toEntity(), List.of(new MemberRole(null, MemberRoleCode.USER), new MemberRole(null, MemberRoleCode.INFLUENCE)));
     }
 
     @Permit
@@ -125,16 +126,12 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    private Long register(Member registerMember) {
+    private Long register(Member registerMember, List<MemberRole> roles) {
         memberJpaRepository.save(registerMember);
-
-        MemberRole role = new MemberRole(null, MemberRoleCode.USER);
-        role.setMember(registerMember);
-        memberRoleJpaRepository.save(role);
-
-        log.debug("register member: {}", registerMember);
-        log.debug("roles: {}", registerMember.getRoles());
-
+        roles.forEach(it -> {
+            it.setMember(registerMember);
+            memberRoleJpaRepository.save(it);
+        });
         return registerMember.getId();
     }
 }
