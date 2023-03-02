@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
 import today.creame.web.influence.application.model.InfluenceProfileImageFileResourceResult;
+import today.creame.web.influence.application.model.SnsParameter;
 import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceCategory;
@@ -21,6 +22,7 @@ import today.creame.web.influence.exception.ConflictConnectionStatusException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.m2net.infra.feign.M2netCounselorClient;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateRequest;
+import today.creame.web.share.aspect.permit.Permit;
 import today.creame.web.share.domain.OnOffCondition;
 import today.creame.web.share.event.ConnectionUpdateEvent;
 
@@ -107,10 +109,13 @@ public class InfluenceServiceImpl implements InfluenceService {
     }
 
     @Transactional
+    @Permit
     @Override
-    public void update(Long id, SNS sns) {
-        Influence influence = influenceJpaRepository.findById(id)
+    public void update(SnsParameter parameter) {
+        Influence influence = influenceJpaRepository.findById(parameter.getId())
             .orElseThrow(NotFoundInfluenceException::new);
+
         log.debug(" find influence: {}", influence);
-    } // TODO: 권한을 위해 parameter로 감싸야함.
+        influence.updateSns(parameter.getSns());
+    }
 }

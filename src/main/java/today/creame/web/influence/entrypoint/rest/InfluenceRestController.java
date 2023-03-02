@@ -19,6 +19,7 @@ import today.creame.web.influence.application.InfluenceNoticeService;
 import today.creame.web.influence.application.InfluenceService;
 import today.creame.web.influence.application.model.InfluenceNoticeParameter;
 import today.creame.web.influence.application.model.InfluenceNoticeResult;
+import today.creame.web.influence.application.model.SnsParameter;
 import today.creame.web.influence.domain.SNS;
 import today.creame.web.influence.entrypoint.rest.io.NoticeUpdateRequest;
 import today.creame.web.influence.entrypoint.rest.io.SnsGetResponse;
@@ -66,7 +67,7 @@ public class InfluenceRestController implements BaseRestController {
         @PathVariable Long id,
         @Valid @RequestBody SnsUpdateRequest request, BindingResult bindingResult) {
         hasError(bindingResult);
-        influenceService.update(id, new SNS(request.getSnsCompany(), request.getAddress()));
+        influenceService.update(new SnsParameter(id, new SNS(request.getSnsCompany(), request.getAddress())));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 

@@ -1,6 +1,7 @@
 package today.creame.web.influence.application;
 
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
+import today.creame.web.influence.application.model.SnsParameter;
 import today.creame.web.influence.domain.SNS;
 import today.creame.web.share.domain.OnOffCondition;
 
@@ -14,5 +15,5 @@ public interface InfluenceService {
 
     SNS getSNS(Long id);
 
-    void update(Long id, SNS sns);
+    void update(SnsParameter parameter);
 }
