@@ -7,9 +7,9 @@ Content-Type: application/json
 
 {
   "name": "주니",
-  "nickname": "주니어(Lendit)",
-  "email": "leoleoleo@lendit.com",
-  "phone_number": "01089774350",
+  "nickname": "Meemee",
+  "email": "meemee@lendit.com",
+  "phone_number": "01089834350",
   "introduction": "안녕하세요. 잘부탁드립니다.",
   "categories": [
     "DATING",
@@ -37,7 +37,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 
 ### 인플루언스 조회
-GET {{host}}/public/v1/influences/{{influence_id}}
+GET {{host}}/public/v1/influences/70
 Content-Type: application/json
 
 ### 북마크 조회
@@ -112,13 +112,13 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 
 ### SNS 등록
-PUT {{host}}/api/v1/influence/50/sns
+PUT {{host}}/api/v1/influence/70/sns
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3Mzk3NDcyLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.I7Qih9UHGhCrQ_eDIp32Rv3SkL4_u6te7CvdEThzxVQ
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuydtOyLnOuMgOuniOyngOunieyduO2UjOujqOyWuOyKpCIsImlkIjo3MCwiZXhwIjoxNjc3NzkxNDk2LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoic2VjMjJAZ21haWwuY29tIn0.CPHEfka-8IrnaTziEDPT0nwtbEYKnzX8jhi8MDaOH9w
 
 {
   "sns_company": "INSTAGRAM",
-  "address": "https://instagram.com"
+  "address": "https://instagram.com/hhhhothae"
 }
 
 ### 인플루언스 공지 등록

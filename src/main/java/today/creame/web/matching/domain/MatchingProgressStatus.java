@@ -1,6 +1,6 @@
 package today.creame.web.matching.domain;
 
-public enum MatchingStatus {
+public enum MatchingProgressStatus {
 
     REQUEST, RESPONSE, ENDED, MISSED
 }

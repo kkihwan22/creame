@@ -1,22 +1,28 @@
 package today.creame.web.matching.domain;
 
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Convert;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import today.creame.web.matching.domain.converter.MatchingStatusToStringConverter;
-import today.creame.web.matching.domain.converter.TelecomCompanyToStringConverter;
+import today.creame.web.influence.domain.Influence;
+import today.creame.web.matching.domain.converter.MatchingProgressStatusToStringConverter;
+import today.creame.web.member.domain.Member;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTimeWithAudit;
 
 @NoArgsConstructor
@@ -31,35 +37,30 @@ public class Matching extends BaseCreatedAndUpdatedDateTimeWithAudit {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(name = "influence_id")
-    private Long influenceId;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "influence_id")
+    private Influence influence;
 
-    @Column(name = "member_id")
-    private Long memberId;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
-    @Convert(converter = MatchingStatusToStringConverter.class)
+    @Convert(converter = MatchingProgressStatusToStringConverter.class)
     @Column(name = "progress")
-    private MatchingStatus status;
+    private MatchingProgressStatus status;
 
-    @Column(name = "req_dt")
-    private LocalDateTime requestDateTime;
-
-    @Column(name = "res_dt")
-    private LocalDateTime responseDateTime;
+    @Column(name = "start_dt")
+    private LocalDateTime startDateTime;
 
     @Column(name = "end_dt")
     private LocalDateTime endedDateTime;
 
-    @Convert(converter = TelecomCompanyToStringConverter.class)
-    @Column(name = "tel_company")
-    private TelecomCompanyCode telecomCompany;
+    @Column(name = "deferred")
+    private boolean deferred;
 
     @Column(name = "used_coins")
     private Integer usedCoins;
 
-    @Embedded
-    private Review review;
-
-    @Embedded
-    private ReviewBlocked blocked;
+    @OneToMany(mappedBy = "matching")
+    private List<MatchingReview> matchingReviews = new ArrayList<>();
 }

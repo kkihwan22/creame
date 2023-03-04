@@ -31,7 +31,7 @@ public class MemberRole extends BaseCreatedAndUpdatedDateTime {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @Convert(converter = MemberRoleCodeConverter.class)
