@@ -110,7 +110,7 @@ public class MemberRestController implements BaseRestController {
         @RequestBody @Valid MemberPasswordUpdateRequest request, BindingResult bindingResult
     ) {
         hasError(bindingResult);
-        memberService.updatePassword(new MemberUpdateParameter(id, request.getPassword(), null));
+        memberService.updatePassword(new MemberUpdateParameter(id, request.getChangedPassword(), null));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 

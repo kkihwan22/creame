@@ -9,8 +9,8 @@ import lombok.ToString;
 public class MemberPasswordUpdateRequest {
 
     @NotBlank
-    private String pastPassword;
+    private String currentPassword;
 
     @NotBlank
-    private String password;
+    private String changedPassword;
 }
