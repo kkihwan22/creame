@@ -25,7 +25,7 @@ import today.creame.web.share.model.BaseFileResource;
 @DynamicInsert
 @DynamicUpdate
 @Getter
-@ToString
+@ToString(exclude = {"attachFiles"})
 public class InfluenceNotice extends BaseCreatedAndUpdatedDateTime {
     @Id
     @GeneratedValue(strategy = IDENTITY)

@@ -23,7 +23,7 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 @DynamicInsert
 @DynamicUpdate
 @Getter
-@ToString
+@ToString(exclude = {"influenceNotice"})
 public class InfluenceNoticeAttachFile extends BaseCreatedAndUpdatedDateTime {
     @Id
     @GeneratedValue(strategy = IDENTITY)
