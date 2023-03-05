@@ -1,9 +1,12 @@
 package today.creame.web.matching.applicaton;
 
-public interface MatchingService {
+import today.creame.web.matching.applicaton.model.MatchingParameter;
 
-    // 매칭 생성
-    // 매칭 종료
+public interface MatchingService {
+    void start(MatchingParameter parameter);
+
+    void end(MatchingParameter parameter);
+
     // 리뷰
     // 답글
 }

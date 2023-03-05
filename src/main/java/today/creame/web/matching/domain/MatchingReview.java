@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -37,6 +38,7 @@ public class MatchingReview extends BaseCreatedAndUpdatedDateTime {
 
     @ManyToOne
     @JoinColumn(name = "matching_id")
+    @Setter
     private Matching matching;
 
     @Column(name = "rate")

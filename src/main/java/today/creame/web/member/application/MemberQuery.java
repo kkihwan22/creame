@@ -5,6 +5,7 @@ import today.creame.web.influence.application.model.InfluenceQnaResult;
 import today.creame.web.member.application.model.MeResult;
 import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.member.application.model.MyQuestionsQueryParameter;
+import today.creame.web.member.domain.NotificationSetting;
 
 public interface MemberQuery {
     MeResult getMe(Long id);
@@ -14,6 +15,10 @@ public interface MemberQuery {
     List<InfluenceQnaResult> pagingListMyQuestions(MyQuestionsQueryParameter parameter);
 
     boolean existMemberByNickname(String nickname);
+
     boolean existMemberByEmail(String email);
+
     boolean existMemberByPhoneNumber(String phoneNumber);
+
+    NotificationSetting getNotificationSetting(Long id);
 }

@@ -16,6 +16,7 @@ import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.domain.MemberRole;
 import today.creame.web.member.domain.MemberRoleCode;
+import today.creame.web.member.domain.NotificationSetting;
 import today.creame.web.member.exception.NotFoundMemberException;
 import today.creame.web.share.support.SecurityContextSupporter;
 
@@ -71,5 +72,13 @@ public class MemberQueryImpl implements MemberQuery {
     public boolean existMemberByPhoneNumber(String phoneNumber) {
         Long count = memberJpaRepository.countMemberByPhoneNumber(phoneNumber);
         return count > 0;
+    }
+
+    @Override
+    public NotificationSetting getNotificationSetting(Long id) {
+        return memberJpaRepository
+            .findById(id)
+            .orElseThrow(NotFoundMemberException::new)
+            .getNotificationSetting();
     }
 }

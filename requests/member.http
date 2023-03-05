@@ -48,6 +48,17 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
   "nickname": "빵구똥구"
 }
 
+
+### 알림 설정 조회
+
+GET {{host}}/api/v1/me/notifications
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc4MDAwOTI4LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.msqYZg7iPcwfx9VqITZywWFq_n-9y2E2FiuvI6jPGzc
+
+{
+}
+
+
 ### 알림 설정 변경
 
 PATCH {{host}}/api/v1/members/42/notifications/SMS/ON
@@ -56,11 +67,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 {
 }
-
-
-
-
-
 
 
 ### 단골 (즐겨찾기 상담사)
@@ -72,12 +78,3 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 GET {{host}}/api/v1/influences-recently
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc3NTcwMDczLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.1nbVZKKLkCXn_H_fuRv8SzzUquTRQKNbeQX7y16CsFg
-
-
-
-
-
-
-
-
-

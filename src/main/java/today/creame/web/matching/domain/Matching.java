@@ -63,4 +63,27 @@ public class Matching extends BaseCreatedAndUpdatedDateTimeWithAudit {
 
     @OneToMany(mappedBy = "matching")
     private List<MatchingReview> matchingReviews = new ArrayList<>();
+
+    public Matching(Influence influence, Member member, MatchingProgressStatus status, LocalDateTime startDateTime, LocalDateTime endedDateTime, boolean deferred, Integer usedCoins) {
+        this.influence = influence;
+        this.member = member;
+        this.status = status;
+        this.startDateTime = startDateTime;
+        this.endedDateTime = endedDateTime;
+        this.deferred = deferred;
+        this.usedCoins = usedCoins;
+    }
+
+    public void end() {
+
+    }
+
+    public void updateMatchingReview(MatchingReview matchingReview) {
+        if (matchingReviews == null) {
+            matchingReviews = new ArrayList<>();
+        }
+
+        matchingReviews.add(matchingReview);
+        matchingReview.setMatching(this);
+    }
 }

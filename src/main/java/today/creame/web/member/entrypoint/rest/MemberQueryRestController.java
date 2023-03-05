@@ -16,11 +16,13 @@ import today.creame.web.influence.application.model.InfluenceQnaResult;
 import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.model.MeResult;
 import today.creame.web.member.application.model.MyQuestionsQueryParameter;
+import today.creame.web.member.domain.NotificationSetting;
 import today.creame.web.member.entrypoint.rest.io.MeResponse;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
 import today.creame.web.share.entrypoint.SimpleBodyData;
+import today.creame.web.share.support.SecurityContextSupporter;
 
 @RequiredArgsConstructor
 @RestController
@@ -65,5 +67,11 @@ public class MemberQueryRestController implements BaseRestController {
     public ResponseEntity<Body<SimpleBodyData<Boolean>>> existMemberByNickname(@PathVariable String nickname) {
         boolean result = memberQuery.existMemberByNickname(nickname);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(result)));
+    }
+
+    @GetMapping("/api/v1/me/notifications")
+    public ResponseEntity<Body<NotificationSetting>> myNotifications() {
+        NotificationSetting result = memberQuery.getNotificationSetting(SecurityContextSupporter.getId());
+        return ResponseEntity.ok(BodyFactory.success(result));
     }
 }

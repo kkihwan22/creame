@@ -24,4 +24,6 @@ public interface MemberJpaRepository extends JpaRepository<Member, Long> {
     Long countMemberByNickname(String nickname);
 
     Long countMemberByPhoneNumber(String phoneNumber);
+
+    Optional<Member> findMemberByM2netUserId(String uid);
 }
