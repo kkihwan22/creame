@@ -71,8 +71,8 @@ public class InfluenceResult {
         this.coinPriceTime = influence.getItem().getPricePerTime();
         this.coinPriceTimeUnit = influence.getItem().getTimeUnit().name();
 
-        this.postPrice = 900;
-        this.postPriceTime = 30;
+        this.postPrice = influence.getItem().getPrice() + 400;
+        this.postPriceTime = influence.getItem().getPricePerTime();
         this.postPriceTimeUnit = TimeUnit.SECONDS.name();
 
         this.m2NetCounselorId = influence.getM2NetCounselorId();
