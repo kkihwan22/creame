@@ -9,27 +9,20 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import today.creame.web.config.security.CustomUserDetails;
-import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.MemberService;
 import today.creame.web.member.application.model.ForgetEmailParameter;
 import today.creame.web.member.application.model.ForgetPasswordParameter;
-import today.creame.web.member.application.model.MeResult;
 import today.creame.web.member.application.model.MemberUpdateParameter;
 import today.creame.web.member.application.model.NotificationSettingParameter;
 import today.creame.web.member.domain.NotificationSettingItem;
 import today.creame.web.member.entrypoint.rest.io.ForgetEmailRequest;
 import today.creame.web.member.entrypoint.rest.io.ForgetPasswordRequest;
-import today.creame.web.member.entrypoint.rest.io.MeResponse;
 import today.creame.web.member.entrypoint.rest.io.MemberNicknameUpdateRequest;
 import today.creame.web.member.entrypoint.rest.io.MemberPasswordUpdateRequest;
 import today.creame.web.member.entrypoint.rest.io.MemberRegisterRequest;
@@ -46,7 +39,6 @@ import today.creame.web.share.entrypoint.validator.EnumConstraint;
 public class MemberRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(MemberRestController.class);
     private final MemberService memberService;
-    private final MemberQuery memberQuery;
 
     @ApiOperation(value = "회원가입", notes = "회원가입 시 사용하는 요청이다.")
     @ApiResponses({
@@ -71,32 +63,6 @@ public class MemberRestController implements BaseRestController {
 
         SimpleBodyData<Long> result = new SimpleBodyData<>(id);
         return ResponseEntity.ok(BodyFactory.success(result));
-    }
-
-    @GetMapping("/api/v1/me")
-    public ResponseEntity<Body<MeResponse>> getMe(@AuthenticationPrincipal UserDetails userDetails) {
-        CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
-        log.debug("customUserDetails: {}", customUserDetails);
-        MeResult me = memberQuery.getMe(customUserDetails.getId());
-        return ResponseEntity.ok(BodyFactory.success(new MeResponse(me)));
-    }
-
-    @GetMapping("/public/v1/members/phone-number/{phoneNumber}/exist")
-    public ResponseEntity<Body<SimpleBodyData<Boolean>>> existMemberByPhoneNumber(@PathVariable String phoneNumber) {
-        boolean result = memberQuery.existMemberByPhoneNumber(phoneNumber);
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(result)));
-    }
-
-    @GetMapping("/public/v1/members/email/{email}/exist")
-    public ResponseEntity<Body<SimpleBodyData<Boolean>>> existMemberByEmail(@PathVariable String email) {
-        boolean result = memberQuery.existMemberByEmail(email);
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(result)));
-    }
-
-    @GetMapping("/public/v1/members/nickname/{nickname}/exist")
-    public ResponseEntity<Body<SimpleBodyData<Boolean>>> existMemberByNickname(@PathVariable String nickname) {
-        boolean result = memberQuery.existMemberByNickname(nickname);
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(result)));
     }
 
     @PostMapping("/public/v1/forget-email")
