@@ -1,7 +1,5 @@
 package today.creame.web.influence.application;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +7,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
-import today.creame.web.influence.application.model.InfluenceProfileImageFileResourceResult;
 import today.creame.web.influence.application.model.SnsParameter;
 import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.domain.Influence;
@@ -43,21 +40,16 @@ public class InfluenceServiceImpl implements InfluenceService {
         Influence influence = influenceJpaRepository.save(parameter.toEntity());
         log.debug("influence: {}", influence);
 
-        influenceCategoryJpaRepository.saveAll(
-            parameter.getCategories()
-                .stream()
-                .map(category -> new InfluenceCategory(influence.getId(), Category.valueOf(category.toUpperCase())))
-                .collect(Collectors.toList())
-        );
+        parameter.getCategories().stream().forEach(it -> {
+            InfluenceCategory category = new InfluenceCategory(influence, Category.valueOf(it.toUpperCase()));
+            influence.updateCategory(category);
+        });
 
-        List<InfluenceProfileImageFileResourceResult> resultInfluenceProfileImages
-            = influenceProfileFileResourceQuery.findInfluenceProfileImages(parameter.getProfileImages());
-
-        for (InfluenceProfileImageFileResourceResult image : resultInfluenceProfileImages) {
-            influence.addInfluenceProfileImage(image.toEntity());
-        }
-
-        influenceProfileImageJpaRepository.saveAll(influence.getProfileImages());
+        influenceProfileFileResourceQuery.findInfluenceProfileImages(parameter.getProfileImages())
+            .stream()
+            .forEach(it -> {
+                influence.updateInfluenceProfileImage(it.toEntity());
+            });
 
         String cId = client.create(new M2netCounselorCreateRequest(
             influence.getNickname(),

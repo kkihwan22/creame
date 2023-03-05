@@ -1,17 +1,15 @@
 package today.creame.web.influence.domain;
 
-import static javax.persistence.FetchType.LAZY;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -125,11 +123,10 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "m2net_cid")
     private String m2NetCounselorId;
 
-    @OneToMany(fetch = LAZY)
-    @JoinColumn(name = "influence_id")
-    private List<InfluenceCategory> categories;
+    @OneToMany(mappedBy = "influence", cascade = CascadeType.ALL)
+    private List<InfluenceCategory> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "influence", fetch = LAZY)
+    @OneToMany(mappedBy = "influence", cascade = CascadeType.ALL)
     private List<InfluenceProfileImage> profileImages;
 
     public Influence(
@@ -157,20 +154,21 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.id = id;
     }
 
-    public void addInfluenceProfileImage(InfluenceProfileImage profileImage) {
+    public void updateCategory(InfluenceCategory category) {
+        if (categories == null) {
+            categories = new ArrayList<>();
+        }
+        categories.add(category);
+        category.setInfluence(this);
+    }
+
+    public void updateInfluenceProfileImage(InfluenceProfileImage profileImage) {
         if (profileImages == null) {
             profileImages = new ArrayList<>();
         }
 
         profileImages.add(profileImage);
-        if (profileImage.getInfluence() != this) {
-            profileImage.addInfluence(this);
-        }
-    }
-
-    public void removeInfluenceProfileImage(InfluenceProfileImage profileImage) {
-        profileImages.remove(profileImage);
-        profileImage.addInfluence(null);
+        profileImage.setInfluence(this);
     }
 
     public void updateConnect() {

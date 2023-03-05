@@ -1,6 +1,9 @@
 package today.creame.web.influence.application;
 
 import static java.util.stream.Collectors.groupingBy;
+import static today.creame.web.influence.domain.QInfluence.influence;
+import static today.creame.web.influence.domain.QInfluenceBookmark.influenceBookmark;
+import static today.creame.web.influence.domain.QInfluenceNotice.influenceNotice;
 import static today.creame.web.influence.domain.QInfluenceQna.influenceQna;
 import static today.creame.web.member.domain.QMember.member;
 
@@ -34,6 +37,9 @@ import today.creame.web.influence.domain.InfluenceNoticeJpaRepository;
 import today.creame.web.influence.domain.InfluenceProfileImage;
 import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
 import today.creame.web.influence.domain.InfluenceQna;
+import today.creame.web.influence.domain.QInfluence;
+import today.creame.web.influence.domain.QInfluenceBookmark;
+import today.creame.web.influence.domain.QInfluenceNotice;
 import today.creame.web.influence.domain.QInfluenceQna;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.member.domain.QMember;
@@ -50,7 +56,10 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     private final JPAQueryFactory query;
 
     private QInfluenceQna q = influenceQna;
+    private QInfluenceBookmark b = influenceBookmark;
     private QMember m = member;
+    private QInfluence i = influence;
+    private QInfluenceNotice n = influenceNotice;
 
     @Override
     public HomeInfluenceStatResult queryInfluenceStat() {
@@ -80,6 +89,12 @@ public class InfluenceQueryImpl implements InfluenceQuery {
 
     @Override
     public InfluenceResult getInfluence(Long id) {
+
+//        Influence influence = query
+//            .selectFrom(i)
+//            .leftJoin()
+//            .fetchOne();
+
         // TODO: QueryDsl 로 변경
         Influence influence = influenceJpaRepository
             .findById(id)
@@ -179,7 +194,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
 
         Map<Long, List<InfluenceCategory>> mapCategories = results
             .stream()
-            .collect(groupingBy(result -> result.getInfluenceId()));
+            .collect(groupingBy(result -> result.getInfluence().getId()));
 
         return mapCategories;
     }

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -29,7 +30,8 @@ public class InfluenceProfileImage extends BaseCreatedAndUpdatedDateTime {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "influence_id", nullable = false)
+    @JoinColumn(name = "influence_id")
+    @Setter
     private Influence influence;
 
     @Column(name = "file_resource_id")
@@ -47,18 +49,6 @@ public class InfluenceProfileImage extends BaseCreatedAndUpdatedDateTime {
 
     @Column(name = "order_no")
     private int orderNumber;
-
-    public void addInfluence(Influence influence) {
-        if (this.influence != null) {
-            this.influence.getCategories().remove(this);
-        }
-
-        this.influence = influence;
-
-        if (!influence.getProfileImages().contains(this)) {
-            influence.addInfluenceProfileImage(this);
-        }
-    }
 
     public InfluenceProfileImage(Long fileResourceId, String fileResourceUri, Boolean deleted, int orderNumber) {
         this.fileResourceId = fileResourceId;

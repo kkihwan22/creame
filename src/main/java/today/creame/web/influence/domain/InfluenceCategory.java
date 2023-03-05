@@ -7,9 +7,12 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -28,15 +31,17 @@ public class InfluenceCategory extends BaseCreatedAndUpdatedDateTime {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(name = "influence_id")
-    private Long influenceId;
+    @ManyToOne
+    @JoinColumn(name = "influence_id")
+    @Setter
+    private Influence influence;
 
     @Convert(converter = CategoryToStringConverter.class)
     @Column(name = "category")
     private Category category;
 
-    public InfluenceCategory(Long influenceId, Category category) {
-        this.influenceId = influenceId;
+    public InfluenceCategory(Influence influence, Category category) {
+        this.influence = influence;
         this.category = category;
     }
 }

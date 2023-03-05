@@ -4,8 +4,8 @@ POST {{host}}/public/v1/login
 Content-Type: application/json
 
 {
-  "username": "kkkhjin1234@gmail.com",
-  "password" : "QIA@u!px0p"
+  "username": "sec22@gmail.com",
+  "password": "1234"
 }
 
 ### 로그인 (일반유저) -- 42
@@ -34,4 +34,4 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 POST {{host}}/public/v1/token/refresh
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc4MTgwNDYwLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.bzY4anSNXn4ZVrzbvdeWCKtqFb2oB59-kxTQ-nl2ksg
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuydtOyLnOuMgOuniOyngOunieyduO2UjOujqOyWuOyKpCIsImlkIjo3MCwiZXhwIjoxNjc4NTc0ODE5LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoic2VjMjJAZ21haWwuY29tIn0.OlSJOc5f02o-zT1mhNmU9LHW33ebU9GlLFGRnoY1-B0
