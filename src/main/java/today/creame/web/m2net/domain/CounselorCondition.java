@@ -2,14 +2,14 @@ package today.creame.web.m2net.domain;
 
 import lombok.Getter;
 
-public enum CounselorStatus {
+public enum CounselorCondition {
 
     IDLE("상담가능"), ABSE("부재중"), CONN("상담중");
 
     @Getter
     private String label;
 
-    CounselorStatus(String label) {
+    CounselorCondition(String label) {
         this.label = label;
     }
 }

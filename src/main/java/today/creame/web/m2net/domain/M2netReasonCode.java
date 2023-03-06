@@ -1,25 +1,26 @@
 package today.creame.web.m2net.domain;
 
 import lombok.Getter;
+import today.creame.web.matching.domain.MatchingProgressStatus;
 
 public enum M2netReasonCode {
 
-    START_ARS(false),
-    INSUFFICIENT(false),
-    NOT_FOUND_CSRNO(false),
-    NOT_IDLE(false),
-    ABSE(false),
-    TRY_OK(false),
-    DISCONNECT(true),
-    CONNECT_CSR(true),
-    NO_ANSWER_CSR(false),
-    INSUFFICIENT_CONN(true);
+    START_ARS(null),
+    INSUFFICIENT(null),
+    NOT_FOUND_CSRNO(null),
+    NOT_IDLE(null),
+    ABSE(null),
+    TRY_OK(null),
+    DISCONNECT(MatchingProgressStatus.START),
+    CONNECT_CSR(MatchingProgressStatus.END),
+    NO_ANSWER_CSR(null),
+    INSUFFICIENT_CONN(MatchingProgressStatus.INSUFFICIENT);
 
     @Getter
-    private boolean published;
+    private MatchingProgressStatus matchingProgressStatus;
 
-    M2netReasonCode(boolean published) {
-        this.published = published;
+    M2netReasonCode(MatchingProgressStatus status) {
+        this.matchingProgressStatus = status;
     }
 }
 

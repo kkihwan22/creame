@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.ToString;
 import org.springframework.context.ApplicationEventPublisher;
 import today.creame.web.m2net.domain.DeductionMethod;
-import today.creame.web.m2net.domain.M2netNoticeHistory;
 import today.creame.web.m2net.domain.M2netReasonCode;
+import today.creame.web.share.event.MatchingEvent;
 
 @Getter
 @ToString
@@ -47,15 +47,23 @@ public class M2netNoticeCommand {
         this.deductionMethod = deductionMethod;
     }
 
-    public M2netNoticeHistory toEntity() {
-        return new M2netNoticeHistory(
-            this.telegram, this.cId, Long.parseLong(this.mId), this.reason, this.endDateTime
-        );
+    public void publish(ApplicationEventPublisher publisher) {
+        if (reason.getMatchingProgressStatus() == null) {
+            return;
+        }
+
+        publisher.publishEvent(new MatchingEvent(
+            mId,
+            cId,
+            reason.getMatchingProgressStatus(),
+            startDateTime,
+            endDateTime,
+            this.isDeferred(deductionMethod),
+            usedAmount
+        ));
     }
 
-    public boolean isNotify(ApplicationEventPublisher publisher) {
-
-        // publisher.publishEvent();
-        return reason.isPublished();
+    private boolean isDeferred(DeductionMethod method) {
+        return method == DeductionMethod.POST;
     }
 }

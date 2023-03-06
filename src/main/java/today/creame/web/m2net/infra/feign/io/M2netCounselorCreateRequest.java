@@ -2,7 +2,7 @@ package today.creame.web.m2net.infra.feign.io;
 
 import lombok.Getter;
 import lombok.ToString;
-import today.creame.web.m2net.domain.CounselorStatus;
+import today.creame.web.m2net.domain.CounselorCondition;
 import today.creame.web.m2net.domain.DeductionMethod;
 
 @Getter
@@ -23,7 +23,7 @@ public class M2netCounselorCreateRequest {
         this.telno = telno;
         this.dectm = dectm;
         this.decamt = decamt;
-        this.state = CounselorStatus.IDLE.name();
+        this.state = CounselorCondition.IDLE.name();
         this.sortno = 1;
         this.preflag = DeductionMethod.ALL.getCode();
     }
