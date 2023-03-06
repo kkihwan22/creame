@@ -3,7 +3,6 @@ package today.creame.web.influence.application;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceApplicationParameter;
@@ -22,7 +21,6 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
     private final MemberService memberService;
     private final InfluenceService influenceService;
     private final InfluenceApplicationJpaRepository influenceApplicationJpaRepository;
-    private final ApplicationEventPublisher publisher;
 
     @Transactional
     @Override

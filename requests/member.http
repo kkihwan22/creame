@@ -1,14 +1,14 @@
 ### 회원가입
-
+### phone_verification 테이블에 임의 값 등록 후 진행
 POST http://localhost:8888/public/v1/members
 Content-Type: application/json
 
 {
-  "email": "keeyoung@naver.com",
+  "email": "keehwan@naver.com",
   "password": "1234",
-  "nickname": "user11111",
+  "nickname": "HellWorld",
   "phone_number": "01043993399",
-  "phone_verified_code": "1111111111"
+  "phone_verified_code": "7529383668"
 }
 
 ### 로그인 후 정보

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import today.creame.web.m2net.application.M2netUserService;
 import today.creame.web.member.application.model.ForgetEmailParameter;
 import today.creame.web.member.application.model.ForgetPasswordParameter;
 import today.creame.web.member.application.model.MemberExpireParameter;
@@ -30,13 +31,17 @@ public class MemberServiceImpl implements MemberService {
     private final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
     private final MemberJpaRepository memberJpaRepository;
     private final MemberRoleJpaRepository memberRoleJpaRepository;
+    private final M2netUserService m2netUserService;
 
     @Transactional
     @Permit
     @Override
     public Long registerMember(MemberRegisterParameter parameter) {
         this.validation(parameter);
-        return this.register(parameter.toEntity(), List.of(new MemberRole(null, MemberRoleCode.USER)));
+        Member member = parameter.toEntity();
+        member.registerM2netMember(m2netUserService);
+        Long registerMember = this.register(member, List.of(new MemberRole(null, MemberRoleCode.USER)));
+        return registerMember;
     }
 
     @Transactional

@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import today.creame.web.m2net.application.M2netUserService;
+import today.creame.web.m2net.application.model.M2netUserCreateParameter;
 import today.creame.web.member.domain.converter.MemberStatusConverter;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
@@ -95,5 +97,9 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
 
     public void updateNotificationSetting(NotificationSettingItem code, boolean condition) {
         this.notificationSetting = new NotificationSetting(this.notificationSetting, code, condition);
+    }
+
+    public void registerM2netMember(M2netUserService m2netUserService) {
+        m2netUserId = m2netUserService.create(new M2netUserCreateParameter(nickname, phoneNumber));
     }
 }
