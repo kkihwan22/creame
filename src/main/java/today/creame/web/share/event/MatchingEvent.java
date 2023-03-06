@@ -1,4 +1,4 @@
-package today.creame.web.matching.applicaton.model;
+package today.creame.web.share.event;
 
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -7,16 +7,16 @@ import today.creame.web.matching.domain.MatchingProgressStatus;
 
 @Getter
 @ToString
-public class MatchingParameter {
-    private String uid; // TODO: UK 걸어야지
-    private String cid; // TODO: UK 걸어야지
+public class MatchingEvent {
+    private String uid;
+    private String cid;
     private MatchingProgressStatus matchingProgressStatus;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private boolean deferred;
     private Integer usedCoins;
 
-    public MatchingParameter(String uid, String cid, MatchingProgressStatus matchingProgressStatus, LocalDateTime startDateTime, LocalDateTime endDateTime, boolean deferred, Integer usedCoins) {
+    public MatchingEvent(String uid, String cid, MatchingProgressStatus matchingProgressStatus, LocalDateTime startDateTime, LocalDateTime endDateTime, boolean deferred, Integer usedCoins) {
         this.uid = uid;
         this.cid = cid;
         this.matchingProgressStatus = matchingProgressStatus;
