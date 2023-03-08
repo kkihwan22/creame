@@ -15,6 +15,8 @@ import today.creame.web.member.application.model.MemberUpdateParameter;
 import today.creame.web.member.application.model.NotificationSettingParameter;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
+import today.creame.web.member.domain.MemberNotificationJpaRepository;
+import today.creame.web.member.domain.MemberNotificationPreference;
 import today.creame.web.member.domain.MemberRole;
 import today.creame.web.member.domain.MemberRoleCode;
 import today.creame.web.member.domain.MemberRoleJpaRepository;
@@ -31,6 +33,7 @@ public class MemberServiceImpl implements MemberService {
     private final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
     private final MemberJpaRepository memberJpaRepository;
     private final MemberRoleJpaRepository memberRoleJpaRepository;
+    private final MemberNotificationJpaRepository memberNotificationJpaRepository;
     private final M2netUserService m2netUserService;
 
     @Transactional
@@ -133,6 +136,7 @@ public class MemberServiceImpl implements MemberService {
 
     private Long register(Member registerMember, List<MemberRole> roles) {
         memberJpaRepository.save(registerMember);
+        memberNotificationJpaRepository.save(new MemberNotificationPreference(registerMember));
         roles.forEach(it -> {
             it.setMember(registerMember);
             memberRoleJpaRepository.save(it);

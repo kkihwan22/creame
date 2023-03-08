@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -32,6 +33,7 @@ public class MemberRole extends BaseCreatedAndUpdatedDateTime {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
+    @Setter
     private Member member;
 
     @Convert(converter = MemberRoleCodeConverter.class)
@@ -41,17 +43,5 @@ public class MemberRole extends BaseCreatedAndUpdatedDateTime {
     public MemberRole(Long id, MemberRoleCode codeName) {
         this.id = id;
         this.codeName = codeName;
-    }
-
-    public void setMember(Member member) {
-        if (this.member != null) {
-            this.member.getRoles().remove(this);
-        }
-
-        this.member = member;
-
-        if (!member.getRoles().contains(this)) {
-            member.addRole(this);
-        }
     }
 }

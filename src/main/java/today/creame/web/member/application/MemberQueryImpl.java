@@ -43,8 +43,7 @@ public class MemberQueryImpl implements MemberQuery {
         List<InfluenceQnaResult> results = influenceQuery.pagingQnas(
             new InfluenceQnaQueryParameter(parameter.getPageable(), SecurityContextSupporter.getId(), null, parameter.isAnswered()));
         log.debug("results: {}", results);
-
-        return null;
+        return results;
     }
 
     @Override

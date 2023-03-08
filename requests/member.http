@@ -4,11 +4,11 @@ POST http://localhost:8888/public/v1/members
 Content-Type: application/json
 
 {
-  "email": "keehwan@naver.com",
+  "email": "keehwan1983@gmail.com",
   "password": "1234",
-  "nickname": "HellWorld",
-  "phone_number": "01043993399",
-  "phone_verified_code": "7529383668"
+  "nickname": "HiMan2",
+  "phone_number": "01043993397",
+  "phone_verified_code": "7529383777"
 }
 
 ### 로그인 후 정보

@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
@@ -53,8 +54,25 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "status")
     private MemberStatus status;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberNotificationPreference> notificationPreferences = new ArrayList<>();
+
+    //TODO: 테이블로 분리
     @Embedded
     private NotificationSetting notificationSetting;
+
+//    @ManyToOne
+//    @JoinColumn(name = "auto_charging_id")
+//    private AutoCharging autoCharging;
+
+    @Column(name = "auto_charging_id")
+    private Long autoChargingId;
+
+    @Column(name = "coins")
+    private int coins;
+
+    @Column(name = "benefit_coins")
+    private int benefitCoins;
 
     @OneToMany(mappedBy = "member")
     private List<MemberRole> roles = new ArrayList<>();
@@ -77,14 +95,7 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
         }
 
         roles.add(role);
-        if (role.getMember() != this) {
-            role.setMember(this);
-        }
-    }
-
-    public void removeRole(MemberRole role) {
-        roles.remove(role);
-        role.setMember(null);
+        role.setMember(this);
     }
 
     public void changedNickname(String nickname) {
