@@ -9,6 +9,7 @@ import today.creame.web.member.domain.MemberRoleCode;
 @ToString
 public class MeResponse {
     private Long memberId;
+    private String uId;
     private String nickname;
     private String email;
     private String phoneNumber;
@@ -16,6 +17,7 @@ public class MeResponse {
 
     public MeResponse(MeResult meResult) {
         this.memberId = meResult.getMemberId();
+        this.uId = meResult.getUId();
         this.nickname = meResult.getNickname();
         this.email = meResult.getEmail();
         this.phoneNumber = meResult.getPhoneNumber();
