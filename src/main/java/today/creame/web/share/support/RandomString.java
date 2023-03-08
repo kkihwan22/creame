@@ -6,12 +6,6 @@ import java.util.Objects;
 import java.util.Random;
 
 public class RandomString {
-    public String nextString() {
-        for (int idx = 0; idx < buf.length; ++idx)
-            buf[idx] = symbols[random.nextInt(symbols.length)];
-        return new String(buf);
-    }
-
     public static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public static final String lower = upper.toLowerCase(Locale.ROOT);
     public static final String digits = "0123456789";
@@ -44,6 +38,10 @@ public class RandomString {
         this(length, new SecureRandom());
     }
 
+    public RandomString(int length, String symbols) {
+        this(length, new Random(), symbols);
+    }
+
     /**
      * Create session identifiers.
      */
@@ -57,5 +55,11 @@ public class RandomString {
 
     public static RandomString token(int length) {
         return new RandomString(length, new SecureRandom(), specialaplanum);
+    }
+
+    public String nextString() {
+        for (int idx = 0; idx < buf.length; ++idx)
+            buf[idx] = symbols[random.nextInt(symbols.length)];
+        return new String(buf);
     }
 }
