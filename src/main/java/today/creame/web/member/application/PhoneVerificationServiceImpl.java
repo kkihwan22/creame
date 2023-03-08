@@ -29,7 +29,7 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
     @Override
     public void verify(Long token, String phoneNumber, Integer code) {
         PhoneVerification phoneVerification = phoneVerificationJpaRepository
-            .findPhoneVerificationByToken(token)
+            .findTopByTokenOrderByCreatedDateTimeDesc(token)
             .orElseThrow(() -> {
                 log.info("Not matched token. token: {}", token);
                 throw new NotMatchedTokenException();
@@ -56,7 +56,7 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
     @Override
     public boolean isVerified(Long token) {
         PhoneVerification phoneVerification = phoneVerificationJpaRepository
-            .findPhoneVerificationByToken(token)
+            .findTopByTokenOrderByCreatedDateTimeDesc(token)
             .orElseThrow(() -> {
                 log.info("Not matched token. token: {}", token);
                 throw new NotMatchedTokenException();
