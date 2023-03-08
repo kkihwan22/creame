@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import today.creame.web.m2net.application.model.M2netUserCreateParameter;
+import today.creame.web.m2net.exception.ConflictMemberException;
 import today.creame.web.m2net.infra.feign.M2netUserClient;
 import today.creame.web.m2net.infra.feign.io.M2netUserCreateRequest;
 import today.creame.web.m2net.infra.feign.io.M2netUserCreateResponse;
@@ -23,6 +24,11 @@ public class M2netUserServiceImpl implements M2netUserService {
         log.info(" [ status ] {}", response.getStatusCode());
         log.info(" [ body ] {}", response.getBody());
         log.info(" Counselor Created. <");
+
+        if (!response.getBody().getReqResult().equals("00")) {
+            throw new ConflictMemberException();
+        }
+
         return response.getBody().getMembid();
     }
 }
