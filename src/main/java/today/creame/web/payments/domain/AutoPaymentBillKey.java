@@ -16,12 +16,14 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
 @NoArgsConstructor
 @Entity
-@Table(name = "easy_payment_credit_card")
+@Table(name = "auto_payment_bill_key")
 @DynamicInsert
 @DynamicUpdate
 @Getter
 @ToString
-public class EasyPaymentCreditCard extends BaseCreatedAndUpdatedDateTime {
+public class AutoPaymentBillKey extends BaseCreatedAndUpdatedDateTime {
+    private final static double BENEFIT_RATE = 0.01;
+    private final static double VAT = 0.1;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -33,9 +35,21 @@ public class EasyPaymentCreditCard extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "bill_key")
     private String billKey;
 
-    @Column(name = "password", columnDefinition = "CHAR(6)")
-    private String password;
+    @Column(name = "balance")
+    private int balance;
+
+    @Column(name = "charging_amt")
+    private int chargingAmount;
 
     @Column(name = "deleted")
     private boolean deleted;
+
+//    public int requestChargingAmount() {
+//        return (int) (this.chargingAmount + (chargingAmount * VAT));
+//    }
+//
+//    public int requestChargingCoins() {
+//
+//        return (int) (this.chargingAmount + (chargingAmount * BENEFIT_RATE));
+//    }
 }
