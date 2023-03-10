@@ -8,7 +8,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.util.Base64Utils;
 
 public class M2netCrypto implements Crypto {
-    private final String key = "6233e926998241790d3500d4"; // TODO: 환경변수로 분리 (application.yml)
+    private final String key = "6233e926998241790d3500d4".substring(0, 16); // TODO: 환경변수로 분리 (application.yml)
     private final Cipher cipher;
 
     public M2netCrypto() throws Exception {
@@ -31,7 +31,7 @@ public class M2netCrypto implements Crypto {
     }
 
     @Override
-    public String decrypt(String enc) throws Exception {
+    public String decrypt(String enc) {
         try {
             String encKey = SHA512(key);
             byte[] byteKey = encKey.substring(0, 16).getBytes();

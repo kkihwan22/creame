@@ -5,16 +5,14 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class M2netPrecallResponse {
+public class M2netBillKeyIssueResponse {
     private String reqResult;
     private String resultmessage;
-    private String telno;
-    private String csrid;
+    private String billKey;
 
-    public M2netPrecallResponse(String reqResult, String resultmessage, String telno, String csrid) {
+    public M2netBillKeyIssueResponse(String reqResult, String resultmessage, String billKey) {
         this.reqResult = reqResult;
         this.resultmessage = resultmessage;
-        this.telno = telno;
-        this.csrid = csrid;
+        this.billKey = billKey;
     }
 }

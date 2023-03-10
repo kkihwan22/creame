@@ -3,6 +3,7 @@ package today.creame.web.payments.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,16 +13,17 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import today.creame.web.member.domain.Member;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
 @NoArgsConstructor
 @Entity
-@Table(name = "auto_payment_bill_key")
+@Table(name = "payment_bill_key")
 @DynamicInsert
 @DynamicUpdate
 @Getter
 @ToString
-public class AutoPaymentBillKey extends BaseCreatedAndUpdatedDateTime {
+public class PaymentBillKey extends BaseCreatedAndUpdatedDateTime {
     private final static double BENEFIT_RATE = 0.01;
     private final static double VAT = 0.1;
 
@@ -35,14 +37,24 @@ public class AutoPaymentBillKey extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "bill_key")
     private String billKey;
 
-    @Column(name = "balance")
-    private int balance;
+    @Embedded
+    private CreditCard creditCard;
 
-    @Column(name = "charging_amt")
-    private int chargingAmount;
+    @Embedded
+    private AutoChargingPreference preference;
 
     @Column(name = "deleted")
     private boolean deleted;
+
+    public PaymentBillKey(Member member, String billKey, CreditCard creditCard) {
+        this.memberId = member.getId();
+        this.billKey = billKey;
+        this.creditCard = creditCard;
+    }
+
+    public boolean isEnabledAutoCharging() {
+        return preference != null && preference.isEnabled();
+    }
 
 //    public int requestChargingAmount() {
 //        return (int) (this.chargingAmount + (chargingAmount * VAT));

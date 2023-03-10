@@ -18,7 +18,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "member_notification_preference")
 @Getter
-@ToString
+@ToString(exclude = {"member"})
 public class MemberNotificationPreference {
 
     @Id

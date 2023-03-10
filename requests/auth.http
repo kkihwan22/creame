@@ -14,8 +14,8 @@ POST {{host}}/public/v1/login
 Content-Type: application/json
 
 {
-  "username": "ethan.bud99@gmail.com",
-  "password" : "1234"
+  "username": "hopeman97@hanmail.net",
+  "password": "1234"
 }
 
 ### access token 재발급 (사용자) - 42

@@ -1,0 +1,22 @@
+### access token 재발급 (사용자) - 42
+
+POST {{host}}/public/v1/token/refresh
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuuniOyKpO2EsOycoOyggCIsImlkIjo4MCwiZXhwIjoxNjc5MDY5NTAzLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.Nlt_sB_On-9KstuORQ3E9FWMH8RoDL61SkQjszWgp8M
+
+
+### 카드등록
+
+POST {{host}}/api/v1/me/bill-key
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuuniOyKpO2EsOycoOyggCIsImlkIjo4MCwiZXhwIjoxNjc4NDY5MjQ0LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.YNKRn4e9Z5W9KjDv9HDd7tMyBhuHYmZUQO1BuVBwRi4
+
+{
+  "personal": true,
+  "serial": "830110",
+  "cardno": "5365101842300307",
+  "month": "01",
+  "year": "27",
+  "card_password": "06",
+  "payment_password": "123456"
+}

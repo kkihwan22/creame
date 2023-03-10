@@ -1,10 +1,11 @@
 package today.creame.web.member.domain;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
@@ -57,7 +58,7 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "status")
     private MemberStatus status;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", fetch = LAZY, cascade = ALL)
     private List<MemberNotificationPreference> notificationPreferences = new ArrayList<>();
 
     //TODO: 테이블로 분리
