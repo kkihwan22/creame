@@ -15,6 +15,7 @@ import today.creame.web.member.exception.NotFoundMemberException;
 import today.creame.web.payments.domain.CreditCard;
 import today.creame.web.payments.domain.PaymentBillKey;
 import today.creame.web.payments.domain.PaymentBillKeyJpaRepository;
+import today.creame.web.payments.exception.ConflictCreditCardException;
 import today.creame.web.payments.exception.IllegalCreditCardDataException;
 import today.creame.web.payments.exception.IssueBillKeyException;
 import today.creame.web.share.support.SecurityContextSupporter;
@@ -36,6 +37,11 @@ public class PaymentServiceImpl implements PaymentService {
             .findById(SecurityContextSupporter.getId())
             .orElseThrow(NotFoundMemberException::new);
         log.debug("member: {}", member);
+
+        if (paymentBillKeyJpaRepository.existsPaymentBillKeyByMemberIdAAndDeleted(member.getId(), false)) {
+            log.error("이미 등록 된 카드가 있습니다.");
+            throw new ConflictCreditCardException();
+        }
 
         try {
             M2netBillKeyIssueResponse body = m2netClient.issueBillKey(mapper.mapping(creditCard, member)).getBody();
