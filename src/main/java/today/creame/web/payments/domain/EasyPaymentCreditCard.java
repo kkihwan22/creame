@@ -3,7 +3,6 @@ package today.creame.web.payments.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,25 +16,25 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
 @NoArgsConstructor
 @Entity
-@Table(name = "auto_charging")
+@Table(name = "easy_payment_credit_card")
 @DynamicInsert
 @DynamicUpdate
 @Getter
 @ToString
-public class AutoCharging extends BaseCreatedAndUpdatedDateTime {
+public class EasyPaymentCreditCard extends BaseCreatedAndUpdatedDateTime {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(name = "password", columnDefinition = "CHAR(6)")
-    private String password; // TODO: 암호화
+    @Column(name = "member_id")
+    private Long memberId;
 
     @Column(name = "bill_key")
     private String billKey;
 
-    @Embedded
-    private AutoChargingPreference preference;
+    @Column(name = "password", columnDefinition = "CHAR(6)")
+    private String password;
 
     @Column(name = "deleted")
     private boolean deleted;
