@@ -20,3 +20,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
   "card_password": "11",
   "payment_password": "123456"
 }
+
+### 카드 조회
+
+GET {{host}}/api/v1/me/payments/credit-card
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuuniOyKpO2EsOycoOyggCIsImlkIjo4MCwiZXhwIjoxNjc4NTQwMTI1LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.5f0VcJSczgpTe0A7zXdsgL6pFtHVcK-E_P22E5av8tY

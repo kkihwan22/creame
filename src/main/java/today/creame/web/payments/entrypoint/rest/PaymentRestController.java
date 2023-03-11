@@ -79,15 +79,20 @@ public class PaymentRestController implements BaseRestController {
     @GetMapping("/api/v1/me/payments/credit-card")
     public ResponseEntity<Body<CreditCardResponse>> getCreditCard() {
         CreditCardResult result = paymentService.getCreditCard();
-        CreditCardResponse response = new CreditCardResponse(result.getCreditCard() != null);
+
+        CreditCardResponse response = new CreditCardResponse();
+
+        if (result == null) {
+            log.debug("response: {}", response);
+            return ResponseEntity.ok(BodyFactory.success(response.withUsedBillKey(false)));
+        }
 
         if (result.getCreditCard() != null) {
-            response.withCardno(result.getCreditCard().maskCardno());
-            response.withUsedAutoCharging(result.getPreference().isEnabled());
-
+            response.setCardno(result.getCreditCard().maskCardno());
+            response.setUsedAutoCharging(result.getPreference().isEnabled());
             if (result.getPreference().isEnabled()) {
-                response.withAmount(result.getPreference().getAmount());
-                response.withBalance(result.getPreference().getBalance());
+                response.setAmount(result.getPreference().getAmount());
+                response.setBalance(result.getPreference().getBalance());
             }
         }
 
@@ -107,6 +112,7 @@ public class PaymentRestController implements BaseRestController {
 
     @PostMapping("/api/v1/payments/receive")
     public String receivePayResult(@RequestBody ReceiptRequest request) {
+        // PUSH URL 변경
         // payment history 에 기록하고
         // member 에 코인 update 하고
         // 코인 history 기록하고
