@@ -14,6 +14,7 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.member.domain.Member;
+import today.creame.web.payments.exception.NotMatchedPasswordException;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
 @NoArgsConstructor
@@ -56,12 +57,23 @@ public class PaymentBillKey extends BaseCreatedAndUpdatedDateTime {
         return preference != null && preference.isEnabled();
     }
 
-//    public int requestChargingAmount() {
-//        return (int) (this.chargingAmount + (chargingAmount * VAT));
-//    }
-//
-//    public int requestChargingCoins() {
-//
-//        return (int) (this.chargingAmount + (chargingAmount * BENEFIT_RATE));
-//    }
+    public void enabledAutoCharging(AutoChargingPreference preference) {
+        this.preference = preference;
+    }
+
+    public void disabledAutoCharging() {
+        this.preference = null;
+    }
+
+    public void updateBillKey(String billKey) {
+        this.billKey = billKey;
+    }
+
+    public void changePassword(String oPass, String nPass) {
+        if (!this.creditCard.isMatchedPassword(oPass)) {
+            throw new NotMatchedPasswordException();
+        }
+
+        this.creditCard = new CreditCard(this.creditCard, nPass);
+    }
 }

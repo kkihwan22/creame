@@ -25,17 +25,21 @@ public class AutoChargingPreference {
     @Column(name = "amount")
     private int amount;
 
-//    public AutoPaymentPreference(int balance, int chargingAmount) {
-//        this.balance = balance;
-//        this.chargingAmount = chargingAmount;
-//    }
-//
-//    public int requestChargingAmount() {
-//        return (int) (this.chargingAmount + (chargingAmount * VAT));
-//    }
-//
-//    public int requestChargingCoins() {
-//
-//        return (int) (this.chargingAmount + (chargingAmount * BENEFIT_RATE));
-//    }
+    public AutoChargingPreference(boolean enabled, int balance, int amount) {
+        this.enabled = enabled;
+        this.balance = balance;
+        this.amount = amount;
+    }
+
+    public int paymentAmount() {
+        return (int) (this.amount + (amount * VAT));
+    }
+
+    public int chargeCoins() {
+        return (int) (this.amount + (amount * BENEFIT_RATE));
+    }
+
+    public static AutoChargingPreference init(int amount) {
+        return new AutoChargingPreference(true, 10000, amount);
+    }
 }

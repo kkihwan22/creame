@@ -37,8 +37,20 @@ public class CreditCard {
         this.paymentPassword = paymentPassword;
     }
 
+    public CreditCard(CreditCard other, String paymentPassword) {
+        this(other.cardno, other.expYear, other.expMonth, other.serial, other.cardPassword, paymentPassword);
+    }
+
     public String maskCardno() {
         String substring = this.cardno.substring(0, 8);
         return substring.concat("********");
+    }
+
+    public boolean isMatchedPassword(String password) {
+        return this.paymentPassword.equals(password);
+    }
+
+    public void updatePaymentPassword(String password) {
+        this.paymentPassword = password;
     }
 }
