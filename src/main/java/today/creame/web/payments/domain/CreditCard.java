@@ -36,4 +36,9 @@ public class CreditCard {
         this.cardPassword = cardPassword;
         this.paymentPassword = paymentPassword;
     }
+
+    public String maskCardno() {
+        String substring = this.cardno.substring(0, 8);
+        return substring.concat("********");
+    }
 }

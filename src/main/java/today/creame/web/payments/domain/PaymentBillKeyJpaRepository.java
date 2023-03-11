@@ -1,8 +1,11 @@
 package today.creame.web.payments.domain;
 
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PaymentBillKeyJpaRepository extends JpaRepository<PaymentBillKey, Long> {
 
-    Boolean existsPaymentBillKeyByMemberIdAAndDeleted(Long memberId, boolean deleted);
+    Optional<PaymentBillKey> findPaymentBillKeyByMemberIdAndDeleted(Long memberId, boolean deleted);
+
+    Boolean existsPaymentBillKeyByMemberIdAndDeleted(Long memberId, boolean deleted);
 }

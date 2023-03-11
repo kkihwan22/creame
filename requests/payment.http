@@ -7,16 +7,16 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 ### 카드등록
 
-POST {{host}}/api/v1/me/bill-key
+POST {{host}}/api/v1/me/payments/bill-key
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuuniOyKpO2EsOycoOyggCIsImlkIjo4MCwiZXhwIjoxNjc4NDY5MjQ0LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.YNKRn4e9Z5W9KjDv9HDd7tMyBhuHYmZUQO1BuVBwRi4
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuuniOyKpO2EsOycoOyggCIsImlkIjo4MCwiZXhwIjoxNjc4NTA4MjkwLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.PuCBBkuF7p5GluJPPaHEx9YQyAgyHBTHP1a9-PLitdg
 
 {
   "personal": true,
   "serial": "830110",
-  "cardno": "5365101842300307",
-  "month": "01",
-  "year": "27",
+  "cardno": "9490890013941903",
+  "month": "12",
+  "year": "25",
   "card_password": "06",
-  "payment_password": "123456"
+  "payment_password": "069112"
 }
