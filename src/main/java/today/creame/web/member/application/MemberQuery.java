@@ -5,7 +5,7 @@ import today.creame.web.influence.application.model.InfluenceQnaResult;
 import today.creame.web.member.application.model.MeResult;
 import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.member.application.model.MyQuestionsQueryParameter;
-import today.creame.web.member.domain.NotificationSetting;
+import today.creame.web.member.domain.MemberNotificationPreference;
 
 public interface MemberQuery {
     MeResult getMe(Long id);
@@ -20,5 +20,5 @@ public interface MemberQuery {
 
     boolean existMemberByPhoneNumber(String phoneNumber);
 
-    NotificationSetting getNotificationSetting(Long id);
+    MemberNotificationPreference getNotificationSetting(Long id);
 }

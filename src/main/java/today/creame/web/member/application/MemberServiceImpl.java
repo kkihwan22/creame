@@ -114,7 +114,9 @@ public class MemberServiceImpl implements MemberService {
             .orElseThrow(NotFoundMemberException::new);
         log.debug("find member: {}", member);
 
-        member.updateNotificationSetting(parameter.getItem(), parameter.isCondition());
+        // TODO: 확인 필요
+        MemberNotificationPreference notification = member.getNotificationPreferences().get(0);
+        notification.changeNotificationCondition(parameter.getItem(), parameter.isCondition());
     }
 
     private void validation(MemberRegisterParameter parameter) {

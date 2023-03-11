@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +17,11 @@ import today.creame.web.payments.application.PaymentService;
 import today.creame.web.payments.application.model.CreditCardResult;
 import today.creame.web.payments.domain.AutoChargingPreference;
 import today.creame.web.payments.entrypoint.rest.io.BillKeyIssueRequest;
+import today.creame.web.payments.entrypoint.rest.io.BillKeyPaymentRequest;
 import today.creame.web.payments.entrypoint.rest.io.CreditCardResponse;
 import today.creame.web.payments.entrypoint.rest.io.EnableAutoChargingRequest;
 import today.creame.web.payments.entrypoint.rest.io.PaymentPasswordChangeRequest;
+import today.creame.web.payments.entrypoint.rest.io.ReceiptRequest;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
@@ -38,6 +41,12 @@ public class PaymentRestController implements BaseRestController {
         hasError(bindingResult);
         request.validSerial();
         paymentService.issueBillKey(request.of());
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @DeleteMapping("/api/v1/me/payments/bill-key")
+    public ResponseEntity<Body<SimpleBodyData<String>>> removeBillKey() {
+        paymentService.removeBillKey();
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
@@ -86,9 +95,21 @@ public class PaymentRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(response));
     }
 
-    // 자동충전
+    @PostMapping("/api/v1/payments/request-payment-billkey")
+    public ResponseEntity<Body<SimpleBodyData<String>>> payByBillKey(
+        @RequestBody @Valid BillKeyPaymentRequest request,
+        BindingResult bindingResult
+    ) {
+        hasError(bindingResult);
+        paymentService.payByBillKey(request.getPaymentPassword(), request.getAmount());
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
 
-    // 등록 된 카드 삭제
-
-    // push
+    @PostMapping("/api/v1/payments/receive")
+    public String receivePayResult(@RequestBody ReceiptRequest request) {
+        // payment history 에 기록하고
+        // member 에 코인 update 하고
+        // 코인 history 기록하고
+        return "00";
+    }
 }

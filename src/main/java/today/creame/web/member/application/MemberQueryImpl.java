@@ -13,7 +13,7 @@ import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.member.application.model.MyQuestionsQueryParameter;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
-import today.creame.web.member.domain.NotificationSetting;
+import today.creame.web.member.domain.MemberNotificationPreference;
 import today.creame.web.member.exception.NotFoundMemberException;
 import today.creame.web.share.support.SecurityContextSupporter;
 
@@ -65,10 +65,12 @@ public class MemberQueryImpl implements MemberQuery {
     }
 
     @Override
-    public NotificationSetting getNotificationSetting(Long id) {
+    public MemberNotificationPreference getNotificationSetting(Long id) {
+        // TODO: result 로 변경
         return memberJpaRepository
             .findById(id)
             .orElseThrow(NotFoundMemberException::new)
-            .getNotificationSetting();
+            .getNotificationPreferences()
+            .get(0);
     }
 }

@@ -52,4 +52,27 @@ public class MemberNotificationPreference {
         this.member = member;
         member.getNotificationPreferences().add(this);
     }
+
+    public void changeNotificationCondition(NotificationSettingItem item, boolean condition) {
+        switch (item) {
+            case SMS:
+                this.sms = condition;
+                break;
+            case EMAIL:
+                this.email = condition;
+                break;
+            case EVENT:
+                this.event = condition;
+                break;
+            case ANSWER:
+                this.answer = condition;
+                break;
+            case REVIEW:
+                this.review = condition;
+                break;
+            case RECENT_INFLUENCE:
+                this.recentInfluence = condition;
+                break;
+        }
+    }
 }

@@ -49,8 +49,4 @@ public class CreditCard {
     public boolean isMatchedPassword(String password) {
         return this.paymentPassword.equals(password);
     }
-
-    public void updatePaymentPassword(String password) {
-        this.paymentPassword = password;
-    }
 }

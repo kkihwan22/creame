@@ -13,10 +13,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 {
   "personal": true,
-  "serial": "830110",
-  "cardno": "9490890013941903",
+  "serial": "791231",
+  "cardno": "1234567890123456",
   "month": "12",
   "year": "25",
-  "card_password": "06",
-  "payment_password": "069112"
+  "card_password": "11",
+  "payment_password": "123456"
 }

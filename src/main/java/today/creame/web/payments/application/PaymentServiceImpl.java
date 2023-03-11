@@ -20,6 +20,7 @@ import today.creame.web.payments.domain.PaymentBillKeyJpaRepository;
 import today.creame.web.payments.exception.ConflictCreditCardException;
 import today.creame.web.payments.exception.IllegalCreditCardDataException;
 import today.creame.web.payments.exception.NotFoundCreditCardException;
+import today.creame.web.payments.exception.PaymentFailureException;
 import today.creame.web.payments.exception.RemoveBillKeyException;
 import today.creame.web.share.support.SecurityContextSupporter;
 
@@ -54,6 +55,22 @@ public class PaymentServiceImpl implements PaymentService {
         String billKey = body.getBillKey();
         log.debug("발급 된 빌키: {}", billKey);
         paymentBillKeyJpaRepository.save(new PaymentBillKey(member, billKey, creditCard));
+    }
+
+    @Transactional
+    @Override
+    public void removeBillKey() {
+        Member member = memberJpaRepository
+            .findById(SecurityContextSupporter.getId())
+            .orElseThrow(NotFoundMemberException::new);
+        log.debug("member: {}", member);
+
+        PaymentBillKey paymentBillKey = paymentBillKeyJpaRepository
+            .findPaymentBillKeyByMemberIdAndDeleted(member.getId(), false)
+            .orElseThrow(NotFoundCreditCardException::new);
+
+        this.removeBillKey(member);
+        paymentBillKey.delete();
     }
 
     @Transactional
@@ -132,6 +149,24 @@ public class PaymentServiceImpl implements PaymentService {
         if (!body.getReqResult().equals("00")) {
             log.error("빌키 삭제 중 에러가 발생했습니다.");
             throw new RemoveBillKeyException();
+        }
+    }
+
+    @Override
+    public void payByBillKey(String paymentPassword, int amount) {
+        Member member = memberJpaRepository
+            .findById(SecurityContextSupporter.getId())
+            .orElseThrow(NotFoundMemberException::new);
+        log.debug("member: {}", member);
+
+        PaymentBillKey paymentBillKey = paymentBillKeyJpaRepository
+            .findPaymentBillKeyByMemberIdAndDeleted(member.getId(), false)
+            .orElseThrow(NotFoundCreditCardException::new);
+        try {
+            paymentBillKey.pay(paymentPassword, amount, member, m2netClient);
+        } catch (PaymentFailureException e) {
+            log.error("결제에 실패하였습니다.");
+            throw e;
         }
     }
 }

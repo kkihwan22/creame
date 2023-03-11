@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Convert;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -61,15 +60,11 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     @OneToMany(mappedBy = "member", fetch = LAZY, cascade = ALL)
     private List<MemberNotificationPreference> notificationPreferences = new ArrayList<>();
 
-    //TODO: 테이블로 분리
-    @Embedded
-    private NotificationSetting notificationSetting;
-
     @Column(name = "coins")
     private int coins;
 
-    @Column(name = "benefit_coins")
-    private int benefitCoins;
+    @Column(name = "bonus_coins")
+    private int bonusCoins;
 
     @OneToMany(mappedBy = "member")
     private List<MemberRole> roles = new ArrayList<>();
@@ -101,10 +96,6 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
 
     public void changedPassword(String password) {
         this.password = password;
-    }
-
-    public void updateNotificationSetting(NotificationSettingItem code, boolean condition) {
-        this.notificationSetting = new NotificationSetting(this.notificationSetting, code, condition);
     }
 
     public void registerM2netMember(M2netUserService m2netUserService) {

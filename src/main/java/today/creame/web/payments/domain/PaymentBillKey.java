@@ -13,8 +13,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import today.creame.web.m2net.infra.feign.M2netClient;
+import today.creame.web.m2net.infra.feign.io.M2netPaymentRequest;
+import today.creame.web.m2net.infra.feign.io.M2netSimpleResponse;
 import today.creame.web.member.domain.Member;
 import today.creame.web.payments.exception.NotMatchedPasswordException;
+import today.creame.web.payments.exception.PaymentFailureException;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
 @NoArgsConstructor
@@ -75,5 +79,22 @@ public class PaymentBillKey extends BaseCreatedAndUpdatedDateTime {
         }
 
         this.creditCard = new CreditCard(this.creditCard, nPass);
+    }
+
+    public void pay(String password, int amount, Member member, M2netClient client) {
+        if (this.creditCard.isMatchedPassword(password)) {
+            throw new NotMatchedPasswordException();
+        }
+
+        int applyVatAmount = (int) (amount + (amount * 0.1));
+        M2netSimpleResponse body = client.requestPayment(new M2netPaymentRequest(member.getM2netUserId(), applyVatAmount, amount)).getBody();
+
+        if (!body.getReqResult().equals("00")) {
+            throw new PaymentFailureException();
+        }
+    }
+
+    public void delete() {
+        this.deleted = true;
     }
 }

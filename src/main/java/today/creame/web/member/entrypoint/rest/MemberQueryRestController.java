@@ -16,7 +16,7 @@ import today.creame.web.influence.application.model.InfluenceQnaResult;
 import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.model.MeResult;
 import today.creame.web.member.application.model.MyQuestionsQueryParameter;
-import today.creame.web.member.domain.NotificationSetting;
+import today.creame.web.member.domain.MemberNotificationPreference;
 import today.creame.web.member.entrypoint.rest.io.MeResponse;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
@@ -70,8 +70,8 @@ public class MemberQueryRestController implements BaseRestController {
     }
 
     @GetMapping("/api/v1/me/notifications")
-    public ResponseEntity<Body<NotificationSetting>> myNotifications() {
-        NotificationSetting result = memberQuery.getNotificationSetting(SecurityContextSupporter.getId());
+    public ResponseEntity<Body<MemberNotificationPreference>> myNotifications() {
+        MemberNotificationPreference result = memberQuery.getNotificationSetting(SecurityContextSupporter.getId());
         return ResponseEntity.ok(BodyFactory.success(result));
     }
 }
