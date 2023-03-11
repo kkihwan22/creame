@@ -9,7 +9,7 @@ import today.creame.web.payments.domain.CreditCard;
 @Component
 public interface IssueBillKeyConverter {
     String ITEM_NM = "크리미 서비스 자동결제";
-    String PUSH_URL = "";
+    String PUSH_URL = "/api/v1/payments/receive";
 
     M2netBillKeyIssueRequest convert(CreditCard card, AutoChargingPreference preference, Member member);
 }
