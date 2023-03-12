@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import today.creame.web.coin.domain.CoinsHistoryType;
 import today.creame.web.m2net.application.M2netUserService;
 import today.creame.web.m2net.application.model.M2netUserCreateParameter;
 import today.creame.web.member.domain.converter.MemberStatusConverter;
@@ -100,5 +101,22 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
 
     public void registerM2netMember(M2netUserService m2netUserService) {
         m2netUserId = m2netUserService.create(new M2netUserCreateParameter(nickname, phoneNumber));
+    }
+
+    public void updateCoins(CoinsHistoryType type, int changeCoins) {
+        switch (type) {
+            case USING:
+            case REFUNDED:
+                this.coins = this.coins - changeCoins;
+                break;
+            case CHARGING:
+            case CANCELED:
+                this.coins = this.coins + changeCoins;
+                break;
+            case REWARD:
+                this.bonusCoins = this.bonusCoins + changeCoins;
+                this.coins = this.coins + coins;
+                break;
+        }
     }
 }

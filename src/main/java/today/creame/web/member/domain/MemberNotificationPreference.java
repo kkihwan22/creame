@@ -1,5 +1,6 @@
 package today.creame.web.member.domain;
 
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ public class MemberNotificationPreference {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     @Setter
     private Member member;

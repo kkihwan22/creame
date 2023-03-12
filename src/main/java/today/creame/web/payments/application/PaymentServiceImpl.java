@@ -3,6 +3,7 @@ package today.creame.web.payments.application;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.m2net.infra.feign.M2netClient;
@@ -13,15 +14,19 @@ import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.exception.NotFoundMemberException;
 import today.creame.web.payments.application.model.CreditCardResult;
+import today.creame.web.payments.application.model.ReceiptParameter;
 import today.creame.web.payments.domain.AutoChargingPreference;
 import today.creame.web.payments.domain.CreditCard;
 import today.creame.web.payments.domain.PaymentBillKey;
 import today.creame.web.payments.domain.PaymentBillKeyJpaRepository;
+import today.creame.web.payments.domain.PaymentHistoryJpaRepository;
+import today.creame.web.payments.domain.PaymentsHistory;
 import today.creame.web.payments.exception.ConflictCreditCardException;
 import today.creame.web.payments.exception.IllegalCreditCardDataException;
 import today.creame.web.payments.exception.NotFoundCreditCardException;
 import today.creame.web.payments.exception.PaymentFailureException;
 import today.creame.web.payments.exception.RemoveBillKeyException;
+import today.creame.web.share.event.PaymentEvent;
 import today.creame.web.share.support.SecurityContextSupporter;
 
 @RequiredArgsConstructor
@@ -32,6 +37,8 @@ public class PaymentServiceImpl implements PaymentService {
     private final IssueBillKeyConverter issueBillKeyConverter;
     private final M2netClient m2netClient;
     private final PaymentBillKeyJpaRepository paymentBillKeyJpaRepository;
+    private final PaymentHistoryJpaRepository paymentHistoryJpaRepository;
+    private final ApplicationEventPublisher publisher;
 
     @Transactional
     @Override
@@ -134,6 +141,33 @@ public class PaymentServiceImpl implements PaymentService {
             .orElse(null);
     }
 
+    @Override
+    public void payByBillKey(String paymentPassword, int amount) {
+        Member member = memberJpaRepository
+            .findById(SecurityContextSupporter.getId())
+            .orElseThrow(NotFoundMemberException::new);
+        log.debug("member: {}", member);
+
+        PaymentBillKey paymentBillKey = paymentBillKeyJpaRepository
+            .findPaymentBillKeyByMemberIdAndDeleted(member.getId(), false)
+            .orElseThrow(NotFoundCreditCardException::new);
+        try {
+            paymentBillKey.pay(paymentPassword, amount, member, m2netClient);
+        } catch (PaymentFailureException e) {
+            log.error("결제에 실패하였습니다.");
+            throw e;
+        }
+    }
+
+    @Transactional
+    @Override
+    public void postPay(ReceiptParameter parameter) {
+        PaymentsHistory paymentsHistory = parameter.toEntity(memberJpaRepository);
+        paymentHistoryJpaRepository.save(paymentsHistory);
+        publisher.publishEvent(new PaymentEvent(
+            paymentsHistory.getMember().getId(), paymentsHistory.getType(), parameter.getAmount(), parameter.getCoinamt()));
+    }
+
     private void resetBillKey(PaymentBillKey paymentBillKey, Member member) {
         removeBillKey(member);
         M2netBillKeyIssueResponse body = m2netClient.issueBillKey(issueBillKeyConverter.convert(paymentBillKey.getCreditCard(), paymentBillKey.getPreference(), member)).getBody();
@@ -152,21 +186,5 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
-    @Override
-    public void payByBillKey(String paymentPassword, int amount) {
-        Member member = memberJpaRepository
-            .findById(SecurityContextSupporter.getId())
-            .orElseThrow(NotFoundMemberException::new);
-        log.debug("member: {}", member);
 
-        PaymentBillKey paymentBillKey = paymentBillKeyJpaRepository
-            .findPaymentBillKeyByMemberIdAndDeleted(member.getId(), false)
-            .orElseThrow(NotFoundCreditCardException::new);
-        try {
-            paymentBillKey.pay(paymentPassword, amount, member, m2netClient);
-        } catch (PaymentFailureException e) {
-            log.error("결제에 실패하였습니다.");
-            throw e;
-        }
-    }
 }

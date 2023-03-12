@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import today.creame.web.coin.domain.CoinHistoryType;
+import today.creame.web.coin.domain.CoinsHistoryType;
 import today.creame.web.coin.entrypoint.rest.io.MyCoinHistoryResponse;
 import today.creame.web.coin.entrypoint.rest.io.MyCoinStatResponse;
 import today.creame.web.share.entrypoint.BaseRestController;
@@ -41,13 +41,13 @@ public class CoinQueryRestController implements BaseRestController {
 
         LocalDateTime now = LocalDateTime.now();
         MyCoinHistoryResponse response1 = new MyCoinHistoryResponse(
-            CoinHistoryType.CHARGING, 10000, 10000, now);
+            CoinsHistoryType.CHARGING, 10000, 10000, now);
 
         MyCoinHistoryResponse response2 = new MyCoinHistoryResponse(
-            CoinHistoryType.REWARD, 500, 10500, now);
+            CoinsHistoryType.REWARD, 500, 10500, now);
 
         MyCoinHistoryResponse response3 = new MyCoinHistoryResponse(
-            CoinHistoryType.USING, 5000, 5500, now);
+            CoinsHistoryType.USING, 5000, 5500, now);
 
         list.add(response1);
         list.add(response2);

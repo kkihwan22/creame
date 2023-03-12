@@ -1,8 +1,8 @@
-package today.creame.web.member.domain.converter;
+package today.creame.web.coin.domain.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import today.creame.web.member.domain.CoinsHistoryType;
+import today.creame.web.coin.domain.CoinsHistoryType;
 
 @Converter
 public class CoinsHistoryTypeToString implements AttributeConverter<CoinsHistoryType, String> {

@@ -57,4 +57,15 @@ public class PaymentsHistory extends BaseCreatedAndUpdatedDateTime {
 
     @Column(name = "result_message")
     private String resultMessage;
+
+    public PaymentsHistory(Member member, PaymentsHistoryType type, String orderId, String txId, int amount, int coins, String resultCode, String resultMessage) {
+        this.member = member;
+        this.type = type;
+        this.orderId = orderId;
+        this.txId = txId;
+        this.amount = amount;
+        this.coins = coins;
+        this.resultCode = resultCode;
+        this.resultMessage = resultMessage;
+    }
 }

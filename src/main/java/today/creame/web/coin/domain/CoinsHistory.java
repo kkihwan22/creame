@@ -1,4 +1,4 @@
-package today.creame.web.member.domain;
+package today.creame.web.coin.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import today.creame.web.member.domain.converter.CoinsHistoryTypeToString;
+import today.creame.web.coin.domain.converter.CoinsHistoryTypeToString;
+import today.creame.web.member.domain.Member;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
 @NoArgsConstructor
@@ -44,4 +45,11 @@ public class CoinsHistory extends BaseCreatedAndUpdatedDateTime {
 
     @Column(name = "balance_coins")
     private int balanceCoins;
+
+    public CoinsHistory(Member member, CoinsHistoryType type, int coins) {
+        this.member = member;
+        this.type = type;
+        this.coins = coins;
+        this.balanceCoins = member.getCoins();
+    }
 }

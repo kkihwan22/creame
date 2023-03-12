@@ -39,6 +39,7 @@ public class InfluenceQueryRestController implements BaseRestController {
     }
 
     // 바톰메뉴 (단골- 상담사) / p.78
+    // TODO: 페이징 처리
     @GetMapping("/api/v1/influences-bookmark")
     public ResponseEntity<Body<List<InfluenceResult>>> getBookmarkedInfluences() {
         Long me = SecurityContextSupporter.getId();
