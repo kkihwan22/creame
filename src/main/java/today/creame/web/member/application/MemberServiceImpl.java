@@ -108,7 +108,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Permit
     @Override
-    public void changedNotificationSetting(NotificationSettingParameter parameter) {
+    public void changedNotificationCondition(NotificationSettingParameter parameter) {
         Member member = memberJpaRepository
             .findById(parameter.getId())
             .orElseThrow(NotFoundMemberException::new);
@@ -117,6 +117,12 @@ public class MemberServiceImpl implements MemberService {
         // TODO: 확인 필요
         MemberNotificationPreference notification = member.getNotificationPreferences().get(0);
         notification.changeNotificationCondition(parameter.getItem(), parameter.isCondition());
+    }
+
+    @Transactional
+    @Override
+    public void changedPhoneNumber(Long token, String phoneNumber) {
+
     }
 
     private void validation(MemberRegisterParameter parameter) {

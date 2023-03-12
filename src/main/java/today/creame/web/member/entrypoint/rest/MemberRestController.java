@@ -26,6 +26,7 @@ import today.creame.web.member.entrypoint.rest.io.ForgetPasswordRequest;
 import today.creame.web.member.entrypoint.rest.io.MemberNicknameUpdateRequest;
 import today.creame.web.member.entrypoint.rest.io.MemberPasswordUpdateRequest;
 import today.creame.web.member.entrypoint.rest.io.MemberRegisterRequest;
+import today.creame.web.member.entrypoint.rest.io.PhoneNumberUpdateRequest;
 import today.creame.web.share.domain.OnOffCondition;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
@@ -120,8 +121,17 @@ public class MemberRestController implements BaseRestController {
         @PathVariable @EnumConstraint(enumClass = NotificationSettingItem.class, ignoreCase = true) NotificationSettingItem item,
         @PathVariable @EnumConstraint(enumClass = OnOffCondition.class, ignoreCase = true) OnOffCondition condition
     ) {
-        memberService.changedNotificationSetting(
+        memberService.changedNotificationCondition(
             new NotificationSettingParameter(id, item, condition.getCondition()));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @PatchMapping("/api/v1/me/phone-number")
+    public ResponseEntity<Body<SimpleBodyData<String>>> changedPhoneNumber(
+        @RequestBody @Valid PhoneNumberUpdateRequest request,
+        BindingResult bindingResult) {
+
+        hasError(bindingResult);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }

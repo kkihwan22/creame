@@ -22,5 +22,7 @@ public interface MemberService {
 
     void expire(MemberExpireParameter parameter);
 
-    void changedNotificationSetting(NotificationSettingParameter parameter);
+    void changedNotificationCondition(NotificationSettingParameter parameter);
+
+    void changedPhoneNumber(Long token, String phoneNumber);
 }
