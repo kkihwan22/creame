@@ -79,7 +79,7 @@ public class InfluenceServiceImpl implements InfluenceService {
         }
 
         influence.updateConnect();
-        publisher.publishEvent(new ConnectionUpdateEvent(id, status));
+        publisher.publishEvent(new ConnectionUpdateEvent(id, influence.getM2NetCounselorId(), status));
     }
 
     @Transactional

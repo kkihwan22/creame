@@ -8,10 +8,12 @@ import today.creame.web.share.domain.OnOffCondition;
 @ToString
 public class ConnectionUpdateEvent {
     private Long influenceId;
+    private String cid;
     private OnOffCondition onOffCondition;
 
-    public ConnectionUpdateEvent(Long influenceId, OnOffCondition onOffCondition) {
+    public ConnectionUpdateEvent(Long influenceId, String cid, OnOffCondition onOffCondition) {
         this.influenceId = influenceId;
+        this.cid = cid;
         this.onOffCondition = onOffCondition;
     }
 }

@@ -16,15 +16,17 @@ public class ItemMap {
         Map<Integer, Item> temp = new HashMap<>();
         Integer index = 0;
         Integer amount = 900;
-        temp.put(index++, new Item(index, amount, 30, TimeUnit.SECONDS));
+        temp.put(index, new Item(index, amount, 30, TimeUnit.SECONDS));
+
         while (index < 12) {
-            temp.put(index++, new Item(index, amount = amount + 100, 30, TimeUnit.SECONDS));
+            temp.put(++index, new Item(index, amount = amount + 100, 30, TimeUnit.SECONDS));
         }
         log.info("Item data: {}", temp);
         data = new HashMap<>(temp);
     }
 
     public static Item get(Integer index) {
+        log.debug("ItemMap: {}", data);
         return ItemMap.data.get(index);
     }
 

@@ -18,7 +18,7 @@ public class ConnectionUpdateListener {
 
     @EventListener // TODO: async
     public void handle(ConnectionUpdateEvent event) {
-        if (ON == event.getOnOffCondition()) m2netCounselorService.on(event.getInfluenceId().toString());
-        else m2netCounselorService.off(event.getInfluenceId().toString());
+        if (ON == event.getOnOffCondition()) m2netCounselorService.on(event.getCid());
+        else m2netCounselorService.off(event.getCid());
     }
 }
