@@ -1,3 +1,13 @@
+### 로그인 (관리자) -- 88
+
+POST {{host}}/public/v1/login
+Content-Type: application/json
+
+{
+  "username": "jinkh97@gmail.com",
+  "password": "1q2w3e4r"
+}
+
 ### 로그인 (인플루언스) -- 50
 
 POST {{host}}/public/v1/login

@@ -14,7 +14,6 @@ public class M2netUserCreateRequest {
     private String membnm;
     private String telno;
     private int amt;
-    private String autopayflag;
 
     public M2netUserCreateRequest(M2netUserCreateParameter parameter) {
         this.membnm = parameter.getNickname();

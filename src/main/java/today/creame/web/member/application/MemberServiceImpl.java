@@ -50,7 +50,8 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Long registerMemberInfluence(MemberRegisterParameter parameter) {
         this.validation(parameter);
-        return this.register(parameter.toEntity(), List.of(new MemberRole(null, MemberRoleCode.USER), new MemberRole(null, MemberRoleCode.INFLUENCE)));
+        Long id = this.register(parameter.toEntity(), List.of(new MemberRole(null, MemberRoleCode.USER), new MemberRole(null, MemberRoleCode.INFLUENCE)));
+        return id;
     }
 
     @Permit
