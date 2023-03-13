@@ -13,12 +13,12 @@ import today.creame.web.m2net.infra.feign.io.M2netCounselorStateRequest;
 
 @FeignClient(
     name = "M2netCounselorClient",
-    url = "http://passcall.co.kr:25205/csr-mgr",
+    url = "${m2net.host}/csr-mgr",
     configuration = M2netHeaderConfig.class
 )
 public interface M2netCounselorClient {
 
-    @PostMapping("/0001")
+    @PostMapping("/${m2net.cpid}")
     ResponseEntity<M2netCounselorCreateResponse> create(
         @RequestBody M2netCounselorCreateRequest request
     );

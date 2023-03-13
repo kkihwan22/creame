@@ -16,26 +16,24 @@ import today.creame.web.m2net.infra.feign.io.M2netSimpleResponse;
 
 @FeignClient(
     name = "M2netClient",
-    url = "http://passcall.co.kr:25205/etc-mgr",
+    url = "${m2net.host}/etc-mgr",
     configuration = M2netHeaderConfig.class
 )
 public interface M2netClient {
 
-    // TODO: '0001' -> cpId pathvariable 로 변경
-
-    @PutMapping("/0001/drconn")
+    @PutMapping("/${m2net.cpid}/drconn")
     ResponseEntity<M2netPrecallResponse> preCall(
         @RequestBody M2netPrecallRequest request
     );
 
-    @PostMapping("/0001/autopayreg")
+    @PostMapping("/${m2net.cpid}/autopayreg")
     ResponseEntity<M2netBillKeyIssueResponse> issueBillKey(
         @RequestBody M2netBillKeyIssueRequest request
     );
 
-    @PostMapping("/0001/autopay_delete")
+    @PostMapping("/${m2net.cpid}/autopay_delete")
     ResponseEntity<M2netSimpleResponse> removeBillKey(@RequestBody M2netRemoveBillKeyRequest request);
 
-    @PostMapping("/0001/autopay_request")
+    @PostMapping("/${m2net.cpid}/autopay_request")
     ResponseEntity<M2netSimpleResponse> requestPayment(@RequestBody M2netPaymentRequest request);
 }

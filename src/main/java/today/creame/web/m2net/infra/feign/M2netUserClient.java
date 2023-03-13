@@ -12,12 +12,12 @@ import today.creame.web.m2net.infra.feign.io.M2netUserCreateResponse;
 
 @FeignClient(
     name = "M2netUserClient",
-    url = "http://passcall.co.kr:25205/memb-mgr",
+    url = "${m2net.host}/memb-mgr",
     configuration = M2netHeaderConfig.class
 )
 public interface M2netUserClient {
 
-    @PostMapping("/0001")
+    @PostMapping("/${m2net.cpid}")
     ResponseEntity<M2netUserCreateResponse> create(@RequestBody M2netUserCreateRequest request);
 
     @PutMapping("/{mId}")

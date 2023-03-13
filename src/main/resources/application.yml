@@ -78,9 +78,14 @@ aws:
   paramstore:
     enabled: true
     prefix: /creame
-    profile-separator: .
     name: web
+    profile-separator: .
     fail-fast: true
+
+m2net:
+  cpid: "0014"
+  authkey: iP8n7GrCOrVic4qJ6dpmTIKg
+  host: http://passcall.co.kr:25205
 
 logging:
   level:

@@ -42,7 +42,6 @@ public class MemberServiceImpl implements MemberService {
     public Long registerMember(MemberRegisterParameter parameter) {
         this.validation(parameter);
         Member member = parameter.toEntity();
-        member.registerM2netMember(m2netUserService);
         Long registerMember = this.register(member, List.of(new MemberRole(null, MemberRoleCode.USER)));
         return registerMember;
     }
@@ -143,6 +142,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     private Long register(Member registerMember, List<MemberRole> roles) {
+        registerMember.registerM2netMember(m2netUserService);
         memberJpaRepository.save(registerMember);
         memberNotificationJpaRepository.save(new MemberNotificationPreference(registerMember));
         roles.forEach(it -> {
