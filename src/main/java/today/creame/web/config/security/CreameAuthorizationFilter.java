@@ -32,18 +32,21 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        if (request.getServletPath().startsWith("/public")
+        String authorizationHeader = Optional
+            .ofNullable(request.getHeader(AUTHORIZATION))
+            .orElseGet(() -> null);
+
+        if (authorizationHeader == null) {
+            // TODO: refactoring !!
+            if (!request.getServletPath().startsWith("/public")
                 || request.getServletPath().startsWith("/pages")
                 || request.getServletPath().startsWith("/_health")
                 || request.getServletPath().startsWith("/swagger-ui")
                 || request.getServletPath().startsWith("/v3/api-docs/")
-        ) {
-            filterChain.doFilter(request, response);
+            ) {
+                throw new TokenNotExistException();
+            }
         } else {
-            String authorizationHeader = Optional
-                    .ofNullable(request.getHeader(AUTHORIZATION))
-                    .orElseThrow(TokenNotExistException::new);
-
             String key = BearerTokenSupporter.extract(authorizationHeader);
             log.debug("[access token] : {}", key);
 
@@ -60,8 +63,8 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
 
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-
-            filterChain.doFilter(request, response);
         }
+
+        filterChain.doFilter(request, response);
     }
 }
