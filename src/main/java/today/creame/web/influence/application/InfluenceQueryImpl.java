@@ -102,7 +102,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         log.debug("influence:{}", influence);
 
         InfluenceBookmark bookmark = influenceBookmarkJpaRepository.findById(id).orElse(null);
-        InfluenceNotice notice = influenceNoticeJpaRepository.findById(id).orElse(null);
+        InfluenceNotice notice = influenceNoticeJpaRepository.findInfluenceNoticeByInfluenceId(id).orElse(null);
         return new InfluenceResult(influence, bookmark, notice);
     }
 
