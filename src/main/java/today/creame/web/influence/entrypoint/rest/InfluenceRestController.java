@@ -20,6 +20,7 @@ import today.creame.web.influence.application.InfluenceService;
 import today.creame.web.influence.application.model.InfluenceNoticeParameter;
 import today.creame.web.influence.application.model.InfluenceNoticeResult;
 import today.creame.web.influence.application.model.SnsParameter;
+import today.creame.web.influence.domain.Item;
 import today.creame.web.influence.domain.SNS;
 import today.creame.web.influence.entrypoint.rest.io.NoticeUpdateRequest;
 import today.creame.web.influence.entrypoint.rest.io.SnsGetResponse;
@@ -83,7 +84,15 @@ public class InfluenceRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
-    @PatchMapping("/api/v1/influence/{id}/item/{index}")
+    @GetMapping("/api/v1/influences/{id}/item")
+    public ResponseEntity<Body<SimpleBodyData<Integer>>> selectedItemIndex(
+        @PathVariable Long id
+    ) {
+        Item item = influenceService.getItem(id);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(item.getIndex())));
+    }
+
+    @PatchMapping("/api/v1/influences/{id}/item/{index}")
     public ResponseEntity<Body<SimpleBodyData<String>>> changeItem(
         @PathVariable Long id,
         @PathVariable Integer index

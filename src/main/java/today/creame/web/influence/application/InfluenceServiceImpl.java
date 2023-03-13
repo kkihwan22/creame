@@ -14,6 +14,7 @@ import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.influence.domain.InfluenceCategoryJpaRepository;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
+import today.creame.web.influence.domain.Item;
 import today.creame.web.influence.domain.SNS;
 import today.creame.web.influence.exception.ConflictConnectionStatusException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
@@ -82,7 +83,16 @@ public class InfluenceServiceImpl implements InfluenceService {
         publisher.publishEvent(new ConnectionUpdateEvent(id, influence.getM2NetCounselorId(), status));
     }
 
+    @Permit
+    @Override
+    public Item getItem(Long id) {
+        Influence influence = influenceJpaRepository.findById(id)
+            .orElseThrow(NotFoundInfluenceException::new);
+        return influence.getItem();
+    }
+
     @Transactional
+    @Permit
     @Override
     public void changeItem(Long id, Integer index) {
         Influence influence = influenceJpaRepository.findById(id)
