@@ -112,10 +112,7 @@ public class PaymentRestController implements BaseRestController {
 
     @PostMapping("/api/v1/payments/receive")
     public String postPay(@RequestBody ReceiptRequest request) {
-
-        // payment history 에 기록하고
-        // member 에 코인 update 하고
-        // 코인 history 기록하고
+        paymentService.postPay(request.of());
         return "00";
     }
 }

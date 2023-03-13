@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import today.creame.web.payments.application.model.ReceiptParameter;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,4 +21,9 @@ public class ReceiptRequest {
     private String resultmessage;
     private String paytype;
     private String telno;
+
+    public ReceiptParameter of() {
+
+        return new ReceiptParameter(membid, oid, tid, amount, coinamt, reqResult, resultmessage);
+    }
 }
