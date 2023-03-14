@@ -14,6 +14,15 @@ public class InfluenceItemParameter implements BaseParameter {
     private Long influenceId;
     private Integer index;
 
+    public InfluenceItemParameter(Long influenceId, Integer index) {
+        this.influenceId = influenceId;
+        this.index = index;
+    }
+
+    public InfluenceItemParameter(Long influenceId) {
+        this(influenceId, null);
+    }
+
     @Override
     public Object toEntity() {
         return null;

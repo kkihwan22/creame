@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
+import today.creame.web.influence.application.model.InfluenceItemParameter;
 import today.creame.web.influence.application.model.SnsParameter;
 import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.domain.Influence;
@@ -85,8 +86,8 @@ public class InfluenceServiceImpl implements InfluenceService {
 
     @Permit
     @Override
-    public Item getItem(Long id) {
-        Influence influence = influenceJpaRepository.findById(id)
+    public Item getItem(InfluenceItemParameter parameter) {
+        Influence influence = influenceJpaRepository.findById(parameter.getInfluenceId())
             .orElseThrow(NotFoundInfluenceException::new);
         return influence.getItem();
     }
@@ -94,11 +95,11 @@ public class InfluenceServiceImpl implements InfluenceService {
     @Transactional
     @Permit
     @Override
-    public void changeItem(Long id, Integer index) {
-        Influence influence = influenceJpaRepository.findById(id)
+    public void changeItem(InfluenceItemParameter parameter) {
+        Influence influence = influenceJpaRepository.findById(parameter.getInfluenceId())
             .orElseThrow(NotFoundInfluenceException::new);
         log.debug("find influence:{}", influence);
-        influence.changeItem(index);
+        influence.changeItem(parameter.getIndex());
     } // TODO: 권한을 위해 parameter로 감싸야함.
 
     @Override
