@@ -67,14 +67,18 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
 
     @Override
     public boolean isVerified(Long token) {
-        PhoneVerification phoneVerification = phoneVerificationJpaRepository
-            .findTopByTokenOrderByCreatedDateTimeDesc(token)
-            .orElseThrow(() -> {
-                log.info("Not matched token. token: {}", token);
-                throw new NotMatchedTokenException();
-            });
+        List<PhoneVerification> results = phoneVerificationJpaRepository.findPhoneVerificationsByTokenAndVerified(token.toString(), true);
+        if (results.isEmpty()) {
+            log.info("Not matched token. token: {}", token);
+            throw new NotMatchedTokenException();
+        }
 
-        return phoneVerification.isVerified();
+        boolean expired = !results.stream().anyMatch(result -> result.getCreatedDateTime().plusMinutes(5).isBefore(LocalDateTime.now()));
+        if (expired) {
+            log.error("인증 유효시간이 지났습니다.");
+            throw new AlreadyExpiredTokenException();
+        }
+        return true;
     }
 
     private PhoneVerification createPhoneVerification(String phoneNumber) {
