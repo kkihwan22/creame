@@ -1,5 +1,7 @@
 package today.creame.web.member.domain;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,4 +16,10 @@ public interface PhoneVerificationJpaRepository extends JpaRepository<PhoneVerif
     Optional<PhoneVerification> findByToken(String token);
 
     Optional<PhoneVerification> findTopByTokenOrderByCreatedDateTimeDesc(Long token);
+
+    List<PhoneVerification> findPhoneVerificationsByPhoneNumberAndVerifiedAndCreatedDateTimeAfter(
+        String phoneNumber,
+        boolean authed,
+        LocalDateTime date
+    );
 }

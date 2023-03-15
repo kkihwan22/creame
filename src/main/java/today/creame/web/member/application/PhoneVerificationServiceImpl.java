@@ -1,5 +1,8 @@
 package today.creame.web.member.application;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -41,16 +44,25 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
     @Transactional
     @Override
     public Long requestCode(String phoneNumber) {
-        int digit = RandomNumberSupport.random6Digit();
-        long token = RandomNumberSupport.random10Digit();
-        log.debug("digit: {}, token: {}", digit, token);
+        List<PhoneVerification> results = phoneVerificationJpaRepository
+            .findPhoneVerificationsByPhoneNumberAndVerifiedAndCreatedDateTimeAfter(phoneNumber, false, LocalDateTime.now().minusMinutes(3));
+        log.debug("results: {}", results);
 
-        // DB 저장
-        PhoneVerification phoneVerification = phoneVerificationJpaRepository.save(new PhoneVerification(phoneNumber, digit, token));
-        log.debug("saved phoneVerification: {}", phoneVerification);
-        publisher.publishEvent(new SmsSendEvent(phoneNumber, String.valueOf(digit)));
+        if (results.isEmpty()) {
+            PhoneVerification phoneVerification = this.createPhoneVerification(phoneNumber);
+            log.debug("new request code: {}, token: {}", phoneVerification.getDigit(), phoneVerification.getToken());
+            phoneVerificationJpaRepository.save(phoneVerification);
+            publisher.publishEvent(new SmsSendEvent(phoneNumber, String.valueOf(phoneVerification.getDigit())));
+            return phoneVerification.getToken();
+        }
 
-        return token;
+        PhoneVerification maxPhoneVerification = results.stream()
+            .max(Comparator.comparing(PhoneVerification::getCreatedDateTime))
+            .orElseGet(null);
+
+        log.debug("recently time code: {}, token: {}", maxPhoneVerification.getDigit(), maxPhoneVerification.getToken());
+
+        return maxPhoneVerification.getToken();
     }
 
     @Override
@@ -63,5 +75,12 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
             });
 
         return phoneVerification.isVerified();
+    }
+
+    private PhoneVerification createPhoneVerification(String phoneNumber) {
+        int digit = RandomNumberSupport.random6Digit();
+        long token = RandomNumberSupport.random10Digit();
+        log.debug("digit: {}, token: {}", digit, token);
+        return new PhoneVerification(phoneNumber, digit, token);
     }
 }

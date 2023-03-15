@@ -25,9 +25,7 @@ public class PhoneVerificationRestController implements BaseRestController {
 
     @PostMapping("/public/v1/phone-verification")
     public ResponseEntity<Body<SimpleBodyData<String>>> verifyCode(
-            @RequestBody @Valid
-            PhoneVerifyingRequest request,
-            BindingResult bindingResult) {
+        @RequestBody @Valid PhoneVerifyingRequest request, BindingResult bindingResult) {
         log.debug("request: {}", request);
 
         hasError(bindingResult);
@@ -43,9 +41,7 @@ public class PhoneVerificationRestController implements BaseRestController {
 
     @PostMapping("/public/v1/phone-verification/code-request")
     public ResponseEntity<Body<SimpleBodyData<String>>> requestCode(
-            @RequestBody @Valid
-            PhoneVerificationCodeRequest request,
-            BindingResult bindingResult) {
+        @RequestBody @Valid PhoneVerificationCodeRequest request, BindingResult bindingResult) {
 
         log.debug("request: {} ", request);
 

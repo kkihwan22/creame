@@ -107,11 +107,17 @@ public class PhoneVerification {
         this.verifiedDateTime = LocalDateTime.now();
     }
 
+    public boolean isValid() {
+        if (afterVerifyTime()) return false;
+        if (failedCount > 5) return false;
+        if (verified) return false;
+        return true;
+    }
+
     private boolean afterVerifyTime() {
         LocalDateTime now = LocalDateTime.now();
-        if (this.createdDateTime.isAfter(now.plusMinutes(3))) {
+        if (this.createdDateTime != null && this.createdDateTime.isAfter(now.plusMinutes(3))) {
             this.expired = true;
-            ;
         }
 
         return expired;
