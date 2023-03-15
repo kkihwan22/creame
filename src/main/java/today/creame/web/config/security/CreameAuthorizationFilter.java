@@ -38,11 +38,12 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
 
         if (authorizationHeader == null) {
             // TODO: refactoring !!
-            if (!request.getServletPath().startsWith("/public")
-                || request.getServletPath().startsWith("/pages")
-                || request.getServletPath().startsWith("/_health")
-                || request.getServletPath().startsWith("/swagger-ui")
-                || request.getServletPath().startsWith("/v3/api-docs/")
+            String servletPath = request.getServletPath();
+            if (!(servletPath.startsWith("/public")
+                || servletPath.startsWith("/pages")
+                || servletPath.startsWith("/_health")
+                || servletPath.startsWith("/swagger-ui")
+                || servletPath.startsWith("/v3/api-docs/"))
             ) {
                 throw new TokenNotExistException();
             }
