@@ -1,11 +1,10 @@
 package today.creame.web.member.entrypoint.rest.io;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.member.application.model.MemberRegisterParameter;
@@ -29,11 +28,10 @@ public class MemberRegisterRequest {
     private String phoneNumber;
 
     @NotNull(message = "토큰 값을 입력해주세요.")
-    @Min(value = 1000000000L, message = "토큰의 길이는 10자리입니다.")
-    @Max(value = 9999999999L, message = "토큰의 길이는 10자리입니다.")
-    private Long phoneVerifiedCode;
+    @Size(min = 10, max = 10)
+    private String phoneVerifiedCode;
 
     public MemberRegisterParameter toParameter() {
-        return new MemberRegisterParameter(email, nickname, password, phoneNumber, phoneVerifiedCode);
+        return new MemberRegisterParameter(email, nickname, password, phoneNumber, Long.parseLong(phoneVerifiedCode));
     }
 }

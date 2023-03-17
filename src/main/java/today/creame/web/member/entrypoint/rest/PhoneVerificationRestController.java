@@ -42,17 +42,12 @@ public class PhoneVerificationRestController implements BaseRestController {
     @PostMapping("/public/v1/phone-verification/code-request")
     public ResponseEntity<Body<SimpleBodyData<String>>> requestCode(
         @RequestBody @Valid PhoneVerificationCodeRequest request, BindingResult bindingResult) {
-
         log.debug("request: {} ", request);
+        hasError(bindingResult);
 
-        if (bindingResult.hasErrors()) {
-            log.info(" [ Bad Request ] error count : {}", bindingResult.getErrorCount());
-        }
-
-        Long token = phoneVerificationService.requestCode(request.getPhoneNumber());
-
+        String token = phoneVerificationService.requestCode(request.getPhoneNumber());
         log.debug("token : {}", token);
 
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(String.valueOf(token))));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(token)));
     }
 }

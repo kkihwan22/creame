@@ -30,7 +30,7 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
             NotMatchedCodeException.class
         })
     @Override
-    public void verify(Long token, String phoneNumber, Integer code) {
+    public void verify(String token, String phoneNumber, Integer code) {
         PhoneVerification phoneVerification = phoneVerificationJpaRepository
             .findPhoneVerificationByPhoneNumberAndToken(phoneNumber, token)
             .orElseThrow(() -> {
@@ -43,7 +43,7 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
 
     @Transactional
     @Override
-    public Long requestCode(String phoneNumber) {
+    public String requestCode(String phoneNumber) {
         List<PhoneVerification> results = phoneVerificationJpaRepository
             .findPhoneVerificationsByPhoneNumberAndVerifiedAndCreatedDateTimeAfter(phoneNumber, false, LocalDateTime.now().minusMinutes(3));
         log.debug("results: {}", results);
@@ -66,14 +66,14 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
     }
 
     @Override
-    public boolean isVerified(Long token) {
-        List<PhoneVerification> results = phoneVerificationJpaRepository.findPhoneVerificationsByTokenAndVerified(token.toString(), true);
+    public boolean isVerified(String token) {
+        List<PhoneVerification> results = phoneVerificationJpaRepository.findPhoneVerificationsByTokenAndVerified(token, true);
         if (results.isEmpty()) {
             log.info("Not matched token. token: {}", token);
             throw new NotMatchedTokenException();
         }
 
-        boolean expired = !results.stream().anyMatch(result -> result.getCreatedDateTime().plusMinutes(5).isBefore(LocalDateTime.now()));
+        boolean expired = !results.stream().anyMatch(result -> result.getCreatedDateTime().plusMinutes(5).isAfter(LocalDateTime.now()));
         if (expired) {
             log.error("인증 유효시간이 지났습니다.");
             throw new AlreadyExpiredTokenException();
@@ -85,6 +85,6 @@ public class PhoneVerificationServiceImpl implements PhoneVerificationService {
         int digit = RandomNumberSupport.random6Digit();
         long token = RandomNumberSupport.random10Digit();
         log.debug("digit: {}, token: {}", digit, token);
-        return new PhoneVerification(phoneNumber, digit, token);
+        return new PhoneVerification(phoneNumber, digit, String.valueOf(token));
     }
 }

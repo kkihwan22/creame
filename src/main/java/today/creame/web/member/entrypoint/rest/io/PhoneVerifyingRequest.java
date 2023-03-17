@@ -5,6 +5,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,9 +15,11 @@ import lombok.ToString;
 @ToString
 public class PhoneVerifyingRequest {
     @NotNull(message = "토큰 값을 입력해주세요.")
-    @Min(value = 1000000000L, message = "토큰의 길이는 10자리입니다.")
-    @Max(value = 9999999999L, message = "토큰의 길이는 10자리입니다.")
-    private Long token;
+    @Size(
+        min = 10,
+        max = 10
+    )
+    private String token;
 
     @NotBlank(message = "전화번호를 입력해주세요.")
     @Pattern(regexp = "[0-9]{11}", message = "허용되지 않은 문자가 있습니다.")

@@ -48,7 +48,7 @@ public class PhoneVerification {
         name = "token",
         columnDefinition = "char(10)"
     )
-    private Long token;
+    private String token;
 
     @Column(name = "authed",
             columnDefinition = "BIT",
@@ -137,7 +137,7 @@ public class PhoneVerification {
         return true;
     }
 
-    public PhoneVerification(String phoneNumber, Integer digit, Long token) {
+    public PhoneVerification(String phoneNumber, Integer digit, String token) {
         this.phoneNumber = phoneNumber;
         this.digit = digit;
         this.token = token;
