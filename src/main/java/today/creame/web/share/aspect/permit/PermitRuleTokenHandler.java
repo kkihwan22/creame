@@ -12,7 +12,7 @@ public class PermitRuleTokenHandler implements PermitRuleHandler {
     @Override
     public void handle(Object param) {
         PhoneVerificationService bean = (PhoneVerificationService) ApplicationContextSupporter.getBean("phoneVerificationServiceImpl");
-        if (!bean.isVerified((Long) param)) {
+        if (!bean.isVerified(param.toString())) {
             log.debug("유효하지 않는 토큰 정보입니다.");
             throw new NotMatchedTokenException();
         }
