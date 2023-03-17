@@ -88,6 +88,7 @@ public class PaymentRestController implements BaseRestController {
         }
 
         if (result.getCreditCard() != null) {
+            response.setUsedBillKey(true);
             response.setCardno(result.getCreditCard().maskCardno());
             response.setUsedAutoCharging(result.getPreference().isEnabled());
             if (result.getPreference().isEnabled()) {
