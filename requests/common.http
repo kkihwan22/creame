@@ -37,3 +37,7 @@ Content-Disposition: form-data; name="files"; filename="20-57.png"
 GET {{host}}/public/v1/commons/item-code
 Content-Type: application/json
 
+###
+
+GET {{host}}/_health
+Content-Type: application/json

@@ -14,8 +14,8 @@ POST {{host}}/public/v1/login
 Content-Type: application/json
 
 {
-  "username": "sec22@gmail.com",
-  "password": "1234"
+  "username": "hopeman97@hanmail.net",
+  "password": "1q2w3e4r"
 }
 
 ### 로그인 (일반유저) -- 42
@@ -28,7 +28,7 @@ Content-Type: application/json
   "password": "1234"
 }
 
-### access token 재발급 (사용자) - 42
+### access token 재발급 (사용자) - 80
 
 POST {{host}}/public/v1/token/refresh
 Content-Type: application/json
@@ -45,3 +45,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 POST {{host}}/public/v1/token/refresh
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuydtOyLnOuMgOuniOyngOunieyduO2UjOujqOyWuOyKpCIsImlkIjo3MCwiZXhwIjoxNjc4NTc0ODE5LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoic2VjMjJAZ21haWwuY29tIn0.OlSJOc5f02o-zT1mhNmU9LHW33ebU9GlLFGRnoY1-B0
+
+
+### 로그인 후 정보
+
+GET {{host}}/api/v1/me
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc4ODkyOTM3LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.tin744KSlVGz1fPFe94nud6kz-HymemCu46oksLoO8k:

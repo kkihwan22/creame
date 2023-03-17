@@ -4,18 +4,14 @@ POST http://localhost:8888/public/v1/members
 Content-Type: application/json
 
 {
-  "email": "keehwan1983@gmail.com",
-  "password": "1234",
-  "nickname": "HiMan2",
-  "phone_number": "01043993397",
-  "phone_verified_code": "7529383777"
+  "email": "tester.ff@gmail.com",
+  "password": "1q2w3e4r",
+  "nickname": "테스터유저",
+  "phone_number": "01089555306",
+  "phone_verified_code": "2643115003"
 }
 
-### 로그인 후 정보
 
-GET {{host}}/api/v1/me
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc4MDAwOTI4LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.msqYZg7iPcwfx9VqITZywWFq_n-9y2E2FiuvI6jPGzc
 
 ### 이메일 찾기
 

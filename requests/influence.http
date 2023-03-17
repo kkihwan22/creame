@@ -1,4 +1,7 @@
 ### 50
+POST {{host}}/public/v1/token/refresh
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc5MzgyOTYxLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.BEBsCJXrg0H4I_ZR5lwQXI9RnAWwWxbQpw1A-NgVK6I
 
 ### 인플루언스 신청
 
@@ -132,7 +135,55 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
   ]
 }
 
+
 ### 인플루언스 공지 조회
 GET {{host}}/api/v1/influence/70/notice
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuydtOyLnOuMgOuniOyngOunieyduO2UjOujqOyWuOyKpCIsImlkIjo3MCwiZXhwIjoxNjc3OTc2OTA0LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoic2VjMjJAZ21haWwuY29tIn0.ZeEhxmLHbKR8JtOfMCjdJ0cBOt6Voh9TAhoMXVYAPUM
+
+
+### 인플루언스 on
+
+PATCH {{host}}/api/v1/influence/90/connection/on
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc4NzE5ODA5LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.eV5NsHUW2FIwQwQnS5qAJsEi2Kv7Gb0bhbnqBi24sX4
+
+{
+}
+
+### 인플루언스 off
+
+PATCH {{host}}/api/v1/influence/90/connection/off
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc4NzIwMDIyLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.S--4SdsehpyGC3LN0lxy7laVTgQygY-xq7SF-uqV5k4
+
+{
+}
+
+
+###
+GET {{host}}/public/v1/influences/94
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc4NzI2NTQwLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.rl0BDWROhYgC-_mcJlX8ludHXNEx9DDUB3cwNyDEja0
+
+{
+}
+
+
+### 상품설정
+
+GET {{host}}/api/v1/influences/90/item
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc4Nzc5Mzk3LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.ODJlBN5qV9FzmLjEKybNs8BgozD-53Knb9hWUg-Xjwc
+
+{
+}
+
+###
+
+PATCH {{host}}/api/v1/influences/90/item/5
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc4Nzc5Mzk3LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.ODJlBN5qV9FzmLjEKybNs8BgozD-53Knb9hWUg-Xjwc
+
+{
+}

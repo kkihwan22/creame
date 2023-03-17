@@ -2,27 +2,37 @@
 
 POST {{host}}/public/v1/token/refresh
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuuniOyKpO2EsOycoOyggCIsImlkIjo4MCwiZXhwIjoxNjc5MDY5NTAzLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.Nlt_sB_On-9KstuORQ3E9FWMH8RoDL61SkQjszWgp8M
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc5MjkzMzg2LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.-5d9vvXL7qfeWQoyKz36f0iK4lK9KGNPRywUQD3x5-M
 
 
 ### 카드등록
 
 POST {{host}}/api/v1/me/payments/bill-key
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuuniOyKpO2EsOycoOyggCIsImlkIjo4MCwiZXhwIjoxNjc5MDY5NTAzLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.Nlt_sB_On-9KstuORQ3E9FWMH8RoDL61SkQjszWgp8M
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc4NzI2NTQwLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.rl0BDWROhYgC-_mcJlX8ludHXNEx9DDUB3cwNyDEja0
 
 {
   "personal": true,
-  "serial": "791231",
-  "cardno": "1234567890123456",
+  "serial": "830110",
+  "cardno": "9490890013941903",
   "month": "12",
   "year": "25",
-  "card_password": "11",
-  "payment_password": "123456"
+  "card_password": "06",
+  "payment_password": "069112"
 }
 
 ### 카드 조회
 
 GET {{host}}/api/v1/me/payments/credit-card
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuuniOyKpO2EsOycoOyggCIsImlkIjo4MCwiZXhwIjoxNjc4NTQwMTI1LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.5f0VcJSczgpTe0A7zXdsgL6pFtHVcK-E_P22E5av8tY
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc4NzI2NTQwLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.rl0BDWROhYgC-_mcJlX8ludHXNEx9DDUB3cwNyDEja0
+
+
+### 카드삭제
+
+DELETE {{host}}/api/v1/me/payments/bill-key
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc4NzI2NTQwLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.rl0BDWROhYgC-_mcJlX8ludHXNEx9DDUB3cwNyDEja0
+
+{
+}
