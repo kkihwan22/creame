@@ -22,14 +22,10 @@ import today.creame.web.m2net.infra.feign.io.M2netSimpleResponse;
 public interface M2netClient {
 
     @PutMapping("/${m2net.cpid}/drconn")
-    ResponseEntity<M2netPrecallResponse> preCall(
-        @RequestBody M2netPrecallRequest request
-    );
+    ResponseEntity<M2netPrecallResponse> preCall(@RequestBody M2netPrecallRequest request);
 
     @PostMapping("/${m2net.cpid}/autopayreg")
-    ResponseEntity<M2netBillKeyIssueResponse> issueBillKey(
-        @RequestBody M2netBillKeyIssueRequest request
-    );
+    ResponseEntity<M2netBillKeyIssueResponse> issueBillKey(@RequestBody M2netBillKeyIssueRequest request);
 
     @PostMapping("/${m2net.cpid}/autopay_delete")
     ResponseEntity<M2netSimpleResponse> removeBillKey(@RequestBody M2netRemoveBillKeyRequest request);

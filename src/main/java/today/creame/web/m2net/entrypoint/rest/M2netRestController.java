@@ -25,7 +25,7 @@ public class M2netRestController {
     @PostMapping("/public/v1/m2net/notice")  // todo : notice -> receipt 로 변경
     public String receipt(@RequestBody M2netNoticeRequest request) {
         log.info("[ Notice ] request: {}", request);
-
+        m2netService.postNotice(request.of());
         return "00";
     }
 
