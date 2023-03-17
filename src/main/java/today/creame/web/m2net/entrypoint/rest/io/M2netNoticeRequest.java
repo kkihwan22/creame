@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.apache.commons.lang3.StringUtils;
 import today.creame.web.m2net.application.model.M2netNoticeCommand;
 import today.creame.web.m2net.domain.DeductionMethod;
 import today.creame.web.m2net.domain.M2netReasonCode;
@@ -13,7 +14,7 @@ import today.creame.web.m2net.domain.M2netReasonCode;
 @Getter
 @ToString
 public class M2netNoticeRequest {
-    private static final String DATE_FORMAT = "yyyy-MM-dd HH:dd:ss";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(M2netNoticeRequest.DATE_FORMAT);
 
     private String cpid;
@@ -25,8 +26,8 @@ public class M2netNoticeRequest {
     private String membid;
     private String from;
     private String to;
-    private Integer usetm;
-    private Integer amt;
+    private int usetm;
+    private int amt;
     private String telno;
     private String reason;
     private String preflag;
@@ -34,15 +35,23 @@ public class M2netNoticeRequest {
     public M2netNoticeCommand of() {
         return new M2netNoticeCommand(
             this.toString(),
-            this.csrid,
-            this.membid,
-            LocalDateTime.parse(this.start, FORMATTER),
-            LocalDateTime.parse(this.end, FORMATTER),
-            LocalDateTime.parse(this.eventtm, FORMATTER),
+            emptyToNull(this.csrid),
+            emptyToNull(this.membid),
+            datetimeIfNotNull(emptyToNull(this.start)),
+            datetimeIfNotNull(emptyToNull(this.end)),
+            datetimeIfNotNull(emptyToNull(this.eventtm)),
             usetm,
             amt,
             M2netReasonCode.valueOf(reason.toUpperCase()),
-            DeductionMethod.valueOf(this.preflag)
+            DeductionMethod.get(this.preflag)
         );
+    }
+
+    private String emptyToNull(String s) {
+        return StringUtils.isEmpty(s) ? null : s;
+    }
+
+    private LocalDateTime datetimeIfNotNull(String s) {
+        return s != null ? LocalDateTime.parse(s, FORMATTER) : null;
     }
 }

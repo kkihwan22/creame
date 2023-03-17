@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +55,7 @@ public class InfluenceApplicationRestController implements BaseRestController {
         log.debug("request param: {}", statues);
 
         List<InfluenceApplicationStatus> conditionStatuses =  new ArrayList<>();
-        if (statues.isBlank()) {
+        if (StringUtils.isEmpty(statues)) {
             Arrays.stream(InfluenceApplicationStatus.values())
                 .forEach(conditionStatuses::add);
         } else {

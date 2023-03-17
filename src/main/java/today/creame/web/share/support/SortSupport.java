@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
@@ -18,7 +19,7 @@ public class SortSupport {
     private static final String MINOR_SEPARATOR = "|";
 
     public static Sort convert(String sort) {
-        if (sort.isBlank()) {
+        if (StringUtils.isEmpty(sort)) {
             return Sort.unsorted();
         }
 

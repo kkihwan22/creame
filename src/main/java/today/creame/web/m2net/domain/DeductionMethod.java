@@ -26,7 +26,7 @@ public enum DeductionMethod {
     private static final Map<String, DeductionMethod> map =
         Arrays.stream(DeductionMethod.values()).collect(Collectors.toMap(DeductionMethod::getCode, Function.identity()));
 
-    public DeductionMethod get(String code) {
+    public static DeductionMethod get(String code) {
         return Optional.ofNullable(map.get(code)).orElseThrow(() -> new IllegalArgumentException("Not exist code : [" + code + "]"));
     }
 }

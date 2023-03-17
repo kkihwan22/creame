@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -80,7 +81,7 @@ public class FileResourceServiceImpl implements FileResourceService {
     }
 
     private String splitFileExtension(String originalFileName) {
-        if (originalFileName == null || originalFileName.isBlank()) {
+        if (StringUtils.isEmpty(originalFileName)) {
             log.info("파일 형식에 맞지 않습니다. filename:{}", originalFileName);
             throw new IllegalOriginalFileNameException();
         }
