@@ -15,7 +15,7 @@ import today.creame.web.member.domain.PhoneVerificationJpaRepository;
 import today.creame.web.member.exception.AlreadyExpiredTokenException;
 import today.creame.web.member.exception.NotMatchedCodeException;
 import today.creame.web.member.exception.NotMatchedTokenException;
-import today.creame.web.sms.entrypoint.listener.event.SmsSendEvent;
+import today.creame.web.share.event.SmsSendEvent;
 
 @RequiredArgsConstructor
 @Service

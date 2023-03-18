@@ -9,9 +9,11 @@ import today.creame.web.member.domain.Member;
 public class MemberResult {
     private Long id;
     private String phoneNumber;
+    private String password;
 
     public MemberResult(Member member) {
         this.id = member.getId();
         this.phoneNumber = member.getPhoneNumber();
+        this.password = member.getPassword();
     }
 }

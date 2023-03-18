@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.member.application.MemberService;
 import today.creame.web.member.application.model.ForgetEmailParameter;
 import today.creame.web.member.application.model.ForgetPasswordParameter;
+import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.member.application.model.MemberUpdateParameter;
 import today.creame.web.member.application.model.NotificationSettingParameter;
 import today.creame.web.member.domain.NotificationSettingItem;
@@ -57,12 +58,10 @@ public class MemberRestController implements BaseRestController {
 
         hasError(bindingResult);
 
-        // todo: [ phone verified code 검증 로직 ]
+        MemberResult member = memberService.registerMember(request.toParameter());
+        log.debug("register member id: {}", member.getId());
 
-        Long id = memberService.registerMember(request.toParameter());
-        log.debug("register member id: {}", id);
-
-        SimpleBodyData<Long> result = new SimpleBodyData<>(id);
+        SimpleBodyData<Long> result = new SimpleBodyData<>(member.getId());
         return ResponseEntity.ok(BodyFactory.success(result));
     }
 

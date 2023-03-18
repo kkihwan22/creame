@@ -1,4 +1,4 @@
-package today.creame.web.sms.entrypoint.listener.event;
+package today.creame.web.share.event;
 
 import lombok.Getter;
 import lombok.ToString;

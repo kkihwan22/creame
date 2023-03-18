@@ -61,6 +61,7 @@ public class InfluenceServiceImpl implements InfluenceService {
             influence.getItem().getPrice())).getBody().getCsrid();
 
         influence.updateCid(cId);
+
         return influence.getId();
     }
 

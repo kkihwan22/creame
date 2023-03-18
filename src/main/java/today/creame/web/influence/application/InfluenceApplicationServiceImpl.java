@@ -3,6 +3,7 @@ package today.creame.web.influence.application;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceApplicationParameter;
@@ -12,6 +13,8 @@ import today.creame.web.influence.domain.InfluenceApplicationJpaRepository;
 import today.creame.web.influence.exception.NotFoundApplicationException;
 import today.creame.web.member.application.MemberService;
 import today.creame.web.member.application.model.MemberRegisterParameter;
+import today.creame.web.member.application.model.MemberResult;
+import today.creame.web.share.event.SmsSendEvent;
 import today.creame.web.share.support.RandomString;
 
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
     private final MemberService memberService;
     private final InfluenceService influenceService;
     private final InfluenceApplicationJpaRepository influenceApplicationJpaRepository;
+    private final ApplicationEventPublisher publisher;
 
     @Transactional
     @Override
@@ -42,12 +46,14 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
 
         String password = RandomString.password().nextString();
         log.debug(" [ password]: {}", password);
-        Long memberId = memberService.registerMemberInfluence(
+        MemberResult member = memberService.registerMemberInfluence(
             new MemberRegisterParameter(application.getEmail(), application.getNickname(), password, application.getPhoneNumber(), null));
 
-        Long influenceId = influenceService.create(new InfluenceCreateParameter(memberId, application));
-        log.debug("member:{}, influence:{}", memberId, influenceId);
+        Long influenceId = influenceService.create(new InfluenceCreateParameter(member.getId(), application));
+        log.debug("member:{}, influence:{}", member.getId(), influenceId);
+
         application.approve();
+        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), member.getPassword()));
     }
 
     @Transactional

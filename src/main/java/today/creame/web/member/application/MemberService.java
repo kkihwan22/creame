@@ -4,13 +4,14 @@ import today.creame.web.member.application.model.ForgetEmailParameter;
 import today.creame.web.member.application.model.ForgetPasswordParameter;
 import today.creame.web.member.application.model.MemberExpireParameter;
 import today.creame.web.member.application.model.MemberRegisterParameter;
+import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.member.application.model.MemberUpdateParameter;
 import today.creame.web.member.application.model.NotificationSettingParameter;
 
 public interface MemberService {
-    Long registerMember(MemberRegisterParameter parameter);
+    MemberResult registerMember(MemberRegisterParameter parameter);
 
-    Long registerMemberInfluence(MemberRegisterParameter parameter);
+    MemberResult registerMemberInfluence(MemberRegisterParameter parameter);
 
     String forgetEmail(ForgetEmailParameter parameter);
 

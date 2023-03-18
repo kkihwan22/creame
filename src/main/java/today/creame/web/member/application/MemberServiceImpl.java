@@ -11,6 +11,7 @@ import today.creame.web.member.application.model.ForgetEmailParameter;
 import today.creame.web.member.application.model.ForgetPasswordParameter;
 import today.creame.web.member.application.model.MemberExpireParameter;
 import today.creame.web.member.application.model.MemberRegisterParameter;
+import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.member.application.model.MemberUpdateParameter;
 import today.creame.web.member.application.model.NotificationSettingParameter;
 import today.creame.web.member.domain.Member;
@@ -39,19 +40,17 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Permit
     @Override
-    public Long registerMember(MemberRegisterParameter parameter) {
+    public MemberResult registerMember(MemberRegisterParameter parameter) {
         this.validation(parameter);
         Member member = parameter.toEntity();
-        Long registerMember = this.register(member, List.of(new MemberRole(null, MemberRoleCode.USER)));
-        return registerMember;
+        return new MemberResult(this.register(member, List.of(new MemberRole(null, MemberRoleCode.USER))));
     }
 
     @Transactional
     @Override
-    public Long registerMemberInfluence(MemberRegisterParameter parameter) {
+    public MemberResult registerMemberInfluence(MemberRegisterParameter parameter) {
         this.validation(parameter);
-        Long id = this.register(parameter.toEntity(), List.of(new MemberRole(null, MemberRoleCode.USER), new MemberRole(null, MemberRoleCode.INFLUENCE)));
-        return id;
+        return new MemberResult(this.register(parameter.toEntity(), List.of(new MemberRole(null, MemberRoleCode.USER), new MemberRole(null, MemberRoleCode.INFLUENCE))));
     }
 
     @Permit
@@ -142,7 +141,7 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    private Long register(Member registerMember, List<MemberRole> roles) {
+    private Member register(Member registerMember, List<MemberRole> roles) {
         registerMember.registerM2netMember(m2netUserService);
         memberJpaRepository.save(registerMember);
         memberNotificationJpaRepository.save(new MemberNotificationPreference(registerMember));
@@ -150,6 +149,6 @@ public class MemberServiceImpl implements MemberService {
             it.setMember(registerMember);
             memberRoleJpaRepository.save(it);
         });
-        return registerMember.getId();
+        return registerMember;
     }
 }
