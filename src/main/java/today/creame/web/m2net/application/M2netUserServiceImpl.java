@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import today.creame.web.m2net.application.model.M2netUserCreateParameter;
 import today.creame.web.m2net.exception.ConflictMemberException;
 import today.creame.web.m2net.infra.feign.M2netUserClient;
+import today.creame.web.m2net.infra.feign.io.M2netAutoChargingUpdateRequest;
 import today.creame.web.m2net.infra.feign.io.M2netUserCreateRequest;
 import today.creame.web.m2net.infra.feign.io.M2netUserCreateResponse;
+import today.creame.web.share.event.AutoChargingConfigEvent;
 
 @RequiredArgsConstructor
 @Service
@@ -30,5 +32,11 @@ public class M2netUserServiceImpl implements M2netUserService {
         }
 
         return response.getBody().getMembid();
+    }
+
+    @Override
+    public void updateAutoChargingConfig(AutoChargingConfigEvent event) {
+        log.debug("auto charging config event: {}", event);
+        client.updateAutoChargingConfig(event.getMid(), new M2netAutoChargingUpdateRequest(event));
     }
 }

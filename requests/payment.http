@@ -9,7 +9,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 POST {{host}}/api/v1/me/payments/bill-key
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc4NzI2NTQwLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.rl0BDWROhYgC-_mcJlX8ludHXNEx9DDUB3cwNyDEja0
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc5MTU3ODY4LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.YSJ2NWAUwW5R4X1j2p7B_xcN5qIXKjdMR0zXe8i5V00
 
 {
   "personal": true,
@@ -32,7 +32,39 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 DELETE {{host}}/api/v1/me/payments/bill-key
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc4NzI2NTQwLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.rl0BDWROhYgC-_mcJlX8ludHXNEx9DDUB3cwNyDEja0
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc5MTU3ODY4LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.YSJ2NWAUwW5R4X1j2p7B_xcN5qIXKjdMR0zXe8i5V00
 
 {
+}
+
+### 자동충전 설정
+
+PUT {{host}}/api/v1/payments/auto-charging-enabled
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc5MTU3ODY4LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.YSJ2NWAUwW5R4X1j2p7B_xcN5qIXKjdMR0zXe8i5V00
+
+{
+  "charging_amount": 10000
+}
+
+### 자동충전 해지
+
+PUT {{host}}/api/v1/payments/auto-charging-disabled
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc5MTU3ODY4LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.YSJ2NWAUwW5R4X1j2p7B_xcN5qIXKjdMR0zXe8i5V00
+
+{
+  "charging_amount": 10000
+}
+
+
+### 결제요청
+
+POST {{host}}/api/v1/payments/request-payment-billkey
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc5MTU3ODY4LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.YSJ2NWAUwW5R4X1j2p7B_xcN5qIXKjdMR0zXe8i5V00
+
+{
+  "payment_password": "069112",
+  "amount": 10000
 }

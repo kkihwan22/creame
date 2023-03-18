@@ -26,6 +26,7 @@ import today.creame.web.payments.exception.IllegalCreditCardDataException;
 import today.creame.web.payments.exception.NotFoundCreditCardException;
 import today.creame.web.payments.exception.PaymentFailureException;
 import today.creame.web.payments.exception.RemoveBillKeyException;
+import today.creame.web.share.event.AutoChargingConfigEvent;
 import today.creame.web.share.event.PaymentEvent;
 import today.creame.web.share.support.SecurityContextSupporter;
 
@@ -95,6 +96,7 @@ public class PaymentServiceImpl implements PaymentService {
         paymentBillKey.enabledAutoCharging(preference);
         this.resetBillKey(paymentBillKey, member);
         log.debug("paymentBillKey: {}", paymentBillKey);
+        publisher.publishEvent(new AutoChargingConfigEvent(member.getM2netUserId(), "Y"));
     }
 
     @Transactional
@@ -104,14 +106,7 @@ public class PaymentServiceImpl implements PaymentService {
             .findById(SecurityContextSupporter.getId())
             .orElseThrow(NotFoundMemberException::new);
         log.debug("member: {}", member);
-
-        PaymentBillKey paymentBillKey = paymentBillKeyJpaRepository
-            .findPaymentBillKeyByMemberIdAndDeleted(member.getId(), false)
-            .orElseThrow(NotFoundCreditCardException::new);
-
-        paymentBillKey.disabledAutoCharging();
-        this.resetBillKey(paymentBillKey, member);
-        log.debug("paymentBillKey: {}", paymentBillKey);
+        publisher.publishEvent(new AutoChargingConfigEvent(member.getM2netUserId(), "N"));
     }
 
     @Transactional
