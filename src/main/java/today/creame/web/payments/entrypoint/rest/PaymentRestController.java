@@ -111,7 +111,7 @@ public class PaymentRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
-    @PostMapping("/api/v1/payments/receive")
+    @PostMapping("/public/v1/payments/receive")
     public String postPay(@RequestBody ReceiptRequest request) {
         paymentService.postPay(request.of());
         return "00";
