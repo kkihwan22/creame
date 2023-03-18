@@ -69,7 +69,7 @@ public class PaymentBillKey extends BaseCreatedAndUpdatedDateTime {
     }
 
     public void disabledAutoCharging() {
-        this.preference = null;
+        this.preference = new AutoChargingPreference(false, 0, 0);
     }
 
     public void updateBillKey(String billKey) {
