@@ -3,6 +3,7 @@ package today.creame.web.config.security;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.Optional;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -37,7 +38,6 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
             .orElseGet(() -> null);
 
         if (authorizationHeader == null) {
-            // TODO: refactoring !!
             String servletPath = request.getServletPath();
             if (!(servletPath.startsWith("/public")
                 || servletPath.startsWith("/pages")
@@ -45,6 +45,14 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
                 || servletPath.startsWith("/swagger-ui")
                 || servletPath.startsWith("/v3/api-docs/"))
             ) {
+                log.error("context path: {}", request.getContextPath());
+                log.error("servlet path: {}", request.getServletPath());
+                Enumeration<String> headerNames = request.getHeaderNames();
+                while (headerNames.hasMoreElements()) {
+                    String name = headerNames.nextElement();
+                    log.error("header name: {}, value: {)", name, request.getHeader(name));
+                }
+
                 throw new TokenNotExistException();
             }
         } else {
