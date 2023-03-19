@@ -23,7 +23,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.matching.domain.converter.MatchingProgressStatusToStringConverter;
 import today.creame.web.member.domain.Member;
-import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTimeWithAudit;
+import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
 @NoArgsConstructor
 @Entity
@@ -32,7 +32,7 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTimeWithAudit;
 @DynamicUpdate
 @Getter
 @ToString
-public class Matching extends BaseCreatedAndUpdatedDateTimeWithAudit {
+public class Matching extends BaseCreatedAndUpdatedDateTime {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
