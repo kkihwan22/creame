@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final ApplicationEventPublisher applicationEventPublisher;
 
     private static final String[] PERMIT_URL_ARRAY = {
-            "/_health", "/public/**", "/pages/**", "/v3/api-docs/**", "/swagger-ui/**",
+        "/_health", "/public/**", "/m2net/**", "/pages/**", "/v3/api-docs/**", "/swagger-ui/**",
     };
 
     @Override

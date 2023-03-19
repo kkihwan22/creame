@@ -37,6 +37,10 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
             .orElseGet(() -> null);
 
         String servletPath = request.getServletPath();
+
+        log.debug("key: {}", authorizationHeader);
+        log.debug("path: {}", servletPath);
+
         if (authorizationHeader == null) {
             if (!(servletPath.startsWith("/public")
                 || servletPath.startsWith("/pages")
