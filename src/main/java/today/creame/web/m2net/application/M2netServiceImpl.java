@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.model.InfluenceResult;
-import today.creame.web.m2net.application.model.M2netNoticeCommand;
+import today.creame.web.m2net.application.model.M2netUpdateCallStatusCommand;
 import today.creame.web.m2net.infra.feign.M2netClient;
 import today.creame.web.m2net.infra.feign.io.M2netPrecallRequest;
 import today.creame.web.member.application.MemberQuery;
@@ -32,9 +32,9 @@ public class M2netServiceImpl implements M2netService {
     }
 
     @Override
-    public void postNotice(M2netNoticeCommand command) {
+    public void updateCallStatus(M2netUpdateCallStatusCommand command) {
         log.debug("[M2NET] command: {}", command);
         // TODO: 해당 요청은 로깅으로 다 남기도록 한다.!!
-        command.publish(publisher);
+        command.pub(publisher);
     }
 }

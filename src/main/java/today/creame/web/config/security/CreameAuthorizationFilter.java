@@ -3,7 +3,6 @@ package today.creame.web.config.security;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.Optional;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -37,41 +36,35 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
             .ofNullable(request.getHeader(AUTHORIZATION))
             .orElseGet(() -> null);
 
+        String servletPath = request.getServletPath();
         if (authorizationHeader == null) {
-            String servletPath = request.getServletPath();
             if (!(servletPath.startsWith("/public")
                 || servletPath.startsWith("/pages")
                 || servletPath.startsWith("/_health")
                 || servletPath.startsWith("/swagger-ui")
                 || servletPath.startsWith("/v3/api-docs/"))
             ) {
-                log.error("context path: {}", request.getContextPath());
-                log.error("servlet path: {}", request.getServletPath());
-                Enumeration<String> headerNames = request.getHeaderNames();
-                while (headerNames.hasMoreElements()) {
-                    String name = headerNames.nextElement();
-                    log.error("header name: {}, value: {)", name, request.getHeader(name));
-                }
-
                 throw new TokenNotExistException();
             }
         } else {
-            String key = BearerTokenSupporter.extract(authorizationHeader);
-            log.debug("[access token] : {}", key);
+            if (!servletPath.startsWith("/m2net")) {
+                String key = BearerTokenSupporter.extract(authorizationHeader);
+                log.debug("[access token] : {}", key);
 
-            Token requestToken = new Token(key, TokenType.ACCESS_TOKEN);
-            TokenVerified verify = requestToken.verify();
+                Token requestToken = new Token(key, TokenType.ACCESS_TOKEN);
+                TokenVerified verify = requestToken.verify();
 
-            if (!verify.isVerified()) {
-                log.info("token invalid. value:{}", key);
-                throw new InvalidTokenException();
+                if (!verify.isVerified()) {
+                    log.info("token invalid. value:{}", key);
+                    throw new InvalidTokenException();
+                }
+
+                UserDetails userDetails = verify.getUserDetails();
+                log.debug("[ UserDetails ] {}", (CustomUserDetails) userDetails);
+
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
-
-            UserDetails userDetails = verify.getUserDetails();
-            log.debug("[ UserDetails ] {}", (CustomUserDetails) userDetails);
-
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
 
         filterChain.doFilter(request, response);

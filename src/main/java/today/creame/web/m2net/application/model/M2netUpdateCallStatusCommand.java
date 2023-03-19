@@ -10,7 +10,7 @@ import today.creame.web.share.event.MatchingEvent;
 
 @Getter
 @ToString
-public class M2netNoticeCommand {
+public class M2netUpdateCallStatusCommand {
 
     private String telegram;
     private String cId;
@@ -23,7 +23,7 @@ public class M2netNoticeCommand {
     private M2netReasonCode reason;
     private DeductionMethod deductionMethod;
 
-    public M2netNoticeCommand(
+    public M2netUpdateCallStatusCommand(
         String telegram,
         String cId,
         String mId,
@@ -47,7 +47,7 @@ public class M2netNoticeCommand {
         this.deductionMethod = deductionMethod;
     }
 
-    public void publish(ApplicationEventPublisher publisher) {
+    public void pub(ApplicationEventPublisher publisher) {
         if (reason.getMatchingProgressStatus() == null) {
             return;
         }

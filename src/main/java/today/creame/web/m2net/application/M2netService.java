@@ -1,10 +1,10 @@
 package today.creame.web.m2net.application;
 
-import today.creame.web.m2net.application.model.M2netNoticeCommand;
+import today.creame.web.m2net.application.model.M2netUpdateCallStatusCommand;
 
 public interface M2netService {
 
     void preCall(Long influenceId, Long memberId);
 
-    void postNotice(M2netNoticeCommand command);
+    void updateCallStatus(M2netUpdateCallStatusCommand command);
 }

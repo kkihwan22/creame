@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.m2net.application.M2netService;
-import today.creame.web.m2net.entrypoint.rest.io.M2netNoticeRequest;
+import today.creame.web.m2net.entrypoint.rest.io.M2netUpdateCallStatusRequest;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
 import today.creame.web.share.entrypoint.SimpleBodyData;
@@ -22,10 +22,10 @@ public class M2netRestController {
     private final Logger log = LoggerFactory.getLogger(M2netRestController.class);
     private final M2netService m2netService;
 
-    @PostMapping("/public/v1/m2net/notice")  // todo : notice -> receipt 로 변경
-    public String receipt(@RequestBody M2netNoticeRequest request) {
+    @PostMapping("/m2net/call-status")  // todo : notice -> receipt 로 변경
+    public String updateCallStatus(@RequestBody M2netUpdateCallStatusRequest request) {
         log.info("[ Notice ] request: {}", request);
-        m2netService.postNotice(request.of());
+        m2netService.updateCallStatus(request.of());
         return "00";
     }
 

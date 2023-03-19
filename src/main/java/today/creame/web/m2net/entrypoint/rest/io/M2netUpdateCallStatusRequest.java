@@ -6,16 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
-import today.creame.web.m2net.application.model.M2netNoticeCommand;
+import today.creame.web.m2net.application.model.M2netUpdateCallStatusCommand;
 import today.creame.web.m2net.domain.DeductionMethod;
 import today.creame.web.m2net.domain.M2netReasonCode;
 
 @NoArgsConstructor
 @Getter
 @ToString
-public class M2netNoticeRequest {
+public class M2netUpdateCallStatusRequest {
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(M2netNoticeRequest.DATE_FORMAT);
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(M2netUpdateCallStatusRequest.DATE_FORMAT);
 
     private String cpid;
     private String csrid;
@@ -32,8 +32,8 @@ public class M2netNoticeRequest {
     private String reason;
     private String preflag;
 
-    public M2netNoticeCommand of() {
-        return new M2netNoticeCommand(
+    public M2netUpdateCallStatusCommand of() {
+        return new M2netUpdateCallStatusCommand(
             this.toString(),
             emptyToNull(this.csrid),
             emptyToNull(this.membid),
