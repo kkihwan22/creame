@@ -11,8 +11,8 @@ public enum M2netReasonCode {
     NOT_IDLE(null),
     ABSE(null),
     TRY_OK(null),
-    DISCONNECT(MatchingProgressStatus.START),
-    CONNECT_CSR(MatchingProgressStatus.END),
+    DISCONNECT(MatchingProgressStatus.END),
+    CONNECT_CSR(MatchingProgressStatus.START),
     NO_ANSWER_CSR(null),
     INSUFFICIENT_CONN(MatchingProgressStatus.INSUFFICIENT);
 
