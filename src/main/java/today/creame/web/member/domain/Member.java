@@ -58,6 +58,7 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "status")
     private MemberStatus status;
 
+    // TODO: 원인분석
     @OneToMany(mappedBy = "member", fetch = LAZY, cascade = ALL)
     private List<MemberNotificationPreference> notificationPreferences = new ArrayList<>();
 

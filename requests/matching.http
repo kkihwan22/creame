@@ -2,4 +2,27 @@
 
 PUT {{host}}/api/v1/m2net/pre-call/70
 Content-Type: application/json
-Authorization: Be정arer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+
+###
+
+POST {{host}}/m2net/call-status
+Content-Type: application/json
+Authorization: iP8n7GrCOrVic4qJ6dpmTIKg
+
+{
+  "cpid": "0014",
+  "csrid": "12591",
+  "dtmfno": 94,
+  "start": "2023-03-19 15:42:31",
+  "end": "2023-03-19 15:43:01",
+  "eventtm": "2023-03-19 15:43:01",
+  "membid": "036616",
+  "from": "01039960399",
+  "to": "07080171700",
+  "usetm": 30,
+  "amt": 2200,
+  "telno": "01047100205",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}

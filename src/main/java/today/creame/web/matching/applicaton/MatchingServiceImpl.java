@@ -1,5 +1,6 @@
 package today.creame.web.matching.applicaton;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,6 @@ import today.creame.web.matching.applicaton.model.MatchingParameter;
 import today.creame.web.matching.domain.Matching;
 import today.creame.web.matching.domain.MatchingJapRepository;
 import today.creame.web.matching.domain.MatchingProgressStatus;
-import today.creame.web.matching.exception.NotFoundMatchingException;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.exception.NotFoundMemberException;
@@ -44,14 +44,19 @@ public class MatchingServiceImpl implements MatchingService {
         matchingJapRepository.save(matching);
     }
 
+    @Transactional
     @Override
     public void end(MatchingParameter parameter) {
         Influence influence = findInfluence(parameter.getCid());
         Member member = findMember(parameter.getUid());
+        Optional<Matching> matching = matchingJapRepository
+            .findByInfluenceAndMemberAndStatusAndStartDateTimeEquals(influence, member, MatchingProgressStatus.START, parameter.getStartDateTime());
 
-        Matching matching = matchingJapRepository
-            .findMatchingByInfluenceAndMemberAndStatusAndStartDateTime(influence, member, MatchingProgressStatus.START, parameter.getStartDateTime())
-            .orElseThrow(() -> new NotFoundMatchingException());
+        log.debug("matching: {}", matching.get());
+
+//        Matching matching = matchingJapRepository
+//            .findMatchingByInfluenceAndMemberAndStatusAndStartDateTimeEquals(influence, member, MatchingProgressStatus.START, parameter.getStartDateTime())
+//            .orElseThrow(NotFoundMatchingException::new);
 
         log.debug("matching: {}", matching);
     }
@@ -61,7 +66,7 @@ public class MatchingServiceImpl implements MatchingService {
             .findInfluenceByM2NetCounselorId(cid)
             .orElseThrow(() -> new NotFoundInfluenceException());
 
-        log.debug("find influence: {]", influence);
+        log.debug("find influence: {}", influence);
         return influence;
     }
 
