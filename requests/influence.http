@@ -27,10 +27,9 @@ Content-Type: application/json
 
 ### 인플루언스 신청 조회
 
-GET {{host}}/admin/v1/influence/applications?statues=REQUEST
+GET {{host}}/admin/v1/influence/applications?status=REQUEST,APPROVAL&page=0&size=20&sort=id,DESC
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjc5MTU0MzA3LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.3KP2kUNXlw19SgBVlQ8OpmJB10aXvQEwMP5CUJPejaw
-
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjgwNjE3MjE4LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.TLPq42diwVHPyr92uPNyWbsFGqFMBRw81KgXVt1AnSY
 
 ### 인플루언스 승인
 

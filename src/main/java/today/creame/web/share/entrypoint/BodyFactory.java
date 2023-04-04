@@ -3,6 +3,8 @@ package today.creame.web.share.entrypoint;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter @ToString
 public class BodyFactory {
     private final static int SUCCESS_CODE = 0;
@@ -17,5 +19,9 @@ public class BodyFactory {
 
     public static <T> Body<T> failure(int code, String message, String traceId, T data) {
         return new Body<>(code, message, traceId, data);
+    }
+
+    public static <T> PageBody<T> success(List<T> data, Long total) {
+        return new PageBody<>(SUCCESS_CODE, SUCCESS_MESSAGE, "", data, total);
     }
 }

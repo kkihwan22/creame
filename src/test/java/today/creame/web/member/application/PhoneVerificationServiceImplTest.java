@@ -48,6 +48,6 @@ class PhoneVerificationServiceImplTest {
                 Optional.of(given)
         );
 
-        verificationService.verify(10L, "01039960399", 123456);
+        verificationService.verify("10L", "01039960399", 123456);
     }
 }
