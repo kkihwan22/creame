@@ -13,19 +13,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import today.creame.web.influence.application.InfluenceApplicationQuery;
 import today.creame.web.influence.application.InfluenceApplicationService;
 import today.creame.web.influence.application.model.InfluenceApplicationResult;
+import today.creame.web.influence.application.model.InfluenceApplicationSearchParameter;
 import today.creame.web.influence.domain.InfluenceApplication;
-import today.creame.web.influence.domain.InfluenceApplicationStatus;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceApplicationRegisterRequest;
+import today.creame.web.influence.entrypoint.rest.io.InfluenceApplicationSearchRequest;
 import today.creame.web.share.entrypoint.*;
 
 @RequiredArgsConstructor
@@ -51,10 +46,10 @@ public class InfluenceApplicationRestController implements BaseRestController {
     @GetMapping("/admin/v1/influence/applications")
     public ResponseEntity<PageBody<InfluenceApplicationResult>> list(
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable,
-            @RequestParam(name = "status", defaultValue = "") List<InfluenceApplicationStatus> status) {
-        log.debug("request param: {}", status);
+            @ModelAttribute("searchRequest") InfluenceApplicationSearchRequest searchRequest){
+        log.debug("request param: {}", searchRequest);
 
-        Page<InfluenceApplication> influenceApplicationPage = influenceApplicationQuery.list(status, pageable);
+        Page<InfluenceApplication> influenceApplicationPage = influenceApplicationQuery.list(new InfluenceApplicationSearchParameter(searchRequest), pageable);
         List<InfluenceApplicationResult> results = CollectionUtils.emptyIfNull(influenceApplicationPage.getContent()).stream().map(InfluenceApplicationResult::new).collect(Collectors.toList());
         log.debug("result: {}", results);
 
