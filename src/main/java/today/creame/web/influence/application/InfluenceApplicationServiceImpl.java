@@ -6,16 +6,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import today.creame.web.influence.application.model.InfluenceApplicationDetailResult;
 import today.creame.web.influence.application.model.InfluenceApplicationParameter;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
 import today.creame.web.influence.domain.InfluenceApplication;
 import today.creame.web.influence.domain.InfluenceApplicationJpaRepository;
 import today.creame.web.influence.exception.NotFoundApplicationException;
+import today.creame.web.influence.exception.NotInApplicationStatusException;
 import today.creame.web.member.application.MemberService;
 import today.creame.web.member.application.model.MemberRegisterParameter;
 import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.share.event.SmsSendEvent;
 import today.creame.web.share.support.RandomString;
+
+import static today.creame.web.influence.domain.InfluenceApplicationStatus.REQUEST;
 
 @RequiredArgsConstructor
 @Service
@@ -43,6 +47,11 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         InfluenceApplication application = influenceApplicationJpaRepository.findById(id)
             .orElseThrow(NotFoundApplicationException::new);
         log.debug("find application: {}", application);
+
+        if(!REQUEST.equals(application.getStatus())) {
+            log.error("인플루언서 신청 상태가 REQUEST가 아닙니다. InfluenceApplicationId {}, status {}", application.getId(), application.getStatus());
+            throw new NotInApplicationStatusException();
+        }
 
         String password = RandomString.password().nextString();
         log.debug(" [ password]: {}", password);
@@ -73,6 +82,20 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         InfluenceApplication application = influenceApplicationJpaRepository.findById(id)
             .orElseThrow(NotFoundApplicationException::new);
         log.debug("find application: {}", application);
+
+        if(!REQUEST.equals(application.getStatus())) {
+            log.error("인플루언서 신청 상태가 REQUEST가 아닙니다. InfluenceApplicationId {}, status {}", application.getId(), application.getStatus());
+            throw new NotInApplicationStatusException();
+        }
+
         application.reject();
+    }
+
+    @Override
+    public InfluenceApplicationDetailResult getDetail(Long id) {
+        InfluenceApplication application = influenceApplicationJpaRepository.findById(id)
+                .orElseThrow(NotFoundApplicationException::new);
+
+        return new InfluenceApplicationDetailResult(application);
     }
 }

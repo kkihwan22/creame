@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import today.creame.web.influence.application.InfluenceApplicationQuery;
 import today.creame.web.influence.application.InfluenceApplicationService;
+import today.creame.web.influence.application.model.InfluenceApplicationDetailResult;
 import today.creame.web.influence.application.model.InfluenceApplicationResult;
 import today.creame.web.influence.application.model.InfluenceApplicationSearchParameter;
 import today.creame.web.influence.domain.InfluenceApplication;
@@ -63,7 +64,14 @@ public class InfluenceApplicationRestController implements BaseRestController {
     }
 
     @PatchMapping("/admin/v1/influence/applications/{id}/reject")
-    public void reject(@PathVariable Long id) {
+    public ResponseEntity<Body<SimpleBodyData<String>>> reject(@PathVariable Long id) {
+        influenceApplicationService.reject(id);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
 
+    @GetMapping("/admin/v1/influence/applications/{id}")
+    public ResponseEntity<Body<InfluenceApplicationDetailResult>> getDetail(@PathVariable Long id) {
+        InfluenceApplicationDetailResult result = influenceApplicationService.getDetail(id);
+        return ResponseEntity.ok(BodyFactory.success(result));
     }
 }
