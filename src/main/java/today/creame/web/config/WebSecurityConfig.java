@@ -66,6 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeHttpRequests(request -> {
             request.antMatchers(PERMIT_URL_ARRAY).permitAll();
+            request.antMatchers("/favicon.ico").permitAll();
             request.antMatchers("/admin/**")
                     .hasRole("ADMIN");
 

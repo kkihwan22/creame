@@ -46,7 +46,11 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
                 || servletPath.startsWith("/pages")
                 || servletPath.startsWith("/_health")
                 || servletPath.startsWith("/swagger-ui")
-                || servletPath.startsWith("/v3/api-docs/"))
+                || servletPath.startsWith("/v3/api-docs/")
+                || servletPath.startsWith("/favicon")
+                    || servletPath.startsWith("/m2net/payments")
+            )
+
             ) {
                 throw new TokenNotExistException();
             }
