@@ -7,16 +7,10 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
+import today.creame.web.influence.application.model.InfluenceDetailResult;
 import today.creame.web.influence.application.model.InfluenceItemParameter;
 import today.creame.web.influence.application.model.SnsParameter;
-import today.creame.web.influence.domain.Category;
-import today.creame.web.influence.domain.Influence;
-import today.creame.web.influence.domain.InfluenceCategory;
-import today.creame.web.influence.domain.InfluenceCategoryJpaRepository;
-import today.creame.web.influence.domain.InfluenceJpaRepository;
-import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
-import today.creame.web.influence.domain.Item;
-import today.creame.web.influence.domain.SNS;
+import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.ConflictConnectionStatusException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.m2net.infra.feign.M2netCounselorClient;
@@ -35,6 +29,7 @@ public class InfluenceServiceImpl implements InfluenceService {
     private final InfluenceProfileFileResourceQuery influenceProfileFileResourceQuery;
     private final ApplicationEventPublisher publisher;
     private final M2netCounselorClient client;
+    private final InfluenceNoticeJpaRepository influenceNoticeJpaRepository;
 
     @Transactional
     @Override
@@ -121,5 +116,15 @@ public class InfluenceServiceImpl implements InfluenceService {
 
         log.debug(" find influence: {}", influence);
         influence.updateSns(parameter.getSns());
+    }
+
+    @Override
+    public InfluenceDetailResult getDetail(Long id) {
+        Influence influence = influenceJpaRepository.findById(id)
+                .orElseThrow(NotFoundInfluenceException::new);
+
+        InfluenceNotice notice = influenceNoticeJpaRepository.findInfluenceNoticeByInfluenceId(id).orElse(null);
+
+        return new InfluenceDetailResult(influence, notice);
     }
 }

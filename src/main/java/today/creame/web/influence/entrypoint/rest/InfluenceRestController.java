@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.influence.application.InfluenceNoticeService;
 import today.creame.web.influence.application.InfluenceService;
-import today.creame.web.influence.application.model.InfluenceItemParameter;
-import today.creame.web.influence.application.model.InfluenceNoticeParameter;
-import today.creame.web.influence.application.model.InfluenceNoticeResult;
-import today.creame.web.influence.application.model.SnsParameter;
+import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.Item;
 import today.creame.web.influence.domain.SNS;
 import today.creame.web.influence.entrypoint.rest.io.NoticeUpdateRequest;
@@ -100,5 +97,11 @@ public class InfluenceRestController implements BaseRestController {
     ) {
         influenceService.changeItem(new InfluenceItemParameter(id, index));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @GetMapping("/admin/v1/influence/{id}")
+    public ResponseEntity<Body<InfluenceDetailResult>> getDetail(@PathVariable Long id) {
+        InfluenceDetailResult influenceDetailResult = influenceService.getDetail(id);
+        return ResponseEntity.ok(BodyFactory.success(influenceDetailResult));
     }
 }
