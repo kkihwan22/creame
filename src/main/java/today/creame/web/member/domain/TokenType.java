@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public enum TokenType {
 
-    ACCESS_TOKEN(1200L),
+    ACCESS_TOKEN((60 * 60 * 24 * 7L)),
     REFRESH_TOKEN((60 * 60 * 24 * 7L))
     ;
 
