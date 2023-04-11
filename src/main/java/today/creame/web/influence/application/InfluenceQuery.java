@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import org.springframework.data.domain.Pageable;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
+import today.creame.web.influence.application.model.InfluenceDetailResult;
 import today.creame.web.influence.application.model.InfluenceQnaQueryParameter;
 import today.creame.web.influence.application.model.InfluenceQnaResult;
 import today.creame.web.influence.application.model.InfluenceResult;
@@ -23,4 +24,6 @@ public interface InfluenceQuery {
     InfluenceResult getInfluence(Long id);
 
     List<InfluenceQnaResult> pagingQnas(InfluenceQnaQueryParameter parameter);
+
+    InfluenceDetailResult getDetail(Long id);
 }

@@ -6,16 +6,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import today.creame.web.influence.application.model.InfluenceApplicationDetailResult;
 import today.creame.web.influence.application.model.InfluenceApplicationParameter;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
 import today.creame.web.influence.domain.InfluenceApplication;
 import today.creame.web.influence.domain.InfluenceApplicationJpaRepository;
 import today.creame.web.influence.exception.NotFoundApplicationException;
+import today.creame.web.influence.exception.NotInApplicationStatusException;
 import today.creame.web.member.application.MemberService;
 import today.creame.web.member.application.model.MemberRegisterParameter;
 import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.share.event.SmsSendEvent;
 import today.creame.web.share.support.RandomString;
+
+import static today.creame.web.influence.domain.InfluenceApplicationStatus.REQUEST;
 
 @RequiredArgsConstructor
 @Service
@@ -44,6 +48,8 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
             .orElseThrow(NotFoundApplicationException::new);
         log.debug("find application: {}", application);
 
+        application.approve();
+
         String password = RandomString.password().nextString();
         log.debug(" [ password]: {}", password);
         MemberResult member = memberService.registerMemberInfluence(
@@ -52,7 +58,6 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         Long influenceId = influenceService.create(new InfluenceCreateParameter(member.getId(), application));
         log.debug("member:{}, influence:{}", member.getId(), influenceId);
 
-        application.approve();
         publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), member.getPassword()));
     }
 
@@ -73,6 +78,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         InfluenceApplication application = influenceApplicationJpaRepository.findById(id)
             .orElseThrow(NotFoundApplicationException::new);
         log.debug("find application: {}", application);
+
         application.reject();
     }
 }
