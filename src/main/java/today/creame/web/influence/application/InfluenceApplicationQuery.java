@@ -1,7 +1,8 @@
 package today.creame.web.influence.application;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Order;
@@ -16,10 +17,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import today.creame.web.common.domain.FileResource;
+import today.creame.web.common.domain.FileResourceJpaRepository;
 import today.creame.web.common.support.Utils;
+import today.creame.web.influence.application.model.InfluenceApplicationDetailResult;
 import today.creame.web.influence.application.model.InfluenceApplicationSearchParameter;
 import today.creame.web.influence.domain.InfluenceApplication;
 import today.creame.web.influence.domain.InfluenceApplicationJpaRepository;
+import today.creame.web.influence.exception.NotFoundApplicationException;
 
 import static today.creame.web.influence.domain.QInfluenceApplication.influenceApplication;
 
@@ -29,6 +34,7 @@ import static today.creame.web.influence.domain.QInfluenceApplication.influenceA
 public class InfluenceApplicationQuery {
     private final Logger log = LoggerFactory.getLogger(InfluenceApplicationQuery.class);
     private final InfluenceApplicationJpaRepository influenceApplicationJpaRepository;
+    private final FileResourceJpaRepository fileResourceJpaRepository;
     private final JPAQueryFactory query;
 
     public Page<InfluenceApplication> list(InfluenceApplicationSearchParameter searchParameter, Pageable pageable) {
@@ -63,5 +69,17 @@ public class InfluenceApplicationQuery {
             }
         }
         return null;
+    }
+
+    public InfluenceApplicationDetailResult getDetail(Long id) {
+        InfluenceApplication application = influenceApplicationJpaRepository.findById(id)
+                .orElseThrow(NotFoundApplicationException::new);
+
+        List<FileResource> fileResources = Collections.EMPTY_LIST;
+        if(Objects.nonNull(application.getProfileImages())) {
+            List<Long> fileIds = Arrays.stream(application.getProfileImages().split(",")).map(Long::valueOf).collect(Collectors.toList());
+            fileResources = fileResourceJpaRepository.findFileResourceByIdIn(fileIds);
+        }
+        return new InfluenceApplicationDetailResult(application, fileResources);
     }
 }

@@ -117,14 +117,4 @@ public class InfluenceServiceImpl implements InfluenceService {
         log.debug(" find influence: {}", influence);
         influence.updateSns(parameter.getSns());
     }
-
-    @Override
-    public InfluenceDetailResult getDetail(Long id) {
-        Influence influence = influenceJpaRepository.findById(id)
-                .orElseThrow(NotFoundInfluenceException::new);
-
-        InfluenceNotice notice = influenceNoticeJpaRepository.findInfluenceNoticeByInfluenceId(id).orElse(null);
-
-        return new InfluenceDetailResult(influence, notice);
-    }
 }

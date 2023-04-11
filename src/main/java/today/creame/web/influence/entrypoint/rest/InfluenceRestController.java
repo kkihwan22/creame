@@ -98,10 +98,4 @@ public class InfluenceRestController implements BaseRestController {
         influenceService.changeItem(new InfluenceItemParameter(id, index));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
-
-    @GetMapping("/admin/v1/influence/{id}")
-    public ResponseEntity<Body<InfluenceDetailResult>> getDetail(@PathVariable Long id) {
-        InfluenceDetailResult influenceDetailResult = influenceService.getDetail(id);
-        return ResponseEntity.ok(BodyFactory.success(influenceDetailResult));
-    }
 }

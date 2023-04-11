@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
+import today.creame.web.influence.application.model.InfluenceDetailResult;
 import today.creame.web.influence.application.model.InfluenceQnaQueryParameter;
 import today.creame.web.influence.application.model.InfluenceQnaResult;
 import today.creame.web.influence.application.model.InfluenceResult;
@@ -208,5 +209,17 @@ public class InfluenceQueryImpl implements InfluenceQuery {
             .collect(groupingBy(result -> result.getInfluence().getId()));
 
         return mapProfileImages;
+    }
+
+    public InfluenceDetailResult getDetail(Long id) {
+        Influence influence = influenceJpaRepository.findById(id)
+                .orElseThrow(NotFoundInfluenceException::new);
+
+        InfluenceNotice notice = query
+                .selectFrom(influenceNotice)
+                .where(influenceNotice.deleted.eq(false), influenceNotice.influenceId.eq(influence.getId()))
+                .fetchOne();
+
+        return new InfluenceDetailResult(influence, notice);
     }
 }

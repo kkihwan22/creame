@@ -22,5 +22,4 @@ public interface InfluenceService {
 
     void update(SnsParameter parameter);
 
-    InfluenceDetailResult getDetail(Long id);
 }

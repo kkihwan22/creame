@@ -1,6 +1,7 @@
 package today.creame.web.influence.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
+import static today.creame.web.influence.domain.InfluenceApplicationStatus.REQUEST;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -14,6 +15,7 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.influence.domain.converter.InfluenceApplicationStatusToStringConverter;
+import today.creame.web.influence.exception.NotInApplicationStatusException;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
 @NoArgsConstructor
@@ -65,6 +67,9 @@ public class InfluenceApplication extends BaseCreatedAndUpdatedDateTime {
     }
 
     public void approve() {
+        if(!REQUEST.equals(this.status)) {
+            throw new NotInApplicationStatusException();
+        }
         this.status = InfluenceApplicationStatus.APPROVAL;
     }
 
@@ -73,6 +78,9 @@ public class InfluenceApplication extends BaseCreatedAndUpdatedDateTime {
     }
 
     public void reject() {
+        if(!REQUEST.equals(this.status)) {
+            throw new NotInApplicationStatusException();
+        }
         this.status = InfluenceApplicationStatus.REJECT;
     }
 }

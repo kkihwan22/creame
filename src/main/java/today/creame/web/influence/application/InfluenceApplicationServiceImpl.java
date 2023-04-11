@@ -48,10 +48,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
             .orElseThrow(NotFoundApplicationException::new);
         log.debug("find application: {}", application);
 
-        if(!REQUEST.equals(application.getStatus())) {
-            log.error("인플루언서 신청 상태가 REQUEST가 아닙니다. InfluenceApplicationId {}, status {}", application.getId(), application.getStatus());
-            throw new NotInApplicationStatusException();
-        }
+        application.approve();
 
         String password = RandomString.password().nextString();
         log.debug(" [ password]: {}", password);
@@ -61,7 +58,6 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         Long influenceId = influenceService.create(new InfluenceCreateParameter(member.getId(), application));
         log.debug("member:{}, influence:{}", member.getId(), influenceId);
 
-        application.approve();
         publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), member.getPassword()));
     }
 
@@ -83,19 +79,6 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
             .orElseThrow(NotFoundApplicationException::new);
         log.debug("find application: {}", application);
 
-        if(!REQUEST.equals(application.getStatus())) {
-            log.error("인플루언서 신청 상태가 REQUEST가 아닙니다. InfluenceApplicationId {}, status {}", application.getId(), application.getStatus());
-            throw new NotInApplicationStatusException();
-        }
-
         application.reject();
-    }
-
-    @Override
-    public InfluenceApplicationDetailResult getDetail(Long id) {
-        InfluenceApplication application = influenceApplicationJpaRepository.findById(id)
-                .orElseThrow(NotFoundApplicationException::new);
-
-        return new InfluenceApplicationDetailResult(application);
     }
 }

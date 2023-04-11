@@ -9,6 +9,5 @@ public interface InfluenceApplicationService {
     void approve(Long id);
     void cancel(Long id);
     void reject(Long id);
-    InfluenceApplicationDetailResult getDetail(Long id);
 
 }

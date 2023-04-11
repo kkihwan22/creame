@@ -71,7 +71,7 @@ public class InfluenceApplicationRestController implements BaseRestController {
 
     @GetMapping("/admin/v1/influence/applications/{id}")
     public ResponseEntity<Body<InfluenceApplicationDetailResult>> getDetail(@PathVariable Long id) {
-        InfluenceApplicationDetailResult result = influenceApplicationService.getDetail(id);
+        InfluenceApplicationDetailResult result = influenceApplicationQuery.getDetail(id);
         return ResponseEntity.ok(BodyFactory.success(result));
     }
 }

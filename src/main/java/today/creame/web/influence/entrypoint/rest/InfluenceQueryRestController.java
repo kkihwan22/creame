@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.influence.application.InfluenceQuery;
+import today.creame.web.influence.application.model.InfluenceDetailResult;
 import today.creame.web.influence.application.model.InfluenceResult;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceReviewStatResponse;
 import today.creame.web.matching.applicaton.MatchingQueryService;
@@ -72,5 +73,11 @@ public class InfluenceQueryRestController implements BaseRestController {
         @PathVariable Long id,
         @RequestParam(required = false, defaultValue = "desc") String direction) {
         reviewQueryService.listReviewByInfluence(id, "createdDateTime|" + direction);
+    }
+
+    @GetMapping("/admin/v1/influence/{id}")
+    public ResponseEntity<Body<InfluenceDetailResult>> getDetail(@PathVariable Long id) {
+        InfluenceDetailResult influenceDetailResult = influenceQuery.getDetail(id);
+        return ResponseEntity.ok(BodyFactory.success(influenceDetailResult));
     }
 }
