@@ -36,7 +36,7 @@ public class ReceiptParameter {
 
         return new PaymentsHistory(
             member,
-            !reqResult.equals("00") ? PaymentsHistoryType.PAYMENT_FAILED : PaymentsHistoryType.AUTO_CHARGING, oid, tid, amount, coinamt, reqResult, resultmessage
+            !reqResult.equals("0000") ? PaymentsHistoryType.PAYMENT_FAILED : PaymentsHistoryType.AUTO_CHARGING, oid, tid, amount, coinamt, reqResult, resultmessage
         );
     }
 }

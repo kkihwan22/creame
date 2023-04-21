@@ -159,6 +159,11 @@ public class PaymentServiceImpl implements PaymentService {
     public void postPay(ReceiptParameter parameter) {
         PaymentsHistory paymentsHistory = parameter.toEntity(memberJpaRepository);
         paymentHistoryJpaRepository.save(paymentsHistory);
+
+        if (!parameter.getReqResult().equals("0000")) {
+            return;
+        }
+
         publisher.publishEvent(new PaymentEvent(
             paymentsHistory.getMember().getId(), paymentsHistory.getType(), parameter.getAmount(), parameter.getCoinamt()));
     }
