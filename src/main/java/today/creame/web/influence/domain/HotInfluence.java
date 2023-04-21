@@ -77,4 +77,14 @@ public class HotInfluence extends BaseCreatedAndUpdatedDateTimeWithAudit {
         this.orderNumber = orderNumber;
         this.enabled = true;
     }
+
+    public void enabled(){
+        this.enabled = !this.enabled;
+    }
+
+    public void update(String title, String bannerImageUri, int orderNumber) {
+        this.title = title;
+        this.bannerImageUri = bannerImageUri;
+        this.orderNumber = orderNumber;
+    }
 }

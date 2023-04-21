@@ -49,21 +49,21 @@ public class InfluenceApplicationQuery {
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
 
-    private static final Map<String, Expression<?>> PROPERTY_MAP = new HashMap<>();
+    private static final Map<String, Expression<?>> INFLUENCEAPPLICATION_PROPERTY_MAP = new HashMap<>();
     static {
-        PROPERTY_MAP.put("id", influenceApplication.id);
-        PROPERTY_MAP.put("email", influenceApplication.email);
-        PROPERTY_MAP.put("name", influenceApplication.name);
-        PROPERTY_MAP.put("nickname", influenceApplication.nickname);
-        PROPERTY_MAP.put("status", influenceApplication.status);
-        PROPERTY_MAP.put("createdDateTime", influenceApplication.createdDateTime);
-        PROPERTY_MAP.put("updatedDateTime", influenceApplication.updatedDateTime);
+        INFLUENCEAPPLICATION_PROPERTY_MAP.put("id", influenceApplication.id);
+        INFLUENCEAPPLICATION_PROPERTY_MAP.put("email", influenceApplication.email);
+        INFLUENCEAPPLICATION_PROPERTY_MAP.put("name", influenceApplication.name);
+        INFLUENCEAPPLICATION_PROPERTY_MAP.put("nickname", influenceApplication.nickname);
+        INFLUENCEAPPLICATION_PROPERTY_MAP.put("status", influenceApplication.status);
+        INFLUENCEAPPLICATION_PROPERTY_MAP.put("createdDateTime", influenceApplication.createdDateTime);
+        INFLUENCEAPPLICATION_PROPERTY_MAP.put("updatedDateTime", influenceApplication.updatedDateTime);
     }
     public OrderSpecifier<?> getOrderSpecifier(Pageable pageable) {
         if (!pageable.getSort().isEmpty()) {
             Sort.Order order = pageable.getSort().iterator().next();
             Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
-            Expression<?> property = PROPERTY_MAP.get(order.getProperty());
+            Expression<?> property = INFLUENCEAPPLICATION_PROPERTY_MAP.get(order.getProperty());
             if (property != null) {
                 return new OrderSpecifier(direction, property);
             }
