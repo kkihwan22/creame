@@ -113,6 +113,7 @@ public class PaymentRestController implements BaseRestController {
 
     @PostMapping("/m2net/pay-result")
     public String postPay(@RequestBody ReceiptRequest request) {
+        log.info("[ pay-result] request: {}", request);
         paymentService.postPay(request.of());
         return "00";
     }
