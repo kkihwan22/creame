@@ -18,8 +18,9 @@ public class ReceiptParameter {
     private int coinamt;
     private String reqResult;
     private String resultmessage;
+    private PaymentsHistoryType type;
 
-    public ReceiptParameter(String membid, String oid, String tid, int amount, int coinamt, String reqResult, String resultmessage) {
+    public ReceiptParameter(String membid, String oid, String tid, int amount, int coinamt, String reqResult, String resultmessage, PaymentsHistoryType type) {
         this.membid = membid;
         this.oid = oid;
         this.tid = tid;
@@ -27,6 +28,11 @@ public class ReceiptParameter {
         this.coinamt = coinamt;
         this.reqResult = reqResult;
         this.resultmessage = resultmessage;
+        this.type = type;
+    }
+
+    public boolean failed() {
+        return !reqResult.equals("0000");
     }
 
     public PaymentsHistory toEntity(MemberJpaRepository memberJpaRepository) {
@@ -34,9 +40,26 @@ public class ReceiptParameter {
             .findMemberByM2netUserId(membid)
             .orElseThrow(NotFoundMemberException::new);
 
-        return new PaymentsHistory(
-            member,
-            !reqResult.equals("0000") ? PaymentsHistoryType.PAYMENT_FAILED : PaymentsHistoryType.AUTO_CHARGING, oid, tid, amount, coinamt, reqResult, resultmessage
-        );
+        return new PaymentsHistory(member, type, oid, tid, amount, coinamt, reqResult, resultmessage);
+    }
+
+    public static ReceiptParameter paramToAutoCharging(String membid, String oid, String tid, int amount, int coinamt, String reqResult, String resultmessage) {
+        if (!reqResult.equals("0000")) {
+            return ReceiptParameter.paramToPaymentFailure(membid, oid, tid, amount, coinamt, reqResult, resultmessage);
+        }
+
+        return new ReceiptParameter(membid, oid, tid, amount, coinamt, reqResult, resultmessage, PaymentsHistoryType.AUTO_CHARGING);
+    }
+
+    public static ReceiptParameter paramToPaymentSuccess(String membid, String oid, String tid, int amount, int coinamt, String reqResult, String resultmessage) {
+        if (!reqResult.equals("0000")) {
+            return ReceiptParameter.paramToPaymentFailure(membid, oid, tid, amount, coinamt, reqResult, resultmessage);
+        }
+
+        return new ReceiptParameter(membid, oid, tid, amount, coinamt, reqResult, resultmessage, PaymentsHistoryType.PAYMENT_REQUEST);
+    }
+
+    private static ReceiptParameter paramToPaymentFailure(String membid, String oid, String tid, int amount, int coinamt, String reqResult, String resultmessage) {
+        return new ReceiptParameter(membid, oid, tid, amount, coinamt, reqResult, resultmessage, PaymentsHistoryType.PAYMENT_FAILED);
     }
 }

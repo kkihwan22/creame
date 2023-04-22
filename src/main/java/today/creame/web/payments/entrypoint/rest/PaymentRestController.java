@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.payments.application.PaymentService;
 import today.creame.web.payments.application.model.CreditCardResult;
+import today.creame.web.payments.application.model.ReceiptParameter;
 import today.creame.web.payments.domain.AutoChargingPreference;
 import today.creame.web.payments.entrypoint.rest.io.BillKeyIssueRequest;
 import today.creame.web.payments.entrypoint.rest.io.BillKeyPaymentRequest;
@@ -114,7 +115,7 @@ public class PaymentRestController implements BaseRestController {
     @PostMapping("/m2net/pay-result")
     public String postPay(@RequestBody ReceiptRequest request) {
         log.info("[ pay-result] request: {}", request);
-        paymentService.postPay(request.of());
+        paymentService.postPay(ReceiptParameter.paramToAutoCharging(request.getMembid(), request.getOid(), request.getTid(),  request.getAmount(), request.getCoinamt(), request.getReqResult(), request.getResultmessage()));
         return "00";
     }
 }

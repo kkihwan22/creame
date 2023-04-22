@@ -160,7 +160,7 @@ public class PaymentServiceImpl implements PaymentService {
         PaymentsHistory paymentsHistory = parameter.toEntity(memberJpaRepository);
         paymentHistoryJpaRepository.save(paymentsHistory);
 
-        if (!parameter.getReqResult().equals("0000")) {
+        if (parameter.failed()) {
             return;
         }
 
