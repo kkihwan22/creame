@@ -34,6 +34,27 @@ public class HotInfluenceQueryImpl implements HotInfluenceQuery {
     private final QHotInfluence h = hotInfluence;
     private final QInfluence i = influence;
 
+    private static final Map<String, Expression<?>> HOTINFLUENCE_PROPERTY_MAP = new HashMap<>();
+    static {
+        HOTINFLUENCE_PROPERTY_MAP.put("id", hotInfluence.id);
+        HOTINFLUENCE_PROPERTY_MAP.put("nickname", hotInfluence.nickname);
+        HOTINFLUENCE_PROPERTY_MAP.put("orderNumber", hotInfluence.orderNumber);
+        HOTINFLUENCE_PROPERTY_MAP.put("createdDateTime", hotInfluence.createdDateTime);
+        HOTINFLUENCE_PROPERTY_MAP.put("updatedDateTime", hotInfluence.updatedDateTime);
+    }
+
+    public OrderSpecifier<?> getOrderSpecifier(Pageable pageable) {
+        if (!pageable.getSort().isEmpty()) {
+            Sort.Order order = pageable.getSort().iterator().next();
+            Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
+            Expression<?> property = HOTINFLUENCE_PROPERTY_MAP.get(order.getProperty());
+            if (property != null) {
+                return new OrderSpecifier(direction, property);
+            }
+        }
+        return null;
+    }
+
     @Override
     public List<HotInfluenceResult> getEnabledHotInfluenceList() {
         List<HotInfluence> hotInfluences = hotInfluenceJpaRepository.findHotInfluencesByEnabled(true);
@@ -55,26 +76,5 @@ public class HotInfluenceQueryImpl implements HotInfluenceQuery {
             .fetchResults();
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
-    }
-
-    private static final Map<String, Expression<?>> HOTINFLUENCE_PROPERTY_MAP = new HashMap<>();
-    static {
-        HOTINFLUENCE_PROPERTY_MAP.put("id", hotInfluence.id);
-        HOTINFLUENCE_PROPERTY_MAP.put("nickname", hotInfluence.nickname);
-        HOTINFLUENCE_PROPERTY_MAP.put("orderNumber", hotInfluence.orderNumber);
-        HOTINFLUENCE_PROPERTY_MAP.put("createdDateTime", hotInfluence.createdDateTime);
-        HOTINFLUENCE_PROPERTY_MAP.put("updatedDateTime", hotInfluence.updatedDateTime);
-        }
-
-    public OrderSpecifier<?> getOrderSpecifier(Pageable pageable) {
-        if (!pageable.getSort().isEmpty()) {
-            Sort.Order order = pageable.getSort().iterator().next();
-            Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
-            Expression<?> property = HOTINFLUENCE_PROPERTY_MAP.get(order.getProperty());
-            if (property != null) {
-                return new OrderSpecifier(direction, property);
-            }
-        }
-        return null;
     }
 }

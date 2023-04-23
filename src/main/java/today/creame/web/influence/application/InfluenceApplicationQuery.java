@@ -37,18 +37,6 @@ public class InfluenceApplicationQuery {
     private final FileResourceJpaRepository fileResourceJpaRepository;
     private final JPAQueryFactory query;
 
-    public Page<InfluenceApplication> list(InfluenceApplicationSearchParameter searchParameter, Pageable pageable) {
-        QueryResults<InfluenceApplication> result = query
-                .selectFrom(influenceApplication)
-                .where(Utils.inOperation(influenceApplication.status, searchParameter.getStatus()))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .orderBy(getOrderSpecifier(pageable))
-                .fetchResults();
-
-        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
-    }
-
     private static final Map<String, Expression<?>> INFLUENCEAPPLICATION_PROPERTY_MAP = new HashMap<>();
     static {
         INFLUENCEAPPLICATION_PROPERTY_MAP.put("id", influenceApplication.id);
@@ -59,6 +47,7 @@ public class InfluenceApplicationQuery {
         INFLUENCEAPPLICATION_PROPERTY_MAP.put("createdDateTime", influenceApplication.createdDateTime);
         INFLUENCEAPPLICATION_PROPERTY_MAP.put("updatedDateTime", influenceApplication.updatedDateTime);
     }
+
     public OrderSpecifier<?> getOrderSpecifier(Pageable pageable) {
         if (!pageable.getSort().isEmpty()) {
             Sort.Order order = pageable.getSort().iterator().next();
@@ -69,6 +58,18 @@ public class InfluenceApplicationQuery {
             }
         }
         return null;
+    }
+
+    public Page<InfluenceApplication> list(InfluenceApplicationSearchParameter searchParameter, Pageable pageable) {
+        QueryResults<InfluenceApplication> result = query
+                .selectFrom(influenceApplication)
+                .where(Utils.inOperation(influenceApplication.status, searchParameter.getStatus()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(pageable))
+                .fetchResults();
+
+        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
 
     public InfluenceApplicationDetailResult getDetail(Long id) {
