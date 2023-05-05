@@ -35,7 +35,10 @@ public class ReceiptRequest {
     private String resultmessage;
 
     public PaymentSuccessParameter toSuccess() {
-        return new PaymentSuccessParameter(membid, oid, tid, amount, coinamt, Optional.ofNullable(ReceiptRequest.dataMap.get(payType)).orElse(PaymentMethod.UNKNOWN));
+
+
+
+        return new PaymentSuccessParameter(membid, oid, tid, amount, coinamt, ReceiptRequest.dataMap.get(Optional.ofNullable(payType).orElse("DIR_CARD")));
     }
 
     public PaymentFailureParameter toFailed() {
