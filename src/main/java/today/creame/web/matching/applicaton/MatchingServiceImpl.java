@@ -54,6 +54,7 @@ public class MatchingServiceImpl implements MatchingService {
             .findMatchingByInfluenceAndMemberAndStatus(influence, member, MatchingProgressStatus.START)
             .orElseThrow(() -> new NotFoundMatchingException());
 
+        matching.end(parameter.getMatchingProgressStatus(), parameter.getEndDateTime(), parameter.getUsedCoins());
         log.debug("matching: {}", matching);
     }
 

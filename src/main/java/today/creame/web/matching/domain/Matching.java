@@ -73,4 +73,10 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
         this.deferred = deferred;
         this.usedCoins = usedCoins;
     }
+
+    public void end(MatchingProgressStatus status, LocalDateTime endedDateTime, int usedCoins) {
+        this.status = status;
+        this.endedDateTime = endedDateTime;
+        this.usedCoins = usedCoins;
+    }
 }
