@@ -19,6 +19,7 @@ public class MatchingListener {
     @EventListener
     public void handle(MatchingEvent event) {
         MatchingParameter parameter = of(event);
+        log.info("[ Matching Event ] {}", event);
         if (parameter.getMatchingProgressStatus() == MatchingProgressStatus.START) {
             matchingService.start(parameter);
         } else {

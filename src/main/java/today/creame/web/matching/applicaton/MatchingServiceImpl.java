@@ -44,13 +44,14 @@ public class MatchingServiceImpl implements MatchingService {
         matchingJapRepository.save(matching);
     }
 
+    @Transactional
     @Override
     public void end(MatchingParameter parameter) {
         Influence influence = findInfluence(parameter.getCid());
         Member member = findMember(parameter.getUid());
 
         Matching matching = matchingJapRepository
-            .findMatchingByInfluenceAndMemberAndStatusAndStartDateTime(influence, member, MatchingProgressStatus.START, parameter.getStartDateTime())
+            .findMatchingByInfluenceAndMemberAndStatus(influence, member, MatchingProgressStatus.START)
             .orElseThrow(() -> new NotFoundMatchingException());
 
         log.debug("matching: {}", matching);

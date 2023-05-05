@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import today.creame.web.coin.application.model.CoinsHistoryResult;
 import today.creame.web.coin.application.model.CoinsUpdateParameter;
 import today.creame.web.coin.application.model.MyCoinStatResult;
 import today.creame.web.coin.domain.CoinsHistory;
@@ -12,6 +13,12 @@ import today.creame.web.coin.domain.CoinsHistoryJpaRepository;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.exception.NotFoundMemberException;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -36,5 +43,13 @@ public class CoinsServiceImpl implements CoinsService {
     public MyCoinStatResult getCoinStatByMember(Long id) {
         Member member = memberJpaRepository.findById(id).orElseThrow(NotFoundMemberException::new);
         return new MyCoinStatResult(member);
+    }
+
+    @Override
+    public List<CoinsHistoryResult> history(Long id, Integer since) {
+        LocalDateTime time = LocalDate.now().minusMonths(since).atTime(LocalTime.MIDNIGHT);
+        List<CoinsHistoryResult> results = coinsHistoryJpaRepository.findCoinsHistoryByMember_IdAndCreatedDateTimeAfter(id, time).stream().map(it -> new CoinsHistoryResult(it)).collect(Collectors.toList());
+        log.debug("results: {}", results);
+        return results;
     }
 }

@@ -1,14 +1,14 @@
 package today.creame.web.matching.applicaton.model;
 
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.matching.domain.Matching;
 import today.creame.web.matching.domain.MatchingProgressStatus;
 
-import java.time.LocalDateTime;
-
-@Getter @ToString
-public class MatchingResult {
+@Getter
+@ToString
+public class MatchingHistoryResult {
     private Long id;
     private Long influenceId;
     private String extensionNumber;
@@ -16,22 +16,13 @@ public class MatchingResult {
     private String profileImage;
     private LocalDateTime matchingDateTime;
     private MatchingProgressStatus status;
-
-    private LocalDateTime start;
-    private LocalDateTime end;
-    private int usedCoins;
-    private String category;
-
-    public MatchingResult(Matching matching) {
+    public MatchingHistoryResult(Matching matching, String profileImage) {
         this.id = matching.getId();
         this.influenceId = matching.getInfluence().getId();
         this.extensionNumber = matching.getInfluence().getExtensionNumber();
         this.nickname = matching.getInfluence().getNickname();
-        this.profileImage = matching.getInfluence().getProfileImages().get(0).getFileResourceUri();
         this.matchingDateTime = matching.getCreatedDateTime();
         this.status = matching.getStatus();
-        this.start = matching.getStartDateTime();
-        this.end = matching.getEndedDateTime();
-        this.usedCoins = matching.getUsedCoins();
+        this.profileImage = profileImage;
     }
 }

@@ -4,21 +4,40 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import today.creame.web.payments.application.model.ReceiptParameter;
+import today.creame.web.payments.application.model.PaymentFailureParameter;
+import today.creame.web.payments.application.model.PaymentSuccessParameter;
+import today.creame.web.payments.domain.PaymentMethod;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @ToString
 public class ReceiptRequest {
+    private static final Map<String, PaymentMethod> dataMap = Map.of(
+            "KAKAO_PAY", PaymentMethod.KAKAO,
+            "NAVER_PAY", PaymentMethod.NAVER,
+            "PAYCO_PAY", PaymentMethod.PAYCO,
+            "DIR_CARD", PaymentMethod.CARD
+    );
+
     private String membid;
     private String membnm;
     private String oid;
     private String tid;
     private int amount;
     private int coinamt;
+    private String payType;
     private String reqResult;
     private String resultmessage;
-    private String paytype;
-    private String telno;
+
+    public PaymentSuccessParameter toSuccess() {
+        return new PaymentSuccessParameter(membid, oid, tid, amount, coinamt, ReceiptRequest.dataMap.get(payType));
+    }
+
+    public PaymentFailureParameter toFailed() {
+        return new PaymentFailureParameter(membid, oid, tid, amount, coinamt, ReceiptRequest.dataMap.get(payType), reqResult, resultmessage);
+    }
 }

@@ -106,9 +106,6 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     public void updateCoins(CoinsHistoryType type, int changeCoins) {
         switch (type) {
             case USING:
-            case REFUNDED:
-                this.coins = this.coins - changeCoins;
-                break;
             case CHARGING:
             case CANCELED:
                 this.coins = this.coins + changeCoins;

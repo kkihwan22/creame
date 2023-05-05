@@ -7,7 +7,6 @@ import today.creame.web.member.domain.Member;
 @Getter
 @ToString
 public class MyCoinStatResult {
-
     private int coins;
     private int bonusCoins;
 

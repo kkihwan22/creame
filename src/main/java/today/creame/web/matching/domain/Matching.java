@@ -73,17 +73,4 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
         this.deferred = deferred;
         this.usedCoins = usedCoins;
     }
-
-    public void end() {
-
-    }
-
-    public void updateMatchingReview(MatchingReview matchingReview) {
-        if (matchingReviews == null) {
-            matchingReviews = new ArrayList<>();
-        }
-
-        matchingReviews.add(matchingReview);
-        matchingReview.setMatching(this);
-    }
 }

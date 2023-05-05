@@ -14,18 +14,10 @@ import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.exception.NotFoundMemberException;
 import today.creame.web.payments.application.model.CreditCardResult;
-import today.creame.web.payments.application.model.ReceiptParameter;
-import today.creame.web.payments.domain.AutoChargingPreference;
-import today.creame.web.payments.domain.CreditCard;
-import today.creame.web.payments.domain.PaymentBillKey;
-import today.creame.web.payments.domain.PaymentBillKeyJpaRepository;
-import today.creame.web.payments.domain.PaymentHistoryJpaRepository;
-import today.creame.web.payments.domain.PaymentsHistory;
-import today.creame.web.payments.exception.ConflictCreditCardException;
-import today.creame.web.payments.exception.IllegalCreditCardDataException;
-import today.creame.web.payments.exception.NotFoundCreditCardException;
-import today.creame.web.payments.exception.PaymentFailureException;
-import today.creame.web.payments.exception.RemoveBillKeyException;
+import today.creame.web.payments.application.model.PaymentFailureParameter;
+import today.creame.web.payments.application.model.PaymentSuccessParameter;
+import today.creame.web.payments.domain.*;
+import today.creame.web.payments.exception.*;
 import today.creame.web.share.event.AutoChargingConfigEvent;
 import today.creame.web.share.event.PaymentEvent;
 import today.creame.web.share.support.SecurityContextSupporter;
@@ -154,20 +146,6 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
-    @Transactional
-    @Override
-    public void postPay(ReceiptParameter parameter) {
-        PaymentsHistory paymentsHistory = parameter.toEntity(memberJpaRepository);
-        paymentHistoryJpaRepository.save(paymentsHistory);
-
-        if (parameter.failed()) {
-            return;
-        }
-
-        publisher.publishEvent(new PaymentEvent(
-            paymentsHistory.getMember().getId(), paymentsHistory.getType(), parameter.getAmount(), parameter.getCoinamt()));
-    }
-
     private void resetBillKey(PaymentBillKey paymentBillKey, Member member) {
         removeBillKey(member);
         M2netBillKeyIssueResponse body = m2netClient.issueBillKey(issueBillKeyConverter.convert(paymentBillKey.getCreditCard(), paymentBillKey.getPreference(), member)).getBody();
@@ -186,5 +164,32 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
+    @Transactional
+    @Override
+    public void paySuccess(PaymentsHistoryStatus type, PaymentSuccessParameter parameter) {
 
+        paymentHistoryJpaRepository.findByOrderId(parameter.getOid())
+                .ifPresentOrElse(
+                        it -> {
+                            it.canceled();
+                            this.publishPaymentResult(it);
+                        },
+                        () -> {
+                            Member member = memberJpaRepository.findMemberByM2netUserId(parameter.getMembid()).orElseThrow(NotFoundMemberException::new);
+                            PaymentsHistory paymentsHistory = paymentHistoryJpaRepository.save(new PaymentsHistory(member, type, parameter.getOid(), parameter.getTid(), parameter.getAmount(), parameter.getCoinamt(), parameter.getPaymentMethod()));
+                            this.publishPaymentResult(paymentsHistory);
+                        }
+                );
+    }
+
+    @Transactional
+    @Override
+    public void payFailure(PaymentFailureParameter parameter) {
+        Member member = memberJpaRepository.findMemberByM2netUserId(parameter.getMembid()).orElseThrow(NotFoundMemberException::new);
+        paymentHistoryJpaRepository.save(new PaymentsHistory(member, PaymentsHistoryStatus.FAILED, parameter.getOid(), parameter.getTid(), parameter.getAmount(), parameter.getCoinamt(), parameter.getPaymentMethod(), parameter.getReqResult(), parameter.getResultmessage()));
+    }
+
+    private void publishPaymentResult(PaymentsHistory paymentsHistory) {
+        publisher.publishEvent(new PaymentEvent(paymentsHistory));
+    }
 }
