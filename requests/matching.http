@@ -3,3 +3,16 @@
 PUT {{host}}/api/v1/m2net/pre-call/70
 Content-Type: application/json
 Authorization: Be정arer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+
+
+### 통화내역
+
+GET {{host}}/api/v1/me/matching-history?since=1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjgzOTg2MjkzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.7_W857twqFOAgXGpcXFS48-ixphLVUojpjydqyFQYx8
+
+
+### 통화내역 상세보기
+GET {{host}}/api/v1/me/matching-history/7
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjgzOTg2MjkzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.7_W857twqFOAgXGpcXFS48-ixphLVUojpjydqyFQYx8

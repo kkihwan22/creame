@@ -2,7 +2,7 @@
 
 POST {{host}}/public/v1/token/refresh
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjc5MjkzMzg2LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.-5d9vvXL7qfeWQoyKz36f0iK4lK9KGNPRywUQD3x5-M
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjgzODYwNjkzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.NQzJq9672QzFBf_a4oDsd923uy0TU2UXZ7-nw4BJvRg
 
 
 ### 카드등록
@@ -68,3 +68,21 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
   "payment_password": "069112",
   "amount": 10000
 }
+
+### 결제내역
+
+GET {{host}}/api/v1/me/payments-history?since=1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjgzOTg2MjkzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.7_W857twqFOAgXGpcXFS48-ixphLVUojpjydqyFQYx8
+
+### 보유코인
+
+GET {{host}}/api/v1/my-coins
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjgzOTg2MjkzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.7_W857twqFOAgXGpcXFS48-ixphLVUojpjydqyFQYx8
+
+### 코인사용내역
+
+GET {{host}}/api/v1/my-coins/history?since=3
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjgzOTg2MjkzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.7_W857twqFOAgXGpcXFS48-ixphLVUojpjydqyFQYx8

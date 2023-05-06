@@ -2,10 +2,14 @@ package today.creame.web.matching.applicaton.model;
 
 import lombok.Getter;
 import lombok.ToString;
+import today.creame.web.influence.domain.Category;
+import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.matching.domain.Matching;
 import today.creame.web.matching.domain.MatchingProgressStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter @ToString
 public class MatchingResult {
@@ -20,7 +24,7 @@ public class MatchingResult {
     private LocalDateTime start;
     private LocalDateTime end;
     private int usedCoins;
-    private String category;
+    private List<Category> categories;
 
     public MatchingResult(Matching matching) {
         this.id = matching.getId();
@@ -33,5 +37,6 @@ public class MatchingResult {
         this.start = matching.getStartDateTime();
         this.end = matching.getEndedDateTime();
         this.usedCoins = matching.getUsedCoins();
+        this.categories = matching.getInfluence().getCategories().stream().map(InfluenceCategory::getCategory).collect(Collectors.toList());
     }
 }

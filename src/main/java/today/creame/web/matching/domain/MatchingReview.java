@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -21,7 +22,9 @@ import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.domain.converter.CategoryToStringConverter;
 import today.creame.web.matching.domain.converter.ReviewKindsToStringConverter;
+import today.creame.web.matching.exception.IlligalAccessMatchingException;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
+import today.creame.web.share.support.SecurityContextSupporter;
 
 @NoArgsConstructor(access = PROTECTED)
 @Entity
@@ -75,4 +78,12 @@ public class MatchingReview extends BaseCreatedAndUpdatedDateTime {
 
     @Column(name = "blocked_dt")
     private LocalDateTime blockedDateTime;
+
+    public MatchingReview(Matching matching, int rate, Category category, ReviewKinds reviewKinds, String content) {
+        this.matching = matching;
+        this.rate = rate;
+        this.category = category;
+        this.reviewKinds = reviewKinds;
+        this.content = content;
+    }
 }
