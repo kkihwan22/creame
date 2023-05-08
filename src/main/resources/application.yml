@@ -105,5 +105,5 @@ google:
     id: 32549201423-r5caiq9vkt6pmteie0s98c2ln5fbr9aa.apps.googleusercontent.com
     secret: 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
   redirect_uri: http://localhost:8888/public/v1/login/oauth/GOOGLE
-  scope: email
+  scope: https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
   base_url: https://oauth2.googleapis.com
