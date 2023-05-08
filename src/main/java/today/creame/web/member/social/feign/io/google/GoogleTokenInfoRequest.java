@@ -1,4 +1,4 @@
-package today.creame.web.m2net.infra.feign.io.google;
+package today.creame.web.member.social.feign.io.google;
 
 import lombok.Getter;
 

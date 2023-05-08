@@ -1,19 +1,15 @@
-package today.creame.web.member.entrypoint.rest.io;
+package today.creame.web.member.social.entrypoint.io;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.member.application.model.MemberRegisterParameter;
+import today.creame.web.member.domain.SignupType;
 
-import static today.creame.web.member.domain.SignupType.EMAIL;
+import javax.validation.constraints.*;
 
 @Getter
 @ToString
-public class MemberRegisterRequest {
+public class SocialMemberRegisterRequest {
 
     @NotBlank(message = "닉네임을 입력해주세요.")
     private String nickname;
@@ -33,7 +29,10 @@ public class MemberRegisterRequest {
     @Size(min = 10, max = 10)
     private String phoneVerifiedCode;
 
+    @NotBlank
+    private SignupType signupType;
+
     public MemberRegisterParameter toParameter() {
-        return new MemberRegisterParameter(email, nickname, password, phoneNumber, Long.parseLong(phoneVerifiedCode), EMAIL);
+        return new MemberRegisterParameter(email, nickname, password, phoneNumber, Long.parseLong(phoneVerifiedCode), signupType);
     }
 }

@@ -9,9 +9,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import today.creame.web.member.social.exception.NotFoundSocialMemberException;
 import today.creame.web.share.exception.BusinessException;
 import today.creame.web.share.exception.UnknownException;
 import today.creame.web.share.exception.model.ErrorBodyData;
+import today.creame.web.share.exception.model.MetaBodyData;
 
 /**
  * TODO
@@ -54,5 +56,16 @@ public class AppRestControllerAdvisor {
         return ResponseEntity.badRequest()
                 .body(BodyFactory.failure(
                         exception.getCode(), exception.getMessage(), "", null));
+    }
+
+    @ExceptionHandler(NotFoundSocialMemberException.class)
+    public ResponseEntity<Body<MetaBodyData>> handleNotFoundSocialMemberException(RuntimeException e) {
+        BusinessException exception = (BusinessException) e;
+        LOG.error("[ error ] point : {}", e.getClass().getSimpleName());
+        LOG.error("[ error ] message : {}", e.getMessage());
+
+        return ResponseEntity.badRequest()
+                .body(BodyFactory.failure(
+                        exception.getCode(), exception.getMessage(), "", exception.getMetaBodyData()));
     }
 }

@@ -1,16 +1,17 @@
-package today.creame.web.social.provider.google;
+package today.creame.web.member.social.provider.google;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import today.creame.web.m2net.infra.feign.GoogleClient;
-import today.creame.web.m2net.infra.feign.io.google.GoogleTokenInfoRequest;
-import today.creame.web.m2net.infra.feign.io.google.GoogleTokenInfoResponse;
-import today.creame.web.m2net.infra.feign.io.google.GoogleTokenRequest;
-import today.creame.web.m2net.infra.feign.io.google.GoogleTokenResponse;
-import today.creame.web.social.provider.SocialProviderService;
+import today.creame.web.member.social.feign.io.google.GoogleTokenInfoResponse;
+import today.creame.web.member.social.feign.io.google.GoogleTokenResponse;
+import today.creame.web.member.social.feign.GoogleClient;
+import today.creame.web.member.social.feign.io.google.GoogleTokenInfoRequest;
+import today.creame.web.member.social.feign.io.google.GoogleTokenRequest;
+import today.creame.web.member.social.provider.SocialProviderService;
+import today.creame.web.member.social.provider.io.ProviderProfileResult;
 
 import static org.springframework.http.HttpStatus.OK;
 
@@ -55,13 +56,13 @@ public class GoogleService implements SocialProviderService {
     }
 
     @Override
-    public String getUserEmail(String idToken) {
+    public ProviderProfileResult getInfo(String idToken) {
         GoogleTokenInfoRequest request = new GoogleTokenInfoRequest(idToken);
 
-        ResponseEntity<GoogleTokenInfoResponse> googleTokenInfoResponse = client.getEmail(request);
+        ResponseEntity<GoogleTokenInfoResponse> googleTokenInfoResponse = client.getProfile(request);
         if(OK.equals(googleTokenInfoResponse.getStatusCode())) {
-            return googleTokenInfoResponse.getBody().getEmail();
+            return googleTokenInfoResponse.getBody().toResult();
         }
-        return StringUtils.EMPTY;
+        return null;
     }
 }

@@ -1,13 +1,13 @@
-package today.creame.web.m2net.infra.feign;
+package today.creame.web.member.social.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import today.creame.web.m2net.infra.feign.io.google.GoogleTokenInfoRequest;
-import today.creame.web.m2net.infra.feign.io.google.GoogleTokenInfoResponse;
-import today.creame.web.m2net.infra.feign.io.google.GoogleTokenRequest;
-import today.creame.web.m2net.infra.feign.io.google.GoogleTokenResponse;
+import today.creame.web.member.social.feign.io.google.GoogleTokenInfoRequest;
+import today.creame.web.member.social.feign.io.google.GoogleTokenInfoResponse;
+import today.creame.web.member.social.feign.io.google.GoogleTokenRequest;
+import today.creame.web.member.social.feign.io.google.GoogleTokenResponse;
 
 @FeignClient(
         name = "GoogleClient",
@@ -18,5 +18,5 @@ public interface GoogleClient {
     ResponseEntity<GoogleTokenResponse> getToken(@RequestBody GoogleTokenRequest request);
 
     @PostMapping("/tokeninfo")
-    ResponseEntity<GoogleTokenInfoResponse> getEmail(@RequestBody GoogleTokenInfoRequest request);
+    ResponseEntity<GoogleTokenInfoResponse> getProfile(@RequestBody GoogleTokenInfoRequest request);
 }

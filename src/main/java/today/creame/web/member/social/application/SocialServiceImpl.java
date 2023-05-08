@@ -1,4 +1,4 @@
-package today.creame.web.social.application;
+package today.creame.web.member.social.application;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -11,10 +11,12 @@ import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.domain.Token;
 import today.creame.web.member.domain.TokenType;
 import today.creame.web.member.entrypoint.event.model.TokenUpdateEvent;
-import today.creame.web.member.exception.NotFoundMemberException;
-import today.creame.web.social.domain.ProviderType;
-import today.creame.web.social.exception.NotFoundSocialUserInfoException;
-import today.creame.web.social.provider.google.GoogleService;
+import today.creame.web.member.social.domain.ProviderType;
+import today.creame.web.member.social.exception.NotFoundSocialMemberException;
+import today.creame.web.member.social.exception.NotMatchSocialTypeException;
+import today.creame.web.member.social.provider.google.GoogleService;
+import today.creame.web.member.social.exception.NotFoundProviderProfileException;
+import today.creame.web.member.social.provider.io.ProviderProfileResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,11 +48,11 @@ public class SocialServiceImpl implements SocialService{
 
     @Override
     public Map<String, String> login(ProviderType type, String code) {
-        String userEmail = StringUtils.EMPTY;
+        ProviderProfileResult result = new ProviderProfileResult();
         switch (type) {
             case GOOGLE:
                 String jwtToken = googleService.getToken(code);
-                userEmail = googleService.getUserEmail(jwtToken);
+                result = googleService.getInfo(jwtToken);
                 break;
             case KAKAO:
             case NAVER:
@@ -58,13 +60,18 @@ public class SocialServiceImpl implements SocialService{
             case APPLE:
         }
 
-        if(StringUtils.isEmpty(userEmail)) {
-            throw new NotFoundSocialUserInfoException();
+        if(StringUtils.isEmpty(result.getEmail())) {
+            throw new NotFoundProviderProfileException();
         }
 
+        ProviderProfileResult finalResult = new ProviderProfileResult(result.getEmail(), result.getNickname());
         Member findMember = memberJpaRepository
-                .findByUserDetails(userEmail)
-                .orElseThrow(NotFoundMemberException::new);
+                .findByUserDetails(result.getEmail())
+                .orElseThrow(() -> new NotFoundSocialMemberException(finalResult));
+
+        if(!type.toString().equals(findMember.getSignupType().toString())) {
+            throw new NotMatchSocialTypeException();
+        }
 
         Set<SimpleGrantedAuthority> authorities = findMember.getRoles()
                 .stream()

@@ -1,6 +1,6 @@
-package today.creame.web.social.application;
+package today.creame.web.member.social.application;
 
-import today.creame.web.social.domain.ProviderType;
+import today.creame.web.member.social.domain.ProviderType;
 
 import java.util.Map;
 

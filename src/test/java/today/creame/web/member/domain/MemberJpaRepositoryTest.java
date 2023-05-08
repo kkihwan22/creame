@@ -31,7 +31,8 @@ class MemberJpaRepositoryTest {
                 "1234",
                 "first user",
                 "01043210987",
-                MemberStatus.ACTIVE);
+                MemberStatus.ACTIVE,
+                SignupType.EMAIL);
 
         memberJpaRepository.save(registerMember);
 
@@ -59,7 +60,8 @@ class MemberJpaRepositoryTest {
                 "1234",
                 "first user",
                 "01043210987",
-                MemberStatus.ACTIVE);
+                MemberStatus.ACTIVE,
+                SignupType.EMAIL);
 
         memberJpaRepository.save(firstMember);
 
@@ -68,7 +70,8 @@ class MemberJpaRepositoryTest {
                 "1234",
                 "second user",
                 "01043210987",
-                MemberStatus.ACTIVE);
+                MemberStatus.ACTIVE,
+                SignupType.EMAIL);
 
         Exception exception =
             assertThrows(
@@ -89,7 +92,8 @@ class MemberJpaRepositoryTest {
             "1234",
             "first user",
             "01041234444",
-            MemberStatus.ACTIVE);
+            MemberStatus.ACTIVE,
+                SignupType.EMAIL);
         Member mSave = memberJpaRepository.save(m);
         assertEquals(m, mSave);
     }

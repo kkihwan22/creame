@@ -1,13 +1,13 @@
-package today.creame.web.social.exception;
+package today.creame.web.member.social.exception;
 
 
 import today.creame.web.member.exception.MemberErrorCode;
 import today.creame.web.share.exception.BusinessException;
 
-public class NotFoundSocialUserInfoException extends BusinessException {
+public class NotFoundProviderProfileException extends BusinessException {
     private final static MemberErrorCode errorCode = MemberErrorCode.NOT_FOUND_SOCIAL_USER_INFO;
 
-    public NotFoundSocialUserInfoException() {
+    public NotFoundProviderProfileException() {
         super(errorCode.getCode(), errorCode.getMessage());
     }
 }
