@@ -22,7 +22,7 @@ public class M2netRestController {
     private final Logger log = LoggerFactory.getLogger(M2netRestController.class);
     private final M2netService m2netService;
 
-    @PostMapping("/m2net/call-status")  // todo : notice -> receipt 로 변경
+    @PostMapping("/m2net/call-status")
     public String updateCallStatus(@RequestBody M2netUpdateCallStatusRequest request) {
         log.info("[ Notice ] request: {}", request);
         m2netService.updateCallStatus(request.of());

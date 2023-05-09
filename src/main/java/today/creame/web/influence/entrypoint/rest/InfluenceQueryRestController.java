@@ -17,7 +17,7 @@ import today.creame.web.influence.application.model.InfluenceResult;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceReviewStatResponse;
 import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.ReviewQueryService;
-import today.creame.web.matching.applicaton.model.MatchingResult;
+import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
 import today.creame.web.matching.applicaton.model.ReviewKindStatResult;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
@@ -52,10 +52,12 @@ public class InfluenceQueryRestController implements BaseRestController {
     // 바톰메뉴 (단골- 최근 통화 인플루언스) / p.78
     @GetMapping("/api/v1/influences-recently")
     public ResponseEntity<Body<List<InfluenceResult>>> getRecentlyInfluences() {
-        Long me = SecurityContextSupporter.getId();
-        List<MatchingResult> matchingResults = matchingQueryService.recentlyMyMatching(me, true);
+        // TODO: test 필요. 연동 확인 후 안되었으면 변경
+        // 회원입장에서 최근 통화한 목록이 필요... /me 밑으로 이동해도 될 것 같음
+        // MatchingResult 를 보내면 될 듯
+        List<MatchingHistoryResult> matchingHistoryResults = matchingQueryService.recentlyMyMatchingList();
 
-        Set<Long> sets = matchingResults.stream().map(MatchingResult::getInfluenceId).collect(Collectors.toSet());
+        Set<Long> sets = matchingHistoryResults.stream().map(MatchingHistoryResult::getInfluenceId).collect(Collectors.toSet());
         List<InfluenceResult> results = influenceQuery.listByInfluences(sets);
         log.debug("results: {}", results);
         return ResponseEntity.ok(BodyFactory.success(results));

@@ -6,17 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import today.creame.web.payments.application.PaymentQueryService;
 import today.creame.web.payments.application.PaymentService;
 import today.creame.web.payments.application.model.CreditCardResult;
-import today.creame.web.payments.application.model.ReceiptParameter;
+import today.creame.web.payments.application.model.PaymentHistoryResult;
 import today.creame.web.payments.domain.AutoChargingPreference;
+import today.creame.web.payments.domain.PaymentsHistoryStatus;
 import today.creame.web.payments.entrypoint.rest.io.BillKeyIssueRequest;
 import today.creame.web.payments.entrypoint.rest.io.BillKeyPaymentRequest;
 import today.creame.web.payments.entrypoint.rest.io.CreditCardResponse;
@@ -28,11 +24,14 @@ import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
 import today.creame.web.share.entrypoint.SimpleBodyData;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 public class PaymentRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(PaymentRestController.class);
     private final PaymentService paymentService;
+    private final PaymentQueryService paymentQueryService;
 
     @PostMapping("/api/v1/me/payments/bill-key")
     public ResponseEntity<Body<SimpleBodyData<String>>> issueBillKey(
@@ -115,7 +114,18 @@ public class PaymentRestController implements BaseRestController {
     @PostMapping("/m2net/pay-result")
     public String postPay(@RequestBody ReceiptRequest request) {
         log.info("[ pay-result] request: {}", request);
-        paymentService.postPay(ReceiptParameter.paramToAutoCharging(request.getMembid(), request.getOid(), request.getTid(),  request.getAmount(), request.getCoinamt(), request.getReqResult(), request.getResultmessage()));
+        if (request.getReqResult().equals("0000")) {
+            paymentService.paySuccess(PaymentsHistoryStatus.COMPLETED, request.toSuccess());
+        } else {
+            paymentService.payFailure(request.toFailed());
+        }
         return "00";
+    }
+
+    @GetMapping("/api/v1/me/payments-history")
+    public ResponseEntity<Body<List<PaymentHistoryResult>>> paymentHistory(@RequestParam(name = "since", required = true, defaultValue = "1") int since) {
+        List<PaymentHistoryResult> results = paymentQueryService.history(since);
+        log.info("results: {}", results);
+        return ResponseEntity.ok(BodyFactory.success(results));
     }
 }

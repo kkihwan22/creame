@@ -1,9 +1,11 @@
 package today.creame.web.payments.application;
 
 import today.creame.web.payments.application.model.CreditCardResult;
-import today.creame.web.payments.application.model.ReceiptParameter;
+import today.creame.web.payments.application.model.PaymentFailureParameter;
+import today.creame.web.payments.application.model.PaymentSuccessParameter;
 import today.creame.web.payments.domain.AutoChargingPreference;
 import today.creame.web.payments.domain.CreditCard;
+import today.creame.web.payments.domain.PaymentsHistoryStatus;
 
 public interface PaymentService {
     void issueBillKey(CreditCard creditCard);
@@ -20,5 +22,7 @@ public interface PaymentService {
 
     void payByBillKey(String paymentPassword, int amount);
 
-    void postPay(ReceiptParameter parameter);
+    void paySuccess(PaymentsHistoryStatus type, PaymentSuccessParameter parameter);
+
+    void payFailure(PaymentFailureParameter parameter);
 }

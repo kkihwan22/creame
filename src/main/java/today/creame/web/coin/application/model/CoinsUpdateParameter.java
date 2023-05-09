@@ -3,7 +3,7 @@ package today.creame.web.coin.application.model;
 import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.coin.domain.CoinsHistoryType;
-import today.creame.web.payments.domain.PaymentsHistoryType;
+import today.creame.web.payments.domain.PaymentsHistoryStatus;
 
 @Getter
 @ToString
@@ -13,9 +13,9 @@ public class CoinsUpdateParameter {
     private Integer coins;
     private CoinsHistoryType type;
 
-    public CoinsUpdateParameter(Long memberId, Integer coins, PaymentsHistoryType paymentsHistoryType) {
+    public CoinsUpdateParameter(Long memberId, Integer coins, PaymentsHistoryStatus paymentsHistoryStatus) {
         this.memberId = memberId;
         this.coins = coins;
-        this.type = paymentsHistoryType.getCoinsHistoryType();
+        this.type = paymentsHistoryStatus.getCoinsHistoryType();
     }
 }
