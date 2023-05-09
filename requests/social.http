@@ -1,0 +1,4 @@
+### 구글 로그인
+
+POST {{host}}/public/v1/oauth/GOOGLE
+Content-Type: application/json

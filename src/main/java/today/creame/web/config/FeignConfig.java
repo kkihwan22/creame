@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 
 @EnableFeignClients(basePackages = {
-        "today.creame.web.*.infra.*"
+        "today.creame.web.*.infra.*",
+        "today.creame.web.member.social.feign"
 })
 @Configuration
 public class FeignConfig {

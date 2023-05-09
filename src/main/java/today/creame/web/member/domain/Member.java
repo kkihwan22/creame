@@ -6,13 +6,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -67,15 +62,20 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "bonus_coins")
     private int bonusCoins;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "signup_type")
+    private SignupType signupType;
+
     @OneToMany(mappedBy = "member")
     private List<MemberRole> roles = new ArrayList<>();
 
-    public Member(String email, String password, String nickname, String phoneNumber, MemberStatus status) {
+    public Member(String email, String password, String nickname, String phoneNumber, MemberStatus status, SignupType signupType) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.phoneNumber = phoneNumber;
         this.status = status;
+        this.signupType = signupType;
     }
 
     public Member(Long id) {
