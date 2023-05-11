@@ -23,6 +23,7 @@ public class InfluenceResult {
     private String extensionNumber;
     private String nickname;
     private float rate;
+    private int totalRate;
     private int rateCount;
     private int reviewCount;
     private int qnaCount;
@@ -61,8 +62,9 @@ public class InfluenceResult {
         this.id = influence.getId();
         this.extensionNumber = influence.getExtensionNumber();
         this.nickname = influence.getNickname();
-        this.rate = influence.getRate();
+        this.totalRate = influence.getRateCount();
         this.rateCount = influence.getRateCount();
+        this.rate = this.totalRate / this.rateCount;
         this.reviewCount = influence.getReviewCount();
         this.qnaCount = influence.getQnaCount();
         this.item = influence.getItem().getIndex();

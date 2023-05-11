@@ -97,7 +97,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     private int bookmarkCount;
 
     @Column(name = "rate")
-    private float rate;
+    private int rate;
 
     @Column(name = "rate_cnt")
     private int rateCount;
@@ -203,5 +203,17 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
     public void updateCid(String cid) {
         this.m2NetCounselorId = cid;
+    }
+
+    public void registerReview(int rate) {
+        this.rateCount = this.rateCount + 1;
+        this.rate = this.rate + rate;
+        this.reviewCount = this.reviewCount + 1;
+        this.reviewNotAnswerCount = this.reviewNotAnswerCount + 1;
+    }
+
+    public void answeredReview() {
+        this.reviewNotAnswerCount = this.reviewNotAnswerCount -1;
+        this.reviewAnswerCount = this.reviewAnswerCount + 1;
     }
 }

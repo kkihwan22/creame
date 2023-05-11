@@ -85,5 +85,12 @@ public class MatchingReview extends BaseCreatedAndUpdatedDateTime {
         this.category = category;
         this.reviewKinds = reviewKinds;
         this.content = content;
+        this.writeDateTime = LocalDateTime.now();
+    }
+
+    public void registerReply(String reply) {
+        this.reply = reply;
+        this.replyDateTime = LocalDateTime.now();
+        this.matching.getInfluence().answeredReview();
     }
 }

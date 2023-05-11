@@ -23,6 +23,7 @@ public class InfluenceDetailResult {
     private String rank;
     private boolean blocked;
     private float rate;
+    private int totalRate;
     private int rateCount;
     private int reviewCount;
     private int qnaCount;
@@ -64,8 +65,9 @@ public class InfluenceDetailResult {
         this.phoneNumber = influence.getPhoneNumber();
         this.rank = influence.getRank().name();
         this.blocked = influence.isBlocked();
-        this.rate = influence.getRate();
+        this.totalRate = influence.getRateCount();
         this.rateCount = influence.getRateCount();
+        this.rate = this.totalRate / this.rateCount;
         this.reviewCount = influence.getReviewCount();
         this.qnaCount = influence.getQnaCount();
         this.item = influence.getItem().getIndex();

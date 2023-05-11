@@ -6,24 +6,22 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.matching.domain.converter.MatchingProgressStatusToStringConverter;
+import today.creame.web.matching.exception.IlligalAccessMatchingException;
 import today.creame.web.member.domain.Member;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
+import today.creame.web.share.support.SecurityContextSupporter;
 
 @NoArgsConstructor
 @Entity
@@ -33,6 +31,8 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 @Getter
 @ToString
 public class Matching extends BaseCreatedAndUpdatedDateTime {
+    private final static Logger log = LoggerFactory.getLogger(Matching.class);
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
@@ -61,7 +61,7 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "used_coins")
     private Integer usedCoins;
 
-    @OneToMany(mappedBy = "matching")
+    @OneToMany(mappedBy = "matching", cascade = CascadeType.PERSIST)
     private List<MatchingReview> matchingReviews = new ArrayList<>();
 
     public Matching(Influence influence, Member member, MatchingProgressStatus status, LocalDateTime startDateTime, LocalDateTime endedDateTime, boolean deferred, Integer usedCoins) {
@@ -78,5 +78,15 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
         this.status = status;
         this.endedDateTime = endedDateTime;
         this.usedCoins = usedCoins;
+    }
+
+    public void addReview(int rate, Category category, ReviewKinds kinds, String content) {
+        if (!this.member.getId().equals(SecurityContextSupporter.getId())) {
+            log.error("matching member: {}, login member: {}", id, member.getId());
+            throw new IlligalAccessMatchingException();
+        }
+
+        this.matchingReviews.add(new MatchingReview(this, rate, category, kinds, content));
+        this.influence.registerReview(rate);
     }
 }
