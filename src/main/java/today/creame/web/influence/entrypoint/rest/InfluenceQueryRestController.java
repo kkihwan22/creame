@@ -70,6 +70,7 @@ public class InfluenceQueryRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new InfluenceReviewStatResponse(results)));
     }
 
+    // TODO: review 조회
     @GetMapping("/public/v1/influences/{id}/reviews")
     public void getReviewListOfInfluence(
         @PathVariable Long id,

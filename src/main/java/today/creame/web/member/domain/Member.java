@@ -103,16 +103,20 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
         m2netUserId = m2netUserService.create(new M2netUserCreateParameter(nickname, phoneNumber));
     }
 
-    public void updateCoins(CoinsHistoryType type, int changeCoins) {
+    public void updateCoins(CoinsHistoryType type, int coins) {
         switch (type) {
             case USING:
+                this.coins = this.coins - coins;
+                break;
             case CHARGING:
+                this.coins = this.coins + coins;
+                break;
             case CANCELED:
-                this.coins = this.coins + changeCoins;
+                this.coins = this.coins + -(Math.abs(coins));
                 break;
             case REWARD:
-                this.bonusCoins = this.bonusCoins + changeCoins;
-                this.coins = this.coins + coins;
+                this.bonusCoins = this.bonusCoins + coins;
+                this.coins = this.coins + this.coins;
                 break;
         }
     }

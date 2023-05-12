@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
 import today.creame.web.matching.applicaton.model.MatchingResult;
+import today.creame.web.matching.applicaton.model.MyReviewResult;
+import today.creame.web.matching.entrypoint.rest.io.MyReviewsResponse;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
 import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -29,7 +33,7 @@ public class MatchingQueryRestController implements BaseRestController {
         Long id = SecurityContextSupporter.get().getId();
         log.debug("member id : {}", id);
 
-        List<MatchingHistoryResult> results = matchingQueryService.history(id, since);
+        List<MatchingHistoryResult> results = matchingQueryService.listMatching(id, since);
         log.debug("results: {}", results);
         return ResponseEntity.ok(BodyFactory.success(results));
     }
@@ -40,5 +44,17 @@ public class MatchingQueryRestController implements BaseRestController {
         MatchingResult result = matchingQueryService.getMatching(id);
         log.debug("result: {}", result);
         return ResponseEntity.ok(BodyFactory.success(result));
+    }
+
+    @GetMapping("/api/v1/me/reviews")
+    public ResponseEntity<Body<MyReviewsResponse>> getMyReviews() {
+        Long id = SecurityContextSupporter.get().getId();
+        log.debug("member id : {}", id);
+        List<MyReviewResult> results = matchingQueryService.listMyReview(id);
+        log.debug("results: {}", results);
+
+        Map<Boolean, List<MyReviewResult>> partition = results.stream().collect(Collectors.partitioningBy(it -> it.isAnswered()));
+        log.debug("partition: {}", partition);
+        return ResponseEntity.ok(BodyFactory.success(new MyReviewsResponse(partition)));
     }
 }

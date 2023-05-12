@@ -15,6 +15,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import today.creame.web.coin.domain.CoinsHistoryType;
 import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.matching.domain.converter.MatchingProgressStatusToStringConverter;
@@ -78,6 +79,7 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
         this.status = status;
         this.endedDateTime = endedDateTime;
         this.usedCoins = usedCoins;
+        this.member.updateCoins(CoinsHistoryType.USING, usedCoins);
     }
 
     public void addReview(int rate, Category category, ReviewKinds kinds, String content) {

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.matching.domain.Matching;
 import today.creame.web.matching.domain.MatchingProgressStatus;
+import today.creame.web.matching.domain.MatchingReview;
 
 @Getter
 @ToString
@@ -16,6 +17,7 @@ public class MatchingHistoryResult {
     private String profileImage;
     private LocalDateTime matchingDateTime;
     private MatchingProgressStatus status;
+
     public MatchingHistoryResult(Matching matching, String profileImage) {
         this.id = matching.getId();
         this.influenceId = matching.getInfluence().getId();
