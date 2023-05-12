@@ -62,9 +62,9 @@ public class InfluenceResult {
         this.id = influence.getId();
         this.extensionNumber = influence.getExtensionNumber();
         this.nickname = influence.getNickname();
-        this.totalRate = influence.getRateCount();
+        this.totalRate = influence.getRate();
         this.rateCount = influence.getRateCount();
-        this.rate = this.totalRate / this.rateCount;
+        this.rate = influence.avgRate();
         this.reviewCount = influence.getReviewCount();
         this.qnaCount = influence.getQnaCount();
         this.item = influence.getItem().getIndex();

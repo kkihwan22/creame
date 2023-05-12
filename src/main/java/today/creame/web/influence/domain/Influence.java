@@ -216,4 +216,12 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.reviewNotAnswerCount = this.reviewNotAnswerCount -1;
         this.reviewAnswerCount = this.reviewAnswerCount + 1;
     }
+
+    public float avgRate() {
+        try {
+            return this.rate / this.rateCount;
+        } catch (ArithmeticException e) {
+            return 0;
+        }
+    }
 }
