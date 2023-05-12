@@ -1,20 +1,7 @@
 package today.creame.web.influence.application;
 
-import static java.util.stream.Collectors.groupingBy;
-import static today.creame.web.influence.domain.QInfluence.influence;
-import static today.creame.web.influence.domain.QInfluenceBookmark.influenceBookmark;
-import static today.creame.web.influence.domain.QInfluenceNotice.influenceNotice;
-import static today.creame.web.influence.domain.QInfluenceQna.influenceQna;
-import static today.creame.web.member.domain.QMember.member;
-
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,25 +12,19 @@ import today.creame.web.influence.application.model.InfluenceDetailResult;
 import today.creame.web.influence.application.model.InfluenceQnaQueryParameter;
 import today.creame.web.influence.application.model.InfluenceQnaResult;
 import today.creame.web.influence.application.model.InfluenceResult;
-import today.creame.web.influence.domain.Category;
-import today.creame.web.influence.domain.Influence;
-import today.creame.web.influence.domain.InfluenceBookmark;
-import today.creame.web.influence.domain.InfluenceBookmarkJpaRepository;
-import today.creame.web.influence.domain.InfluenceCategory;
-import today.creame.web.influence.domain.InfluenceCategoryGroupByDTO;
-import today.creame.web.influence.domain.InfluenceCategoryJpaRepository;
-import today.creame.web.influence.domain.InfluenceJpaRepository;
-import today.creame.web.influence.domain.InfluenceNotice;
-import today.creame.web.influence.domain.InfluenceNoticeJpaRepository;
-import today.creame.web.influence.domain.InfluenceProfileImage;
-import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
-import today.creame.web.influence.domain.InfluenceQna;
-import today.creame.web.influence.domain.QInfluence;
-import today.creame.web.influence.domain.QInfluenceBookmark;
-import today.creame.web.influence.domain.QInfluenceNotice;
-import today.creame.web.influence.domain.QInfluenceQna;
+import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.member.domain.QMember;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
+import static today.creame.web.influence.domain.QInfluence.influence;
+import static today.creame.web.influence.domain.QInfluenceBookmark.influenceBookmark;
+import static today.creame.web.influence.domain.QInfluenceNotice.influenceNotice;
+import static today.creame.web.influence.domain.QInfluenceQna.influenceQna;
+import static today.creame.web.member.domain.QMember.member;
 
 @RequiredArgsConstructor
 @Component
@@ -103,7 +84,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         log.debug("influence:{}", influence);
 
         InfluenceBookmark bookmark = influenceBookmarkJpaRepository.findById(id).orElse(null);
-        InfluenceNotice notice = influenceNoticeJpaRepository.findInfluenceNoticeByInfluenceId(id).orElse(null);
+        InfluenceNotice notice = influenceNoticeJpaRepository.findFirstByInfluenceIdAndDeleted(id, false).orElse(null);
         return new InfluenceResult(influence, bookmark, notice);
     }
 
