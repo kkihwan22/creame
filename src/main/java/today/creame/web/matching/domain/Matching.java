@@ -19,7 +19,8 @@ import today.creame.web.coin.domain.CoinsHistoryType;
 import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.matching.domain.converter.MatchingProgressStatusToStringConverter;
-import today.creame.web.matching.exception.IlligalAccessMatchingException;
+import today.creame.web.matching.exception.DuplicateReviewException;
+import today.creame.web.matching.exception.IllegalAccessMatchingException;
 import today.creame.web.member.domain.Member;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 import today.creame.web.share.support.SecurityContextSupporter;
@@ -85,7 +86,12 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
     public void addReview(int rate, Category category, ReviewKinds kinds, String content) {
         if (!this.member.getId().equals(SecurityContextSupporter.getId())) {
             log.error("matching member: {}, login member: {}", id, member.getId());
-            throw new IlligalAccessMatchingException();
+            throw new IllegalAccessMatchingException();
+        }
+
+        if (matchingReviews.size() > 0) {
+            log.error("이미 작성한 리뷰입니다.");
+            throw new DuplicateReviewException();
         }
 
         this.matchingReviews.add(new MatchingReview(this, rate, category, kinds, content));
