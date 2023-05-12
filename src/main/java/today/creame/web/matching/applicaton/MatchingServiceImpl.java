@@ -52,7 +52,8 @@ public class MatchingServiceImpl implements MatchingService {
 
         Matching matching = matchingJapRepository
             .findMatchingByInfluenceAndMemberAndStatus(influence, member, MatchingProgressStatus.START)
-            .orElseThrow(() -> new NotFoundMatchingException());
+                .orElse(matchingJapRepository.findMatchingByInfluenceAndMemberAndStatus(influence, member, MatchingProgressStatus.INSUFFICIENT)
+                        .orElseThrow(() -> new NotFoundMatchingException()));
 
         matching.end(parameter.getMatchingProgressStatus(), parameter.getEndDateTime(), parameter.getUsedCoins());
         log.debug("matching: {}", matching);
@@ -63,7 +64,7 @@ public class MatchingServiceImpl implements MatchingService {
             .findInfluenceByM2NetCounselorId(cid)
             .orElseThrow(() -> new NotFoundInfluenceException());
 
-        log.debug("find influence: {]", influence);
+        log.debug("find influence: {}", influence);
         return influence;
     }
 
