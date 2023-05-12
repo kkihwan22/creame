@@ -13,9 +13,14 @@ public class CoinsUpdateParameter {
     private Integer coins;
     private CoinsHistoryType type;
 
-    public CoinsUpdateParameter(Long memberId, Integer coins, PaymentsHistoryStatus paymentsHistoryStatus) {
+    public CoinsUpdateParameter(Long memberId, Integer coins, CoinsHistoryType type) {
         this.memberId = memberId;
         this.coins = coins;
-        this.type = paymentsHistoryStatus.getCoinsHistoryType();
+        this.type = type;
     }
+
+    public CoinsUpdateParameter(Long memberId, Integer coins, PaymentsHistoryStatus paymentsHistoryStatus) {
+        this(memberId, coins, paymentsHistoryStatus.getCoinsHistoryType());
+    }
+
 }

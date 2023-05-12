@@ -56,6 +56,7 @@ public class MatchingServiceImpl implements MatchingService {
                         .orElseThrow(() -> new NotFoundMatchingException()));
 
         matching.end(parameter.getMatchingProgressStatus(), parameter.getEndDateTime(), parameter.getUsedCoins());
+        
         log.debug("matching: {}", matching);
     }
 
