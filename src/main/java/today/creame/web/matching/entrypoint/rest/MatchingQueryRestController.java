@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.matching.applicaton.MatchingQueryService;
+import today.creame.web.matching.applicaton.ReviewQueryService;
 import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
 import today.creame.web.matching.applicaton.model.MatchingResult;
 import today.creame.web.matching.applicaton.model.MyReviewResult;
+import today.creame.web.matching.applicaton.model.ReviewResult;
 import today.creame.web.matching.entrypoint.rest.io.MyReviewsResponse;
+import today.creame.web.matching.entrypoint.rest.io.ReviewReplyResponse;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
@@ -27,6 +30,7 @@ import java.util.stream.Collectors;
 public class MatchingQueryRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(MatchingQueryRestController.class);
     private final MatchingQueryService matchingQueryService;
+    private final ReviewQueryService reviewQueryService;
 
     @GetMapping("/api/v1/me/matching-history")
     public ResponseEntity<Body<List<MatchingHistoryResult>>> getMyMatchingHistory(@RequestParam(name = "since") int since) {
@@ -51,10 +55,17 @@ public class MatchingQueryRestController implements BaseRestController {
         Long id = SecurityContextSupporter.get().getId();
         log.debug("member id : {}", id);
         List<MyReviewResult> results = matchingQueryService.listMyReview(id);
-        log.debug("results: {}", results);
-
         Map<Boolean, List<MyReviewResult>> partition = results.stream().collect(Collectors.partitioningBy(it -> it.isAnswered()));
         log.debug("partition: {}", partition);
         return ResponseEntity.ok(BodyFactory.success(new MyReviewsResponse(partition)));
+    }
+    @GetMapping("/api/v1/me/influence/reviews")
+    public ResponseEntity<Body<ReviewReplyResponse>> getReviewsOfInfluence() {
+        Long id = SecurityContextSupporter.get().getId();
+        log.debug("member id : {}", id);
+        List<ReviewResult> results = reviewQueryService.getReviewsOfInfluence(id);
+        Map<Boolean, List<ReviewResult>> partition = results.stream().collect(Collectors.partitioningBy(it -> it.isAnswered()));
+        log.debug("partition: {}", partition);
+        return ResponseEntity.ok(BodyFactory.success(new ReviewReplyResponse(partition)));
     }
 }

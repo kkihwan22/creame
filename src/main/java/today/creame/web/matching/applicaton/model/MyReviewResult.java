@@ -17,8 +17,10 @@ public class MyReviewResult extends MatchingHistoryResult{
     private String category;
     private String reviewContent;
     private String replyContent;
+    private LocalDateTime reviewDateTime;
     private LocalDateTime replyDateTime;
     private int likeCount;
+    private int rate;
 
     public MyReviewResult(Matching matching, String profileImageUrl) {
         super(matching, profileImageUrl);
@@ -29,9 +31,11 @@ public class MyReviewResult extends MatchingHistoryResult{
             this.reviewKinds = review.getReviewKinds().name();
             this.category = review.getCategory().name();
             this.reviewContent = review.getContent();
+            this.reviewDateTime = review.getWriteDateTime();
             this.replyContent = review.getReply();
             this.replyDateTime = review.getReplyDateTime();
             this.likeCount = review.getLikedCount();
+            this.rate = review.getRate();
         }
     }
 }

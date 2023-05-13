@@ -3,6 +3,8 @@ package today.creame.web.influence.entrypoint.rest;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.querydsl.core.types.Order;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.ReviewQueryService;
 import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
 import today.creame.web.matching.applicaton.model.ReviewKindStatResult;
+import today.creame.web.matching.applicaton.model.ReviewResult;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
@@ -63,19 +66,19 @@ public class InfluenceQueryRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(results));
     }
 
-    // 인플루언스 상세 (후기상세 - 상담스타일) / p.15
+
     @GetMapping("/public/v1/influences/{id}/review-stat")
     public ResponseEntity<Body<InfluenceReviewStatResponse>> getReviewOfInfluence(@PathVariable Long id) {
-        List<ReviewKindStatResult> results = reviewQueryService.getReviewKindsStatByInfluence(id);
+        List<ReviewKindStatResult> results = reviewQueryService.getInfluenceReviewKindStat(id);
         return ResponseEntity.ok(BodyFactory.success(new InfluenceReviewStatResponse(results)));
     }
 
-    // TODO: review 조회
     @GetMapping("/public/v1/influences/{id}/reviews")
-    public void getReviewListOfInfluence(
-        @PathVariable Long id,
-        @RequestParam(required = false, defaultValue = "desc") String direction) {
-        reviewQueryService.listReviewByInfluence(id, "createdDateTime|" + direction);
+    public ResponseEntity<Body<List<ReviewResult>>> getInfluenceReviews(
+        @PathVariable Long id, @RequestParam(required = false, defaultValue = "desc") String direction) {
+        Order order = direction.toUpperCase().equals("DESC") ? Order.DESC : Order.ASC;
+        List<ReviewResult> results = reviewQueryService.getInfluenceReviews(id, order);
+        return ResponseEntity.ok(BodyFactory.success(results));
     }
 
     @GetMapping("/admin/v1/influence/{id}")
