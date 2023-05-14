@@ -2,3 +2,8 @@
 
 POST {{host}}/public/v1/oauth/GOOGLE
 Content-Type: application/json
+
+### 네이버 로그인
+
+POST {{host}}/public/v1/oauth/NAVER
+Content-Type: application/json

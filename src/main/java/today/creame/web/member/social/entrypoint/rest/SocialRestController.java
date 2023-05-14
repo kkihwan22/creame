@@ -17,6 +17,7 @@ import today.creame.web.member.social.application.SocialService;
 
 import javax.validation.Valid;
 import java.util.Map;
+import java.util.Objects;
 
 
 @RestController
@@ -34,6 +35,10 @@ public class SocialRestController implements BaseRestController {
 
     @GetMapping("/public/v1/login/oauth/{provider}")
     public ResponseEntity<Body<Map<String, String>>> socialLogin(@PathVariable ProviderType provider, @RequestParam String code) {
+        if(Objects.isNull(code)) {
+            ResponseEntity.badRequest();
+        }
+
         Map<String, String> token = socialService.login(provider, code);
         return ResponseEntity.ok(BodyFactory.success(token));
     }

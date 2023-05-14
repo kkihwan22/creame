@@ -100,6 +100,8 @@ logging:
     springfox: error
     com.amazonaws.util.EC2MetadataUtils: ERROR
 
+
+## 소셜 로그인
 google:
   client:
     id: 32549201423-r5caiq9vkt6pmteie0s98c2ln5fbr9aa.apps.googleusercontent.com
@@ -107,3 +109,11 @@ google:
   redirect_uri: http://localhost:8888/public/v1/login/oauth/GOOGLE
   scope: https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
   base_url: https://oauth2.googleapis.com
+
+naver:
+  client:
+    id: WpDQLYpuiT3WX9sVxfVp
+    secret: GDqVctmMMN
+  redirect_uri: http://localhost:8888/public/v1/login/oauth/NAVER
+  scope:
+  base_url: https://nid.naver.com/oauth2.0
