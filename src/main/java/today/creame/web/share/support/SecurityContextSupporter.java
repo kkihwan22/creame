@@ -28,4 +28,10 @@ public class SecurityContextSupporter {
             .orElseThrow(() -> new UnauthorizationException())
             .getId();
     }
+
+    public static Long orElseGetEmpty() {
+        return Optional.ofNullable(SecurityContextSupporter.get())
+                .orElse(new CustomUserDetails(-1L))
+                .getId();
+    }
 }

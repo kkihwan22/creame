@@ -1,11 +1,11 @@
 package today.creame.web.influence.application;
 
-import today.creame.web.influence.application.model.InfluenceQnaAnswerParameter;
-import today.creame.web.influence.application.model.InfluenceQnaQuestionParameter;
+import today.creame.web.influence.application.model.InfluenceAnswerParameter;
+import today.creame.web.influence.application.model.InfluenceQuestionParameter;
 
 public interface InfluenceQnaService {
 
-    void ask(InfluenceQnaQuestionParameter parameter);
+    void question(InfluenceQuestionParameter parameter);
 
-    void answer(InfluenceQnaAnswerParameter parameter);
+    void answer(InfluenceAnswerParameter parameter);
 }

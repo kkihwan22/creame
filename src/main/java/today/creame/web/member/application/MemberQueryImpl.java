@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.model.InfluenceQnaQueryParameter;
-import today.creame.web.influence.application.model.InfluenceQnaResult;
+import today.creame.web.influence.application.model.InfluenceQuestionResult;
 import today.creame.web.member.application.model.MeResult;
 import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.member.application.model.MyQuestionsQueryParameter;
@@ -36,14 +36,6 @@ public class MemberQueryImpl implements MemberQuery {
     public MemberResult getId(Long id) {
         Member findMember = memberJpaRepository.findById(id).orElseThrow(NotFoundMemberException::new);
         return new MemberResult(findMember);
-    }
-
-    @Override
-    public List<InfluenceQnaResult> pagingListMyQuestions(MyQuestionsQueryParameter parameter) {
-        List<InfluenceQnaResult> results = influenceQuery.pagingQnas(
-            new InfluenceQnaQueryParameter(parameter.getPageable(), SecurityContextSupporter.getId(), null, parameter.isAnswered()));
-        log.debug("results: {}", results);
-        return results;
     }
 
     @Override

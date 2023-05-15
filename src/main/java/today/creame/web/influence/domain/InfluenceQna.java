@@ -23,6 +23,7 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.influence.domain.converter.InfluenceQnaStatusToStringConverter;
+import today.creame.web.influence.exception.BadRequestAnswerException;
 import today.creame.web.member.domain.Member;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTimeWithAudit;
 
@@ -83,7 +84,11 @@ public class InfluenceQna extends BaseCreatedAndUpdatedDateTimeWithAudit {
         this.status = QnaStatus.ASK;
     }
 
-    public void answer(String content) {
+    public void answer(Long id, String content) {
+        if (!this.influence.getId().equals(id)) {
+            throw new BadRequestAnswerException();
+        }
+
         this.answers = new Content(content);
         this.status = QnaStatus.ANSWER;
         this.influence.answer();

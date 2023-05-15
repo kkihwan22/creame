@@ -1,20 +1,26 @@
 package today.creame.web.influence.application;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
 import today.creame.web.influence.application.model.InfluenceDetailResult;
 import today.creame.web.influence.application.model.InfluenceQnaQueryParameter;
-import today.creame.web.influence.application.model.InfluenceQnaResult;
+import today.creame.web.influence.application.model.InfluenceQuestionResult;
 import today.creame.web.influence.application.model.InfluenceResult;
 import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
+import today.creame.web.matching.applicaton.model.ReviewResult;
+import today.creame.web.member.application.model.MyQuestionsQueryParameter;
 import today.creame.web.member.domain.QMember;
+import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -88,6 +94,18 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         return new InfluenceResult(influence, bookmark, notice);
     }
 
+    public InfluenceDetailResult getDetail(Long id) {
+        Influence influence = influenceJpaRepository.findById(id)
+                .orElseThrow(NotFoundInfluenceException::new);
+
+        InfluenceNotice notice = query
+                .selectFrom(influenceNotice)
+                .where(influenceNotice.deleted.eq(false), influenceNotice.influenceId.eq(influence.getId()))
+                .fetchOne();
+
+        return new InfluenceDetailResult(influence, notice);
+    }
+
     @Override
     public List<InfluenceResult> listByBookmarked(Long memberId, boolean called) {
         List<InfluenceBookmark> bookmarks = influenceBookmarkJpaRepository.findInfluenceBookmarksByMemberIdAndBookmarked(memberId, true);
@@ -112,41 +130,36 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     }
 
     @Override
-    public List<InfluenceQnaResult> pagingQnas(InfluenceQnaQueryParameter parameter) {
-        log.debug("parameter: {}", parameter);
-        // TODO: InfluenceQnaResult 에 바로 담기!!
-        List<InfluenceQna> results = query
-            .selectFrom(q)
-            .join(q.questioner, m)
-            .fetchJoin()
-            .where(buildWhere(parameter))
-            .orderBy(influenceQna.id.desc())
-            .offset(parameter.getPageable().getOffset())
-            .limit(parameter.getPageable().getPageSize())
-            .fetch();
-
-        return results.stream().map(result -> new InfluenceQnaResult(parameter.requesterId, result)).collect(Collectors.toList());
+    public List<InfluenceQuestionResult> getQuestionsByInfluence(Long influenceId, PageRequest pageRequest) {
+        log.debug("PageRequest: {}", pageRequest);
+        List<InfluenceQuestionResult> results = query.select(Projections.constructor(InfluenceQuestionResult.class, influenceQna))
+                .from(influenceQna)
+                .join(influenceQna.questioner, member)
+                .where(influenceQna.influence.id.eq(influenceId))
+                .orderBy(influenceQna.id.desc())
+                .offset(pageRequest.getOffset())
+                .limit(pageRequest.getPageSize())
+                .fetch();
+        log.debug("results: {}", results);
+        return results;
     }
 
-    private BooleanBuilder buildWhere(InfluenceQnaQueryParameter parameter) {
-        BooleanBuilder where = new BooleanBuilder();
-        if (parameter.requesterId != null)
-            where.and(influenceQna.questioner.id.eq(parameter.requesterId));
-
-        if (parameter.influenceId != null) {
-            where.and(influenceQna.influence.id.eq(parameter.influenceId));
-        }
-
-        if (parameter.answered != null) {
-            if (parameter.answered) {
-                where.and(influenceQna.answers.isNotNull());
-            } else {
-                where.and(influenceQna.answers.isNull());
-            }
-        }
-
-        return where;
+    @Override
+    public List<InfluenceQuestionResult> getInfluenceQuestionsByMe(Long influenceId, Long questionerId, PageRequest pageRequest) {
+        log.debug("PageRequest: {}", pageRequest);
+        List<InfluenceQuestionResult> results = query.select(Projections.constructor(InfluenceQuestionResult.class, influenceQna))
+                .from(influenceQna)
+                .join(influenceQna.questioner, member)
+                .where(influenceQna.influence.id.eq(influenceId).and(influenceQna.questioner.id.eq(questionerId)))
+                .orderBy(influenceQna.id.desc())
+                .offset(pageRequest.getOffset())
+                .limit(pageRequest.getPageSize())
+                .fetch();
+        log.debug("results: {}", results);
+        return null;
     }
+
+
 
     private List<InfluenceResult> getInfluenceResults(List<Influence> influences) {
         Set<Long> idSet = influences.stream()
@@ -192,15 +205,25 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         return mapProfileImages;
     }
 
-    public InfluenceDetailResult getDetail(Long id) {
-        Influence influence = influenceJpaRepository.findById(id)
-                .orElseThrow(NotFoundInfluenceException::new);
 
-        InfluenceNotice notice = query
-                .selectFrom(influenceNotice)
-                .where(influenceNotice.deleted.eq(false), influenceNotice.influenceId.eq(influence.getId()))
-                .fetchOne();
 
-        return new InfluenceDetailResult(influence, notice);
-    }
+    //    private BooleanBuilder buildWhere(InfluenceQnaQueryParameter parameter) {
+//        BooleanBuilder where = new BooleanBuilder();
+//        if (parameter.requesterId != null)
+//            where.and(influenceQna.questioner.id.eq(parameter.requesterId));
+//
+//        if (parameter.influenceId != null) {
+//            where.and(influenceQna.influence.id.eq(parameter.influenceId));
+//        }
+//
+//        if (parameter.answered != null) {
+//            if (parameter.answered) {
+//                where.and(influenceQna.answers.isNotNull());
+//            } else {
+//                where.and(influenceQna.answers.isNull());
+//            }
+//        }
+//
+//        return where;
+//    }
 }

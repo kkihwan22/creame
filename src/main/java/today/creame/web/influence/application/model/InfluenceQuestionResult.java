@@ -6,9 +6,10 @@ import today.creame.web.influence.domain.Content;
 import today.creame.web.influence.domain.InfluenceQna;
 import today.creame.web.influence.domain.QnaStatus;
 import today.creame.web.member.domain.Member;
+import today.creame.web.share.support.SecurityContextSupporter;
 
 @Getter @ToString
-public class InfluenceQnaResult {
+public class InfluenceQuestionResult {
     private Long id;
     private Long questionerId;
     private QnaStatus status;
@@ -16,12 +17,12 @@ public class InfluenceQnaResult {
     private Content question;
     private Content answer;
 
-    public InfluenceQnaResult(Long reqId, InfluenceQna qna) {
+    public InfluenceQuestionResult(InfluenceQna qna) {
         this.id = qna.getId();
         Member questioner = qna.getQuestioner();
         this.questionerId = questioner.getId();
         this.status = qna.getStatus();
-        this.me = questioner.getId().equals(reqId);
+        this.me = questioner.getId().equals(SecurityContextSupporter.orElseGetEmpty());
         this.question = Content.secretContent(qna.getQuestions(), me);
         this.answer = Content.secretContent(qna.getAnswers(), me);
     }

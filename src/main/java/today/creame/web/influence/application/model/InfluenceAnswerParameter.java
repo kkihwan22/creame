@@ -4,13 +4,13 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter @ToString
-public class InfluenceQnaAnswerParameter {
+public class InfluenceAnswerParameter {
 
     private Long id;
     private Long qnaId;
     private String content;
 
-    public InfluenceQnaAnswerParameter(Long id, Long qnaId, String content) {
+    public InfluenceAnswerParameter(Long id, Long qnaId, String content) {
         this.id = id;
         this.qnaId = qnaId;
         this.content = content;

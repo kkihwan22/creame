@@ -5,8 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import today.creame.web.influence.application.model.InfluenceQnaAnswerParameter;
-import today.creame.web.influence.application.model.InfluenceQnaQuestionParameter;
+import today.creame.web.influence.application.model.InfluenceAnswerParameter;
+import today.creame.web.influence.application.model.InfluenceQuestionParameter;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.domain.InfluenceQna;
@@ -23,7 +23,7 @@ public class InfluenceQnaServiceImpl implements InfluenceQnaService {
 
     @Transactional
     @Override
-    public void ask(InfluenceQnaQuestionParameter parameter) {
+    public void question(InfluenceQuestionParameter parameter) {
         log.debug("parameter: {}", parameter);
 
         Influence influence = influenceJpaRepository.findById(parameter.getInfluenceId())
@@ -39,11 +39,12 @@ public class InfluenceQnaServiceImpl implements InfluenceQnaService {
 
     @Transactional
     @Override
-    public void answer(InfluenceQnaAnswerParameter parameter) {
+    public void answer(InfluenceAnswerParameter parameter) {
         log.debug("parameter: {}", parameter);
 
         InfluenceQna qna = influenceQnaJpaRepository.findById(parameter.getQnaId()).orElseThrow(NotFoundQnAException::new);
         log.debug("find qna: {}", qna);
-        qna.answer(parameter.getContent());
+
+        qna.answer(parameter.getId(), parameter.getContent());
     }
 }

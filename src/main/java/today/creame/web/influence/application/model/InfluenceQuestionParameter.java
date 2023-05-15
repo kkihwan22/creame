@@ -7,13 +7,13 @@ import today.creame.web.share.model.BaseParameter;
 
 @Getter
 @ToString
-public class InfluenceQnaQuestionParameter implements BaseParameter<InfluenceQna> {
+public class InfluenceQuestionParameter implements BaseParameter<InfluenceQna> {
 
     private Long influenceId;
     private Long questionerId;
     private String content;
 
-    public InfluenceQnaQuestionParameter(Long influenceId, Long questionerId, String content) {
+    public InfluenceQuestionParameter(Long influenceId, Long questionerId, String content) {
         this.influenceId = influenceId;
         this.questionerId = questionerId;
         this.content = content;

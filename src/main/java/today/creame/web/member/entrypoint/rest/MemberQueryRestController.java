@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.config.security.CustomUserDetails;
-import today.creame.web.influence.application.model.InfluenceQnaResult;
+import today.creame.web.influence.application.model.InfluenceQuestionResult;
 import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.model.MeResult;
 import today.creame.web.member.application.model.MyQuestionsQueryParameter;
@@ -31,13 +31,13 @@ public class MemberQueryRestController implements BaseRestController {
     private final MemberQuery memberQuery;
 
     @GetMapping("/api/members/{id}/questions")
-    public ResponseEntity<Body<List<InfluenceQnaResult>>> pagingListMyQuestions(
+    public ResponseEntity<Body<List<InfluenceQuestionResult>>> pagingListMyQuestions(
         @PathVariable Long id,
         @RequestParam(required = false) int page,
         @RequestParam(required = false) int size,
         @RequestParam(required = false) boolean answered
     ) {
-        List<InfluenceQnaResult> results = memberQuery.pagingListMyQuestions(
+        List<InfluenceQuestionResult> results = memberQuery.pagingListMyQuestions(
             new MyQuestionsQueryParameter(page, size, answered));
         log.debug("results: {}", results);
         return ResponseEntity.ok(BodyFactory.success(results));

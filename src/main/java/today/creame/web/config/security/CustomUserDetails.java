@@ -32,4 +32,8 @@ public class CustomUserDetails implements UserDetails {
         this.isAccountNonLocked = true;
         this.isCredentialsNonExpired = true;
     }
+
+    public CustomUserDetails(Long id) {
+        this.id = id;
+    }
 }
