@@ -54,7 +54,7 @@ public class InfluenceResult {
     private boolean calling = false;
     private boolean bookmarked = false;
 
-    private LocalDateTime createDateTime;
+    private LocalDateTime createdDateTime;
 
     public InfluenceResult(
         Influence influence,
@@ -114,7 +114,7 @@ public class InfluenceResult {
             this.bookmarked = bookmark.isBookmarked();
         }
 
-        this.createDateTime = influence.getCreatedDateTime();
+        this.createdDateTime = influence.getCreatedDateTime();
     }
 
     public InfluenceResult(Influence influence, List<InfluenceCategory> categories, List<InfluenceProfileImage> profileImages) {
