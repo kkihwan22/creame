@@ -1,5 +1,6 @@
 package today.creame.web.influence.application.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,6 +53,8 @@ public class InfluenceResult {
     private boolean connected;
     private boolean calling = false;
     private boolean bookmarked = false;
+
+    private LocalDateTime createDateTime;
 
     public InfluenceResult(
         Influence influence,
@@ -110,6 +113,8 @@ public class InfluenceResult {
         if (bookmark != null) {
             this.bookmarked = bookmark.isBookmarked();
         }
+
+        this.createDateTime = influence.getCreatedDateTime();
     }
 
     public InfluenceResult(Influence influence, List<InfluenceCategory> categories, List<InfluenceProfileImage> profileImages) {
