@@ -1,13 +1,5 @@
 package today.creame.web.config.security;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-
-import java.io.IOException;
-import java.util.Optional;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +15,15 @@ import today.creame.web.member.domain.TokenType;
 import today.creame.web.member.domain.TokenVerified;
 import today.creame.web.share.support.BearerTokenSupporter;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Optional;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
 @RequiredArgsConstructor
 @Component
 public class CreameAuthorizationFilter extends OncePerRequestFilter {
@@ -37,9 +38,6 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
             .orElseGet(() -> null);
 
         String servletPath = request.getServletPath();
-
-        log.debug("key: {}", authorizationHeader);
-        log.debug("path: {}", servletPath);
 
         if (authorizationHeader == null) {
             if (!(servletPath.startsWith("/public")
@@ -68,7 +66,7 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
                 }
 
                 UserDetails userDetails = verify.getUserDetails();
-                log.debug("[ UserDetails ] {}", (CustomUserDetails) userDetails);
+                log.debug("[ UserDetails ] {}", userDetails);
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
