@@ -8,7 +8,6 @@ import today.creame.web.payments.application.model.PaymentFailureParameter;
 import today.creame.web.payments.application.model.PaymentSuccessParameter;
 import today.creame.web.payments.domain.PaymentMethod;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -30,7 +29,7 @@ public class ReceiptRequest {
     private String tid;
     private int amount;
     private int coinamt;
-    private String payType;
+    private String paytype;
     private String reqResult;
     private String resultmessage;
 
@@ -38,10 +37,10 @@ public class ReceiptRequest {
 
 
 
-        return new PaymentSuccessParameter(membid, oid, tid, amount, coinamt, ReceiptRequest.dataMap.get(Optional.ofNullable(payType).orElse("DIR_CARD")));
+        return new PaymentSuccessParameter(membid, oid, tid, amount, coinamt, ReceiptRequest.dataMap.get(Optional.ofNullable(paytype).orElse("DIR_CARD")));
     }
 
     public PaymentFailureParameter toFailed() {
-        return new PaymentFailureParameter(membid, oid, tid, amount, coinamt, ReceiptRequest.dataMap.get(payType), reqResult, resultmessage);
+        return new PaymentFailureParameter(membid, oid, tid, amount, coinamt, ReceiptRequest.dataMap.get(paytype), reqResult, resultmessage);
     }
 }
