@@ -31,12 +31,15 @@ public class GoogleService implements SocialProviderService {
     @Value("${google.redirect_uri}")
     private String redirectUri;
 
+    @Value("${google.auth_url}")
+    private String authUrl;
+
     private final GoogleClient client;
 
     @Override
     public String generateUrl() {
-        StringBuilder sb = new StringBuilder("https://accounts.google.com/o/oauth2/v2/auth?");
-        sb.append("client_id=" + googleClientId);
+        StringBuilder sb = new StringBuilder(authUrl);
+        sb.append("?client_id=" + googleClientId);
         sb.append("&redirect_uri=" + redirectUri);
         sb.append("&response_type=code");
         sb.append("&scope=" + googleScope);
@@ -51,6 +54,7 @@ public class GoogleService implements SocialProviderService {
         if(OK.equals(googleTokenResponse.getStatusCode())) {
             return googleTokenResponse.getBody().getIdToken();
         }
+
         return StringUtils.EMPTY;
     }
 
@@ -61,6 +65,7 @@ public class GoogleService implements SocialProviderService {
         if(OK.equals(googleTokenInfoResponse.getStatusCode())) {
             return googleTokenInfoResponse.getBody().toResult();
         }
+
         return null;
     }
 }

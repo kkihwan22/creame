@@ -8,7 +8,7 @@ import today.creame.web.member.social.feign.io.naver.NaverTokenResponse;
 
 @FeignClient(
         name = "NaverTokenClient",
-        url = "https://nid.naver.com/oauth2.0"
+        url = "${naver.token_url}"
 )
 public interface NaverTokenClient {
 

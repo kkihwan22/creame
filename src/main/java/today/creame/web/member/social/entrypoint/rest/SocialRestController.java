@@ -34,12 +34,15 @@ public class SocialRestController implements BaseRestController {
     }
 
     @GetMapping("/public/v1/login/oauth/{provider}")
-    public ResponseEntity<Body<Map<String, String>>> socialLogin(@PathVariable ProviderType provider, @RequestParam String code) {
+    public ResponseEntity<Body<Map<String, String>>> socialLogin(
+            @PathVariable ProviderType provider,
+            @RequestParam String code,
+            @RequestParam(required = false) String state) {
         if(Objects.isNull(code)) {
             ResponseEntity.badRequest();
         }
 
-        Map<String, String> token = socialService.login(provider, code);
+        Map<String, String> token = socialService.login(provider, code, state);
         return ResponseEntity.ok(BodyFactory.success(token));
     }
 

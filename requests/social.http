@@ -7,3 +7,11 @@ Content-Type: application/json
 
 POST {{host}}/public/v1/oauth/NAVER
 Content-Type: application/json
+
+### 애플 로그인
+POST https://localhost:8888/public/v1/oauth/APPLE
+Content-Type: application/json
+
+### 카카오 로그인
+POST {{host}}/public/v1/oauth/KAKAO
+Content-Type: application/json

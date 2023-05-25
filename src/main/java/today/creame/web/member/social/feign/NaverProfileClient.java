@@ -8,7 +8,7 @@ import today.creame.web.member.social.feign.io.naver.NaverTokenInfoResponse;
 
 @FeignClient(
         name = "NaverProfileClient",
-        url = "https://openapi.naver.com"
+        url = "${naver.profile_url}"
 )
 public interface NaverProfileClient {
     @GetMapping("/v1/nid/me")

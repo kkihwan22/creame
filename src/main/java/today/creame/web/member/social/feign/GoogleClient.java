@@ -11,7 +11,7 @@ import today.creame.web.member.social.feign.io.google.GoogleTokenResponse;
 
 @FeignClient(
         name = "GoogleClient",
-        url = "${google.base_url}"
+        url = "${google.token_url}"
 )
 public interface GoogleClient {
     @PostMapping("/token")

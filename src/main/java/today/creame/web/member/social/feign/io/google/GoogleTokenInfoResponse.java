@@ -6,10 +6,10 @@ import today.creame.web.member.social.provider.io.ProviderProfileResult;
 @Getter
 public class GoogleTokenInfoResponse {
     private String email;
-    private String nickname;
+    private String name;
 
     public ProviderProfileResult toResult() {
-        return new ProviderProfileResult(this.email, this.nickname);
+        return new ProviderProfileResult(this.email, this.name);
 
     }
 }

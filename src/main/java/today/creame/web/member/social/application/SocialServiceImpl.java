@@ -1,6 +1,7 @@
 package today.creame.web.member.social.application;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,9 +17,11 @@ import today.creame.web.member.social.exception.NotFoundSocialMemberException;
 import today.creame.web.member.social.exception.NotFoundSocialTokenException;
 import today.creame.web.member.social.exception.NotMatchSocialTypeException;
 import today.creame.web.member.social.provider.SocialProviderService;
+import today.creame.web.member.social.provider.apple.AppleService;
 import today.creame.web.member.social.provider.google.GoogleService;
 import today.creame.web.member.social.exception.NotFoundProviderProfileException;
 import today.creame.web.member.social.provider.io.ProviderProfileResult;
+import today.creame.web.member.social.provider.kakao.KakaoService;
 import today.creame.web.member.social.provider.naver.NaverService;
 
 import java.util.HashMap;
@@ -27,6 +30,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SocialServiceImpl implements SocialService{
@@ -35,6 +39,8 @@ public class SocialServiceImpl implements SocialService{
     private final ApplicationEventPublisher eventPublisher;
     private final GoogleService googleService;
     private final NaverService naverService;
+    private final AppleService appleService;
+    private final KakaoService kakaoService;
 
     @Override
     public String initSocialUrl(ProviderType type) {
@@ -44,31 +50,39 @@ public class SocialServiceImpl implements SocialService{
                 socialProviderService =  googleService;
                 break;
             case KAKAO:
+                socialProviderService =  kakaoService;
+                break;
             case NAVER:
                 socialProviderService = naverService;
                 break;
             case FACEBOOk:
             case APPLE:
+                socialProviderService = appleService;
+                break;
         }
 
         return socialProviderService.generateUrl();
     }
 
     @Override
-    public Map<String, String> login(ProviderType type, String code) {
+    public Map<String, String> login(ProviderType type, String code, String state) {
         SocialProviderService socialProviderService = null;
         switch (type) {
             case GOOGLE:
                 socialProviderService = googleService;
                 break;
             case KAKAO:
+                socialProviderService = kakaoService;
+                break;
             case NAVER:
                 socialProviderService = naverService;
                 break;
             case FACEBOOk:
             case APPLE:
+                socialProviderService = appleService;
+                break;
         }
-        String state = "";
+
         String jwtToken = socialProviderService.getToken(code, state);
         if(Objects.isNull(jwtToken)) {
             throw new NotFoundSocialTokenException();
@@ -78,6 +92,8 @@ public class SocialServiceImpl implements SocialService{
         if(StringUtils.isEmpty(result.getEmail())) {
             throw new NotFoundProviderProfileException();
         }
+
+        log.debug("SocialServiceImpl.login >> social type {} email {} nickname {}", type, result.getEmail(), result.getNickname());
 
         ProviderProfileResult finalResult = new ProviderProfileResult(result.getEmail(), result.getNickname());
         Member findMember = memberJpaRepository

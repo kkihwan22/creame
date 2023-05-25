@@ -29,13 +29,16 @@ public class NaverService implements SocialProviderService {
     @Value("${naver.redirect_uri}")
     private String naverRedirectUri;
 
+    @Value("${naver.auth_url}")
+    private String authUrl;
+
     private final NaverTokenClient naverTokenClient;
     private final NaverProfileClient naverProfileClient;
 
     @Override
     public String generateUrl() {
-        StringBuilder sb = new StringBuilder("https://nid.naver.com/oauth2.0/authorize?");
-        sb.append("client_id=" + naverClientId);
+        StringBuilder sb = new StringBuilder(authUrl);
+        sb.append("?client_id=" + naverClientId);
         sb.append("&redirect_uri=" + naverRedirectUri);
         sb.append("&response_type=code");
 
@@ -44,11 +47,11 @@ public class NaverService implements SocialProviderService {
 
     @Override
     public String getToken(String code, String state) {
-        TokenRequest request = new TokenRequest(naverClientId, naverSecret, code, state, naverRedirectUri);
         ResponseEntity<NaverTokenResponse> naverTokenResponseResponseEntity = naverTokenClient.getToken("authorization_code", naverClientId, naverSecret, naverRedirectUri, code, "");
         if(OK.equals(naverTokenResponseResponseEntity.getStatusCode()) && Objects.isNull(naverTokenResponseResponseEntity.getBody().getError())) {
-            return naverTokenResponseResponseEntity.getBody().getAccess_token();
+            return naverTokenResponseResponseEntity.getBody().getAccessToken();
         }
+
         return StringUtils.EMPTY;
     }
 
@@ -59,6 +62,7 @@ public class NaverService implements SocialProviderService {
         if(OK.equals(naverTokenInfoResponse.getStatusCode())) {
             return naverTokenInfoResponse.getBody().getResponse().toResult();
         }
+
         return null;
     }
 }

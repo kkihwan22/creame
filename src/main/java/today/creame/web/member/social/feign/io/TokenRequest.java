@@ -4,19 +4,19 @@ import lombok.Getter;
 
 @Getter
 public class TokenRequest {
-    private String clientId;
-    private String clientSecret;
+    private String client_id;
+    private String client_secret;
     private String code;
-    private String redirectUri;
-    private String grantType;
+    private String redirect_uri;
+    private String grant_type;
     private String state;
 
     public TokenRequest(String clientId, String clientSecret, String code, String state, String redirectUri) {
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
+        this.client_id = clientId;
+        this.client_secret = clientSecret;
         this.code = code;
-        this.redirectUri = redirectUri;
+        this.redirect_uri = redirectUri;
         this.state = state;
-        this.grantType = "authorization_code";
+        this.grant_type = "authorization_code";
     }
 }
