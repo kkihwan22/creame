@@ -1,6 +1,5 @@
 package today.creame.web.payments.entrypoint.rest.io;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import today.creame.web.payments.application.model.PaymentFailureParameter;
 import today.creame.web.payments.application.model.PaymentSuccessParameter;
@@ -31,7 +30,6 @@ public class ReceiptRequest {
     private String paytype;
 
     private String reqResult;
-    private String req_result;
     private String resultmessage;
 
     public PaymentSuccessParameter toSuccess() {
@@ -43,7 +41,8 @@ public class ReceiptRequest {
     }
 
     public boolean isSuccess() {
-        if (reqResult == null) reqResult = req_result;
+        if (reqResult == null)
+            return false;
         return this.reqResult.equals("0000");
     }
 }
