@@ -17,8 +17,8 @@ public class PaymentController {
     private final Logger logger = LoggerFactory.getLogger(PaymentController.class);
     private final PaymentService paymentService;
 
-    @RequestMapping(value = "/m2net/payments/notice")
-    public String receiptPaymentResult(@ModelAttribute ReceiptRequest request) {
+    @RequestMapping("/m2net/payments/notice")
+    public String receiptPaymentResult(@RequestBody ReceiptRequest request) {
         logger.info(" [ payment ]  request : {}", request);
 
         if (request.isSuccess()) {
