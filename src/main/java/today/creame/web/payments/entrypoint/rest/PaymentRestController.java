@@ -23,6 +23,7 @@ import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
 import today.creame.web.share.entrypoint.SimpleBodyData;
+import today.creame.web.share.support.OrderKey;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class PaymentRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(PaymentRestController.class);
     private final PaymentService paymentService;
     private final PaymentQueryService paymentQueryService;
+    private final OrderKey orderKey = new OrderKey();
 
     @PostMapping("/api/v1/me/payments/bill-key")
     public ResponseEntity<Body<SimpleBodyData<String>>> issueBillKey(
@@ -127,5 +129,10 @@ public class PaymentRestController implements BaseRestController {
         List<PaymentHistoryResult> results = paymentQueryService.history(since);
         log.info("results: {}", results);
         return ResponseEntity.ok(BodyFactory.success(results));
+    }
+
+    @GetMapping("/api/v1/payments/order-key")
+    public ResponseEntity<Body<SimpleBodyData<String>>> getOrderKey() {
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(orderKey.next())));
     }
 }
