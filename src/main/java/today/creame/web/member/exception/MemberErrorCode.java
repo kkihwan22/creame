@@ -18,7 +18,8 @@ public enum MemberErrorCode {
     FORBIDDEN(1011, "허용되지 않는 요청입니다."),
     NOT_FOUND_SOCIAL_USER_INFO(1012, "소셜에서 유저정보를 찾을 수 없습니다."),
     NOT_FOUND_SOCIAL_MEMBER(1013, "등록된 소셜 회원을 찾을 수 없습니다."),
-    NOT_MATCH_SOCIAL_TYPE(1014, "이미 가입된 소셜 타입과 다릅니다.")
+    NOT_MATCH_SOCIAL_TYPE(1014, "이미 가입된 소셜 타입과 다릅니다."),
+    NOT_FOUNT_SOCIAL_TOKEN(1015, "소셜 토큰을 찾을 수 없습니다.")
 
     ;
 

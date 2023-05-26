@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import today.creame.web.member.social.feign.io.google.GoogleTokenInfoResponse;
 import today.creame.web.member.social.feign.io.google.GoogleTokenResponse;
 import today.creame.web.member.social.feign.GoogleClient;
-import today.creame.web.member.social.feign.io.google.GoogleTokenInfoRequest;
-import today.creame.web.member.social.feign.io.google.GoogleTokenRequest;
+import today.creame.web.member.social.feign.io.TokenInfoRequest;
+import today.creame.web.member.social.feign.io.TokenRequest;
 import today.creame.web.member.social.provider.SocialProviderService;
 import today.creame.web.member.social.provider.io.ProviderProfileResult;
 
@@ -31,12 +31,15 @@ public class GoogleService implements SocialProviderService {
     @Value("${google.redirect_uri}")
     private String redirectUri;
 
+    @Value("${google.auth_url}")
+    private String authUrl;
+
     private final GoogleClient client;
 
     @Override
     public String generateUrl() {
-        StringBuilder sb = new StringBuilder("https://accounts.google.com/o/oauth2/v2/auth?");
-        sb.append("client_id=" + googleClientId);
+        StringBuilder sb = new StringBuilder(authUrl);
+        sb.append("?client_id=" + googleClientId);
         sb.append("&redirect_uri=" + redirectUri);
         sb.append("&response_type=code");
         sb.append("&scope=" + googleScope);
@@ -45,24 +48,24 @@ public class GoogleService implements SocialProviderService {
     }
 
     @Override
-    public String getToken(String code) {
-        GoogleTokenRequest request = new GoogleTokenRequest(googleClientId, googleSecret, code, redirectUri);
-
+    public String getToken(String code, String state) {
+        TokenRequest request = new TokenRequest(googleClientId, googleSecret, code, state,redirectUri);
         ResponseEntity<GoogleTokenResponse> googleTokenResponse = client.getToken(request);
         if(OK.equals(googleTokenResponse.getStatusCode())) {
             return googleTokenResponse.getBody().getIdToken();
         }
+
         return StringUtils.EMPTY;
     }
 
     @Override
-    public ProviderProfileResult getInfo(String idToken) {
-        GoogleTokenInfoRequest request = new GoogleTokenInfoRequest(idToken);
-
+    public ProviderProfileResult getInfo(String token) {
+        TokenInfoRequest request = new TokenInfoRequest(token);
         ResponseEntity<GoogleTokenInfoResponse> googleTokenInfoResponse = client.getProfile(request);
         if(OK.equals(googleTokenInfoResponse.getStatusCode())) {
             return googleTokenInfoResponse.getBody().toResult();
         }
+
         return null;
     }
 }

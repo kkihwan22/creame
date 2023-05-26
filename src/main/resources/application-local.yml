@@ -2,6 +2,13 @@ server:
   port: 8888
   tomcat:
     connection-timeout: 20000
+# Apple login 시에만 주석 풀기
+  ssl:
+    enabled: true
+    key-store: keystore.p12
+    key-store-password: creamelocal-ssl
+    key-store-type: PKCS12
+    key-alias: creamelocal-ssl
 
 spring:
   servlet:
@@ -11,8 +18,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-#  profiles:
-#    include: oauth
 
   jackson:
     property-naming-strategy: SNAKE_CASE
@@ -30,7 +35,7 @@ spring:
       pool-name: dbpool-creame
   jpa:
     hibernate:
-      ddl-auto: validate # validate (?? ? ??) | update | none | create | create-drop
+      ddl-auto: none # validate (?? ? ??) | update | none | create | create-drop
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy # ????
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy # ????
@@ -102,22 +107,21 @@ logging:
     springfox: error
     com.amazonaws.util.EC2MetadataUtils: ERROR
 
-
 ## 소셜 로그인
 google:
   client:
-    id: 658156367732-24h44bqjiochivir8v469gjegh067bdk.apps.googleusercontent.com
-    secret: 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
-  redirect_uri: https://api.creame.today/public/v1/login/oauth/GOOGLE
+    id: 32549201423-r5caiq9vkt6pmteie0s98c2ln5fbr9aa.apps.googleusercontent.com
+    secret: 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
+  redirect_uri: http://localhost:8888/public/v1/login/oauth/GOOGLE
   scope: https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
   auth_url: https://accounts.google.com/o/oauth2/v2/auth
   token_url: https://oauth2.googleapis.com
 
 naver:
   client:
-    id: shHgvP6PlUsUaXxJKBxJ
-    secret: 8ImLjx7_Ay
-  redirect_uri: https://api.creame.today/public/v1/login/oauth/NAVER
+    id: WpDQLYpuiT3WX9sVxfVp
+    secret: GDqVctmMMN
+  redirect_uri: http://localhost:8888/public/v1/login/oauth/NAVER
   scope:
   auth_url: https://nid.naver.com/oauth2.0/authorize
   token_url: https://nid.naver.com/oauth2.0
@@ -126,17 +130,18 @@ naver:
 apple:
   client:
     team_id: VJ8S7P66WS
-    id: today.creame.api.service
-    key: 3ZC6SN4F8K
-  redirect_uri: https://api.creame.today/public/v1/login/oauth/APPLE
-  key_path: apple/dev/AuthKey_3ZC6SN4F8K.p8
+    id: com.creame.local.service
+    key: 5R9SFB2Z25
+#  redirect_uri: http://localhost:8888/public/v1/login/oauth/APPLE
+  redirect_uri: https://creamelocal.com:8888/public/v1/login/oauth/APPLE
+  key_path: apple/local/AuthKey_5R9SFB2Z25.p8
   base_url: https://appleid.apple.com
 
 kakao:
   client:
-    id: 303b47cccc783fc5d3157187bc818dd2
-    secret: kySI9FuLk4YXdpYZVA3607woOSkUZxVZ
-  redirect_uri: https://api.creame.today/public/v1/login/oauth/KAKAO
+    id: f7be4ffc92d35008097763c3c750b3e9
+    secret: jGoCWpx0CKYQoyBuVHOapDiGSgXfQ7JI
+  redirect_uri: http://localhost:8888/public/v1/login/oauth/KAKAO
   scope: profile_nickname account_email
   token_url: https://kauth.kakao.com
   oauth_url: https://kauth.kakao.com
