@@ -55,7 +55,6 @@ public class SocialServiceImpl implements SocialService{
             case NAVER:
                 socialProviderService = naverService;
                 break;
-            case FACEBOOk:
             case APPLE:
                 socialProviderService = appleService;
                 break;
@@ -77,7 +76,6 @@ public class SocialServiceImpl implements SocialService{
             case NAVER:
                 socialProviderService = naverService;
                 break;
-            case FACEBOOk:
             case APPLE:
                 socialProviderService = appleService;
                 break;
