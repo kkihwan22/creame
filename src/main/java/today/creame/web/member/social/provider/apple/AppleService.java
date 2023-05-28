@@ -2,9 +2,6 @@ package today.creame.web.member.social.provider.apple;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.SignedJWT;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +10,11 @@ import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import today.creame.web.member.social.exception.ApplePrivateKeyParserFailException;
+import today.creame.web.member.social.exception.AppleTokenDecodeFailException;
 import today.creame.web.member.social.exception.NotFoundApplePrivateKeyException;
 import today.creame.web.member.social.feign.AppleClient;
 import today.creame.web.member.social.feign.io.TokenRequest;
@@ -57,7 +54,6 @@ public class AppleService implements SocialProviderService {
     private String appleKeyPath;
 
     private final AppleClient appleClient;
-//    private final AppleProfileClient appleProfileClient;
 
     @Override
     public String generateUrl() {
@@ -95,7 +91,7 @@ public class AppleService implements SocialProviderService {
 
             return appleTokenInfoResponse;
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new AppleTokenDecodeFailException();
         }
     }
 
