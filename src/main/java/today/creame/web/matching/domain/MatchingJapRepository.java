@@ -5,9 +5,12 @@ import org.springframework.stereotype.Repository;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.member.domain.Member;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface MatchingJapRepository extends JpaRepository<Matching, Long> {
-    Optional<Matching> findMatchingByInfluenceAndMemberAndStatus(Influence influence, Member member, MatchingProgressStatus status);
+    List<Matching> findMatchingsByInfluenceAndMemberAndStatusInAndStartDateTimeBetween(Influence influence, Member member, Set<MatchingProgressStatus> statusSet, LocalDateTime to, LocalDateTime from);
+
 }

@@ -17,6 +17,12 @@ import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.exception.NotFoundMemberException;
 
+import java.util.List;
+import java.util.Set;
+
+import static today.creame.web.matching.domain.MatchingProgressStatus.INSUFFICIENT;
+import static today.creame.web.matching.domain.MatchingProgressStatus.START;
+
 @RequiredArgsConstructor
 @Service
 public class MatchingServiceImpl implements MatchingService {
@@ -50,13 +56,18 @@ public class MatchingServiceImpl implements MatchingService {
         Influence influence = findInfluence(parameter.getCid());
         Member member = findMember(parameter.getUid());
 
-        Matching matching = matchingJapRepository
-            .findMatchingByInfluenceAndMemberAndStatus(influence, member, MatchingProgressStatus.START)
-                .orElse(matchingJapRepository.findMatchingByInfluenceAndMemberAndStatus(influence, member, MatchingProgressStatus.INSUFFICIENT)
-                        .orElseThrow(() -> new NotFoundMatchingException()));
+        List<Matching> matchings = matchingJapRepository.findMatchingsByInfluenceAndMemberAndStatusInAndStartDateTimeBetween(
+                influence,
+                member,
+                Set.of(START, INSUFFICIENT),
+                parameter.getStartDateTime().minusMinutes(1),
+                parameter.getStartDateTime().plusMinutes(1));
+        log.debug("Matchings: {}", matchings);
 
+        if (matchings.isEmpty()) throw new NotFoundMatchingException();
+
+        Matching matching = matchings.get(matchings.size() - 1);
         matching.end(parameter.getMatchingProgressStatus(), parameter.getEndDateTime(), parameter.getUsedCoins());
-        
         log.debug("matching: {}", matching);
     }
 
