@@ -28,19 +28,22 @@ public class ReviewResult {
     private LocalDateTime replyDateTime;
     private int likeCount;
 
-    public ReviewResult(MatchingReview matchingReview, Matching matching, Member member) {
+    public ReviewResult(MatchingReview review) {
+        Matching matching = review.getMatching();
+        Member member = matching.getMember();
+
         this.matchingId = matching.getId();
-        this.reviewId = matchingReview.getId();
+        this.reviewId = review.getId();
         this.memberId = member.getId();
         this.nickname = member.getNickname();
-        this.rate = matchingReview.getRate();
-        this.reviewKinds = matchingReview.getReviewKinds().name();
-        this.category = matchingReview.getCategory().name();
-        this.reviewContent = matchingReview.getContent();
-        this.replyContent = matchingReview.getReply();
-        this.reviewDateTime = matchingReview.getWriteDateTime();
-        this.replyDateTime = matchingReview.getReplyDateTime();
-        this.likeCount = matchingReview.getLikedCount();
+        this.rate = review.getRate();
+        this.reviewKinds = review.getReviewKinds().name();
+        this.category = review.getCategory().name();
+        this.reviewContent = review.getContent();
+        this.replyContent = review.getReply();
+        this.reviewDateTime = review.getWriteDateTime();
+        this.replyDateTime = review.getReplyDateTime();
+        this.likeCount = review.getLikedCount();
 
         if (replyContent != null) this.answered = true;
     }

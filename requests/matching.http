@@ -35,3 +35,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
   "review_kinds": "KINDNESS",
   "content": "와우! 내 생애 최고의 통화였어요."
 }
+
+### 인플루언스 후기 목록
+
+GET {{host}}/public/v1/influences/90/reviews
+Content-Type: application/json

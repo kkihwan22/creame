@@ -33,10 +33,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
 
     @Override
     public List<ReviewResult> getInfluenceReviews(Long influenceId, Order order) {
-        List<ReviewResult> results = query.select(Projections.constructor(ReviewResult.class,
-                        matchingReview,
-                        matching,
-                        member))
+        List<ReviewResult> results = query.select(Projections.constructor(ReviewResult.class, matchingReview))
                 .from(matchingReview)
                 .join(matchingReview.matching, matching).fetchJoin()
                 .join(matching.member, member).fetchJoin()
