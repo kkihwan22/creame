@@ -21,6 +21,8 @@ public class MyReviewResult extends MatchingHistoryResult{
     private LocalDateTime replyDateTime;
     private int likeCount;
     private int rate;
+    private boolean blocked;
+    private LocalDateTime blockedDateTime;
 
     public MyReviewResult(Matching matching, String profileImageUrl) {
         super(matching, profileImageUrl);
@@ -36,6 +38,8 @@ public class MyReviewResult extends MatchingHistoryResult{
             this.replyDateTime = review.getReplyDateTime();
             this.likeCount = review.getLikedCount();
             this.rate = review.getRate();
+            this.blocked = review.isBlocked();
+            this.blockedDateTime = review.getBlockedDateTime();
         }
     }
 }
