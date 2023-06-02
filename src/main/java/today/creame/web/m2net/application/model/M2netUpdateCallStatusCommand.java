@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.context.ApplicationEventPublisher;
 import today.creame.web.m2net.domain.DeductionMethod;
 import today.creame.web.m2net.domain.M2netReasonCode;
+import today.creame.web.matching.domain.PaidType;
 import today.creame.web.share.event.MatchingEvent;
 
 @Getter
@@ -22,6 +23,7 @@ public class M2netUpdateCallStatusCommand {
     private Integer usedAmount;
     private M2netReasonCode reason;
     private DeductionMethod deductionMethod;
+    private PaidType paidType;
 
     public M2netUpdateCallStatusCommand(
         String telegram,
@@ -45,6 +47,7 @@ public class M2netUpdateCallStatusCommand {
         this.usedAmount = usedAmount;
         this.reason = reason;
         this.deductionMethod = deductionMethod;
+        this.paidType = deductionMethod.getPaidType();
     }
 
     public void pub(ApplicationEventPublisher publisher) {
@@ -59,7 +62,7 @@ public class M2netUpdateCallStatusCommand {
             startDateTime,
             endDateTime,
             this.isDeferred(deductionMethod),
-            usedAmount
+            usedAmount, paidType
         ));
     }
 

@@ -44,7 +44,7 @@ public class MatchingServiceImpl implements MatchingService {
             parameter.getStartDateTime(),
             parameter.getEndDateTime(),
             parameter.isDeferred(),
-            parameter.getUsedCoins()
+            parameter.getUsedCoins(), parameter.getPaidType()
         );
 
         matchingJapRepository.save(matching);

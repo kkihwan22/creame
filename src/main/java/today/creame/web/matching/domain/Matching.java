@@ -19,6 +19,7 @@ import today.creame.web.coin.domain.CoinsHistoryType;
 import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.matching.domain.converter.MatchingProgressStatusToStringConverter;
+import today.creame.web.matching.domain.converter.PaidTypeToStringConverter;
 import today.creame.web.matching.exception.DuplicateReviewException;
 import today.creame.web.matching.exception.IllegalAccessMatchingException;
 import today.creame.web.member.domain.Member;
@@ -51,6 +52,10 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "progress")
     private MatchingProgressStatus status;
 
+    @Convert(converter = PaidTypeToStringConverter.class)
+    @Column(name = "paid_type")
+    private PaidType paidType;
+
     @Column(name = "start_dt")
     private LocalDateTime startDateTime;
 
@@ -66,7 +71,7 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
     @OneToMany(mappedBy = "matching", cascade = CascadeType.PERSIST)
     private List<MatchingReview> matchingReviews = new ArrayList<>();
 
-    public Matching(Influence influence, Member member, MatchingProgressStatus status, LocalDateTime startDateTime, LocalDateTime endedDateTime, boolean deferred, Integer usedCoins) {
+    public Matching(Influence influence, Member member, MatchingProgressStatus status, LocalDateTime startDateTime, LocalDateTime endedDateTime, boolean deferred, Integer usedCoins, PaidType paidType) {
         this.influence = influence;
         this.member = member;
         this.status = status;
@@ -74,6 +79,7 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
         this.endedDateTime = endedDateTime;
         this.deferred = deferred;
         this.usedCoins = usedCoins;
+        this.paidType = paidType;
     }
 
     public void end(MatchingProgressStatus status, LocalDateTime endedDateTime, int usedCoins) {

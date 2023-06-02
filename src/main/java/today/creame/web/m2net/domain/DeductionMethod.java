@@ -6,21 +6,25 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.Getter;
+import today.creame.web.matching.domain.PaidType;
 
 public enum DeductionMethod {
 
-    PRE("Y", "선불"),
-    POST("N", "후불"),
-    ALL("P", "");
+    PRE("Y", "선불", PaidType.PRE),
+    POST("N", "후불", PaidType.POST),
+    ALL("P", "", null);
 
     @Getter
     private String code;
     @Getter
     private String label;
+    @Getter
+    private PaidType paidType;
 
-    DeductionMethod(String code, String label) {
+    DeductionMethod(String code, String label, PaidType paidType) {
         this.code = code;
         this.label = label;
+        this.paidType = paidType;
     }
 
     private static final Map<String, DeductionMethod> map =

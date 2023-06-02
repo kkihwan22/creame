@@ -6,6 +6,7 @@ import today.creame.web.influence.domain.Category;
 import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.matching.domain.Matching;
 import today.creame.web.matching.domain.MatchingProgressStatus;
+import today.creame.web.matching.domain.PaidType;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,6 +27,8 @@ public class MatchingResult {
     private int usedCoins;
     private List<Category> categories;
 
+    private PaidType paidType;
+
     public MatchingResult(Matching matching) {
         this.id = matching.getId();
         this.influenceId = matching.getInfluence().getId();
@@ -38,5 +41,6 @@ public class MatchingResult {
         this.end = matching.getEndedDateTime();
         this.usedCoins = matching.getUsedCoins();
         this.categories = matching.getInfluence().getCategories().stream().map(InfluenceCategory::getCategory).collect(Collectors.toList());
+        this.paidType = matching.getPaidType();
     }
 }

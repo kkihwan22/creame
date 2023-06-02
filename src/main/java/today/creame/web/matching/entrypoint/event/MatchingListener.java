@@ -35,7 +35,8 @@ public class MatchingListener {
             event.getStartDateTime(),
             event.getEndDateTime(),
             event.isDeferred(),
-            event.getUsedCoins()
+            event.getUsedCoins(),
+                event.getPaidType()
         );
     }
 }
