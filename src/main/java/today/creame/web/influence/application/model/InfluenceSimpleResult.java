@@ -11,13 +11,13 @@ import java.util.List;
 @ToString
 public class InfluenceSimpleResult {
     private Long id;
-    private String influenceNickname;
+    private String nickname;
     private List<String> profileImages;
     private List<String> categories;
 
     public InfluenceSimpleResult(Influence influence, List<String> profileImages, List<String> categories) {
         this.id = influence.getId();
-        this.influenceNickname = influence.getNickname();
+        this.nickname = influence.getNickname();
         this.profileImages = profileImages;
         this.categories = categories;
     }

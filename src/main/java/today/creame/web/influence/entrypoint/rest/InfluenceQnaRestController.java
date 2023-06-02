@@ -14,6 +14,7 @@ import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.model.InfluenceAnswerParameter;
 import today.creame.web.influence.application.model.InfluenceQuestionResult;
 import today.creame.web.influence.entrypoint.rest.io.QuestionContentRequest;
+import today.creame.web.influence.entrypoint.rest.io.QuestionListResponse;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
@@ -33,15 +34,19 @@ public class InfluenceQnaRestController implements BaseRestController {
     private final InfluenceQuery influenceQuery;
 
     @GetMapping("/api/v1/me/questions")
-    public void getMyQuestions() {
+    public ResponseEntity<Body<QuestionListResponse>> getMyQuestions() {
         Long questionerId = SecurityContextSupporter.getId();
         List<InfluenceQuestionResult> results = influenceQuery.getMyQuestions(questionerId);
         Map<Boolean, List<InfluenceQuestionResult>> partition = results.stream().collect(Collectors.partitioningBy(InfluenceQuestionResult::isAnswered));
+        return ResponseEntity.ok(BodyFactory.success(new QuestionListResponse(partition)));
     }
 
     @GetMapping("/api/v1/me/influence/questions")
-    public void getInfluenceQuestions() {
-
+    public ResponseEntity<Body<QuestionListResponse>> getInfluenceQuestions() {
+        Long influenceId = SecurityContextSupporter.getId();
+        List<InfluenceQuestionResult> results = influenceQuery.getInfluenceQuestions(influenceId);
+        Map<Boolean, List<InfluenceQuestionResult>> partition = results.stream().collect(Collectors.partitioningBy(InfluenceQuestionResult::isAnswered));
+        return ResponseEntity.ok(BodyFactory.success(new QuestionListResponse(partition)));
     }
 
     @GetMapping("/public/v1/influences/{id}/questions")

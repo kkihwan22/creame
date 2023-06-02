@@ -182,7 +182,14 @@ public class InfluenceQueryImpl implements InfluenceQuery {
 
     @Override
     public List<InfluenceQuestionResult> getInfluenceQuestions(Long influenceId) {
-        return null;
+        List<InfluenceQuestionResult> results = query.select(Projections.constructor(InfluenceQuestionResult.class, influenceQna))
+                .from(influenceQna)
+                .join(influenceQna.questioner, member)
+                .join(influenceQna.influence, influence)
+                .where(influenceQna.influence.id.eq(influenceId))
+                .fetch();
+        log.debug("results: {}", results);
+        return results;
     }
 
 
