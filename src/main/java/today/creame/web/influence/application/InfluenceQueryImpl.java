@@ -1,8 +1,6 @@
 package today.creame.web.influence.application;
 
-import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -12,15 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
 import today.creame.web.influence.application.model.InfluenceDetailResult;
-import today.creame.web.influence.application.model.InfluenceQnaQueryParameter;
 import today.creame.web.influence.application.model.InfluenceQuestionResult;
 import today.creame.web.influence.application.model.InfluenceResult;
 import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
-import today.creame.web.matching.applicaton.model.ReviewResult;
-import today.creame.web.member.application.model.MyQuestionsQueryParameter;
 import today.creame.web.member.domain.QMember;
-import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -106,6 +100,8 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         return new InfluenceDetailResult(influence, notice);
     }
 
+
+
     @Override
     public List<InfluenceResult> listByBookmarked(Long memberId, boolean called) {
         List<InfluenceBookmark> bookmarks = influenceBookmarkJpaRepository.findInfluenceBookmarksByMemberIdAndBookmarked(memberId, true);
@@ -135,6 +131,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         List<InfluenceQuestionResult> results = query.select(Projections.constructor(InfluenceQuestionResult.class, influenceQna))
                 .from(influenceQna)
                 .join(influenceQna.questioner, member)
+                .join(influenceQna.influence, influence)
                 .where(influenceQna.influence.id.eq(influenceId))
                 .orderBy(influenceQna.id.desc())
                 .offset(pageRequest.getOffset())
@@ -150,6 +147,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         List<InfluenceQuestionResult> results = query.select(Projections.constructor(InfluenceQuestionResult.class, influenceQna))
                 .from(influenceQna)
                 .join(influenceQna.questioner, member)
+                .join(influenceQna.influence, influence)
                 .where(influenceQna.influence.id.eq(influenceId).and(influenceQna.questioner.id.eq(questionerId)))
                 .orderBy(influenceQna.id.desc())
                 .offset(pageRequest.getOffset())
@@ -159,6 +157,33 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         return null;
     }
 
+    @Override
+    public List<InfluenceQuestionResult> getMyQuestions(Long questionerId) {
+        List<InfluenceQuestionResult> results = query.select(Projections.constructor(InfluenceQuestionResult.class, influenceQna))
+                .from(influenceQna)
+                .join(influenceQna.questioner, member)
+                .join(influenceQna.influence, influence)
+                .where(influenceQna.questioner.id.eq(questionerId))
+                .orderBy(influenceQna.id.desc())
+                .fetch();
+        log.debug("results: {}", results);
+
+        Set<Long> influenceIds = results.stream().map(result -> result.getInfluence().getId()).collect(Collectors.toSet());
+        List<InfluenceProfileImage> profileImages = influenceProfileImageJpaRepository.findByInfluence_IdIn(influenceIds);
+        List<InfluenceCategory> categories = influenceCategoryJpaRepository.findByInfluenceIdIn(influenceIds);
+
+        results.stream().forEach(it -> it.getInfluence().addProfileAndCategories(
+                profileImages.stream().map(profile -> profile.getFileResourceUri()).collect(Collectors.toList()),
+                categories.stream().map(category -> category.getCategory().name()).collect(Collectors.toList())));
+
+        log.debug("results: {}", results);
+        return results;
+    }
+
+    @Override
+    public List<InfluenceQuestionResult> getInfluenceQuestions(Long influenceId) {
+        return null;
+    }
 
 
     private List<InfluenceResult> getInfluenceResults(List<Influence> influences) {

@@ -1,7 +1,5 @@
 package today.creame.web.influence.entrypoint.rest;
 
-import java.util.List;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +20,11 @@ import today.creame.web.share.entrypoint.BodyFactory;
 import today.creame.web.share.entrypoint.SimpleBodyData;
 import today.creame.web.share.support.SecurityContextSupporter;
 
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @RestController
 public class InfluenceQnaRestController implements BaseRestController {
@@ -31,7 +34,9 @@ public class InfluenceQnaRestController implements BaseRestController {
 
     @GetMapping("/api/v1/me/questions")
     public void getMyQuestions() {
-
+        Long questionerId = SecurityContextSupporter.getId();
+        List<InfluenceQuestionResult> results = influenceQuery.getMyQuestions(questionerId);
+        Map<Boolean, List<InfluenceQuestionResult>> partition = results.stream().collect(Collectors.partitioningBy(InfluenceQuestionResult::isAnswered));
     }
 
     @GetMapping("/api/v1/me/influence/questions")
