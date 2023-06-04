@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @ToString
 public class ReviewResult {
     private Long matchingId;
+    private LocalDateTime matchingStartDateTime;
+    private LocalDateTime matchingEndDateTime;
     private Long reviewId;
     private Long memberId;
     private String nickname;
@@ -33,6 +35,8 @@ public class ReviewResult {
         Member member = matching.getMember();
 
         this.matchingId = matching.getId();
+        this.matchingStartDateTime = matching.getStartDateTime();
+        this.matchingEndDateTime = matching.getEndedDateTime();
         this.reviewId = review.getId();
         this.memberId = member.getId();
         this.nickname = member.getNickname();
