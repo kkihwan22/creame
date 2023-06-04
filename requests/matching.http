@@ -38,5 +38,5 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 ### 인플루언스 후기 목록
 
-GET {{host}}/public/v1/influences/90/reviews
+GET {{host}}/public/v1/influences/90/reviews?direction=ASC
 Content-Type: application/json

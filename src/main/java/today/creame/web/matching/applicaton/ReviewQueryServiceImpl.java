@@ -38,7 +38,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
                 .join(matchingReview.matching, matching).fetchJoin()
                 .join(matching.member, member).fetchJoin()
                 .where(matching.influence.id.eq(influenceId))
-                .orderBy(new OrderSpecifier<>(Order.DESC, matchingReview.id))
+                .orderBy(new OrderSpecifier<>(order, matchingReview.id))
                 .fetch();
         log.debug("results:{}", results);
         return results;
