@@ -1,6 +1,8 @@
 package today.creame.web.matching.applicaton;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.querydsl.core.types.Order;
 import today.creame.web.matching.applicaton.model.ReviewKindStatResult;
@@ -11,5 +13,7 @@ public interface ReviewQueryService {
 
     List<ReviewKindStatResult> getInfluenceReviewKindStat(Long influenceId);
 
-    List<ReviewResult> getReviewsOfInfluence(Long influenceId);
+    List<ReviewResult> getReviewsByInfluence(Long influenceId);
+
+    Map<Long, List<ReviewResult>> getReviewGroupByInfluences(Set<Long> idSet);
 }

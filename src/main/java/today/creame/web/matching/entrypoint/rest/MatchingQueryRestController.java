@@ -63,7 +63,7 @@ public class MatchingQueryRestController implements BaseRestController {
     public ResponseEntity<Body<ReviewReplyResponse>> getReviewsOfInfluence() {
         Long id = SecurityContextSupporter.get().getId();
         log.debug("member id : {}", id);
-        List<ReviewResult> results = reviewQueryService.getReviewsOfInfluence(id);
+        List<ReviewResult> results = reviewQueryService.getReviewsByInfluence(id);
         Map<Boolean, List<ReviewResult>> partition = results.stream().collect(Collectors.partitioningBy(it -> it.isAnswered()));
         log.debug("partition: {}", partition);
         return ResponseEntity.ok(BodyFactory.success(new ReviewReplyResponse(partition)));

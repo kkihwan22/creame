@@ -17,6 +17,9 @@ import today.creame.web.member.domain.QMember;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static today.creame.web.matching.domain.QMatching.matching;
@@ -54,7 +57,20 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
     }
 
     @Override
-    public List<ReviewResult> getReviewsOfInfluence(Long influenceId) {
+    public List<ReviewResult> getReviewsByInfluence(Long influenceId) {
         return this.getInfluenceReviews(influenceId, Order.DESC);
+    }
+
+    @Override
+    public Map<Long, List<ReviewResult>> getReviewGroupByInfluences(Set<Long> idSet) {
+        List<ReviewResult> results = query.select(Projections.constructor(ReviewResult.class, matchingReview))
+                .from(matchingReview)
+                .join(matchingReview.matching, matching).fetchJoin()
+                .join(matching.member, member).fetchJoin()
+                .where(matching.influence.id.in(idSet))
+                .orderBy(new OrderSpecifier<>(Order.DESC, matchingReview.id))
+                .fetch();
+
+        return results.stream().collect(Collectors.groupingBy(ReviewResult::getInfluenceId));
     }
 }

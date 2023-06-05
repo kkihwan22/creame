@@ -18,6 +18,7 @@ public class ReviewResult {
     private LocalDateTime matchingStartDateTime;
     private LocalDateTime matchingEndDateTime;
     private Long reviewId;
+    private Long influenceId;
     private Long memberId;
     private String nickname;
     private int rate;
@@ -38,6 +39,7 @@ public class ReviewResult {
         this.matchingStartDateTime = matching.getStartDateTime();
         this.matchingEndDateTime = matching.getEndedDateTime();
         this.reviewId = review.getId();
+        this.influenceId = matching.getInfluence().getId();
         this.memberId = member.getId();
         this.nickname = member.getNickname();
         this.rate = review.getRate();
