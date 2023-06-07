@@ -1,6 +1,8 @@
 package today.creame.web.matching.applicaton;
 
+import io.jsonwebtoken.lang.Collections;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -9,16 +11,23 @@ import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.matching.applicaton.model.MatchingParameter;
+import today.creame.web.matching.applicaton.model.MatchingStatisticsParameter;
+import today.creame.web.matching.applicaton.model.MatchingStatisticsResult;
 import today.creame.web.matching.domain.Matching;
 import today.creame.web.matching.domain.MatchingJapRepository;
-import today.creame.web.matching.domain.MatchingProgressStatus;
+import today.creame.web.matching.domain.PaidType;
 import today.creame.web.matching.exception.NotFoundMatchingException;
+import today.creame.web.matching.exception.NotFoundMatchingStatisticsException;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.exception.NotFoundMemberException;
 
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.time.temporal.ChronoUnit;
+import java.util.stream.Collectors;
 
 import static today.creame.web.matching.domain.MatchingProgressStatus.INSUFFICIENT;
 import static today.creame.web.matching.domain.MatchingProgressStatus.START;
@@ -69,6 +78,48 @@ public class MatchingServiceImpl implements MatchingService {
         Matching matching = matchings.get(matchings.size() - 1);
         matching.end(parameter.getMatchingProgressStatus(), parameter.getEndDateTime(), parameter.getUsedCoins());
         log.debug("matching: {}", matching);
+    }
+
+    @Override
+    public List<MatchingStatisticsResult> getConsultationHoursPerMonth(MatchingStatisticsParameter parameter) {
+        String startDate = parameter.getTargetDate().format(DateTimeFormatter.ofPattern("yyyyMM"));
+        LocalDate now = LocalDate.now();
+        Map<String, List<MatchingStatisticsResult>> map = new HashMap<>();
+
+        List<Object[]> objects = matchingJapRepository.getConsultationHoursPerMonth(parameter.getInfluenceId(), startDate);
+        List<MatchingStatisticsResult> matchingStatisticsResults = CollectionUtils.emptyIfNull(objects).stream().map(MatchingStatisticsResult::new).collect(Collectors.toList());
+        if(Collections.isEmpty(matchingStatisticsResults)) {
+            throw new NotFoundMatchingStatisticsException();
+        }
+
+        for(MatchingStatisticsResult target : matchingStatisticsResults) {
+            List<MatchingStatisticsResult> list = map.getOrDefault(target.getYearMonth(), new ArrayList<MatchingStatisticsResult>());
+            list.add(target);
+            map.put(target.getYearMonth(), list);
+        }
+
+        long num = parameter.getTargetDate().until(now, ChronoUnit.MONTHS);
+
+        for(long i = 0; i <= num; i++){
+            LocalDate date = parameter.getTargetDate().plusMonths(i);
+            String dateString = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
+
+            List<MatchingStatisticsResult> list = map.get(dateString);
+
+            if(list == null){
+                matchingStatisticsResults.add(new MatchingStatisticsResult(dateString, PaidType.POST, LocalTime.of(0, 0, 0), 0L));
+                matchingStatisticsResults.add(new MatchingStatisticsResult(dateString, PaidType.PRE, LocalTime.of(0, 0, 0), 0L));
+            }else {
+                if(list.size() == 1){
+                    if(list.get(0).getPaidType() == PaidType.POST){
+                        matchingStatisticsResults.add(new MatchingStatisticsResult(dateString, PaidType.PRE, LocalTime.of(0, 0, 0), 0L));
+                    }else{
+                        matchingStatisticsResults.add(new MatchingStatisticsResult(dateString, PaidType.POST, LocalTime.of(0, 0, 0), 0L));
+                    }
+                }
+            }
+        }
+        return matchingStatisticsResults.stream().sorted(Comparator.comparing(MatchingStatisticsResult::getYearMonth).reversed()).collect(Collectors.toList());
     }
 
     private Influence findInfluence(String cid) {

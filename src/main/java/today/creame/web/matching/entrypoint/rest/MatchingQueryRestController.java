@@ -4,16 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import today.creame.web.matching.applicaton.MatchingQueryService;
+import today.creame.web.matching.applicaton.MatchingService;
 import today.creame.web.matching.applicaton.ReviewQueryService;
-import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
-import today.creame.web.matching.applicaton.model.MatchingResult;
-import today.creame.web.matching.applicaton.model.MyReviewResult;
-import today.creame.web.matching.applicaton.model.ReviewResult;
+import today.creame.web.matching.applicaton.model.*;
+import today.creame.web.matching.entrypoint.rest.io.MatchingStatisticsRequest;
+import today.creame.web.matching.entrypoint.rest.io.MatchingStatisticsResponse;
 import today.creame.web.matching.entrypoint.rest.io.MyReviewsResponse;
 import today.creame.web.matching.entrypoint.rest.io.ReviewReplyResponse;
 import today.creame.web.share.entrypoint.BaseRestController;
@@ -31,6 +28,7 @@ public class MatchingQueryRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(MatchingQueryRestController.class);
     private final MatchingQueryService matchingQueryService;
     private final ReviewQueryService reviewQueryService;
+    private final MatchingService matchingService;
 
     @GetMapping("/api/v1/me/matching-history")
     public ResponseEntity<Body<List<MatchingHistoryResult>>> getMyMatchingHistory(@RequestParam(name = "since") int since) {
@@ -67,5 +65,13 @@ public class MatchingQueryRestController implements BaseRestController {
         Map<Boolean, List<ReviewResult>> partition = results.stream().collect(Collectors.partitioningBy(it -> it.isAnswered()));
         log.debug("partition: {}", partition);
         return ResponseEntity.ok(BodyFactory.success(new ReviewReplyResponse(partition)));
+    }
+
+    @GetMapping("/api/v1/me/matching-statistics")
+    public ResponseEntity<Body<List<MatchingStatisticsResponse>>> getMatchingStatistics(MatchingStatisticsRequest request) {
+        List<MatchingStatisticsResult> results = matchingService.getConsultationHoursPerMonth(request.toParameter());
+        List<MatchingStatisticsResponse> responses = results.stream().map(MatchingStatisticsResult::toResponse).collect(Collectors.toList());
+        return ResponseEntity.ok(BodyFactory.success(responses));
+
     }
 }
