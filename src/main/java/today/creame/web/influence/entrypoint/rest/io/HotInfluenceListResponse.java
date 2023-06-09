@@ -14,7 +14,7 @@ public class HotInfluenceListResponse {
     private Long influenceId;
     private String title;
     private String bannerImageUri;
-    private String nickName;
+    private String nickname;
     private String extensionNumber;
     private List<String> categories;
     private int orderNumber;
@@ -27,7 +27,7 @@ public class HotInfluenceListResponse {
         this.influenceId = hotInfluence.getInfluenceId();
         this.title = hotInfluence.getTitle();
         this.bannerImageUri = hotInfluence.getBannerImageUri();
-        this.nickName = hotInfluence.getNickname();
+        this.nickname = hotInfluence.getNickname();
         this.extensionNumber = hotInfluence.getExtensionNumber();
         this.orderNumber = hotInfluence.getOrderNumber();
         this.enabled = hotInfluence.isEnabled();

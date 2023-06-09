@@ -8,15 +8,18 @@ import com.querydsl.core.types.Order;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.model.InfluenceDetailResult;
+import today.creame.web.influence.application.model.InfluenceListResult;
 import today.creame.web.influence.application.model.InfluenceResult;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceReviewStatResponse;
+import today.creame.web.influence.entrypoint.rest.io.InfluenceSearchRequest;
 import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.ReviewQueryService;
 import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
@@ -25,6 +28,7 @@ import today.creame.web.matching.applicaton.model.ReviewResult;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
+import today.creame.web.share.entrypoint.PageBody;
 import today.creame.web.share.support.SecurityContextSupporter;
 
 @RequiredArgsConstructor
@@ -85,5 +89,20 @@ public class InfluenceQueryRestController implements BaseRestController {
     public ResponseEntity<Body<InfluenceDetailResult>> getDetail(@PathVariable Long id) {
         InfluenceDetailResult influenceDetailResult = influenceQuery.getDetail(id);
         return ResponseEntity.ok(BodyFactory.success(influenceDetailResult));
+    }
+
+    @GetMapping("/admin/v1/influence")
+    public ResponseEntity<PageBody<InfluenceListResult>> list(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable,
+            InfluenceSearchRequest searchRequest){
+
+        Page<InfluenceListResult> influencePage = Page.empty();
+        if(searchRequest.getIsHotInfluence() != null && searchRequest.getIsHotInfluence()) {
+            influencePage = influenceQuery.getHotInfluenceList(pageable);
+        } else {
+            influencePage = influenceQuery.getList(pageable);
+        }
+
+        return ResponseEntity.ok(BodyFactory.success(influencePage.getContent(), influencePage.getTotalElements()));
     }
 }

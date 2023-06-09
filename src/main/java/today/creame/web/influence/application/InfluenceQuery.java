@@ -1,9 +1,11 @@
 package today.creame.web.influence.application;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
 import today.creame.web.influence.application.model.InfluenceDetailResult;
+import today.creame.web.influence.application.model.InfluenceListResult;
 import today.creame.web.influence.application.model.InfluenceQuestionResult;
 import today.creame.web.influence.application.model.InfluenceResult;
 
@@ -33,6 +35,10 @@ public interface InfluenceQuery {
     List<InfluenceQuestionResult> getInfluenceQuestions(Long influenceId);
 
     InfluenceDetailResult getDetail(Long id);
+
+    Page<InfluenceListResult> getList(Pageable pageable);
+
+    Page<InfluenceListResult> getHotInfluenceList(Pageable pageable);
 
 
 }
