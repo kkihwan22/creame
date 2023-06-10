@@ -1,17 +1,19 @@
 package today.creame.web.influence.application;
 
+import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
-import today.creame.web.influence.application.model.InfluenceDetailResult;
-import today.creame.web.influence.application.model.InfluenceQuestionResult;
-import today.creame.web.influence.application.model.InfluenceResult;
+import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.member.domain.QMember;
@@ -20,6 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
+import static today.creame.web.influence.domain.QHotInfluence.hotInfluence;
 import static today.creame.web.influence.domain.QInfluence.influence;
 import static today.creame.web.influence.domain.QInfluenceBookmark.influenceBookmark;
 import static today.creame.web.influence.domain.QInfluenceNotice.influenceNotice;
@@ -42,6 +45,28 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     private QMember m = member;
     private QInfluence i = influence;
     private QInfluenceNotice n = influenceNotice;
+
+    private static final Map<String, Expression<?>> INFLUENCE_PROPERTY_MAP = new HashMap<>();
+    static {
+        INFLUENCE_PROPERTY_MAP.put("id", influence.id);
+        INFLUENCE_PROPERTY_MAP.put("email", influence.email);
+        INFLUENCE_PROPERTY_MAP.put("name", influence.name);
+        INFLUENCE_PROPERTY_MAP.put("nickname", influence.nickname);
+        INFLUENCE_PROPERTY_MAP.put("createdDateTime", influence.createdDateTime);
+        INFLUENCE_PROPERTY_MAP.put("updatedDateTime", influence.updatedDateTime);
+    }
+
+    public OrderSpecifier<?> getOrderSpecifier(Pageable pageable) {
+        if (!pageable.getSort().isEmpty()) {
+            Sort.Order order = pageable.getSort().iterator().next();
+            Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
+            Expression<?> property = INFLUENCE_PROPERTY_MAP.get(order.getProperty());
+            if (property != null) {
+                return new OrderSpecifier(direction, property);
+            }
+        }
+        return null;
+    }
 
     @Override
     public HomeInfluenceStatResult queryInfluenceStat() {
@@ -237,7 +262,55 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         return mapProfileImages;
     }
 
+    @Override
+    public Page<InfluenceListResult> getList(Pageable pageable) {
+        QueryResults<InfluenceListResult> result = query
+                .select(Projections.constructor(InfluenceListResult.class,
+                        influence.id,
+                        influence.nickname,
+                        influence.name,
+                        influence.email,
+                        influence.phoneNumber,
+                        influence.rank,
+                        new CaseBuilder()
+                                .when(hotInfluence.id.isNull()).then(Boolean.FALSE).otherwise(Boolean.TRUE).as("isHotInfluence"),
+                        influence.createdDateTime,
+                        influence.updatedDateTime))
+                .from(influence)
+                .leftJoin(hotInfluence)
+                .on(influence.id.eq(hotInfluence.influenceId))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(pageable))
+                .fetchResults();
 
+        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+    }
+
+    @Override
+    public Page<InfluenceListResult> getHotInfluenceList(Pageable pageable) {
+        QueryResults<InfluenceListResult> result = query
+                .select(Projections.constructor(InfluenceListResult.class,
+                        influence.id,
+                        influence.nickname,
+                        influence.name,
+                        influence.email,
+                        influence.phoneNumber,
+                        influence.rank,
+                        new CaseBuilder()
+                                .when(hotInfluence.id.isNull()).then(Boolean.FALSE).otherwise(Boolean.TRUE).as("isHotInfluence"),
+                        influence.createdDateTime,
+                        influence.updatedDateTime))
+                .from(influence)
+                .innerJoin(hotInfluence)
+                .on(influence.id.eq(hotInfluence.influenceId))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(pageable))
+                .fetchResults();
+
+        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+    }
 
     //    private BooleanBuilder buildWhere(InfluenceQnaQueryParameter parameter) {
 //        BooleanBuilder where = new BooleanBuilder();
