@@ -6,11 +6,11 @@ import java.time.LocalDate;
 
 @Getter
 public class MatchingStatisticsParameter {
-    Long influenceId;
-    LocalDate targetDate;
+    private Long influenceId;
+    private Integer since;
 
-    public MatchingStatisticsParameter(Long influenceId, LocalDate targetDate) {
+    public MatchingStatisticsParameter(Long influenceId, Integer since) {
         this.influenceId = influenceId;
-        this.targetDate = targetDate;
+        this.since = since;
     }
 }

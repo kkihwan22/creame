@@ -82,7 +82,8 @@ public class MatchingServiceImpl implements MatchingService {
 
     @Override
     public List<MatchingStatisticsResult> getConsultationHoursPerMonth(MatchingStatisticsParameter parameter) {
-        String startDate = parameter.getTargetDate().format(DateTimeFormatter.ofPattern("yyyyMM"));
+        LocalDate targetDate = LocalDate.now().minusMonths(parameter.getSince());
+        String startDate = targetDate.format(DateTimeFormatter.ofPattern("yyyyMM"));
         LocalDate now = LocalDate.now();
         Map<String, List<MatchingStatisticsResult>> map = new HashMap<>();
 
@@ -98,10 +99,10 @@ public class MatchingServiceImpl implements MatchingService {
             map.put(target.getYearMonth(), list);
         }
 
-        long num = parameter.getTargetDate().until(now, ChronoUnit.MONTHS);
+        long num = targetDate.until(now, ChronoUnit.MONTHS);
 
         for(long i = 0; i <= num; i++){
-            LocalDate date = parameter.getTargetDate().plusMonths(i);
+            LocalDate date = targetDate.plusMonths(i);
             String dateString = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
 
             List<MatchingStatisticsResult> list = map.get(dateString);

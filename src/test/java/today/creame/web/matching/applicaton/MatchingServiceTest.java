@@ -25,37 +25,42 @@ public class MatchingServiceTest {
     @Test
     public void getConsultationHoursPerMonthTest() {
 
-        MatchingStatisticsParameter parameter = new MatchingStatisticsParameter(90L, LocalDate.of(2023, 3, 1));
+        MatchingStatisticsParameter parameter = new MatchingStatisticsParameter(90L, 3);
         List<Object[]> results = new ArrayList<>();
 
-        Object[] objects = new Object[3];
+        Object[] objects = new Object[4];
         objects[0] = "202304";
         objects[1] = PaidType.POST;
         objects[2] = LocalTime.of(1, 30, 0);
+        objects[3] = 100L;
         results.add(objects);
 
-        objects = new Object[3];
+        objects = new Object[4];
         objects[0] = "202304";
         objects[1] = PaidType.PRE;
         objects[2] = LocalTime.of(1, 30, 0);
+        objects[3] = 100L;
         results.add(objects);
 
-        objects = new Object[3];
+        objects = new Object[4];
         objects[0] = "202305";
         objects[1] = PaidType.POST;
         objects[2] = LocalTime.of(0, 31, 0);
+        objects[3] = 100L;
         results.add(objects);
 
-        objects = new Object[3];
+        objects = new Object[4];
         objects[0] = "202306";
         objects[1] = PaidType.POST;
         objects[2] = LocalTime.of(1, 28, 0);
+        objects[3] = 100L;
         results.add(objects);
 
-        objects = new Object[3];
+        objects = new Object[4];
         objects[0] = "202306";
         objects[1] = PaidType.PRE;
         objects[2] = LocalTime.of(0, 28, 0);
+        objects[3] = 100L;
         results.add(objects);
 
         when(matchingJapRepository.getConsultationHoursPerMonth(any(), any())).thenReturn(results);

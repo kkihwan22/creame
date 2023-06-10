@@ -9,7 +9,6 @@ import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.MatchingService;
 import today.creame.web.matching.applicaton.ReviewQueryService;
 import today.creame.web.matching.applicaton.model.*;
-import today.creame.web.matching.entrypoint.rest.io.MatchingStatisticsRequest;
 import today.creame.web.matching.entrypoint.rest.io.MatchingStatisticsResponse;
 import today.creame.web.matching.entrypoint.rest.io.MyReviewsResponse;
 import today.creame.web.matching.entrypoint.rest.io.ReviewReplyResponse;
@@ -67,11 +66,20 @@ public class MatchingQueryRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new ReviewReplyResponse(partition)));
     }
 
-    @GetMapping("/api/v1/me/matching-statistics")
-    public ResponseEntity<Body<List<MatchingStatisticsResponse>>> getMatchingStatistics(MatchingStatisticsRequest request) {
-        List<MatchingStatisticsResult> results = matchingService.getConsultationHoursPerMonth(request.toParameter());
+    @GetMapping("/api/v1/me/influence/matching-statistics")
+    public ResponseEntity<Body<List<MatchingStatisticsResponse>>> getMatchingStatistics(@RequestParam Integer since) {
+        Long id = SecurityContextSupporter.getId();
+        List<MatchingStatisticsResult> results = matchingService.getConsultationHoursPerMonth(new MatchingStatisticsParameter(id, since));
         List<MatchingStatisticsResponse> responses = results.stream().map(MatchingStatisticsResult::toResponse).collect(Collectors.toList());
         return ResponseEntity.ok(BodyFactory.success(responses));
 
+    }
+
+    @GetMapping("/api/v1/me/influence/matching-current-statistics")
+    public ResponseEntity<Body<List<MatchingStatisticsResponse>>> getMatchingStatisticsByCurrentMonthly() {
+        Long id = SecurityContextSupporter.getId();
+        List<MatchingStatisticsResult> results = matchingService.getConsultationHoursPerMonth(new MatchingStatisticsParameter(id, 0));
+        List<MatchingStatisticsResponse> responses = results.stream().map(MatchingStatisticsResult::toResponse).collect(Collectors.toList());
+        return ResponseEntity.ok(BodyFactory.success(responses));
     }
 }
