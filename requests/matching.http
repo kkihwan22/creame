@@ -40,3 +40,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 GET {{host}}/public/v1/influences/90/reviews?direction=ASC
 Content-Type: application/json
+
+### 월별 내역
+
+GET {{host}}/api/v1/me/matching-statistics?influenceId=90&targetDate=2023-01-06
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjg2NjUzNzc1LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.D3O06oP2bJesjNQ982JqvXY0H9oUqO0Cw82__tPZ4Rk
