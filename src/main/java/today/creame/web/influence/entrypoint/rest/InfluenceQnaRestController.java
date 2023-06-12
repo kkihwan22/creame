@@ -5,8 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import today.creame.web.influence.application.InfluenceQnaService;
@@ -51,7 +49,9 @@ public class InfluenceQnaRestController implements BaseRestController {
 
     @GetMapping("/public/v1/influences/{id}/questions")
     public ResponseEntity<Body<List<InfluenceQuestionResult>>> getQuestionsByInfluence(
-        @PathVariable Long id, @RequestParam(required = false) int page, @RequestParam(required = false) int size) {
+        @PathVariable Long id,
+        @RequestParam(required = false, defaultValue = "0") Integer page,
+        @RequestParam(required = false, defaultValue = "20") Integer size) {
         List<InfluenceQuestionResult> results = influenceQuery.getQuestionsByInfluence(id, PageRequest.of(page, size));
         log.debug("results: {}", results);
         return ResponseEntity.ok(BodyFactory.success(results));
@@ -59,7 +59,9 @@ public class InfluenceQnaRestController implements BaseRestController {
 
     @GetMapping("/api/v1/influences/{id}/questions/me")
     public ResponseEntity<Body<List<InfluenceQuestionResult>>> getInfluenceQuestionsByMe(
-        @PathVariable Long id, @RequestParam(required = false) int page, @RequestParam(required = false) int size) {
+        @PathVariable Long id,
+        @RequestParam(required = false, defaultValue = "0") Integer page,
+        @RequestParam(required = false, defaultValue = "20") Integer size) {
         Long questionerId = SecurityContextSupporter.getId();
         List<InfluenceQuestionResult> results = influenceQuery.getInfluenceQuestionsByMe(id, questionerId, PageRequest.of(page, size));
         log.debug("results: {]", results);
@@ -69,7 +71,6 @@ public class InfluenceQnaRestController implements BaseRestController {
     @PostMapping("/api/v1/influences/{id}/questions")
     public ResponseEntity<Body<SimpleBodyData<String>>> createQuestion(
             @PathVariable Long id,
-            @AuthenticationPrincipal UserDetails userDetails,
             @RequestBody @Valid QuestionContentRequest request, BindingResult bindingResult) {
         log.debug("request: {}", request);
         this.hasError(bindingResult);
