@@ -18,6 +18,12 @@ public class SecurityContextSupporter {
             // todo: exception ?!?
             return null;
         }
+
+        if (!(authentication.getPrincipal() instanceof CustomUserDetails)) {
+            log.debug("AnonymousUser");
+            return null;
+        }
+
         CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
         log.debug("principal: {}", principal);
         return principal;
