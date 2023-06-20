@@ -5,7 +5,9 @@ import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.core.types.dsl.SimpleExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -263,7 +265,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     }
 
     @Override
-    public Page<InfluenceListResult> getList(Pageable pageable) {
+    public Page<InfluenceListResult> getList(Pageable pageable, Boolean onlyHotInfluence) {
         QueryResults<InfluenceListResult> result = query
                 .select(Projections.constructor(InfluenceListResult.class,
                         influence.id,
@@ -279,6 +281,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .from(influence)
                 .leftJoin(hotInfluence)
                 .on(influence.id.eq(hotInfluence.influenceId))
+                .where(isHotInfluence(hotInfluence, onlyHotInfluence))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(getOrderSpecifier(pageable))
@@ -287,29 +290,10 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
 
-    @Override
-    public Page<InfluenceListResult> getHotInfluenceList(Pageable pageable) {
-        QueryResults<InfluenceListResult> result = query
-                .select(Projections.constructor(InfluenceListResult.class,
-                        influence.id,
-                        influence.nickname,
-                        influence.name,
-                        influence.email,
-                        influence.phoneNumber,
-                        influence.rank,
-                        new CaseBuilder()
-                                .when(hotInfluence.id.isNull()).then(Boolean.FALSE).otherwise(Boolean.TRUE).as("isHotInfluence"),
-                        influence.createdDateTime,
-                        influence.updatedDateTime))
-                .from(influence)
-                .innerJoin(hotInfluence)
-                .on(influence.id.eq(hotInfluence.influenceId))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .orderBy(getOrderSpecifier(pageable))
-                .fetchResults();
+    public BooleanExpression isHotInfluence(SimpleExpression column, Boolean onlyHotInfluence) {
+        if (Objects.isNull(onlyHotInfluence) || !onlyHotInfluence) return null;
 
-        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+        return column.isNotNull();
     }
 
     //    private BooleanBuilder buildWhere(InfluenceQnaQueryParameter parameter) {

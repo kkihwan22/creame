@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public class InfluenceSearchRequest {
-    Boolean isHotInfluence;
+    Boolean onlyHotInfluence;
 
-    public InfluenceSearchRequest(Boolean isHotInfluence) {
-        this.isHotInfluence = isHotInfluence;
+    public InfluenceSearchRequest(Boolean onlyHotInfluence) {
+        this.onlyHotInfluence = onlyHotInfluence;
     }
 }

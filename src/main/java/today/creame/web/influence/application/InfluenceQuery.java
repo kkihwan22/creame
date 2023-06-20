@@ -36,9 +36,6 @@ public interface InfluenceQuery {
 
     InfluenceDetailResult getDetail(Long id);
 
-    Page<InfluenceListResult> getList(Pageable pageable);
-
-    Page<InfluenceListResult> getHotInfluenceList(Pageable pageable);
-
+    Page<InfluenceListResult> getList(Pageable pageable, Boolean onlyHotInfluence);
 
 }

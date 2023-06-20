@@ -96,12 +96,7 @@ public class InfluenceQueryRestController implements BaseRestController {
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable,
             InfluenceSearchRequest searchRequest){
 
-        Page<InfluenceListResult> influencePage = Page.empty();
-        if(searchRequest.getIsHotInfluence() != null && searchRequest.getIsHotInfluence()) {
-            influencePage = influenceQuery.getHotInfluenceList(pageable);
-        } else {
-            influencePage = influenceQuery.getList(pageable);
-        }
+        Page<InfluenceListResult> influencePage = influenceQuery.getList(pageable, searchRequest.getOnlyHotInfluence());
 
         return ResponseEntity.ok(BodyFactory.success(influencePage.getContent(), influencePage.getTotalElements()));
     }
