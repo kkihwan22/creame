@@ -20,9 +20,10 @@ public class MatchingJpaRepositoryTest {
     @Test
     public void getConsultationHoursPerMonthTest() {
         Long influenceId = 90L;
-        String targetDate = "202301";
+        String toDate = "202301";
+        String fromDate = "202306";
 
-        List<Object[]> objects = matchingJapRepository.getConsultationHoursPerMonth(influenceId, targetDate);
+        List<Object[]> objects = matchingJapRepository.getConsultationHoursPerMonth(influenceId, toDate, fromDate);
         List<MatchingStatisticsResult> matchingStatisticsResults = objects.stream().map(MatchingStatisticsResult::new).collect(Collectors.toList());
         Assertions.assertThat(objects).isNotNull();
         Assertions.assertThat(objects.size()).isEqualTo(10);
