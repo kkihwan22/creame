@@ -1,6 +1,7 @@
 package today.creame.web.matching.entrypoint.rest;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.MatchingService;
 import today.creame.web.matching.applicaton.ReviewQueryService;
 import today.creame.web.matching.applicaton.model.*;
+import today.creame.web.matching.entrypoint.rest.io.MatchingStatisticsDetailResponse;
 import today.creame.web.matching.entrypoint.rest.io.MatchingStatisticsResponse;
 import today.creame.web.matching.entrypoint.rest.io.MyReviewsResponse;
 import today.creame.web.matching.entrypoint.rest.io.ReviewReplyResponse;
@@ -17,9 +19,11 @@ import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
 import today.creame.web.share.support.SecurityContextSupporter;
 
-import java.util.List;
-import java.util.Map;
+import java.time.LocalTime;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static today.creame.web.matching.domain.PaidType.PRE;
 
 @RequiredArgsConstructor
 @RestController
@@ -67,19 +71,67 @@ public class MatchingQueryRestController implements BaseRestController {
     }
 
     @GetMapping("/api/v1/me/influence/matching-statistics")
-    public ResponseEntity<Body<List<MatchingStatisticsResponse>>> getMatchingStatistics(@RequestParam Integer since) {
+    public ResponseEntity<Body<List<MatchingStatisticsResponse>>> getMatchingStatistics(@RequestParam String toDate, @RequestParam String fromDate) {
         Long id = SecurityContextSupporter.getId();
-        List<MatchingStatisticsResult> results = matchingService.getConsultationHoursPerMonth(new MatchingStatisticsParameter(id, since));
-        List<MatchingStatisticsResponse> responses = results.stream().map(MatchingStatisticsResult::toResponse).collect(Collectors.toList());
-        return ResponseEntity.ok(BodyFactory.success(responses));
+        List<MatchingStatisticsResult> results = matchingService.getConsultationHoursPerMonth(new MatchingStatisticsParameter(id, toDate, fromDate));
 
+        Map<String, List<MatchingStatisticsResult>> map = results.stream().collect(Collectors.groupingBy(MatchingStatisticsResult::getYearMonth));
+        Set<String> keys = map.keySet();
+        List<MatchingStatisticsResponse> responses = new ArrayList<>();
+
+        for(String key: keys) {
+            List<MatchingStatisticsResult> list = map.get(key);
+            LocalTime preTime = null, postTime = null;
+            Long totalCoin = 0L;
+
+            for(MatchingStatisticsResult target: list) {
+                if(PRE.equals(target.getPaidType())) {
+                    preTime = target.getTotalTime();
+                } else {
+                    postTime = target.getTotalTime();
+                }
+                totalCoin += target.getTotalCoin();
+            }
+            MatchingStatisticsResponse.MatchingStatisticsDetail detail = new MatchingStatisticsResponse.MatchingStatisticsDetail(totalCoin, postTime, preTime);
+            responses.add(new MatchingStatisticsResponse(key, detail));
+        }
+
+        return ResponseEntity.ok(BodyFactory.success(responses.stream().sorted(Comparator.comparing(MatchingStatisticsResponse::getYearMonth).reversed()).collect(Collectors.toList())));
     }
 
     @GetMapping("/api/v1/me/influence/matching-current-statistics")
-    public ResponseEntity<Body<List<MatchingStatisticsResponse>>> getMatchingStatisticsByCurrentMonthly() {
+    public ResponseEntity<Body<MatchingStatisticsDetailResponse>> getMatchingStatisticsByCurrentMonthly(String targetDate) {
+        if(Objects.isNull(targetDate)) {
+            return ResponseEntity.ok(BodyFactory.success(null));
+        }
         Long id = SecurityContextSupporter.getId();
-        List<MatchingStatisticsResult> results = matchingService.getConsultationHoursPerMonth(new MatchingStatisticsParameter(id, 0));
-        List<MatchingStatisticsResponse> responses = results.stream().map(MatchingStatisticsResult::toResponse).collect(Collectors.toList());
-        return ResponseEntity.ok(BodyFactory.success(responses));
+        List<MatchingStatisticsResult> results = matchingService.getConsultationHoursPerMonth(new MatchingStatisticsParameter(id, targetDate, targetDate));
+
+        Map<String, List<MatchingStatisticsResult>> map = results.stream().collect(Collectors.groupingBy(MatchingStatisticsResult::getYearMonth));
+        Set<String> keys = map.keySet();
+        MatchingStatisticsDetailResponse response = null;
+        for(String key: keys) {
+            List<MatchingStatisticsResult> list = map.get(key);
+            LocalTime preTime = LocalTime.MIN, postTime = LocalTime.MIN, totalTime = LocalTime.MIN;
+            Long preCoin = 0L, postCoin = 0L, totalCoin = 0L;
+            int totalSeconds = 0;
+
+            for(MatchingStatisticsResult target: list) {
+                if(PRE.equals(target.getPaidType())) {
+                    preTime = target.getTotalTime();
+                    preCoin = target.getTotalCoin();
+                } else {
+                    postTime = target.getTotalTime();
+                    postCoin = target.getTotalCoin();
+                }
+                totalCoin += target.getTotalCoin();
+                totalSeconds += target.getTotalTime().toSecondOfDay();
+            }
+
+            totalTime = LocalTime.ofSecondOfDay(totalSeconds);
+            response = new MatchingStatisticsDetailResponse(key, postTime, postCoin, preTime, preCoin, totalTime, totalCoin);
+        }
+
+        return ResponseEntity.ok(BodyFactory.success(response));
     }
 }

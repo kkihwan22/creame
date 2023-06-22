@@ -25,7 +25,7 @@ public class MatchingServiceTest {
     @Test
     public void getConsultationHoursPerMonthTest() {
 
-        MatchingStatisticsParameter parameter = new MatchingStatisticsParameter(90L, 3);
+        MatchingStatisticsParameter parameter = new MatchingStatisticsParameter(90L, "202304", "202306");
         List<Object[]> results = new ArrayList<>();
 
         Object[] objects = new Object[4];
@@ -63,10 +63,10 @@ public class MatchingServiceTest {
         objects[3] = 100L;
         results.add(objects);
 
-        when(matchingJapRepository.getConsultationHoursPerMonth(any(), any())).thenReturn(results);
+        when(matchingJapRepository.getConsultationHoursPerMonth(any(), any(), any())).thenReturn(results);
 
         List<MatchingStatisticsResult> matchingStatisticsResults = matchingService.getConsultationHoursPerMonth(parameter);
 
-        Assertions.assertThat(matchingStatisticsResults.size()).isEqualTo(8);
+        Assertions.assertThat(matchingStatisticsResults.size()).isEqualTo(6);
     }
 }
