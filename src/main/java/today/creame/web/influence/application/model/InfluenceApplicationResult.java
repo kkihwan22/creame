@@ -1,5 +1,6 @@
 package today.creame.web.influence.application.model;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +20,8 @@ public class InfluenceApplicationResult {
     private List<String> categories;
     private List<Long> profileImages;
     private String status;
+    private LocalDateTime createdDt;
+    private LocalDateTime updatedDt;
 
     public InfluenceApplicationResult(InfluenceApplication result) {
 
@@ -32,5 +35,8 @@ public class InfluenceApplicationResult {
         this.categories = Arrays.stream(result.getCategories().split(",")).collect(Collectors.toList());
         this.profileImages = Arrays.stream(result.getProfileImages().split(",")).map(Long::valueOf).collect(Collectors.toList());
         this.status = result.getStatus().name();
+        this.createdDt = result.getCreatedDateTime();
+        this.updatedDt = result.getUpdatedDateTime();
+
     }
 }
