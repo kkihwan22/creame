@@ -91,8 +91,17 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 }
 
 ### Qna 조회
-GET {{host}}/public/v1/influences/{{influence_id}}/qna
+GET {{host}}/public/v1/influences/90/questions
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyXkOuLqCIsImlkIjo5NCwiZXhwIjoxNjg4MTkzMDEzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4ubWFjaG83QGdtYWlsLmNvbSJ9.shFS_bnE-ZeP77xQHthvZeHhg9uorFreLsPKJVw8tBY
+
+{
+}
+
+### Qna 조회
+GET {{host}}/api/v1/influences/90/questions/me
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyXkOuLqCIsImlkIjo5NCwiZXhwIjoxNjg4MTkzMDEzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4ubWFjaG83QGdtYWlsLmNvbSJ9.shFS_bnE-ZeP77xQHthvZeHhg9uorFreLsPKJVw8tBY
 
 {
 }

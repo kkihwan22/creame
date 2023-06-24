@@ -43,15 +43,26 @@ Content-Type: application/json
 
 ### 월별 내역
 
-GET {{host}}/api/v1/me/influence/matching-statistics?toDate=202301&fromDate=202304
+GET {{host}}/api/v1/matchings/stat?from=202304&to=202306
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjg3ODcxMzc1LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.9bDGjZsN6IYqJDmZ-lZoW2Rz4f1buI0CZFidFW6E89I
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyXkOuLqCIsImlkIjo5NCwiZXhwIjoxNjg4MTkzMDEzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4ubWFjaG83QGdtYWlsLmNvbSJ9.shFS_bnE-ZeP77xQHthvZeHhg9uorFreLsPKJVw8tBY
 
 ### 월별 상세 내역
 
-GET {{host}}/api/v1/me/influence/matching-current-statistics?targetDate=202304
+GET {{host}}/api/v1/matchings/stat/selected?date=202305
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjg3ODcxMzc1LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.9bDGjZsN6IYqJDmZ-lZoW2Rz4f1buI0CZFidFW6E89I
+
+### 인플루언스 문의 목록
+
+GET {{host}}/public/v1/influences/90/questions?page=0&size=20
+Content-Type: application/json
+
+### 월별 내역
+
+GET {{host}}/api/v1/me/matching-statistics?influenceId=90&targetDate=2023-01-06
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjg2NjUzNzc1LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.D3O06oP2bJesjNQ982JqvXY0H9oUqO0Cw82__tPZ4Rk
 
 ### 인플루언스 문의 목록
 

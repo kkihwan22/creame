@@ -86,7 +86,7 @@ public class MatchingServiceImpl implements MatchingService {
         LocalDate fromDate = LocalDate.parse(parameter.getFromDate() + "01", DateTimeFormatter.ofPattern("yyyyMMdd"));
         Map<String, List<MatchingStatisticsResult>> map = new HashMap<>();
 
-        List<Object[]> objects = matchingJapRepository.getConsultationHoursPerMonth(parameter.getInfluenceId(), parameter.getToDate(), parameter.getFromDate());
+        List<Object[]> objects = matchingJapRepository.getConsultationHoursPerMonth(parameter.getInfluenceId(), parameter.getFromDate(), parameter.getToDate());
         List<MatchingStatisticsResult> matchingStatisticsResults = CollectionUtils.emptyIfNull(objects).stream().map(MatchingStatisticsResult::new).collect(Collectors.toList());
         if(Collections.isEmpty(matchingStatisticsResults)) {
             throw new NotFoundMatchingStatisticsException();
