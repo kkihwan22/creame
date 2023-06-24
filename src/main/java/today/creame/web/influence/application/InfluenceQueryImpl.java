@@ -179,7 +179,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .limit(pageRequest.getPageSize())
                 .fetch();
         log.debug("results: {}", results);
-        return null;
+        return results;
     }
 
     @Override

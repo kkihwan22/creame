@@ -64,7 +64,7 @@ public class InfluenceQnaRestController implements BaseRestController {
         @RequestParam(required = false, defaultValue = "20") Integer size) {
         Long questionerId = SecurityContextSupporter.getId();
         List<InfluenceQuestionResult> results = influenceQuery.getInfluenceQuestionsByMe(id, questionerId, PageRequest.of(page, size));
-        log.debug("results: {]", results);
+        log.debug("results: {}", results);
         return ResponseEntity.ok(BodyFactory.success(results));
     }
 
