@@ -26,8 +26,4 @@ public class MatchingStatisticsResult {
         this.totalTime = LocalTime.parse(objects[2].toString());
         this.totalCoin = Long.valueOf(objects[3].toString());
     }
-
-    public MatchingStatisticsResponse toResponse() {
-        return new MatchingStatisticsResponse(this.yearMonth, this.paidType, this.totalTime, this.totalCoin);
-    }
 }

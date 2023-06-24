@@ -22,8 +22,9 @@ public interface MatchingJapRepository extends JpaRepository<Matching, Long> {
             "from matching m " +
             "where m.influence_id = :influenceId " +
             "  and m.progress = 'END' " +
-            "  and DATE_FORMAT(m.start_dt, '%Y%m') >= :targetDate " +
+            "  and DATE_FORMAT(m.start_dt, '%Y%m') >= :toDate " +
+            "  and DATE_FORMAT(m.start_dt, '%Y%m') <= :fromDate " +
             "group by DATE_FORMAT(m.start_dt, '%Y%m'), m.paid_type " +
             "order by DATE_FORMAT(m.start_dt, '%Y%m') desc", nativeQuery = true)
-    List<Object[]> getConsultationHoursPerMonth(Long influenceId, String targetDate);
+    List<Object[]> getConsultationHoursPerMonth(Long influenceId, String toDate, String fromDate);
 }

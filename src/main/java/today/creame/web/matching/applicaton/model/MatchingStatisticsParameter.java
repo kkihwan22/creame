@@ -7,10 +7,12 @@ import java.time.LocalDate;
 @Getter
 public class MatchingStatisticsParameter {
     private Long influenceId;
-    private Integer since;
+    private String toDate;
+    private String fromDate;
 
-    public MatchingStatisticsParameter(Long influenceId, Integer since) {
+    public MatchingStatisticsParameter(Long influenceId, String toDate, String fromDate) {
         this.influenceId = influenceId;
-        this.since = since;
+        this.toDate = toDate;
+        this.fromDate = fromDate;
     }
 }

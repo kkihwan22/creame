@@ -82,12 +82,11 @@ public class MatchingServiceImpl implements MatchingService {
 
     @Override
     public List<MatchingStatisticsResult> getConsultationHoursPerMonth(MatchingStatisticsParameter parameter) {
-        LocalDate targetDate = LocalDate.now().minusMonths(parameter.getSince());
-        String startDate = targetDate.format(DateTimeFormatter.ofPattern("yyyyMM"));
-        LocalDate now = LocalDate.now();
+        LocalDate toDate = LocalDate.parse(parameter.getToDate() + "01", DateTimeFormatter.ofPattern("yyyyMMdd"));
+        LocalDate fromDate = LocalDate.parse(parameter.getFromDate() + "01", DateTimeFormatter.ofPattern("yyyyMMdd"));
         Map<String, List<MatchingStatisticsResult>> map = new HashMap<>();
 
-        List<Object[]> objects = matchingJapRepository.getConsultationHoursPerMonth(parameter.getInfluenceId(), startDate);
+        List<Object[]> objects = matchingJapRepository.getConsultationHoursPerMonth(parameter.getInfluenceId(), parameter.getToDate(), parameter.getFromDate());
         List<MatchingStatisticsResult> matchingStatisticsResults = CollectionUtils.emptyIfNull(objects).stream().map(MatchingStatisticsResult::new).collect(Collectors.toList());
         if(Collections.isEmpty(matchingStatisticsResults)) {
             throw new NotFoundMatchingStatisticsException();
@@ -99,10 +98,10 @@ public class MatchingServiceImpl implements MatchingService {
             map.put(target.getYearMonth(), list);
         }
 
-        long num = targetDate.until(now, ChronoUnit.MONTHS);
+        long num = toDate.until(fromDate, ChronoUnit.MONTHS);
 
         for(long i = 0; i <= num; i++){
-            LocalDate date = targetDate.plusMonths(i);
+            LocalDate date = toDate.plusMonths(i);
             String dateString = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
 
             List<MatchingStatisticsResult> list = map.get(dateString);
@@ -120,7 +119,7 @@ public class MatchingServiceImpl implements MatchingService {
                 }
             }
         }
-        return matchingStatisticsResults.stream().sorted(Comparator.comparing(MatchingStatisticsResult::getYearMonth).reversed()).collect(Collectors.toList());
+        return matchingStatisticsResults;
     }
 
     private Influence findInfluence(String cid) {

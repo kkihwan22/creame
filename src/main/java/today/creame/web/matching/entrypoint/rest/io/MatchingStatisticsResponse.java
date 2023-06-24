@@ -1,23 +1,33 @@
 package today.creame.web.matching.entrypoint.rest.io;
 
 import lombok.Getter;
-import today.creame.web.matching.domain.PaidType;
-
+import lombok.NoArgsConstructor;
 import java.time.LocalTime;
 
 
 @Getter
+@NoArgsConstructor
 public class MatchingStatisticsResponse {
     private String yearMonth;
-    private PaidType paidType;
-    private LocalTime totalTime;
-    private Long totalCoin;
+    private MatchingStatisticsDetail detail;
 
 
-    public MatchingStatisticsResponse(String yearMonth, PaidType paidType, LocalTime totalTime, Long totalCoin) {
+    public MatchingStatisticsResponse(String yearMonth, MatchingStatisticsDetail detail) {
         this.yearMonth = yearMonth;
-        this.paidType = paidType;
-        this.totalTime = totalTime;
-        this.totalCoin = totalCoin;
+        this.detail = detail;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    public static class MatchingStatisticsDetail {
+        private Long totalCoin;
+        private LocalTime postTime;
+        private LocalTime preTime;
+
+        public MatchingStatisticsDetail(Long totalCoin, LocalTime postTime, LocalTime preTime) {
+            this.totalCoin = totalCoin;
+            this.postTime = postTime;
+            this.preTime = preTime;
+        }
     }
 }
