@@ -10,10 +10,12 @@ import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.SimpleExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
+import today.creame.web.common.support.Utils;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
 import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.*;
@@ -27,6 +29,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static today.creame.web.influence.domain.QHotInfluence.hotInfluence;
 import static today.creame.web.influence.domain.QInfluence.influence;
 import static today.creame.web.influence.domain.QInfluenceBookmark.influenceBookmark;
+import static today.creame.web.influence.domain.QInfluenceCategory.influenceCategory;
 import static today.creame.web.influence.domain.QInfluenceNotice.influenceNotice;
 import static today.creame.web.influence.domain.QInfluenceQna.influenceQna;
 import static today.creame.web.member.domain.QMember.member;
@@ -88,8 +91,13 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     @Override
     public List<InfluenceResult> listByCategory(String category, Pageable pageable) {
         List<InfluenceCategory> results = influenceCategoryJpaRepository.findByCategoryIs(Category.valueOf(category), pageable);
+
+        if(CollectionUtils.isEmpty(results)) {
+            return Collections.EMPTY_LIST;
+        }
+
         Set<Long> idSet = results.stream()
-            .map(result -> result.getId())
+            .map(result -> result.getInfluence().getId())
             .collect(Collectors.toSet());
 
         List<Influence> influences = influenceJpaRepository.findByIdIn(idSet);
@@ -288,6 +296,22 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .fetchResults();
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+    }
+
+    @Override
+    public List<InfluenceResult> listByKeyword(Category category, String nickname, Pageable pageable) {
+        QueryResults<Influence> result = query
+                .selectFrom(influence)
+                .distinct()
+                .leftJoin(influenceCategory)
+                .on(influence.id.eq(influenceCategory.influence.id))
+                .where(influence.nickname.contains(nickname)
+                        .or(Utils.equalsOperation(influenceCategory.category, category)))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(pageable))
+                .fetchResults();
+        return getInfluenceResults(result.getResults());
     }
 
     public BooleanExpression isHotInfluence(SimpleExpression column, Boolean onlyHotInfluence) {

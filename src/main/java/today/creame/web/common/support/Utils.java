@@ -22,4 +22,10 @@ public class Utils {
 
         return file.getContextName() + file.getBucketName() + file.getObjectKey();
     }
+
+    public static BooleanExpression equalsOperation(SimpleExpression column, Object value) {
+        if (Objects.isNull(value)) return null;
+
+        return column.eq(value);
+    }
 }
