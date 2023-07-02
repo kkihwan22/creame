@@ -26,9 +26,15 @@ public class InfluenceQuestionResult {
         this.nickname = qna.getQuestioner().getNickname();
         this.influence = new InfluenceSimpleResult(qna.getInfluence());
         this.answered = qna.isAnswered();
-        this.me = questionerId.equals(SecurityContextSupporter.orElseGetEmpty());
-        this.question = Content.secretContent(qna.getQuestions(), me);
-        this.answer = Content.secretContent(qna.getAnswers(), me);
+        this.question = qna.getQuestions();
+        this.answer = qna.getQuestions();
         this.createdDateTime = qna.getCreatedDateTime();
+        this.me = questionerId.equals(SecurityContextSupporter.orElseGetEmpty());
+    }
+
+    public void processContentSecurity() {
+
+        this.question = Content.secretContent(question, me);
+        this.answer = Content.secretContent(answer, me);
     }
 }

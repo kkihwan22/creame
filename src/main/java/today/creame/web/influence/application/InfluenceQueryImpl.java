@@ -19,6 +19,7 @@ import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.member.domain.QMember;
+import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -164,6 +165,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .offset(pageRequest.getOffset())
                 .limit(pageRequest.getPageSize())
                 .fetch();
+        results.stream().forEach(it -> it.processContentSecurity());
         log.debug("results: {}", results);
         return results;
     }
