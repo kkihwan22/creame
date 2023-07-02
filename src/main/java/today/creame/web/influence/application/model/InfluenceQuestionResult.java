@@ -27,7 +27,7 @@ public class InfluenceQuestionResult {
         this.influence = new InfluenceSimpleResult(qna.getInfluence());
         this.answered = qna.isAnswered();
         this.question = qna.getQuestions();
-        this.answer = qna.getQuestions();
+        this.answer = qna.getAnswers();
         this.createdDateTime = qna.getCreatedDateTime();
         this.me = questionerId.equals(SecurityContextSupporter.orElseGetEmpty());
     }
