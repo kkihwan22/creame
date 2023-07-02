@@ -2,8 +2,11 @@ package today.creame.web.influence.application.model;
 
 import lombok.Getter;
 import lombok.ToString;
-import today.creame.web.influence.domain.*;
+import today.creame.web.influence.domain.Content;
+import today.creame.web.influence.domain.InfluenceQna;
 import today.creame.web.share.support.SecurityContextSupporter;
+
+import java.time.LocalDateTime;
 
 @Getter @ToString
 public class InfluenceQuestionResult {
@@ -15,6 +18,7 @@ public class InfluenceQuestionResult {
     private boolean me;
     private Content question;
     private Content answer;
+    private LocalDateTime createdDateTime;
 
     public InfluenceQuestionResult(InfluenceQna qna) {
         this.id = qna.getId();
@@ -25,5 +29,6 @@ public class InfluenceQuestionResult {
         this.me = questionerId.equals(SecurityContextSupporter.orElseGetEmpty());
         this.question = Content.secretContent(qna.getQuestions(), me);
         this.answer = Content.secretContent(qna.getAnswers(), me);
+        this.createdDateTime = qna.getCreatedDateTime();
     }
 }
