@@ -9,11 +9,11 @@ import java.time.LocalTime;
 public class MatchingStatisticsResult {
     private String yearMonth;
     private PaidType paidType;
-    private LocalTime totalTime;
+    private Integer totalTime;
     private Long totalCoin;
 
 
-    public MatchingStatisticsResult(String yearMonth, PaidType paidType, LocalTime totalTime, Long totalCoin) {
+    public MatchingStatisticsResult(String yearMonth, PaidType paidType, Integer totalTime, Long totalCoin) {
         this.yearMonth = yearMonth;
         this.paidType = paidType;
         this.totalTime = totalTime;
@@ -23,7 +23,7 @@ public class MatchingStatisticsResult {
     public MatchingStatisticsResult(Object[] objects) {
         this.yearMonth = objects[0].toString();
         this.paidType = PaidType.valueOf(objects[1].toString());
-        this.totalTime = LocalTime.parse(objects[2].toString());
+        this.totalTime = Integer.parseInt(objects[2].toString());
         this.totalCoin = Long.valueOf(objects[3].toString());
     }
 }

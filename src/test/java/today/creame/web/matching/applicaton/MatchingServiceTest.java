@@ -1,5 +1,6 @@
 package today.creame.web.matching.applicaton;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import today.creame.web.matching.applicaton.model.MatchingStatisticsParameter;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 public class MatchingServiceTest {
     private MatchingJapRepository matchingJapRepository = mock(MatchingJapRepository.class);
-    private MatchingServiceImpl matchingService = new MatchingServiceImpl(null, null, matchingJapRepository);
+    private MatchingQueryServiceImpl matchingService = new MatchingQueryServiceImpl(null, matchingJapRepository, null);
 
     @Test
     public void getConsultationHoursPerMonthTest() {

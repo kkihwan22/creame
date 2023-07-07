@@ -1,9 +1,8 @@
 package today.creame.web.matching.applicaton;
 
 import java.util.List;
-import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
-import today.creame.web.matching.applicaton.model.MatchingResult;
-import today.creame.web.matching.applicaton.model.MyReviewResult;
+
+import today.creame.web.matching.applicaton.model.*;
 
 public interface MatchingQueryService {
 
@@ -14,4 +13,6 @@ public interface MatchingQueryService {
     MatchingResult getMatching(Long matchingId);
 
     List<MyReviewResult> listMyReview(Long memberId);
+
+    List<MatchingStatisticsResult> getConsultationHoursPerMonth(MatchingStatisticsParameter parameter);
 }

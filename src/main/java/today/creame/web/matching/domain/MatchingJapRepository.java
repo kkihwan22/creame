@@ -17,7 +17,7 @@ public interface MatchingJapRepository extends JpaRepository<Matching, Long> {
     @Query(value = "select " +
             "DATE_FORMAT(m.start_dt, '%Y%m') AS yearMonth," +
             "m.paid_type AS paidType," +
-            "SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(m.end_dt, m.start_dt)))) AS totalTime," +
+            "SUM(TIME_TO_SEC(TIMEDIFF(m.end_dt, m.start_dt))) AS totalTime," +
             "SUM(used_coins) as totalCoin " +
             "from matching m " +
             "where m.influence_id = :influenceId " +

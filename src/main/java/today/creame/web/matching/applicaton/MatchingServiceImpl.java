@@ -80,47 +80,7 @@ public class MatchingServiceImpl implements MatchingService {
         log.debug("matching: {}", matching);
     }
 
-    @Override
-    public List<MatchingStatisticsResult> getConsultationHoursPerMonth(MatchingStatisticsParameter parameter) {
-        LocalDate toDate = LocalDate.parse(parameter.getToDate() + "01", DateTimeFormatter.ofPattern("yyyyMMdd"));
-        LocalDate fromDate = LocalDate.parse(parameter.getFromDate() + "01", DateTimeFormatter.ofPattern("yyyyMMdd"));
-        Map<String, List<MatchingStatisticsResult>> map = new HashMap<>();
 
-        List<Object[]> objects = matchingJapRepository.getConsultationHoursPerMonth(parameter.getInfluenceId(), parameter.getFromDate(), parameter.getToDate());
-        List<MatchingStatisticsResult> matchingStatisticsResults = CollectionUtils.emptyIfNull(objects).stream().map(MatchingStatisticsResult::new).collect(Collectors.toList());
-        if(Collections.isEmpty(matchingStatisticsResults)) {
-            throw new NotFoundMatchingStatisticsException();
-        }
-
-        for(MatchingStatisticsResult target : matchingStatisticsResults) {
-            List<MatchingStatisticsResult> list = map.getOrDefault(target.getYearMonth(), new ArrayList<MatchingStatisticsResult>());
-            list.add(target);
-            map.put(target.getYearMonth(), list);
-        }
-
-        long num = toDate.until(fromDate, ChronoUnit.MONTHS);
-
-        for(long i = 0; i <= num; i++){
-            LocalDate date = toDate.plusMonths(i);
-            String dateString = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
-
-            List<MatchingStatisticsResult> list = map.get(dateString);
-
-            if(list == null){
-                matchingStatisticsResults.add(new MatchingStatisticsResult(dateString, PaidType.POST, LocalTime.of(0, 0, 0), 0L));
-                matchingStatisticsResults.add(new MatchingStatisticsResult(dateString, PaidType.PRE, LocalTime.of(0, 0, 0), 0L));
-            }else {
-                if(list.size() == 1){
-                    if(list.get(0).getPaidType() == PaidType.POST){
-                        matchingStatisticsResults.add(new MatchingStatisticsResult(dateString, PaidType.PRE, LocalTime.of(0, 0, 0), 0L));
-                    }else{
-                        matchingStatisticsResults.add(new MatchingStatisticsResult(dateString, PaidType.POST, LocalTime.of(0, 0, 0), 0L));
-                    }
-                }
-            }
-        }
-        return matchingStatisticsResults;
-    }
 
     private Influence findInfluence(String cid) {
         Influence influence = influenceJpaRepository

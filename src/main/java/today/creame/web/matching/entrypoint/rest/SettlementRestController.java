@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import today.creame.web.matching.applicaton.MatchingService;
+import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.model.MatchingStatisticsParameter;
 import today.creame.web.matching.applicaton.model.MatchingStatisticsResult;
 import today.creame.web.matching.entrypoint.rest.io.MatchingStatisticsDetailResponse;
@@ -28,14 +28,14 @@ import static today.creame.web.matching.domain.PaidType.PRE;
 @RestController
 public class SettlementRestController implements BaseRestController {
     private final Logger log = LoggerFactory.getLogger(SettlementRestController.class);
-    private final MatchingService matchingService;
+    private final MatchingQueryService matchingQueryService;
 
     @GetMapping("/api/v1/matchings/stat")
     public ResponseEntity<Body<List<MatchingStatisticsResponse>>> getMatchingsStat(
             @RequestParam(name = "to") String toDate,
             @RequestParam(name = "from") String fromDate) {
         Long id = SecurityContextSupporter.getId();
-        List<MatchingStatisticsResult> results = matchingService.getConsultationHoursPerMonth(new MatchingStatisticsParameter(id, fromDate, toDate));
+        List<MatchingStatisticsResult> results = matchingQueryService.getConsultationHoursPerMonth(new MatchingStatisticsParameter(id, fromDate, toDate));
 
         Map<String, List<MatchingStatisticsResult>> map = results.stream().collect(Collectors.groupingBy(MatchingStatisticsResult::getYearMonth));
         Set<String> keys = map.keySet();
@@ -43,7 +43,7 @@ public class SettlementRestController implements BaseRestController {
 
         for(String key: keys) {
             List<MatchingStatisticsResult> list = map.get(key);
-            LocalTime preTime = null, postTime = null;
+            Integer preTime = 0, postTime = 0;
             Long totalCoin = 0L;
 
             for(MatchingStatisticsResult target: list) {
@@ -67,14 +67,14 @@ public class SettlementRestController implements BaseRestController {
             return ResponseEntity.ok(BodyFactory.success(null));
         }
         Long id = SecurityContextSupporter.getId();
-        List<MatchingStatisticsResult> results = matchingService.getConsultationHoursPerMonth(new MatchingStatisticsParameter(id, date));
+        List<MatchingStatisticsResult> results = matchingQueryService.getConsultationHoursPerMonth(new MatchingStatisticsParameter(id, date));
 
         Map<String, List<MatchingStatisticsResult>> map = results.stream().collect(Collectors.groupingBy(MatchingStatisticsResult::getYearMonth));
         Set<String> keys = map.keySet();
         MatchingStatisticsDetailResponse response = null;
         for(String key: keys) {
             List<MatchingStatisticsResult> list = map.get(key);
-            LocalTime preTime = LocalTime.MIN, postTime = LocalTime.MIN, totalTime = LocalTime.MIN;
+            Integer preTime = 0, postTime = 0, totalTime = 0;
             Long preCoin = 0L, postCoin = 0L, totalCoin = 0L;
             int totalSeconds = 0;
 
@@ -87,10 +87,10 @@ public class SettlementRestController implements BaseRestController {
                     postCoin = target.getTotalCoin();
                 }
                 totalCoin += target.getTotalCoin();
-                totalSeconds += target.getTotalTime().toSecondOfDay();
+                totalSeconds += target.getTotalTime();
             }
 
-            totalTime = LocalTime.ofSecondOfDay(totalSeconds);
+            totalTime = totalSeconds;
             response = new MatchingStatisticsDetailResponse(key, postTime, postCoin, preTime, preCoin, totalTime, totalCoin);
         }
 

@@ -7,14 +7,14 @@ import java.time.LocalTime;
 @Getter
 public class MatchingStatisticsDetailResponse {
     private String yearMonth;
-    private LocalTime postTime;
+    private Integer postTime;
     private Long postCoin;
-    private LocalTime preTime;
+    private Integer preTime;
     private Long preCoin;
-    private LocalTime totalTime;
+    private Integer totalTime;
     private Long totalCoin;
 
-    public MatchingStatisticsDetailResponse(String yearMonth, LocalTime postTime, Long postCoin, LocalTime preTime, Long preCoin, LocalTime totalTime, Long totalCoin) {
+    public MatchingStatisticsDetailResponse(String yearMonth, Integer postTime, Long postCoin, Integer preTime, Long preCoin, Integer totalTime, Long totalCoin) {
         this.yearMonth = yearMonth;
         this.postTime = postTime;
         this.postCoin = postCoin;

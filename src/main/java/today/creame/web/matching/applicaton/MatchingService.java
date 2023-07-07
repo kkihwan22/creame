@@ -10,9 +10,4 @@ public interface MatchingService {
     void start(MatchingParameter parameter);
 
     void end(MatchingParameter parameter);
-
-    List<MatchingStatisticsResult> getConsultationHoursPerMonth(MatchingStatisticsParameter parameter);
-
-    // 리뷰
-    // 답글
 }

@@ -2,7 +2,6 @@ package today.creame.web.matching.entrypoint.rest.io;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.time.LocalTime;
 
 
 @Getter
@@ -21,10 +20,10 @@ public class MatchingStatisticsResponse {
     @NoArgsConstructor
     public static class MatchingStatisticsDetail {
         private Long totalCoin;
-        private LocalTime postTime;
-        private LocalTime preTime;
+        private Integer postTime;
+        private Integer preTime;
 
-        public MatchingStatisticsDetail(Long totalCoin, LocalTime postTime, LocalTime preTime) {
+        public MatchingStatisticsDetail(Long totalCoin, Integer postTime, Integer preTime) {
             this.totalCoin = totalCoin;
             this.postTime = postTime;
             this.preTime = preTime;
