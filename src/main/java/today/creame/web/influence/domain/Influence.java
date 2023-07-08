@@ -138,7 +138,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         String introduction
     ) {
         this.id = memberId;
-        this.extensionNumber = String.valueOf(memberId); // todo: API 연동 시 로직 확인
+        this.extensionNumber = String.valueOf(memberId);
         this.name = name;
         this.nickname = nickname;
         this.email = email;
@@ -185,7 +185,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
     public void addQuestion() {
         this.qnaCount = this.getQnaCount() + 1;
-        this.qnaNotAnswerCount = this.getReviewNotAnswerCount() + 1;
+        this.qnaNotAnswerCount = this.getQnaNotAnswerCount() + 1;
     }
 
     public void answer() {
@@ -206,8 +206,8 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     }
 
     public void registerReview(int rate) {
-        this.rateCount = this.rateCount + 1;
         this.rate = this.rate + rate;
+        this.rateCount = this.rateCount + 1;
         this.reviewCount = this.reviewCount + 1;
         this.reviewNotAnswerCount = this.reviewNotAnswerCount + 1;
     }
