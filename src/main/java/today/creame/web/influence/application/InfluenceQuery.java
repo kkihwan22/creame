@@ -8,6 +8,7 @@ import today.creame.web.influence.application.model.InfluenceDetailResult;
 import today.creame.web.influence.application.model.InfluenceListResult;
 import today.creame.web.influence.application.model.InfluenceQuestionResult;
 import today.creame.web.influence.application.model.InfluenceResult;
+import today.creame.web.influence.domain.Category;
 
 import java.util.List;
 import java.util.Set;
@@ -38,4 +39,5 @@ public interface InfluenceQuery {
 
     Page<InfluenceListResult> getList(Pageable pageable, Boolean onlyHotInfluence);
 
+    List<InfluenceResult> listByKeyword(Category category, String nickname, Pageable pageable);
 }

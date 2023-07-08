@@ -2,6 +2,8 @@ package today.creame.web.influence.domain;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+
 public enum Category {
 
     MENTALITY("심리"),
@@ -16,5 +18,12 @@ public enum Category {
 
     Category(String label) {
         this.label = label;
+    }
+
+    public static Category valueOfLabel(String label) {
+        return Arrays.stream(values())
+                .filter(value -> value.label.equals(label))
+                .findAny()
+                .orElse(null);
     }
 }

@@ -48,7 +48,6 @@ public class HomeRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(result));
     }
 
-    // TODO: refactoring
     @GetMapping("/public/v1/home/influences")
     public ResponseEntity<Body<List<HomeInfluencesResponse>>> listInfluence(@ModelAttribute HomeQueryParam param) {
         List<InfluenceResult> results = homeDisplayQuery.query(param);
