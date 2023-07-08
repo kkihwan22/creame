@@ -23,7 +23,7 @@ public class HotInfluenceQuery implements DisplayQuery {
     public List<InfluenceResult> list(HomeQueryParam parameter) {
         PageRequest pageRequest = parameter.getPageRequest();
         pageRequest.withSort(Sort.by(
-            Order.desc("rate"),
+            Order.desc("reviewCount"),
             Order.desc("createdDateTime")
         ));
 

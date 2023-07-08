@@ -12,6 +12,7 @@ import today.creame.web.home.application.DisplayQuery;
 import today.creame.web.home.entrypoint.io.HomeQueryParam;
 import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.model.InfluenceResult;
+import today.creame.web.influence.domain.Category;
 
 @RequiredArgsConstructor
 @Service
@@ -21,10 +22,11 @@ public class InfluenceQueryByKeyword implements DisplayQuery {
 
     @Override
     public List<InfluenceResult> list(HomeQueryParam parameter) {
+        Category category = Category.valueOfLabel(parameter.getKeyword());
         Sort orders = Sort.by(Order.desc("createdDateTime"));
         PageRequest pageRequest = parameter.getPageRequest().withSort(orders);
 
         // TODO: nickname + category 검색
-        return influenceQuery.listAll(pageRequest);
+        return influenceQuery.listByKeyword(category, parameter.getKeyword(), pageRequest);
     }
 }
