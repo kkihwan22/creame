@@ -27,7 +27,9 @@ public class InfluenceResult {
     private int totalRate;
     private int rateCount;
     private int reviewCount;
+    private int reviewAnswerCount;
     private int qnaCount;
+    private int answerCount;
     private int item;
     private String m2NetCounselorId;
 
@@ -69,7 +71,9 @@ public class InfluenceResult {
         this.rateCount = influence.getRateCount();
         this.rate = influence.avgRate();
         this.reviewCount = influence.getReviewCount();
+        this.reviewAnswerCount = influence.getReviewAnswerCount();
         this.qnaCount = influence.getQnaCount();
+        this.answerCount = influence.getQnaAnswerCount();
         this.item = influence.getItem().getIndex();
 
         this.coinPrice = influence.getItem().getPrice();

@@ -49,9 +49,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 ### 월별 상세 내역
 
-GET {{host}}/api/v1/matchings/stat/selected?date=202305
+GET {{host}}/api/v1/matchings/stat/selected?date=202307
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjg3ODcxMzc1LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.9bDGjZsN6IYqJDmZ-lZoW2Rz4f1buI0CZFidFW6E89I
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY4OTQyNDIxMywiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.dNhSAMSG4sKC1xLu4viL6LOrO9LEBIJz5b1VY3xABYU
 
 ### 인플루언스 문의 목록
 
@@ -60,9 +60,9 @@ Content-Type: application/json
 
 ### 월별 내역
 
-GET {{host}}/api/v1/me/matching-statistics?influenceId=90&targetDate=2023-01-06
+GET {{host}}/api/v1/matchings/stat?to=202307&from=202305
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjg2NjUzNzc1LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.D3O06oP2bJesjNQ982JqvXY0H9oUqO0Cw82__tPZ4Rk
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY4OTQyNDIxMywiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.dNhSAMSG4sKC1xLu4viL6LOrO9LEBIJz5b1VY3xABYU
 
 ### 인플루언스 문의 목록
 

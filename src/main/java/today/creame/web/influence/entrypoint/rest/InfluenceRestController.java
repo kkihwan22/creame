@@ -35,10 +35,6 @@ public class InfluenceRestController implements BaseRestController {
     private final InfluenceService influenceService;
     private final InfluenceNoticeService influenceNoticeService;
 
-    // 후기 조회 조회 (답변달기)
-
-    // 1:1 문의 조회 (답변달기)
-
     @GetMapping("/api/v1/influence/{id}/notice")
     public ResponseEntity<Body<InfluenceNoticeResult>> getNotice(@PathVariable Long id) {
         InfluenceNoticeResult result = influenceNoticeService.get(id);

@@ -83,7 +83,6 @@ public class InfluenceQueryRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(results));
     }
 
-
     @GetMapping("/public/v1/influences/{id}/review-stat")
     public ResponseEntity<Body<InfluenceReviewStatResponse>> getReviewOfInfluence(@PathVariable Long id) {
         List<ReviewKindStatResult> results = reviewQueryService.getInfluenceReviewKindStat(id);

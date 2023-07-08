@@ -24,6 +24,11 @@ public class InfluenceMeResponse {
     private Integer monthlyMatchTime = 0;
     private Long monthlyMatchAmount = 0L;
 
+    private int reviewCount;
+    private int reviewAnswerCount;
+    private int qnaCount;
+    private int answerCount;
+
     public InfluenceMeResponse(InfluenceResult result, List<MatchingStatisticsResult> list) {
         this.id = result.getId();
         this.extensionNumber = result.getExtensionNumber();
@@ -36,6 +41,10 @@ public class InfluenceMeResponse {
         this.introduction = result.getIntroduction();
         this.greetings = result.getGreetings();
         this.connected = result.isConnected();
+        this.reviewCount = result.getReviewCount();
+        this.reviewAnswerCount = result.getReviewAnswerCount();
+        this.qnaCount = result.getQnaCount();
+        this.answerCount = result.getAnswerCount();
 
         if (list.size() > 0) {
             MatchingStatisticsResult matchingStatisticsResult = list.get(0);
