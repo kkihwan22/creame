@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.influence.domain.Influence;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,10 +15,12 @@ public class InfluenceSimpleResult {
     private String nickname;
     private List<String> profileImages;
     private List<String> categories;
+    private LocalDateTime createdDateTime;
 
     public InfluenceSimpleResult(Influence influence, List<String> profileImages, List<String> categories) {
         this.id = influence.getId();
         this.nickname = influence.getNickname();
+        this.createdDateTime = influence.getCreatedDateTime();
         this.profileImages = profileImages;
         this.categories = categories;
     }
