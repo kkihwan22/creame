@@ -22,7 +22,8 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 @Table(name = "influence_profile_image")
 @DynamicInsert
 @DynamicUpdate
-@Getter @ToString
+@Getter
+@ToString(exclude = {"influence"})
 public class InfluenceProfileImage extends BaseCreatedAndUpdatedDateTime {
 
     @Id

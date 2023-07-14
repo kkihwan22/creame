@@ -1,14 +1,14 @@
 ### 회원가입
 ### phone_verification 테이블에 임의 값 등록 후 진행
-POST http://localhost:8888/public/v1/members
+POST {{host}}/public/v1/members
 Content-Type: application/json
 
 {
-  "email": "tester.ff@gmail.com",
-  "password": "1q2w3e4r",
-  "nickname": "테스터유저",
-  "phone_number": "01089555306",
-  "phone_verified_code": "2643115003"
+  "email": "minjae10won@gmail.com",
+  "password": "1234",
+  "nickname": "minjae",
+  "phone_number": "01089068662",
+  "phone_verified_code": "2988760916"
 }
 
 

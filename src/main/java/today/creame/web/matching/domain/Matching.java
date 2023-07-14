@@ -32,7 +32,7 @@ import today.creame.web.share.support.SecurityContextSupporter;
 @DynamicInsert
 @DynamicUpdate
 @Getter
-@ToString
+@ToString(exclude = {"matchingReviews"})
 public class Matching extends BaseCreatedAndUpdatedDateTime {
     private final static Logger log = LoggerFactory.getLogger(Matching.class);
 
