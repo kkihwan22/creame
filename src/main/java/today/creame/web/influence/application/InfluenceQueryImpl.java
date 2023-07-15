@@ -21,7 +21,6 @@ import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.member.domain.QMember;
-import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -87,8 +86,6 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         return getInfluenceResults(content);
     }
 
-    // TODO: 개선 필요!
-    // by category 별 p8 연애, 뷰티, 스포츠
     @Override
     public List<InfluenceResult> listByCategory(String category, Pageable pageable) {
         List<InfluenceCategory> results = influenceCategoryJpaRepository.findByCategoryIs(Category.valueOf(category), pageable);
@@ -107,13 +104,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
 
     @Override
     public InfluenceResult getInfluence(Long id) {
-
-//        Influence influence = query
-//            .selectFrom(i)
-//            .leftJoin()
-//            .fetchOne();
-
-        // TODO: QueryDsl 로 변경
+        // TODO: QueryDsl or JDBC Template
         Influence influence = influenceJpaRepository
             .findById(id)
             .orElseThrow(NotFoundInfluenceException::new);
@@ -136,8 +127,6 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         return new InfluenceDetailResult(influence, notice);
     }
 
-
-
     @Override
     public List<InfluenceResult> listByBookmarked(Long memberId, boolean called) {
         List<InfluenceBookmark> bookmarks = influenceBookmarkJpaRepository.findInfluenceBookmarksByMemberIdAndBookmarked(memberId, true);
@@ -153,6 +142,13 @@ public class InfluenceQueryImpl implements InfluenceQuery {
             // todo
         }
 
+        return this.getInfluenceResults(results);
+    }
+
+    @Override
+    public List<InfluenceResult> listByCalling(Set<Long> callingInfluenceIds, Pageable pageable) {
+        List<Influence> results = influenceJpaRepository.findByIdIn(callingInfluenceIds);
+        log.debug("results: {}", results);
         return this.getInfluenceResults(results);
     }
 

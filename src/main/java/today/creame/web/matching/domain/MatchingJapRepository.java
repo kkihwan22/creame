@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface MatchingJapRepository extends JpaRepository<Matching, Long> {
     Optional<Matching> findMatchingByCallId(String callId);
+    List<Matching> findMatchingsByStatus(MatchingProgressStatus matchingProgressStatus);
 
     @Query(value = "select " +
             "DATE_FORMAT(m.start_dt, '%Y%m') AS yearMonth," +
