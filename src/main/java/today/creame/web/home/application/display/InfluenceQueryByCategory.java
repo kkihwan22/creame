@@ -23,6 +23,13 @@ public class InfluenceQueryByCategory implements DisplayQuery {
     public List<InfluenceResult> list(HomeQueryParam parameter) {
         Sort orders = Sort.by(Order.desc("createdDateTime"));
         PageRequest pageRequest = parameter.getPageRequest().withSort(orders);
+
+        String category = parameter.getCategory();
+
+        if (category.equals("ETC")) {
+            return influenceQuery.listAll(pageRequest);
+        }
+
         return influenceQuery.listByCategory(parameter.getCategory(), pageRequest);
     }
 }
