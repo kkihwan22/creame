@@ -91,7 +91,7 @@ public class MemberRestController implements BaseRestController {
             request.getPhoneNumber(),
             request.getToken()));
 
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("Email 발송.")));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("SMS 발송")));
     }
 
     @PatchMapping("/api/v1/members/{id}/nickname")

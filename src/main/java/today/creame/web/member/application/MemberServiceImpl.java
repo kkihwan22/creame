@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import today.creame.web.m2net.application.M2netUserService;
 import today.creame.web.member.application.model.ForgetEmailParameter;
@@ -26,7 +27,9 @@ import today.creame.web.member.exception.ConflictMemberNicknameException;
 import today.creame.web.member.exception.ConflictMemberPhoneNumberException;
 import today.creame.web.member.exception.NotFoundMemberException;
 import today.creame.web.share.aspect.permit.Permit;
+import today.creame.web.share.event.SmsSendEvent;
 import today.creame.web.share.support.MaskingSupporter;
+import today.creame.web.share.support.RandomString;
 
 @RequiredArgsConstructor
 @Service
@@ -36,6 +39,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRoleJpaRepository memberRoleJpaRepository;
     private final MemberNotificationJpaRepository memberNotificationJpaRepository;
     private final M2netUserService m2netUserService;
+    private final ApplicationEventPublisher publisher;
 
     @Transactional
     @Permit
@@ -65,14 +69,17 @@ public class MemberServiceImpl implements MemberService {
         return maskedEmail;
     }
 
+    @Transactional
     @Permit
     @Override
     public void forgetPassword(ForgetPasswordParameter parameter) {
         Member member = memberJpaRepository
             .findByEmailAndPhoneNumber(parameter.getEmail(), parameter.getPhoneNumber())
             .orElseThrow(NotFoundMemberException::new);
-        log.debug("Email 발송 예정....");
-        // TODO: email 발송
+
+        String password = RandomString.password().nextString();
+        member.changedPassword(password);
+        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), password));
     }
 
     @Transactional
