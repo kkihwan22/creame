@@ -31,6 +31,7 @@ public class MatchingListener {
         return new MatchingParameter(
             event.getUid(),
             event.getCid(),
+            event.getCallId(),
             event.getMatchingProgressStatus(),
             event.getStartDateTime(),
             event.getEndDateTime(),
@@ -40,3 +41,6 @@ public class MatchingListener {
         );
     }
 }
+
+
+// 3547057a3315f98763616c6c001f5514@211.175.205.120 // varchar = 64

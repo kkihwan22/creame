@@ -40,6 +40,9 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @Column(name = "call_id")
+    private String callId;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "influence_id")
     private Influence influence;
@@ -71,9 +74,10 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
     @OneToMany(mappedBy = "matching", cascade = CascadeType.PERSIST)
     private List<MatchingReview> matchingReviews = new ArrayList<>();
 
-    public Matching(Influence influence, Member member, MatchingProgressStatus status, LocalDateTime startDateTime, LocalDateTime endedDateTime, boolean deferred, Integer usedCoins, PaidType paidType) {
+    public Matching(Influence influence, Member member, String callId, MatchingProgressStatus status, LocalDateTime startDateTime, LocalDateTime endedDateTime, boolean deferred, Integer usedCoins, PaidType paidType) {
         this.influence = influence;
         this.member = member;
+        this.callId = callId;
         this.status = status;
         this.startDateTime = startDateTime;
         this.endedDateTime = endedDateTime;

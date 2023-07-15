@@ -3,16 +3,13 @@ package today.creame.web.matching.domain;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import today.creame.web.influence.domain.Influence;
-import today.creame.web.member.domain.Member;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 @Repository
 public interface MatchingJapRepository extends JpaRepository<Matching, Long> {
-    List<Matching> findMatchingsByInfluenceAndMemberAndStatusInAndStartDateTimeBetween(Influence influence, Member member, Set<MatchingProgressStatus> statusSet, LocalDateTime to, LocalDateTime from);
+    Optional<Matching> findMatchingByCallId(String callId);
 
     @Query(value = "select " +
             "DATE_FORMAT(m.start_dt, '%Y%m') AS yearMonth," +

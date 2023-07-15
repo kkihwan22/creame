@@ -12,8 +12,8 @@ import today.creame.web.share.event.MatchingEvent;
 @Getter
 @ToString
 public class M2netUpdateCallStatusCommand {
-
     private String telegram;
+    private String callId;
     private String cId;
     private String mId;
     private LocalDateTime startDateTime;
@@ -27,6 +27,7 @@ public class M2netUpdateCallStatusCommand {
 
     public M2netUpdateCallStatusCommand(
         String telegram,
+        String callId,
         String cId,
         String mId,
         LocalDateTime startDateTime,
@@ -38,6 +39,7 @@ public class M2netUpdateCallStatusCommand {
         DeductionMethod deductionMethod
     ) {
         this.telegram = telegram;
+        this.callId = callId;
         this.cId = cId;
         this.mId = mId;
         this.startDateTime = startDateTime;
@@ -58,6 +60,7 @@ public class M2netUpdateCallStatusCommand {
         publisher.publishEvent(new MatchingEvent(
             mId,
             cId,
+            callId,
             reason.getMatchingProgressStatus(),
             startDateTime,
             endDateTime,

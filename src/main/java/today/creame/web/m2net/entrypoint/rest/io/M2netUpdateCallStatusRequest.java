@@ -17,6 +17,7 @@ public class M2netUpdateCallStatusRequest {
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(M2netUpdateCallStatusRequest.DATE_FORMAT);
 
+    private String callid;
     private String cpid;
     private String csrid;
     private String dtmfno;
@@ -35,6 +36,7 @@ public class M2netUpdateCallStatusRequest {
     public M2netUpdateCallStatusCommand of() {
         return new M2netUpdateCallStatusCommand(
             this.toString(),
+            callid,
             emptyToNull(this.csrid),
             emptyToNull(this.membid),
             datetimeIfNotNull(emptyToNull(this.start)),

@@ -1,8 +1,6 @@
 package today.creame.web.matching.applicaton;
 
-import io.jsonwebtoken.lang.Collections;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,26 +9,12 @@ import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.matching.applicaton.model.MatchingParameter;
-import today.creame.web.matching.applicaton.model.MatchingStatisticsParameter;
-import today.creame.web.matching.applicaton.model.MatchingStatisticsResult;
 import today.creame.web.matching.domain.Matching;
 import today.creame.web.matching.domain.MatchingJapRepository;
-import today.creame.web.matching.domain.PaidType;
 import today.creame.web.matching.exception.NotFoundMatchingException;
-import today.creame.web.matching.exception.NotFoundMatchingStatisticsException;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.exception.NotFoundMemberException;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.time.temporal.ChronoUnit;
-import java.util.stream.Collectors;
-
-import static today.creame.web.matching.domain.MatchingProgressStatus.INSUFFICIENT;
-import static today.creame.web.matching.domain.MatchingProgressStatus.START;
 
 @RequiredArgsConstructor
 @Service
@@ -49,6 +33,7 @@ public class MatchingServiceImpl implements MatchingService {
         Matching matching = new Matching(
             influence,
             member,
+            parameter.getCallId(),
             parameter.getMatchingProgressStatus(),
             parameter.getStartDateTime(),
             parameter.getEndDateTime(),
@@ -62,25 +47,10 @@ public class MatchingServiceImpl implements MatchingService {
     @Transactional
     @Override
     public void end(MatchingParameter parameter) {
-        Influence influence = findInfluence(parameter.getCid());
-        Member member = findMember(parameter.getUid());
-
-        List<Matching> matchings = matchingJapRepository.findMatchingsByInfluenceAndMemberAndStatusInAndStartDateTimeBetween(
-                influence,
-                member,
-                Set.of(START, INSUFFICIENT),
-                parameter.getStartDateTime().minusMinutes(1),
-                parameter.getStartDateTime().plusMinutes(1));
-        log.debug("Matchings: {}", matchings);
-
-        if (matchings.isEmpty()) throw new NotFoundMatchingException();
-
-        Matching matching = matchings.get(matchings.size() - 1);
+        Matching matching = matchingJapRepository.findMatchingByCallId(parameter.getCallId()).orElseThrow(NotFoundMatchingException::new);
         matching.end(parameter.getMatchingProgressStatus(), parameter.getEndDateTime(), parameter.getUsedCoins());
         log.debug("matching: {}", matching);
     }
-
-
 
     private Influence findInfluence(String cid) {
         Influence influence = influenceJpaRepository
