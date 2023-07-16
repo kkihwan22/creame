@@ -32,4 +32,13 @@ public class ReviewKindsStat {
 
     @Column(name = "total")
     private int total;
+
+    public void incrCount() {
+        this.total = total + 1;
+    }
+
+    public ReviewKindsStat(Long influenceId, ReviewKinds kinds) {
+        this.influenceId = influenceId;
+        this.kinds = kinds;
+    }
 }

@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.matching.applicaton.model.ReviewCreateParameter;
 import today.creame.web.matching.applicaton.model.ReviewReplyParameter;
-import today.creame.web.matching.domain.Matching;
-import today.creame.web.matching.domain.MatchingJapRepository;
-import today.creame.web.matching.domain.MatchingReview;
-import today.creame.web.matching.domain.MatchingReviewJapRepository;
+import today.creame.web.matching.domain.*;
 import today.creame.web.matching.exception.NotFoundMatchingException;
 import today.creame.web.matching.exception.NotFoundReviewException;
 
@@ -20,6 +17,7 @@ public class ReviewServiceImpl implements ReviewService {
     private final Logger log = LoggerFactory.getLogger(ReviewServiceImpl.class);
     private final MatchingJapRepository matchingJapRepository;
     private final MatchingReviewJapRepository matchingReviewJapRepository;
+    private final ReviewKindsStatJpaRepository reviewKindsStatJpaRepository;
 
     @Transactional
     @Override
@@ -27,6 +25,10 @@ public class ReviewServiceImpl implements ReviewService {
         Matching matching = matchingJapRepository.findById(parameter.getMatchingId()).orElseThrow(NotFoundMatchingException::new);
         log.debug("matching: {}", matching);
         matching.addReview(parameter.getRate(), parameter.getCategory(), parameter.getReviewKinds(), parameter.getContent());
+        Long id = matching.getInfluence().getId();
+        reviewKindsStatJpaRepository.findReviewKindsStatByInfluenceIdAndKinds(id, parameter.getReviewKinds()).ifPresentOrElse(
+                        it -> it.incrCount(),
+                        () -> reviewKindsStatJpaRepository.save(new ReviewKindsStat(id, parameter.getReviewKinds())));
     }
 
     @Transactional
