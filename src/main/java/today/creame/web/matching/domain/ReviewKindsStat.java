@@ -40,5 +40,6 @@ public class ReviewKindsStat {
     public ReviewKindsStat(Long influenceId, ReviewKinds kinds) {
         this.influenceId = influenceId;
         this.kinds = kinds;
+        this.total = 1;
     }
 }
