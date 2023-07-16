@@ -12,6 +12,7 @@ import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
 import today.creame.web.matching.applicaton.model.*;
 import today.creame.web.matching.domain.Matching;
 import today.creame.web.matching.domain.MatchingJapRepository;
+import today.creame.web.matching.domain.MatchingProgressStatus;
 import today.creame.web.matching.domain.PaidType;
 import today.creame.web.matching.exception.NotFoundMatchingStatisticsException;
 import today.creame.web.share.support.SecurityContextSupporter;
@@ -72,7 +73,7 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
                 .join(matching.member, member).fetchJoin()
                 .join(matching.influence, influence).fetchJoin()
                 .leftJoin(matching.matchingReviews, matchingReview)
-                .where(member.id.eq(memberId))
+                .where(member.id.eq(memberId).and(matching.status.eq(MatchingProgressStatus.END)))
                 .orderBy(matching.id.desc())
                 .fetch();
         log.debug("matchings: {}", matchings);
