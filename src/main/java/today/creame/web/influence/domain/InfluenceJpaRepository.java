@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface InfluenceJpaRepository extends JpaRepository<Influence, Long> {
     List<Influence> findAllByBlocked(Boolean blocked, Pageable pageable);
 
-    List<Influence> findByIdIn(Set<Long> idSet);
+    List<Influence> findInfluencesByIdIn(Set<Long> idSet);
 
     Optional<Influence> findInfluenceByM2NetCounselorId(String cid);
+
+    List<Influence> findInfluencesByIdInAndConnectedIs(Set<Long> idSet, Boolean connected);
 }

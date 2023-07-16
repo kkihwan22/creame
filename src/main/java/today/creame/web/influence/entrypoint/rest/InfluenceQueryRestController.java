@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.util.StringUtils;
 import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.model.InfluenceDetailResult;
 import today.creame.web.influence.application.model.InfluenceListResult;
@@ -59,26 +60,23 @@ public class InfluenceQueryRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new InfluenceMeResponse(result, list)));
     }
 
-    // 바톰메뉴 (단골- 상담사) / p.78
-    // TODO: 페이징 처리
     @GetMapping("/api/v1/influences-bookmark")
-    public ResponseEntity<Body<List<InfluenceResult>>> getBookmarkedInfluences() {
+    public ResponseEntity<Body<List<InfluenceResult>>> getBookmarkedInfluences(
+            @RequestParam(required = false) String conn
+    ) {
         Long me = SecurityContextSupporter.getId();
-        List<InfluenceResult> results = influenceQuery.listByBookmarked(me, false);
+        List<InfluenceResult> results = influenceQuery.listByBookmarked(me, StringUtils.equalsIgnoreCase(conn, "on"));
         log.debug("results: {}", results);
         return ResponseEntity.ok(BodyFactory.success(results));
     }
 
     // 바톰메뉴 (단골- 최근 통화 인플루언스) / p.78
     @GetMapping("/api/v1/influences-recently")
-    public ResponseEntity<Body<List<InfluenceResult>>> getRecentlyInfluences() {
-        // TODO: test 필요. 연동 확인 후 안되었으면 변경
-        // 회원입장에서 최근 통화한 목록이 필요... /me 밑으로 이동해도 될 것 같음
-        // MatchingResult 를 보내면 될 듯
-        List<MatchingHistoryResult> matchingHistoryResults = matchingQueryService.recentlyMyMatchingList();
-
-        Set<Long> sets = matchingHistoryResults.stream().map(MatchingHistoryResult::getInfluenceId).collect(Collectors.toSet());
-        List<InfluenceResult> results = influenceQuery.listByInfluences(sets);
+    public ResponseEntity<Body<List<InfluenceResult>>> getRecentlyInfluences(
+            @RequestParam(required = false) String conn
+    ) {
+        Long me = SecurityContextSupporter.getId();
+        List<InfluenceResult> results = influenceQuery.listByMatchedRecently(me, StringUtils.equalsIgnoreCase(conn, "on"));
         log.debug("results: {}", results);
         return ResponseEntity.ok(BodyFactory.success(results));
     }

@@ -23,6 +23,8 @@ public interface InfluenceQuery {
 
     List<InfluenceResult> listByBookmarked(Long memberId, boolean called);
 
+    List<InfluenceResult> listByMatchedRecently(Long memberId, boolean called);
+
     List<InfluenceResult> listByCalling(Set<Long> callingInfluenceIds, Pageable pageable);
 
     List<InfluenceResult> listByInfluences(Set<Long> ids);

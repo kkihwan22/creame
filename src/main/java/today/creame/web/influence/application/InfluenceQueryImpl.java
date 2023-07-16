@@ -20,6 +20,9 @@ import today.creame.web.home.application.model.HomeInfluenceStatResult;
 import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
+import today.creame.web.matching.applicaton.MatchingQueryService;
+import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
+import today.creame.web.matching.domain.MatchingJapRepository;
 import today.creame.web.member.domain.QMember;
 
 import java.util.*;
@@ -43,6 +46,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     private final InfluenceBookmarkJpaRepository influenceBookmarkJpaRepository;
     private final InfluenceCategoryJpaRepository influenceCategoryJpaRepository;
     private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
+    private final MatchingQueryService matchingQueryService;
     private final JPAQueryFactory query;
 
     private QInfluenceQna q = influenceQna;
@@ -98,7 +102,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
             .map(result -> result.getInfluence().getId())
             .collect(Collectors.toSet());
 
-        List<Influence> influences = influenceJpaRepository.findByIdIn(idSet);
+        List<Influence> influences = influenceJpaRepository.findInfluencesByIdIn(idSet);
         return getInfluenceResults(influences);
     }
 
@@ -130,31 +134,38 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     @Override
     public List<InfluenceResult> listByBookmarked(Long memberId, boolean called) {
         List<InfluenceBookmark> bookmarks = influenceBookmarkJpaRepository.findInfluenceBookmarksByMemberIdAndBookmarked(memberId, true);
-        log.debug("bookmarks: {}", bookmarks);
+        Set<Long> bookmarkedInfluenceIdSet = bookmarks.stream().map(InfluenceBookmark::getInfluenceId).collect(Collectors.toSet());
+        log.debug("bookmarked influence sets: {}", bookmarkedInfluenceIdSet);
 
-        List<Influence> results = influenceJpaRepository.findByIdIn(
-            bookmarks.stream().map(InfluenceBookmark::getInfluenceId).collect(Collectors.toSet())
-        );
-
+        List<Influence> results = called
+                ? influenceJpaRepository.findInfluencesByIdInAndConnectedIs(bookmarkedInfluenceIdSet, true)
+                : influenceJpaRepository.findInfluencesByIdIn(bookmarkedInfluenceIdSet);
         log.debug("results: {}", results);
-
-        if (called) {
-            // todo
-        }
-
         return this.getInfluenceResults(results);
     }
 
     @Override
+    public List<InfluenceResult> listByMatchedRecently(Long memberId, boolean called) {
+        List<MatchingHistoryResult> recentlyMatchingResults = matchingQueryService.listMatching(memberId, 1);
+        Set<Long> recentlyMatchInfluenceIdSet = recentlyMatchingResults.stream().map(MatchingHistoryResult::getInfluenceId).collect(Collectors.toSet());
+
+        List<Influence> results = called
+                ? influenceJpaRepository.findInfluencesByIdInAndConnectedIs(recentlyMatchInfluenceIdSet, true)
+                : influenceJpaRepository.findInfluencesByIdIn(recentlyMatchInfluenceIdSet);
+        log.debug("results: {}",results);
+        return getInfluenceResults(results);
+    }
+
+    @Override
     public List<InfluenceResult> listByCalling(Set<Long> callingInfluenceIds, Pageable pageable) {
-        List<Influence> results = influenceJpaRepository.findByIdIn(callingInfluenceIds);
+        List<Influence> results = influenceJpaRepository.findInfluencesByIdIn(callingInfluenceIds);
         log.debug("results: {}", results);
         return this.getInfluenceResults(results);
     }
 
     @Override
     public List<InfluenceResult> listByInfluences(Set<Long> ids) {
-        return this.getInfluenceResults(influenceJpaRepository.findByIdIn(ids));
+        return this.getInfluenceResults(influenceJpaRepository.findInfluencesByIdIn(ids));
     }
 
     @Override

@@ -28,10 +28,6 @@ public class InfluenceQueryByCalling implements DisplayQuery {
         List<Matching> results = matchingJapRepository.findMatchingsByStatus(MatchingProgressStatus.START);
         Set<Long> callingInfluenceSets = results.stream().map(result -> result.getInfluence()).map(influence -> influence.getId()).collect(Collectors.toSet());
         log.debug("calling influences: {}", callingInfluenceSets);
-
-
-
-
-        return influenceQuery.listAll(parameter.getPageRequest());
+        return influenceQuery.listByCalling(callingInfluenceSets, parameter.getPageRequest());
     }
 }

@@ -36,11 +36,7 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
     private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
     private final MatchingJapRepository matchingJapRepository;
     private final JPAQueryFactory query;
-    @Override
-    public List<MatchingHistoryResult> recentlyMyMatchingList() {
-        Long me = SecurityContextSupporter.getId();
-        return this.listMatching(me, 1);
-    }
+
     @Override
     public List<MatchingHistoryResult> listMatching(Long memberId, int since) {
         LocalDateTime datetime = LocalDate.now().minusMonths(since).atTime(LocalTime.MIDNIGHT);
