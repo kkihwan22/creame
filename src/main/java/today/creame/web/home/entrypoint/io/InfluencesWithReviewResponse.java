@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @ToString
-public class HomeInfluencesResponse {
+public class InfluencesWithReviewResponse {
     private Long id;
     private String extensionNumber;
     private String nickname;
@@ -49,7 +49,7 @@ public class HomeInfluencesResponse {
 
     private List<ReviewResult> reviewResults;
 
-    public HomeInfluencesResponse(InfluenceResult influence, List<ReviewResult> reviews) {
+    public InfluencesWithReviewResponse(InfluenceResult influence, List<ReviewResult> reviews) {
         this.id = influence.getId();
         this.extensionNumber = influence.getExtensionNumber();
         this.nickname = influence.getNickname();

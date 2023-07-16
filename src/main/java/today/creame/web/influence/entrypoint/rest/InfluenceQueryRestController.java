@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.util.StringUtils;
+import today.creame.web.home.entrypoint.io.InfluencesWithReviewResponse;
 import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.model.InfluenceDetailResult;
 import today.creame.web.influence.application.model.InfluenceListResult;
@@ -31,7 +32,9 @@ import today.creame.web.share.entrypoint.PageBody;
 import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -61,24 +64,23 @@ public class InfluenceQueryRestController implements BaseRestController {
     }
 
     @GetMapping("/api/v1/influences-bookmark")
-    public ResponseEntity<Body<List<InfluenceResult>>> getBookmarkedInfluences(
+    public ResponseEntity<Body<List<InfluencesWithReviewResponse>>> getBookmarkedInfluences(
             @RequestParam(required = false) String conn
     ) {
         Long me = SecurityContextSupporter.getId();
         List<InfluenceResult> results = influenceQuery.listByBookmarked(me, StringUtils.equalsIgnoreCase(conn, "on"));
         log.debug("results: {}", results);
-        return ResponseEntity.ok(BodyFactory.success(results));
+        return ResponseEntity.ok(BodyFactory.success(getInfluencesWithReviewResponses(results)));
     }
 
-    // 바톰메뉴 (단골- 최근 통화 인플루언스) / p.78
     @GetMapping("/api/v1/influences-recently")
-    public ResponseEntity<Body<List<InfluenceResult>>> getRecentlyInfluences(
+    public ResponseEntity<Body<List<InfluencesWithReviewResponse>>> getRecentlyInfluences(
             @RequestParam(required = false) String conn
     ) {
         Long me = SecurityContextSupporter.getId();
         List<InfluenceResult> results = influenceQuery.listByMatchedRecently(me, StringUtils.equalsIgnoreCase(conn, "on"));
         log.debug("results: {}", results);
-        return ResponseEntity.ok(BodyFactory.success(results));
+        return ResponseEntity.ok(BodyFactory.success(getInfluencesWithReviewResponses(results)));
     }
 
     @GetMapping("/public/v1/influences/{id}/review-stat")
@@ -109,5 +111,17 @@ public class InfluenceQueryRestController implements BaseRestController {
         Page<InfluenceListResult> influencePage = influenceQuery.getList(pageable, searchRequest.getOnlyHotInfluence());
 
         return ResponseEntity.ok(BodyFactory.success(influencePage.getContent(), influencePage.getTotalElements()));
+    }
+
+    private List<InfluencesWithReviewResponse> getInfluencesWithReviewResponses(List<InfluenceResult> results) {
+        Map<Long, List<ReviewResult>> groupByReviews =
+                reviewQueryService.getReviewGroupByInfluences(results.stream()
+                        .map(InfluenceResult::getId)
+                        .collect(Collectors.toSet()));
+
+        List<InfluencesWithReviewResponse> responses = results.stream()
+                .map(it -> new InfluencesWithReviewResponse(it, groupByReviews.getOrDefault(it.getId(), Collections.emptyList())))
+                .collect(Collectors.toList());
+        return responses;
     }
 }
