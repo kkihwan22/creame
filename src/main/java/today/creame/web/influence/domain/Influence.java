@@ -60,6 +60,9 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "connected")
     private boolean connected;
 
+    @Column(name = "calling")
+    private boolean calling;
+
     @Column(name = "blocked")
     private boolean blocked;
 
@@ -173,6 +176,10 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
     public void updateConnect() {
         this.connected = !(this.connected);
+    }
+
+    public void updateCalling() {
+        this.calling = !(this.calling);
     }
 
     public void updateSns(SNS sns) {

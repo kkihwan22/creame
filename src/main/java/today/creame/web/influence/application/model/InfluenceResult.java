@@ -99,6 +99,7 @@ public class InfluenceResult {
         }
 
         this.connected = influence.isConnected();
+        this.calling = influence.isCalling();
 
         this.categories = categories.stream()
             .map(InfluenceCategory::getCategory)
