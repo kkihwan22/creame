@@ -28,7 +28,7 @@ public class FileResourceServiceImpl implements FileResourceService {
     private final AmazonS3 amazonS3;
     private final FileResourceJpaRepository fileResourceJpaRepository;
 
-    private final static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
+    private final static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMM");
     private final static DateTimeFormatter TIMESTAMP_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
     private final static String CONTEXT = "https://s3.ap-northeast-2.amazonaws.com/";
     private final static String BUCKET_NAME = "today.creame.file";

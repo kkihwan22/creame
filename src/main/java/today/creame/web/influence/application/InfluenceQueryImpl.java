@@ -24,6 +24,7 @@ import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
 import today.creame.web.matching.domain.MatchingJapRepository;
 import today.creame.web.member.domain.QMember;
+import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -108,13 +109,12 @@ public class InfluenceQueryImpl implements InfluenceQuery {
 
     @Override
     public InfluenceResult getInfluence(Long id) {
-        // TODO: QueryDsl or JDBC Template
         Influence influence = influenceJpaRepository
             .findById(id)
             .orElseThrow(NotFoundInfluenceException::new);
         log.debug("influence:{}", influence);
 
-        InfluenceBookmark bookmark = influenceBookmarkJpaRepository.findById(id).orElse(null);
+        InfluenceBookmark bookmark = influenceBookmarkJpaRepository.findByMemberIdAndInfluenceId(SecurityContextSupporter.orElseGetEmpty(), id).orElse(null);
         InfluenceNotice notice = influenceNoticeJpaRepository.findFirstByInfluenceIdAndDeleted(id, false).orElse(null);
         return new InfluenceResult(influence, bookmark, notice);
     }
@@ -127,6 +127,8 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .selectFrom(influenceNotice)
                 .where(influenceNotice.deleted.eq(false), influenceNotice.influenceId.eq(influence.getId()))
                 .fetchOne();
+
+
 
         return new InfluenceDetailResult(influence, notice);
     }
