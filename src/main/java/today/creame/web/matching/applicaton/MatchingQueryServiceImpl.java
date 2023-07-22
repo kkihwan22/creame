@@ -10,12 +10,8 @@ import org.springframework.stereotype.Service;
 import today.creame.web.influence.domain.InfluenceProfileImage;
 import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
 import today.creame.web.matching.applicaton.model.*;
-import today.creame.web.matching.domain.Matching;
-import today.creame.web.matching.domain.MatchingJapRepository;
-import today.creame.web.matching.domain.MatchingProgressStatus;
-import today.creame.web.matching.domain.PaidType;
+import today.creame.web.matching.domain.*;
 import today.creame.web.matching.exception.NotFoundMatchingStatisticsException;
-import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,6 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static today.creame.web.influence.domain.QInfluence.influence;
+import static today.creame.web.influence.domain.QInfluenceProfileImage.influenceProfileImage;
 import static today.creame.web.matching.domain.QMatching.matching;
 import static today.creame.web.matching.domain.QMatchingReview.matchingReview;
 import static today.creame.web.member.domain.QMember.member;
@@ -36,6 +33,7 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
     private final Logger log = LoggerFactory.getLogger(MatchingQueryServiceImpl.class);
     private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
     private final MatchingJapRepository matchingJapRepository;
+    private final ReviewLikedJpaRepository reviewLikedJpaRepository;
     private final JPAQueryFactory query;
 
     @Override
@@ -72,16 +70,27 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
         List<Matching> matchings = query.selectFrom(matching)
                 .join(matching.member, member).fetchJoin()
                 .join(matching.influence, influence).fetchJoin()
-                .leftJoin(matching.matchingReviews, matchingReview)
+                .leftJoin(matchingReview.matching, matching)
+                .leftJoin(influence.profileImages, influenceProfileImage)
                 .where(member.id.eq(memberId).and(matching.status.eq(MatchingProgressStatus.END)))
                 .orderBy(matching.id.desc())
                 .fetch();
         log.debug("matchings: {}", matchings);
+        Set<Long> reviewIdSet = matchings.stream()
+                .filter(m -> !m.getMatchingReviews().isEmpty())
+                .map(m -> m.getMatchingReviews())
+                .map(list -> list.get(0))
+                .map(r -> r.getId())
+                .collect(Collectors.toSet());
 
-        Set<Long> collect = matchings.stream().map(it -> it.getInfluence().getId()).collect(Collectors.toSet());
-        Map<Long, List<InfluenceProfileImage>> groupBy = groupByProfileImage(collect);
+        Map<Long, Boolean> mapReviewLiked = reviewLikedJpaRepository.findReviewLikesByReviewIdInAndMemberId(reviewIdSet, memberId)
+                .stream()
+                .collect(Collectors.toMap(ReviewLiked::getReviewId, ReviewLiked::isLiked));
 
-        return matchings.stream().map(matching -> new MyReviewResult(matching, groupBy.get(matching.getInfluence().getId()).get(0).getFileResourceUri())).collect(Collectors.toList());
+        log.debug("mapReviewLiked: {}", mapReviewLiked);
+
+        return matchings.stream()
+                .map(matching -> new MyReviewResult(matching, mapReviewLiked)).collect(Collectors.toList());
     }
 
     @Override
@@ -126,9 +135,7 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
         return matchingStatisticsResults;
     }
 
-    private Map<Long, List<InfluenceProfileImage>> groupByProfileImage(Set<Long> collect) {
-        return influenceProfileImageJpaRepository.findByInfluence_IdIn(collect).stream().collect(Collectors.groupingBy(it -> it.getInfluence().getId()));
+    private Map<Long, List<InfluenceProfileImage>> groupByProfileImage(Set<Long> influenceIdSet) {
+        return influenceProfileImageJpaRepository.findByInfluence_IdIn(influenceIdSet).stream().collect(Collectors.groupingBy(it -> it.getInfluence().getId()));
     }
-
-
 }

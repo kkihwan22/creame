@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import retrofit2.http.Path;
 import today.creame.web.matching.applicaton.ReviewService;
 import today.creame.web.matching.applicaton.model.ReviewReplyParameter;
 import today.creame.web.matching.entrypoint.rest.io.ReviewCreateRequest;
@@ -34,6 +35,12 @@ public class ReviewRestController implements BaseRestController {
         log.debug("request:{} ", request);
         hasError(bindingResult);
         reviewService.answer(new ReviewReplyParameter(id, request.getContent()));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @PutMapping("/api/v1/reviews/{id}/like")
+    public ResponseEntity<Body<SimpleBodyData<String>>> like(@PathVariable Long id) {
+        reviewService.like(id);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }

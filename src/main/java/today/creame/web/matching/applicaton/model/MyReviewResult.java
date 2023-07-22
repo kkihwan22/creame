@@ -2,13 +2,11 @@ package today.creame.web.matching.applicaton.model;
 
 import lombok.Getter;
 import lombok.ToString;
-import today.creame.web.influence.domain.Category;
 import today.creame.web.matching.domain.Matching;
 import today.creame.web.matching.domain.MatchingReview;
-import today.creame.web.matching.domain.ReviewKinds;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.Map;
 
 @Getter @ToString
 public class MyReviewResult extends MatchingHistoryResult{
@@ -20,16 +18,16 @@ public class MyReviewResult extends MatchingHistoryResult{
     private LocalDateTime reviewDateTime;
     private LocalDateTime replyDateTime;
     private int likeCount;
+    private boolean liked;
     private int rate;
     private boolean blocked;
     private LocalDateTime blockedDateTime;
 
-    public MyReviewResult(Matching matching, String profileImageUrl) {
-        super(matching, profileImageUrl);
-
-        if (!matching.getMatchingReviews().isEmpty()) {
-            MatchingReview review = matching.getMatchingReviews().get(0);
+    public MyReviewResult(Matching matching, Map<Long, Boolean> mapReviewLiked) {
+        super(matching);
+        if (matching.getMatchingReviews().size() > 0 ) {
             this.answered = true;
+            MatchingReview review = matching.getMatchingReviews().get(0);
             this.reviewKinds = review.getReviewKinds().name();
             this.category = review.getCategory().name();
             this.reviewContent = review.getContent();
@@ -40,6 +38,7 @@ public class MyReviewResult extends MatchingHistoryResult{
             this.rate = review.getRate();
             this.blocked = review.isBlocked();
             this.blockedDateTime = review.getBlockedDateTime();
+            this.liked = mapReviewLiked.getOrDefault(review.getId(), false);
         }
     }
 }

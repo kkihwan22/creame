@@ -44,7 +44,7 @@ public class MatchingReview extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "rate")
     private int rate;
 
-    @Column(name = "liked")
+    @Column(name = "like_count")
     private int likedCount;
 
     @Convert(converter = CategoryToStringConverter.class)
@@ -89,5 +89,10 @@ public class MatchingReview extends BaseCreatedAndUpdatedDateTime {
         this.reply = reply;
         this.replyDateTime = LocalDateTime.now();
         this.matching.getInfluence().answeredReview();
+    }
+
+    public void changeLikeCount(ReviewLiked reviewLiked) {
+        if (reviewLiked.isLiked()) this.likedCount++;
+        else this.likedCount--;
     }
 }

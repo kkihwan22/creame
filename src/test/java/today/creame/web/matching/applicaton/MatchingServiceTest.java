@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 public class MatchingServiceTest {
     private MatchingJapRepository matchingJapRepository = mock(MatchingJapRepository.class);
-    private MatchingQueryServiceImpl matchingService = new MatchingQueryServiceImpl(null, matchingJapRepository, null);
+    private MatchingQueryServiceImpl matchingService = new MatchingQueryServiceImpl(null, matchingJapRepository,  null,null);
 
     @Test
     public void getConsultationHoursPerMonthTest() {

@@ -14,6 +14,7 @@ import today.creame.web.matching.applicaton.model.ReviewResult;
 import today.creame.web.matching.domain.*;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.QMember;
+import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +33,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
     private final Logger log = LoggerFactory.getLogger(ReviewQueryServiceImpl.class);
     private final JPAQueryFactory query;
     private final ReviewKindsStatJpaRepository reviewKindsStatJpaRepository;
-
+    private final ReviewLikedJpaRepository reviewLikedJpaRepository;
 
     @Override
     public List<ReviewResult> getInfluenceReviews(Long influenceId, Order order) {
@@ -44,6 +45,14 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
                 .orderBy(new OrderSpecifier<>(order, matchingReview.id))
                 .fetch();
         log.debug("results:{}", results);
+
+        Set<Long> reviewIdSet = results.stream().map(reviewResult -> reviewResult.getReviewId()).collect(Collectors.toSet());
+        Map<Long, Boolean> mapReviewLikeResult = reviewLikedJpaRepository
+                .findReviewLikesByReviewIdInAndMemberId(reviewIdSet, SecurityContextSupporter.orElseGetEmpty())
+                .stream()
+                .collect(Collectors.toMap(ReviewLiked::getReviewId, ReviewLiked::isLiked));
+
+        results.stream().forEach(result -> result.withLiked(mapReviewLikeResult.getOrDefault(result.getReviewId(), false)));
         return results;
     }
 

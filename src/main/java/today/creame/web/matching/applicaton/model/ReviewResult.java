@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 import today.creame.web.matching.domain.Matching;
 import today.creame.web.matching.domain.MatchingReview;
-import today.creame.web.matching.domain.QMatching;
-import today.creame.web.matching.domain.QMatchingReview;
 import today.creame.web.member.domain.Member;
-import today.creame.web.member.domain.QMember;
 
 import java.time.LocalDateTime;
 
@@ -30,6 +27,7 @@ public class ReviewResult {
     private LocalDateTime reviewDateTime;
     private LocalDateTime replyDateTime;
     private int likeCount;
+    private boolean liked = false;
 
     public ReviewResult(MatchingReview review) {
         Matching matching = review.getMatching();
@@ -52,5 +50,9 @@ public class ReviewResult {
         this.likeCount = review.getLikedCount();
 
         if (replyContent != null) this.answered = true;
+    }
+
+    public void withLiked(boolean liked) {
+        this.liked = liked;
     }
 }

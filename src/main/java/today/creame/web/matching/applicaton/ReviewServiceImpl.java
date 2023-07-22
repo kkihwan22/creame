@@ -10,6 +10,9 @@ import today.creame.web.matching.applicaton.model.ReviewReplyParameter;
 import today.creame.web.matching.domain.*;
 import today.creame.web.matching.exception.NotFoundMatchingException;
 import today.creame.web.matching.exception.NotFoundReviewException;
+import today.creame.web.share.support.SecurityContextSupporter;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -18,6 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
     private final MatchingJapRepository matchingJapRepository;
     private final MatchingReviewJapRepository matchingReviewJapRepository;
     private final ReviewKindsStatJpaRepository reviewKindsStatJpaRepository;
+    private final ReviewLikedJpaRepository reviewLikedJpaRepository;
 
     @Transactional
     @Override
@@ -37,5 +41,22 @@ public class ReviewServiceImpl implements ReviewService {
         MatchingReview review = matchingReviewJapRepository.findById(parameter.getId()).orElseThrow(NotFoundReviewException::new);
         log.debug("review: {}", review);
         review.registerReply(parameter.getContent());
+    }
+
+    @Transactional
+    @Override
+    public void like(Long reviewId) {
+        Long id = SecurityContextSupporter.getId();
+        MatchingReview review = matchingReviewJapRepository.findById(reviewId).orElseThrow(NotFoundReviewException::new);
+        Optional<ReviewLiked> optionalReviewLiked = reviewLikedJpaRepository.findReviewLikedByReviewIdAndMemberId(id, reviewId);
+
+        if (optionalReviewLiked.isEmpty()) {
+            ReviewLiked newLiked = reviewLikedJpaRepository.save(new ReviewLiked(id, reviewId));
+            review.changeLikeCount(newLiked);
+        }
+
+        ReviewLiked liked = optionalReviewLiked.get();
+        liked.liked();
+        review.changeLikeCount(liked);
     }
 }

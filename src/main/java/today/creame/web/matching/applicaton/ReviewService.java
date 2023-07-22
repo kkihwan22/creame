@@ -7,4 +7,6 @@ public interface ReviewService {
 
     void review(ReviewCreateParameter parameter);
     void answer(ReviewReplyParameter parameter);
+
+    void like(Long reviewId);
 }
