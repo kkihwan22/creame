@@ -51,7 +51,7 @@ public class ReviewServiceImpl implements ReviewService {
         Optional<ReviewLiked> optionalReviewLiked = reviewLikedJpaRepository.findReviewLikedByReviewIdAndMemberId(id, reviewId);
 
         if (optionalReviewLiked.isEmpty()) {
-            ReviewLiked newLiked = reviewLikedJpaRepository.save(new ReviewLiked(id, reviewId));
+            ReviewLiked newLiked = reviewLikedJpaRepository.save(new ReviewLiked(reviewId, id));
             review.changeLikeCount(newLiked);
         } else {
             ReviewLiked liked = optionalReviewLiked.get();
