@@ -48,7 +48,7 @@ public class ReviewServiceImpl implements ReviewService {
     public void like(Long reviewId) {
         Long id = SecurityContextSupporter.getId();
         MatchingReview review = matchingReviewJapRepository.findById(reviewId).orElseThrow(NotFoundReviewException::new);
-        Optional<ReviewLiked> optionalReviewLiked = reviewLikedJpaRepository.findReviewLikedByReviewIdAndMemberId(id, reviewId);
+        Optional<ReviewLiked> optionalReviewLiked = reviewLikedJpaRepository.findReviewLikedByReviewIdAndMemberId(reviewId, id);
 
         if (optionalReviewLiked.isEmpty()) {
             ReviewLiked newLiked = reviewLikedJpaRepository.save(new ReviewLiked(reviewId, id));
