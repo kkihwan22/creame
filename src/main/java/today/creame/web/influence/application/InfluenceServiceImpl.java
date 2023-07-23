@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
-import today.creame.web.influence.application.model.InfluenceDetailResult;
 import today.creame.web.influence.application.model.InfluenceItemParameter;
 import today.creame.web.influence.application.model.SnsParameter;
 import today.creame.web.influence.domain.*;
@@ -24,12 +23,9 @@ import today.creame.web.share.event.ConnectionUpdateEvent;
 public class InfluenceServiceImpl implements InfluenceService {
     private final Logger log = LoggerFactory.getLogger(InfluenceServiceImpl.class);
     private final InfluenceJpaRepository influenceJpaRepository;
-    private final InfluenceCategoryJpaRepository influenceCategoryJpaRepository;
-    private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
     private final InfluenceProfileFileResourceQuery influenceProfileFileResourceQuery;
     private final ApplicationEventPublisher publisher;
     private final M2netCounselorClient client;
-    private final InfluenceNoticeJpaRepository influenceNoticeJpaRepository;
 
     @Transactional
     @Override
