@@ -23,7 +23,7 @@ public class M2netCounselorCreateRequest {
         this.telno = telno;
         this.dectm = dectm;
         this.decamt = decamt;
-        this.state = CounselorCondition.IDLE.name();
+        this.state = CounselorCondition.ABSE.name();
         this.sortno = 1;
         this.preflag = DeductionMethod.ALL.getCode();
     }

@@ -148,9 +148,9 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.phoneNumber = phoneNumber;
         this.introduction = introduction;
 
-        this.rank = Rank.WHITE;
+        this.rank = Rank.PURPLE;
         this.connected = false;
-        this.item = ItemMap.get(1);
+        this.item = ItemMap.get(8);
     }
 
     public Influence(Long id) {
