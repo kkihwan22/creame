@@ -8,17 +8,18 @@ import org.springframework.stereotype.Component;
 import today.creame.web.coin.application.CoinsService;
 import today.creame.web.coin.application.model.CoinsUpdateParameter;
 import today.creame.web.coin.domain.CoinsHistoryType;
-import today.creame.web.share.event.CoinUsingEvent;
+import today.creame.web.share.event.MatchingEndEvent;
 
 @RequiredArgsConstructor
 @Component
-public class CoinsUsingEventHandler {
-    private final Logger log = LoggerFactory.getLogger(CoinsUsingEventHandler.class);
+public class CoinHistoryEventHandler {
+
+    private final Logger log = LoggerFactory.getLogger(CoinHistoryEventHandler.class);
     private final CoinsService coinsService;
 
     @EventListener
-    public void handle(CoinUsingEvent event) {
-        log.debug("event - {}", event);
-        coinsService.update(new CoinsUpdateParameter(event.getMemberId(), event.getCoins(), CoinsHistoryType.USING));
+    private void handle(MatchingEndEvent event) {
+        log.debug("coin history handler. event: {}", event);
+        coinsService.update(new CoinsUpdateParameter(event.getMemberId(), event.getUsedCoin(), CoinsHistoryType.USING));
     }
 }

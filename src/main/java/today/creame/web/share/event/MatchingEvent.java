@@ -9,6 +9,7 @@ import today.creame.web.matching.domain.PaidType;
 @Getter
 @ToString
 public class MatchingEvent {
+    // fixed : rename > CallStatusEvent
     private String uid;
     private String cid;
     private String callId;
