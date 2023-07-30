@@ -7,6 +7,7 @@ public interface InfluenceApplicationService {
 
     Long register(InfluenceApplicationParameter parameter);
     void approve(Long id);
+    void duplicateApprove(Long id);
     void cancel(Long id);
     void reject(Long id);
 

@@ -12,7 +12,8 @@ public enum InfluenceErrorCode {
     NOT_FOUND_GREETING_HISTORY(2005, "인사말 요청이력을 찾을 수 없습니다."),
     ILLEGAL_RE_REQUEST_GREETING_HISTORY(2006, "인사말을 재요청할 수 없습니다."),
     NOT_IN_REQUEST_STATUS(2007, "인플루언스 신청(REQUEST) 상태가 아닙니다."),
-    BAD_REQUEST_ANSWER(2008, "답변을 달 수 없는 게시물입니다.")
+    BAD_REQUEST_ANSWER(2008, "답변을 달 수 없는 게시물입니다."),
+    BAD_REQUEST(2009, "잘못된 요청입니다.")
 
 
     ;

@@ -1,6 +1,7 @@
 package today.creame.web.member.application;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -8,13 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import today.creame.web.m2net.application.M2netUserService;
-import today.creame.web.member.application.model.ForgetEmailParameter;
-import today.creame.web.member.application.model.ForgetPasswordParameter;
-import today.creame.web.member.application.model.MemberExpireParameter;
-import today.creame.web.member.application.model.MemberRegisterParameter;
-import today.creame.web.member.application.model.MemberResult;
-import today.creame.web.member.application.model.MemberUpdateParameter;
-import today.creame.web.member.application.model.NotificationSettingParameter;
+import today.creame.web.member.application.model.*;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.domain.MemberNotificationJpaRepository;
@@ -157,5 +152,21 @@ public class MemberServiceImpl implements MemberService {
             memberRoleJpaRepository.save(it);
         });
         return registerMember;
+    }
+
+    public List<MemberSearchResult> findAllByEmailOrPhoneNumberOrNickname(MemberSearchParameter parameter) {
+        return memberJpaRepository.findAllByEmailOrPhoneNumberOrNickname(parameter.getEmail(), parameter.getPhoneNumber(), parameter.getNickname()).stream().map(MemberSearchResult::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    @Override
+    public void memberRoleUpdate(Long memberId) {
+        Member member = memberJpaRepository
+                .findById(memberId)
+                .orElseThrow(NotFoundMemberException::new);
+
+        MemberRole role = new MemberRole(null, MemberRoleCode.INFLUENCE);
+        role.setMember(member);
+        memberRoleJpaRepository.save(role);
     }
 }

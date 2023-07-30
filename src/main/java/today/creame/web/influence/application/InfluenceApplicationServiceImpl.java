@@ -6,17 +6,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 import today.creame.web.influence.application.model.InfluenceApplicationParameter;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
 import today.creame.web.influence.domain.InfluenceApplication;
 import today.creame.web.influence.domain.InfluenceApplicationJpaRepository;
 import today.creame.web.influence.exception.NotFoundApplicationException;
+import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.MemberService;
 import today.creame.web.member.application.model.MemberRegisterParameter;
 import today.creame.web.member.application.model.MemberResult;
+import today.creame.web.member.application.model.MemberSearchParameter;
+import today.creame.web.member.application.model.MemberSearchResult;
 import today.creame.web.member.domain.SignupType;
 import today.creame.web.share.event.SmsSendEvent;
 import today.creame.web.share.support.RandomString;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -26,6 +32,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
     private final InfluenceService influenceService;
     private final InfluenceApplicationJpaRepository influenceApplicationJpaRepository;
     private final ApplicationEventPublisher publisher;
+    private final MemberQuery memberQuery;
 
     @Transactional
     @Override
@@ -45,6 +52,14 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
             .orElseThrow(NotFoundApplicationException::new);
         log.debug("find application: {}", application);
 
+        MemberSearchParameter parameter = new MemberSearchParameter(application.getEmail(), application.getPhoneNumber(), application.getNickname());
+        String duplicateReasons = memberQuery.getDuplicates(id, parameter);
+        if(!StringUtils.isEmpty(duplicateReasons)) {
+            application.duplicate(duplicateReasons);
+            influenceApplicationJpaRepository.save(application);
+            return;
+        }
+
         application.approve();
 
         String password = RandomString.password().nextString();
@@ -56,6 +71,21 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         log.debug("member:{}, influence:{}", member.getId(), influenceId);
 
         publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), member.getPassword()));
+    }
+
+    @Override
+    @Transactional
+    public void duplicateApprove(Long id) {
+        InfluenceApplication application = influenceApplicationJpaRepository.findById(id)
+                .orElseThrow(NotFoundApplicationException::new);
+
+        application.approve();
+
+        MemberSearchParameter parameter = new MemberSearchParameter(application.getEmail(), application.getPhoneNumber(), application.getNickname());
+        List<MemberSearchResult> members = memberService.findAllByEmailOrPhoneNumberOrNickname(parameter);
+        memberService.memberRoleUpdate(members.get(0).getId());
+        influenceService.create(new InfluenceCreateParameter(members.get(0).getId(), application));
+
     }
 
     @Transactional

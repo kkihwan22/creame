@@ -1,12 +1,8 @@
 package today.creame.web.member.application;
 
-import today.creame.web.member.application.model.ForgetEmailParameter;
-import today.creame.web.member.application.model.ForgetPasswordParameter;
-import today.creame.web.member.application.model.MemberExpireParameter;
-import today.creame.web.member.application.model.MemberRegisterParameter;
-import today.creame.web.member.application.model.MemberResult;
-import today.creame.web.member.application.model.MemberUpdateParameter;
-import today.creame.web.member.application.model.NotificationSettingParameter;
+import today.creame.web.member.application.model.*;
+
+import java.util.List;
 
 public interface MemberService {
     MemberResult registerMember(MemberRegisterParameter parameter);
@@ -26,4 +22,6 @@ public interface MemberService {
     void changedNotificationCondition(NotificationSettingParameter parameter);
 
     void changedPhoneNumber(Long token, String phoneNumber);
+    List<MemberSearchResult> findAllByEmailOrPhoneNumberOrNickname(MemberSearchParameter parameter);
+    void memberRoleUpdate(Long memberId);
 }

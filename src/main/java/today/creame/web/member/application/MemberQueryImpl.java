@@ -16,15 +16,16 @@ import org.springframework.stereotype.Component;
 import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.member.application.model.MeResult;
 import today.creame.web.member.application.model.MemberResult;
+import today.creame.web.member.application.model.MemberSearchParameter;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.domain.MemberNotificationPreference;
 import today.creame.web.member.exception.NotFoundMemberException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import static today.creame.web.influence.domain.QInfluenceApplication.influenceApplication;
 import static today.creame.web.member.domain.QMember.member;
 
 @RequiredArgsConstructor
@@ -107,5 +108,36 @@ public class MemberQueryImpl implements MemberQuery {
                 .fetchResults();
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+    }
+
+    @Override
+    public String getDuplicates(Long influenceApplicationId, MemberSearchParameter parameter) {
+        List<Member> members = query.selectFrom(member)
+                .where(member.email.eq(parameter.getEmail())
+                        .or(member.phoneNumber.eq(parameter.getPhoneNumber()))
+                        .or(member.nickname.eq(parameter.getNickname())))
+                .fetch();
+
+        StringBuilder duplicates = new StringBuilder();
+        for(Member duplicateMember : members) {
+
+            if(duplicateMember.getEmail().equals(parameter.getEmail())) {
+                duplicates.append("Email");
+                duplicates.append(" ");
+            }
+
+            if(duplicateMember.getPhoneNumber().equals(parameter.getPhoneNumber())) {
+                duplicates.append("PhoneNumber");
+                duplicates.append(" ");
+            }
+            if(duplicateMember.getNickname().equals(parameter.getNickname())) {
+                duplicates.append("Nickname");
+                duplicates.append(" ");
+            }
+
+        }
+
+        return duplicates.toString();
+
     }
 }

@@ -83,4 +83,12 @@ public class InfluenceApplicationQuery {
         }
         return new InfluenceApplicationDetailResult(application, fileResources);
     }
+
+    public Long existDuplicates(List<Long> ids) {
+        return query.select(influenceApplication.count())
+                .from(influenceApplication)
+                .where(influenceApplication.id.in(ids),
+                        influenceApplication.duplicateReasons.isNotNull())
+                .fetchOne();
+    }
 }

@@ -1,5 +1,6 @@
 package today.creame.web.influence.entrypoint.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ import today.creame.web.influence.application.model.InfluenceApplicationSearchPa
 import today.creame.web.influence.domain.InfluenceApplication;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceApplicationRegisterRequest;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceApplicationSearchRequest;
+import today.creame.web.influence.exception.BadRequestException;
 import today.creame.web.share.entrypoint.*;
 
 @RequiredArgsConstructor
@@ -57,16 +59,74 @@ public class InfluenceApplicationRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(results, influenceApplicationPage.getTotalElements()));
     }
 
-    @PatchMapping("/admin/v1/influence/applications/{id}/approve")
-    public ResponseEntity<Body<SimpleBodyData<String>>> approve(@PathVariable Long id) {
-        influenceApplicationService.approve(id);
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    @PatchMapping("/admin/v1/influence/applications/approve")
+    public ResponseEntity<Body<SimpleBodyData<List<String>>>> approve(@RequestBody InfluenceApplicationSearchRequest request) {
+        List<Long> ids = request.getIds();
+        if(CollectionUtils.isEmpty(ids)) {
+            throw new BadRequestException();
+        }
+
+        Long failCount = 0L;
+        for(Long id : ids) {
+            try {
+                influenceApplicationService.approve(id);
+            }catch (Exception e) {
+                e.printStackTrace();
+                failCount++;
+            }
+        }
+
+        List<String> response = new ArrayList<>();
+        Long duplicateCount = influenceApplicationQuery.existDuplicates(ids);
+        response.add(duplicateCount + failCount + "건 실패하였습니다.");
+        response.add(ids.size() - duplicateCount  + "건 성공하였습니다.");
+
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(response)));
     }
 
-    @PatchMapping("/admin/v1/influence/applications/{id}/reject")
-    public ResponseEntity<Body<SimpleBodyData<String>>> reject(@PathVariable Long id) {
-        influenceApplicationService.reject(id);
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    @PatchMapping("/admin/v1/influence/applications/duplicate/approve")
+    public ResponseEntity<Body<SimpleBodyData<List<String>>>> duplicateApprove(@RequestBody InfluenceApplicationSearchRequest request) {
+        List<Long> ids = request.getIds();
+        if(CollectionUtils.isEmpty(ids)) {
+            throw new BadRequestException();
+        }
+        Long failCount = 0L;
+        for(Long id : ids) {
+            try {
+                influenceApplicationService.duplicateApprove(id);
+            }catch(Exception e) {
+                e.printStackTrace();
+                failCount++;
+            }
+        }
+        List<String> response = new ArrayList<>();
+        response.add(failCount + "건 실패하였습니다.");
+        response.add(ids.size() - failCount  + "건 성공하였습니다.");
+
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(response)));
+    }
+
+    @PatchMapping("/admin/v1/influence/applications/reject")
+    public ResponseEntity<Body<SimpleBodyData<List<String>>>> reject(@RequestBody InfluenceApplicationSearchRequest request) {
+        List<Long> ids = request.getIds();
+        if(CollectionUtils.isEmpty(ids)) {
+            throw new BadRequestException();
+        }
+        Long failCount = 0L;
+        for(Long id : ids) {
+            try {
+                influenceApplicationService.reject(id);
+            }catch(Exception e) {
+                e.printStackTrace();
+                failCount++;
+            }
+        }
+
+        List<String> response = new ArrayList<>();
+        response.add(failCount + "건 실패하였습니다.");
+        response.add(ids.size() - failCount  + "건 성공하였습니다.");
+
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(response)));
     }
 
     @GetMapping("/admin/v1/influence/applications/{id}")

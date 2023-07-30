@@ -54,6 +54,9 @@ public class InfluenceApplication extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "status")
     private InfluenceApplicationStatus status;
 
+    @Column(name = "duplicate_reasons")
+    private String duplicateReasons;
+
     public InfluenceApplication(Long id, String name, String nickname, String phoneNumber, String email, String introduction, String categories, String profileImages, InfluenceApplicationStatus status) {
         this.id = id;
         this.name = name;
@@ -67,10 +70,11 @@ public class InfluenceApplication extends BaseCreatedAndUpdatedDateTime {
     }
 
     public void approve() {
-        if(!REQUEST.equals(this.status)) {
-            throw new NotInApplicationStatusException();
-        }
         this.status = InfluenceApplicationStatus.APPROVAL;
+    }
+
+    public void duplicate(String duplicateReasons) {
+        this.duplicateReasons = duplicateReasons;
     }
 
     public void cancel() {

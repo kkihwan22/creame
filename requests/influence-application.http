@@ -47,9 +47,27 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 ### 인플루언스 승인
 
-PATCH {{host}}/admin/v1/influence/applications/52/approve
+PATCH {{host}}/admin/v1/influence/applications/approve
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjgwODg4MDcwLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0._e82Lv7D3bxTMTrHiQL_VVAUxCSjnDo1v6XHhFn9Dy4
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjkxMzA0NTIzLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.Wtw9x0CbkQtqcYdO0h4ZNeHW-t9-a2qzcZuBs5VMGvk
+
+{
+	"ids": [
+		1,2,3
+	]
+}
+
+### 인플루언스 중복 승인
+
+PATCH {{host}}/admin/v1/influence/applications/duplicate/approve
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjkxMzA0NTIzLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.Wtw9x0CbkQtqcYdO0h4ZNeHW-t9-a2qzcZuBs5VMGvk
+
+{
+  "ids": [
+    1,2,3
+  ]
+}
 
 ### 인플루언스 거절
 
@@ -57,9 +75,15 @@ PATCH {{host}}/admin/v1/influence/applications/52/reject
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjgwODg4MDcwLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0._e82Lv7D3bxTMTrHiQL_VVAUxCSjnDo1v6XHhFn9Dy4
 
+{
+  "ids": [
+    1,2,3
+  ]
+}
+
 
 ### 인플루언스 상세 조회
 
-GET {{host}}/admin/v1/influence/applications/52
+GET {{host}}/admin/v1/influence/applications/92
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjgwODg4MDcwLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0._e82Lv7D3bxTMTrHiQL_VVAUxCSjnDo1v6XHhFn9Dy4
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjkxMzA0NTIzLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.Wtw9x0CbkQtqcYdO0h4ZNeHW-t9-a2qzcZuBs5VMGvk

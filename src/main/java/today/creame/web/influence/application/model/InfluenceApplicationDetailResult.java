@@ -24,6 +24,7 @@ public class InfluenceApplicationDetailResult {
     private List<String> categories;
     private List<BaseFileResource> profileImages;
     private String status;
+    private String duplicateReasons;
     private LocalDateTime createdDateTime;
     private LocalDateTime updatedDateTime;
 
@@ -40,6 +41,7 @@ public class InfluenceApplicationDetailResult {
                 .map(file -> new BaseFileResource(file.getId(), combineFileResourceUrl(file)))
                 .collect(Collectors.toList());
         this.status = result.getStatus().name();
+        this.duplicateReasons = result.getDuplicateReasons();
         this.createdDateTime = result.getCreatedDateTime();
         this.updatedDateTime = result.getUpdatedDateTime();
     }

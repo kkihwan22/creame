@@ -1,5 +1,6 @@
 package today.creame.web.member.domain;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,5 @@ public interface MemberJpaRepository extends JpaRepository<Member, Long> {
     Long countMemberByPhoneNumber(String phoneNumber);
 
     Optional<Member> findMemberByM2netUserId(String uid);
+    List<Member> findAllByEmailOrPhoneNumberOrNickname(String email, String phoneNumber, String nickname);
 }

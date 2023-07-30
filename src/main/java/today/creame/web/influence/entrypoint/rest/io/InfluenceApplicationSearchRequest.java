@@ -11,5 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class InfluenceApplicationSearchRequest {
+    List<Long> ids;
     List<InfluenceApplicationStatus> status;
 }

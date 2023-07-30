@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import today.creame.web.member.application.model.MeResult;
 import today.creame.web.member.application.model.MemberResult;
+import today.creame.web.member.application.model.MemberSearchParameter;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberNotificationPreference;
 
@@ -21,4 +22,7 @@ public interface MemberQuery {
     MemberNotificationPreference getNotificationSetting(Long id);
 
     Page<Member> getList(Pageable pageable);
+
+    String getDuplicates(Long influenceApplicationId, MemberSearchParameter parameter);
+
 }
