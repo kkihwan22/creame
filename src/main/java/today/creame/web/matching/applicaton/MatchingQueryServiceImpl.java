@@ -70,7 +70,7 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
         List<Matching> matchings = query.selectFrom(matching)
                 .join(matching.member, member).fetchJoin()
                 .join(matching.influence, influence).fetchJoin()
-                .leftJoin(matchingReview.matching, matching)
+                .leftJoin(matching.matchingReviews, matchingReview)
                 .leftJoin(influence.profileImages, influenceProfileImage)
                 .where(member.id.eq(memberId).and(matching.status.eq(MatchingProgressStatus.END)))
                 .orderBy(matching.id.desc())
