@@ -74,6 +74,7 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
                 .leftJoin(influence.profileImages, influenceProfileImage)
                 .where(member.id.eq(memberId).and(matching.status.eq(MatchingProgressStatus.END)))
                 .orderBy(matching.id.desc())
+                .distinct()
                 .fetch();
         log.debug("matchings: {}", matchings);
         Set<Long> reviewIdSet = matchings.stream()
