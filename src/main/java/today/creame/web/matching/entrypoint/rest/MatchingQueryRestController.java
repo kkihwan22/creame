@@ -1,24 +1,27 @@
 package today.creame.web.matching.entrypoint.rest;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.ReviewQueryService;
-import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
-import today.creame.web.matching.applicaton.model.MatchingResult;
-import today.creame.web.matching.applicaton.model.MyReviewResult;
-import today.creame.web.matching.applicaton.model.ReviewResult;
+import today.creame.web.matching.applicaton.model.*;
+import today.creame.web.matching.domain.Matching;
+import today.creame.web.matching.entrypoint.rest.io.MatchingListResponse;
+import today.creame.web.matching.entrypoint.rest.io.MatchingSearchRequest;
 import today.creame.web.matching.entrypoint.rest.io.MyReviewsResponse;
 import today.creame.web.matching.entrypoint.rest.io.ReviewReplyResponse;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
+import today.creame.web.share.entrypoint.PageBody;
 import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.List;
@@ -68,5 +71,14 @@ public class MatchingQueryRestController implements BaseRestController {
         Map<Boolean, List<ReviewResult>> partition = results.stream().collect(Collectors.partitioningBy(it -> it.isAnswered()));
         log.debug("partition: {}", partition);
         return ResponseEntity.ok(BodyFactory.success(new ReviewReplyResponse(partition)));
+    }
+
+    @GetMapping("/admin/v1/matching/{type}")
+    public ResponseEntity<PageBody<MatchingListResponse>> list(@PathVariable String type, @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable, MatchingSearchRequest searchRequest) {
+        Page<Matching> matchingPage = matchingQueryService.list(new MatchingSearchParameter(type, searchRequest), pageable);
+        List<MatchingListResponse> responses = CollectionUtils.emptyIfNull(matchingPage.getContent()).stream().map(MatchingListResponse::new).collect(Collectors.toList());
+
+        return ResponseEntity.ok(BodyFactory.success(responses, matchingPage.getTotalElements()));
+
     }
 }

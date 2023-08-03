@@ -1,5 +1,7 @@
 package today.creame.web.matching.applicaton;
 
+import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
@@ -7,20 +9,17 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import today.creame.web.matching.applicaton.model.ReviewKindStatResult;
 import today.creame.web.matching.applicaton.model.ReviewResult;
 import today.creame.web.matching.domain.*;
-import today.creame.web.member.domain.Member;
-import today.creame.web.member.domain.QMember;
 import today.creame.web.share.support.SecurityContextSupporter;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static today.creame.web.matching.domain.QMatching.matching;
@@ -34,6 +33,25 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
     private final JPAQueryFactory query;
     private final ReviewKindsStatJpaRepository reviewKindsStatJpaRepository;
     private final ReviewLikedJpaRepository reviewLikedJpaRepository;
+
+    private static final Map<String, Expression<?>> REVIEW_PROPERTY_MAP = new HashMap<>();
+    static {
+        REVIEW_PROPERTY_MAP.put("id", matchingReview.id);
+        REVIEW_PROPERTY_MAP.put("createdDateTime", matchingReview.createdDateTime);
+        REVIEW_PROPERTY_MAP.put("updatedDateTime", matchingReview.updatedDateTime);
+    }
+
+    public OrderSpecifier<?> getOrderSpecifier(Pageable pageable) {
+        if (!pageable.getSort().isEmpty()) {
+            Sort.Order order = pageable.getSort().iterator().next();
+            Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
+            Expression<?> property = REVIEW_PROPERTY_MAP.get(order.getProperty());
+            if (property != null) {
+                return new OrderSpecifier(direction, property);
+            }
+        }
+        return null;
+    }
 
     @Override
     public List<ReviewResult> getInfluenceReviews(Long influenceId, Order order) {
@@ -81,5 +99,18 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
                 .fetch();
 
         return results.stream().collect(Collectors.groupingBy(ReviewResult::getInfluenceId));
+    }
+
+    @Override
+    public Page<MatchingReview> list(Long matchingId, Pageable pageable) {
+        QueryResults<MatchingReview> result =  query.selectFrom(matchingReview)
+                .where(matchingReview.matching.id.eq(matchingId))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(pageable))
+                .fetchResults();
+
+        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+
     }
 }

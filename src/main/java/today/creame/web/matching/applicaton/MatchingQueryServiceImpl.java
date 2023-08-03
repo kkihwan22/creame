@@ -1,18 +1,27 @@
 package today.creame.web.matching.applicaton;
 
+import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.jsonwebtoken.lang.Collections;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 import today.creame.web.influence.domain.InfluenceProfileImage;
 import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
 import today.creame.web.matching.applicaton.model.*;
 import today.creame.web.matching.domain.*;
 import today.creame.web.matching.exception.NotFoundMatchingStatisticsException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -36,6 +45,24 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
     private final ReviewLikedJpaRepository reviewLikedJpaRepository;
     private final JPAQueryFactory query;
 
+    private static final Map<String, Expression<?>> MATCHING_PROPERTY_MAP = new HashMap<>();
+    static {
+        MATCHING_PROPERTY_MAP.put("id", matching.id);
+        MATCHING_PROPERTY_MAP.put("createdDateTime", matching.createdDateTime);
+        MATCHING_PROPERTY_MAP.put("updatedDateTime", matching.updatedDateTime);
+    }
+
+    public OrderSpecifier<?> getOrderSpecifier(Pageable pageable) {
+        if (!pageable.getSort().isEmpty()) {
+            Sort.Order order = pageable.getSort().iterator().next();
+            Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
+            Expression<?> property = MATCHING_PROPERTY_MAP.get(order.getProperty());
+            if (property != null) {
+                return new OrderSpecifier(direction, property);
+            }
+        }
+        return null;
+    }
     @Override
     public List<MatchingHistoryResult> listMatching(Long memberId, int since) {
         LocalDateTime datetime = LocalDate.now().minusMonths(since).atTime(LocalTime.MIDNIGHT);
@@ -136,7 +163,46 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
         return matchingStatisticsResults;
     }
 
+    @Override
+    public Page<Matching> list(MatchingSearchParameter parameter, Pageable pageable) {
+        QueryResults<Matching> result =  query.selectFrom(matching)
+                .where(eqIdOrNickname(parameter))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(pageable))
+                .fetchResults();
+
+        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+
+    }
+
     private Map<Long, List<InfluenceProfileImage>> groupByProfileImage(Set<Long> influenceIdSet) {
         return influenceProfileImageJpaRepository.findByInfluence_IdIn(influenceIdSet).stream().collect(Collectors.groupingBy(it -> it.getInfluence().getId()));
+    }
+
+    private BooleanExpression eqIdOrNickname(MatchingSearchParameter parameter) {
+        Long id = parameter.getId();
+        String nickname = parameter.getNickname();
+
+        switch (parameter.getType().toUpperCase()) {
+            case "MEMBER" :
+                if(Objects.nonNull(id)) {
+                    return matching.member.id.eq(id);
+
+                } else if(!StringUtils.isEmpty(nickname)) {
+                    return matching.member.nickname.eq(nickname);
+                }
+                break;
+
+            case "INFLUENCE" :
+                if(Objects.nonNull(id)) {
+                    return matching.influence.id.eq(id);
+
+                } else if(!StringUtils.isEmpty(nickname)) {
+                    return matching.influence.nickname.eq(nickname);
+                }
+                break;
+        }
+        return null;
     }
 }
