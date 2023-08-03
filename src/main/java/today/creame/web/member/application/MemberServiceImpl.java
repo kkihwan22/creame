@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import today.creame.web.influence.application.InfluenceService;
+import today.creame.web.influence.application.model.InfluenceUpdateParameter;
 import today.creame.web.m2net.application.M2netUserService;
 import today.creame.web.member.application.model.*;
 import today.creame.web.member.domain.Member;
@@ -36,6 +38,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberNotificationJpaRepository memberNotificationJpaRepository;
     private final M2netUserService m2netUserService;
     private final ApplicationEventPublisher publisher;
+    private final InfluenceService influenceService;
 
     @Transactional
     @Permit
@@ -200,6 +203,9 @@ public class MemberServiceImpl implements MemberService {
         }
 
         memberJpaRepository.save(findMember);
+
+        influenceService.changeInfluenceInfo(new InfluenceUpdateParameter(findMember.getId(), findMember.getNickname(), findMember.getPhoneNumber()));
+
     }
 
     @Transactional

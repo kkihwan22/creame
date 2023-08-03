@@ -231,4 +231,12 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
             return 0;
         }
     }
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void updatePhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }
