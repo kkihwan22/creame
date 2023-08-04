@@ -325,6 +325,20 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         return getInfluenceResults(result.getResults());
     }
 
+    @Override
+    public Page<InfluenceQna> qnaList(InfluenceQnaSearchParameter parameter, Pageable pageable) {
+        QueryResults<InfluenceQna> result = query
+                .selectFrom(influenceQna)
+                .where(Utils.equalsOperation(influenceQna.questioner.id, parameter.getMemberId()),
+                        Utils.equalsOperation(influenceQna.questioner.nickname, parameter.getNickname()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(pageable))
+                .fetchResults();
+
+        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+    }
+
     public BooleanExpression isHotInfluence(SimpleExpression column, Boolean onlyHotInfluence) {
         if (Objects.isNull(onlyHotInfluence) || !onlyHotInfluence) return null;
 

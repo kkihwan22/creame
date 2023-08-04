@@ -1,22 +1,28 @@
 package today.creame.web.influence.entrypoint.rest;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import today.creame.web.influence.application.InfluenceQnaService;
 import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.model.InfluenceAnswerParameter;
+import today.creame.web.influence.application.model.InfluenceQnaSearchParameter;
 import today.creame.web.influence.application.model.InfluenceQuestionResult;
+import today.creame.web.influence.domain.InfluenceQna;
+import today.creame.web.influence.entrypoint.rest.io.InfluenceQnaListResponse;
+import today.creame.web.influence.entrypoint.rest.io.InfluenceQnaSearchRequest;
 import today.creame.web.influence.entrypoint.rest.io.QuestionContentRequest;
 import today.creame.web.influence.entrypoint.rest.io.QuestionListResponse;
-import today.creame.web.share.entrypoint.BaseRestController;
-import today.creame.web.share.entrypoint.Body;
-import today.creame.web.share.entrypoint.BodyFactory;
-import today.creame.web.share.entrypoint.SimpleBodyData;
+import today.creame.web.share.entrypoint.*;
 import today.creame.web.share.support.SecurityContextSupporter;
 
 import javax.validation.Valid;
@@ -88,5 +94,13 @@ public class InfluenceQnaRestController implements BaseRestController {
         influenceQnaService.answer(new InfluenceAnswerParameter(SecurityContextSupporter.getId(), id, request.getContent()));
 
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData("success")));
+    }
+
+    @GetMapping("/admin/v1/influence/questions")
+    public ResponseEntity<PageBody<InfluenceQnaListResponse>> list(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable, InfluenceQnaSearchRequest request) {
+        Page<InfluenceQna> matchingPage = influenceQuery.qnaList(new InfluenceQnaSearchParameter(request), pageable);
+        List<InfluenceQnaListResponse> responses = CollectionUtils.emptyIfNull(matchingPage.getContent()).stream().map(InfluenceQnaListResponse::new).collect(Collectors.toList());
+
+        return ResponseEntity.ok(BodyFactory.success(responses, matchingPage.getTotalElements()));
     }
 }

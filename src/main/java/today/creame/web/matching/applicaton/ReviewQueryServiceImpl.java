@@ -14,8 +14,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import today.creame.web.common.support.Utils;
 import today.creame.web.matching.applicaton.model.ReviewKindStatResult;
 import today.creame.web.matching.applicaton.model.ReviewResult;
+import today.creame.web.matching.applicaton.model.ReviewSearchParameter;
 import today.creame.web.matching.domain.*;
 import today.creame.web.share.support.SecurityContextSupporter;
 
@@ -102,7 +104,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
     }
 
     @Override
-    public Page<MatchingReview> list(Long matchingId, Pageable pageable) {
+    public Page<MatchingReview> listByMatchingId(Long matchingId, Pageable pageable) {
         QueryResults<MatchingReview> result =  query.selectFrom(matchingReview)
                 .where(matchingReview.matching.id.eq(matchingId))
                 .offset(pageable.getOffset())
@@ -112,5 +114,18 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
 
+    }
+
+    @Override
+    public Page<MatchingReview> list(ReviewSearchParameter parameter, Pageable pageable) {
+        QueryResults<MatchingReview> result =  query.selectFrom(matchingReview)
+                .where(Utils.equalsOperation(matchingReview.matching.member.id, parameter.getMemberId()),
+                       Utils.equalsOperation(matchingReview.matching.member.nickname, parameter.getNickname()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(pageable))
+                .fetchResults();
+
+        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
 }
