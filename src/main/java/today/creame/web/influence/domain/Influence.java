@@ -2,6 +2,7 @@ package today.creame.web.influence.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.influence.domain.converter.InfluenceRankToStringConverter;
@@ -231,4 +233,20 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
             return 0;
         }
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+//            return false;
+//        Influence i = (Influence) o;
+//        return Objects.equals(id, i.getId());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = id != null ? id.hashCode() : 0;
+//        return result;
+//    }
+
 }

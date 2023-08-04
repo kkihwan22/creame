@@ -35,6 +35,7 @@ import static today.creame.web.influence.domain.QInfluence.influence;
 import static today.creame.web.influence.domain.QInfluenceBookmark.influenceBookmark;
 import static today.creame.web.influence.domain.QInfluenceCategory.influenceCategory;
 import static today.creame.web.influence.domain.QInfluenceNotice.influenceNotice;
+import static today.creame.web.influence.domain.QInfluenceProfileImage.influenceProfileImage;
 import static today.creame.web.influence.domain.QInfluenceQna.influenceQna;
 import static today.creame.web.member.domain.QMember.member;
 
@@ -218,12 +219,24 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         log.debug("results: {}", results);
 
         Set<Long> influenceIds = results.stream().map(result -> result.getInfluence().getId()).collect(Collectors.toSet());
-        List<InfluenceProfileImage> profileImages = influenceProfileImageJpaRepository.findByInfluence_IdIn(influenceIds);
-        List<InfluenceCategory> categories = influenceCategoryJpaRepository.findByInfluenceIdIn(influenceIds);
 
-        results.stream().forEach(it -> it.getInfluence().addProfileAndCategories(
-                profileImages.stream().map(profile -> profile.getFileResourceUri()).collect(Collectors.toList()),
-                categories.stream().map(category -> category.getCategory().name()).collect(Collectors.toList())));
+        Map<Long, List<InfluenceProfileImage>> groupByProfileImages = this.groupByProfileImages(influenceIds);
+        Map<Long, List<InfluenceCategory>> groupByCategories = this.groupByCategories(influenceIds);
+
+
+
+//        List<InfluenceProfileImage> profileImages = influenceProfileImageJpaRepository.findByInfluence_IdIn(influenceIds);
+//        List<InfluenceCategory> categories = influenceCategoryJpaRepository.findByInfluenceIdIn(influenceIds);
+
+        results.stream().forEach(it -> it.getInfluence()
+                .addProfileAndCategories(
+                        groupByProfileImages.getOrDefault(it.getInfluence().getId(), List.of()).stream().map(InfluenceProfileImage::getFileResourceUri).collect(Collectors.toList()),
+                        groupByCategories.getOrDefault(it.getInfluence().getId(), List.of()).stream().map(InfluenceCategory::getCategory).map(Category::name).collect(Collectors.toList())
+        ));
+
+
+//        profileImages.stream().map(profile -> profile.getFileResourceUri()).collect(Collectors.toList()),
+//                categories.stream().map(category -> category.getCategory().name()).collect(Collectors.toList()))
 
         log.debug("results: {}", results);
         return results;
@@ -255,13 +268,10 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         log.debug("map profileImages: {}", mapProfileImages);
 
         return influences.stream()
-            .map(influence -> {
-                Long key = influence.getId();
-                return new InfluenceResult(influence,
-                    Optional.ofNullable(mapCategories.get(key)).orElse(Collections.emptyList()),
-                    Optional.ofNullable(mapProfileImages.get(key)).orElse(Collections.emptyList())
-                );
-            })
+            .map(i -> new InfluenceResult(
+                    i,
+                    mapCategories.getOrDefault(i.getId(), List.of()),
+                    mapProfileImages.getOrDefault(i.getId(), List.of())))
             .collect(Collectors.toList());
     }
 
