@@ -11,6 +11,7 @@ import java.util.Map;
 @Getter @ToString
 public class MyReviewResult extends MatchingHistoryResult{
     private boolean answered = false;
+    private Long reviewId;
     private String reviewKinds;
     private String category;
     private String reviewContent;
@@ -28,6 +29,7 @@ public class MyReviewResult extends MatchingHistoryResult{
         if (matching.getMatchingReviews().size() > 0 ) {
             this.answered = true;
             MatchingReview review = matching.getMatchingReviews().get(0);
+            this.reviewId = review.getId();
             this.reviewKinds = review.getReviewKinds().name();
             this.category = review.getCategory().name();
             this.reviewContent = review.getContent();
