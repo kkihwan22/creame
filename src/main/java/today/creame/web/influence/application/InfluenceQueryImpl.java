@@ -181,6 +181,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .orderBy(influenceQna.id.desc())
                 .offset(pageRequest.getOffset())
                 .limit(pageRequest.getPageSize())
+                .distinct()
                 .fetch();
         results.stream().forEach(it -> it.processContentSecurity());
         log.debug("results: {}", results);
@@ -198,6 +199,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .orderBy(influenceQna.id.desc())
                 .offset(pageRequest.getOffset())
                 .limit(pageRequest.getPageSize())
+                .distinct()
                 .fetch();
         log.debug("results: {}", results);
         return results;
@@ -211,6 +213,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .join(influenceQna.influence, influence)
                 .where(influenceQna.questioner.id.eq(questionerId))
                 .orderBy(influenceQna.id.desc())
+                .distinct()
                 .fetch();
         log.debug("results: {}", results);
 
@@ -233,6 +236,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .join(influenceQna.questioner, member)
                 .join(influenceQna.influence, influence)
                 .where(influenceQna.influence.id.eq(influenceId))
+                .distinct()
                 .fetch();
         log.debug("results: {}", results);
         return results;
@@ -304,6 +308,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(getOrderSpecifier(pageable))
+                .distinct()
                 .fetchResults();
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
@@ -321,6 +326,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(getOrderSpecifier(pageable))
+                .distinct()
                 .fetchResults();
         return getInfluenceResults(result.getResults());
     }
