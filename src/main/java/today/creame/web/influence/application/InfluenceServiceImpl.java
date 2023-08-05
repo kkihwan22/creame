@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceCreateParameter;
 import today.creame.web.influence.application.model.InfluenceItemParameter;
+import today.creame.web.influence.application.model.InfluenceUpdateParameter;
 import today.creame.web.influence.application.model.SnsParameter;
 import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.ConflictConnectionStatusException;
@@ -17,6 +18,8 @@ import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateRequest;
 import today.creame.web.share.aspect.permit.Permit;
 import today.creame.web.share.domain.OnOffCondition;
 import today.creame.web.share.event.ConnectionUpdateEvent;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -112,5 +115,19 @@ public class InfluenceServiceImpl implements InfluenceService {
 
         log.debug(" find influence: {}", influence);
         influence.updateSns(parameter.getSns());
+    }
+
+    @Transactional
+    @Override
+    public void changeInfluenceInfo(InfluenceUpdateParameter parameter) {
+        Optional<Influence> influence = influenceJpaRepository.findById(parameter.getInfluenceId());
+
+        if(!influence.isPresent()) {
+            return;
+        }
+        influence.get().updateNickname(parameter.getNickname());
+        influence.get().updatePhoneNumber(parameter.getPhoneNumber());
+
+        influenceJpaRepository.save(influence.get());
     }
 }

@@ -24,4 +24,8 @@ public interface MemberService {
     void changedPhoneNumber(Long token, String phoneNumber);
     List<MemberSearchResult> findAllByEmailOrPhoneNumberOrNickname(MemberSearchParameter parameter);
     void memberRoleUpdate(Long memberId);
+
+    MemberDetailResult getDetail(Long memberId);
+    void changeMemberInfo(MemberInfoUpdateParameter parameter);
+    void changePasswordByAdmin(Long memberId);
 }

@@ -10,30 +10,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import today.creame.web.member.application.MemberService;
-import today.creame.web.member.application.model.ForgetEmailParameter;
-import today.creame.web.member.application.model.ForgetPasswordParameter;
-import today.creame.web.member.application.model.MemberResult;
-import today.creame.web.member.application.model.MemberUpdateParameter;
-import today.creame.web.member.application.model.NotificationSettingParameter;
+import today.creame.web.member.application.model.*;
 import today.creame.web.member.domain.NotificationSettingItem;
-import today.creame.web.member.entrypoint.rest.io.ForgetEmailRequest;
-import today.creame.web.member.entrypoint.rest.io.ForgetPasswordRequest;
-import today.creame.web.member.entrypoint.rest.io.MemberNicknameUpdateRequest;
-import today.creame.web.member.entrypoint.rest.io.MemberPasswordUpdateRequest;
-import today.creame.web.member.entrypoint.rest.io.MemberRegisterRequest;
-import today.creame.web.member.entrypoint.rest.io.PhoneNumberUpdateRequest;
+import today.creame.web.member.entrypoint.rest.io.*;
 import today.creame.web.share.domain.OnOffCondition;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
 import today.creame.web.share.entrypoint.SimpleBodyData;
 import today.creame.web.share.entrypoint.validator.EnumConstraint;
+import today.creame.web.share.support.RandomString;
 
 @Api("[ 회원 ] Api's")
 @RequiredArgsConstructor
@@ -132,5 +120,27 @@ public class MemberRestController implements BaseRestController {
 
         hasError(bindingResult);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @GetMapping("/admin/v1/members/{id}")
+    public ResponseEntity<Body<MemberDetailResponse>> get(@PathVariable Long id) {
+        MemberDetailResult result = memberService.getDetail(id);
+        MemberDetailResponse response = new MemberDetailResponse(result);
+
+        return ResponseEntity.ok(BodyFactory.success(response));
+
+    }
+
+    @PatchMapping("/admin/v1/members/{id}")
+    public ResponseEntity<Body<String>> changeMemberInfo(@PathVariable Long id, @RequestBody MemberInfoUpdateRequest request) {
+        memberService.changeMemberInfo(new MemberInfoUpdateParameter(id, request));
+        return ResponseEntity.ok(BodyFactory.success("ok"));
+    }
+
+    @PatchMapping("/admin/v1/members/{id}/password")
+    public ResponseEntity<Body<String>> changePasswordByAdmin(@PathVariable Long id) {
+        memberService.changePasswordByAdmin(id);
+
+        return ResponseEntity.ok(BodyFactory.success("ok"));
     }
 }

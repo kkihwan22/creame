@@ -4,11 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import today.creame.web.home.application.model.HomeInfluenceStatResult;
-import today.creame.web.influence.application.model.InfluenceDetailResult;
-import today.creame.web.influence.application.model.InfluenceListResult;
-import today.creame.web.influence.application.model.InfluenceQuestionResult;
-import today.creame.web.influence.application.model.InfluenceResult;
+import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.Category;
+import today.creame.web.influence.domain.InfluenceQna;
 
 import java.util.List;
 import java.util.Set;
@@ -44,4 +42,6 @@ public interface InfluenceQuery {
     Page<InfluenceListResult> getList(Pageable pageable, Boolean onlyHotInfluence);
 
     List<InfluenceResult> listByKeyword(Category category, String nickname, Pageable pageable);
+
+    Page<InfluenceQna> qnaList(InfluenceQnaSearchParameter parameter, Pageable pageable);
 }

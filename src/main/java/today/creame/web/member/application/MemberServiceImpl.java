@@ -1,6 +1,7 @@
 package today.creame.web.member.application;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import today.creame.web.influence.application.InfluenceService;
+import today.creame.web.influence.application.model.InfluenceUpdateParameter;
 import today.creame.web.m2net.application.M2netUserService;
 import today.creame.web.member.application.model.*;
 import today.creame.web.member.domain.Member;
@@ -35,6 +38,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberNotificationJpaRepository memberNotificationJpaRepository;
     private final M2netUserService m2netUserService;
     private final ApplicationEventPublisher publisher;
+    private final InfluenceService influenceService;
 
     @Transactional
     @Permit
@@ -168,5 +172,49 @@ public class MemberServiceImpl implements MemberService {
         MemberRole role = new MemberRole(null, MemberRoleCode.INFLUENCE);
         role.setMember(member);
         memberRoleJpaRepository.save(role);
+    }
+
+    @Override
+    public MemberDetailResult getDetail(Long memberId) {
+        Member findMember = memberJpaRepository.findById(memberId).orElseThrow(NotFoundMemberException::new);
+
+        return new MemberDetailResult(findMember);
+    }
+
+    @Transactional
+    @Override
+    public void changeMemberInfo(MemberInfoUpdateParameter parameter) {
+        if (memberJpaRepository.countMemberByNickname(parameter.getNickname()) > 0) {
+            log.info(" 요청하신 닉네임({})은 이미 사용 중입니다.", parameter.getNickname());
+            throw new ConflictMemberNicknameException();
+        }
+
+        if (memberJpaRepository.countMemberByPhoneNumber(parameter.getPhoneNumber()) > 0) {
+            log.info(" 요청하신 휴대전화 번호({})는 이미 사용 중입니다.", parameter.getPhoneNumber());
+            throw new ConflictMemberPhoneNumberException();
+        }
+
+        Member findMember = memberJpaRepository.findById(parameter.getMemberId()).orElseThrow(NotFoundMemberException::new);
+        if(Objects.nonNull(parameter.getPhoneNumber())) {
+            findMember.changedPhoneNumber(parameter.getPhoneNumber());
+        }
+        if(Objects.nonNull(parameter.getNickname())) {
+            findMember.changedNickname(parameter.getNickname());
+        }
+
+        memberJpaRepository.save(findMember);
+
+        influenceService.changeInfluenceInfo(new InfluenceUpdateParameter(findMember.getId(), findMember.getNickname(), findMember.getPhoneNumber()));
+
+    }
+
+    @Transactional
+    @Override
+    public void changePasswordByAdmin(Long memberId) {
+        String password = RandomString.password().nextString();
+        Member findMember = memberJpaRepository.findById(memberId).orElseThrow(NotFoundMemberException::new);
+        findMember.changedPassword(password);
+
+        publisher.publishEvent(new SmsSendEvent(findMember.getPhoneNumber(), password));
     }
 }

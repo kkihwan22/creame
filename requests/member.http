@@ -79,3 +79,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 GET {{host}}/admin/v1/members?page=0&size=20&sort=id,DESC
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjg2OTMwMDMxLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.Sbr0TR4jNbrirfIviaf-uk0NCUaxGqsBqyLCsPMKcDE
+
+### 관리자 회원 상세 조회
+GET {{host}}/admin/v1/members/120
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjkxNTg5MDQyLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.f9yIjjdlV_k8Oo3fMow36HIoi-4d_JrTORAIzCn6LeA

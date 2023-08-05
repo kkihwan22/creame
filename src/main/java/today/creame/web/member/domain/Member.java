@@ -94,6 +94,9 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
     public void changedNickname(String nickname) {
         this.nickname = nickname;
     }
+    public void changedPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public void changedPassword(String password) {
         this.password = password;
