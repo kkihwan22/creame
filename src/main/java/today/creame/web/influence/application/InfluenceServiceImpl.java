@@ -13,8 +13,10 @@ import today.creame.web.influence.application.model.SnsParameter;
 import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.ConflictConnectionStatusException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
+import today.creame.web.m2net.application.M2netCounselorService;
 import today.creame.web.m2net.infra.feign.M2netCounselorClient;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateRequest;
+import today.creame.web.m2net.infra.feign.io.M2netCounselorInfoUpdateRequest;
 import today.creame.web.share.aspect.permit.Permit;
 import today.creame.web.share.domain.OnOffCondition;
 import today.creame.web.share.event.ConnectionUpdateEvent;
@@ -29,6 +31,7 @@ public class InfluenceServiceImpl implements InfluenceService {
     private final InfluenceProfileFileResourceQuery influenceProfileFileResourceQuery;
     private final ApplicationEventPublisher publisher;
     private final M2netCounselorClient client;
+    private final M2netCounselorService m2netCounselorService;
 
     @Transactional
     @Override
@@ -120,14 +123,16 @@ public class InfluenceServiceImpl implements InfluenceService {
     @Transactional
     @Override
     public void changeInfluenceInfo(InfluenceUpdateParameter parameter) {
-        Optional<Influence> influence = influenceJpaRepository.findById(parameter.getInfluenceId());
+        Optional<Influence> optional = influenceJpaRepository.findById(parameter.getInfluenceId());
 
-        if(!influence.isPresent()) {
+        if(!optional.isPresent()) {
             return;
         }
-        influence.get().updateNickname(parameter.getNickname());
-        influence.get().updatePhoneNumber(parameter.getPhoneNumber());
+        Influence influence = optional.get();
+        influence.updateNickname(parameter.getNickname());
+        influence.updatePhoneNumber(parameter.getPhoneNumber());
 
-        influenceJpaRepository.save(influence.get());
+        influenceJpaRepository.save(influence);
+        m2netCounselorService.updateInfluenceInfo(influence.getM2NetCounselorId(), new M2netCounselorInfoUpdateRequest(influence));
     }
 }

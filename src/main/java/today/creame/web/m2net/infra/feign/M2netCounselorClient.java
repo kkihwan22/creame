@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import today.creame.web.m2net.infra.feign.config.M2netHeaderConfig;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateRequest;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateResponse;
+import today.creame.web.m2net.infra.feign.io.M2netCounselorInfoUpdateRequest;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorStateRequest;
 
 @FeignClient(
@@ -33,5 +34,11 @@ public interface M2netCounselorClient {
     ResponseEntity off(
         @PathVariable String cid,
         @RequestBody M2netCounselorStateRequest request
+    );
+
+    @PutMapping("/{cid}")
+    ResponseEntity<M2netCounselorCreateResponse> updateInfluenceInfo(
+            @PathVariable String cid,
+            @RequestBody M2netCounselorInfoUpdateRequest request
     );
 }
