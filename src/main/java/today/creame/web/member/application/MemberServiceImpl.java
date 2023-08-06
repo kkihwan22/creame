@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import today.creame.web.influence.application.InfluenceService;
 import today.creame.web.influence.application.model.InfluenceUpdateParameter;
 import today.creame.web.m2net.application.M2netUserService;
+import today.creame.web.m2net.application.model.M2netUserUpdateParameter;
 import today.creame.web.member.application.model.*;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
@@ -203,6 +204,7 @@ public class MemberServiceImpl implements MemberService {
         }
 
         memberJpaRepository.save(findMember);
+        m2netUserService.updateMemberInfo(findMember.getM2netUserId(),new M2netUserUpdateParameter(findMember));
 
         influenceService.changeInfluenceInfo(new InfluenceUpdateParameter(findMember.getId(), findMember.getNickname(), findMember.getPhoneNumber()));
 

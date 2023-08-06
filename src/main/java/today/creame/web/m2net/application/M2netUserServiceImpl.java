@@ -5,7 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import today.creame.web.m2net.application.model.M2netUserCreateParameter;
+import today.creame.web.m2net.application.model.M2netUserUpdateParameter;
 import today.creame.web.m2net.exception.ConflictMemberException;
 import today.creame.web.m2net.infra.feign.M2netUserClient;
 import today.creame.web.m2net.infra.feign.io.M2netAutoChargingUpdateRequest;
@@ -38,5 +41,13 @@ public class M2netUserServiceImpl implements M2netUserService {
     public void updateAutoChargingConfig(AutoChargingConfigEvent event) {
         log.debug("auto charging config event: {}", event);
         client.updateAutoChargingConfig(event.getMid(), new M2netAutoChargingUpdateRequest(event));
+    }
+
+    @Override
+    public void updateMemberInfo(String mid, M2netUserUpdateParameter parameter) {
+        log.info("M2netUserServiceImpl.updateMemberInfo request >> {} {} {}", mid, parameter.getMembnm(), parameter.getTelno());
+        ResponseEntity<M2netUserCreateResponse> response = client.update(mid, parameter);
+        log.info("M2netUserServiceImpl.updateMemberInfo response >> {} {}", response.getStatusCode(), response.getBody().getResultmessage());
+
     }
 }
