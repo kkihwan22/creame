@@ -23,6 +23,7 @@ public class ItemMap {
         }
         log.info("Item data: {}", temp);
         data = new HashMap<>(temp);
+        data.put(8, new Item(8, 4000, 30, TimeUnit.SECONDS));
     }
 
     public static Item get(Integer index) {
