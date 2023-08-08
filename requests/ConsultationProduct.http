@@ -1,0 +1,19 @@
+### 통화상품 조회
+GET {{host}}/public/v1/consultation-products
+Content-Type: application/json
+
+### 통화상품 상세 조회
+GET {{host}}/admin/v1/consultation-products/5
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjkyMDIxNDAyLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.sHyisYG5fnXZUAz1s85hKB7kN3YKO8-AByG1da0j3kM
+
+### 통화상품 등록(테스트중)
+POST {{host}}/admin/v1/consultation-products
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjkyMDIxNDAyLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.sHyisYG5fnXZUAz1s85hKB7kN3YKO8-AByG1da0j3kM
+
+{
+  "ranking_id" : 1,
+  "budget_amounts" : 800,
+  "consultation_amount" : 123000
+}
