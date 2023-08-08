@@ -20,7 +20,7 @@ public class Utils {
     public static String combineFileResourceUrl(FileResource file) {
         if (Objects.isNull(file)) return null;
 
-        return file.getContextName() + file.getBucketName() + file.getObjectKey();
+        return file.getContextName() + file.getBucketName() + "/" + file.getObjectKey();
     }
 
     public static BooleanExpression equalsOperation(SimpleExpression column, Object value) {
