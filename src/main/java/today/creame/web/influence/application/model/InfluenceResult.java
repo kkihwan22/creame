@@ -8,13 +8,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.ToString;
-import today.creame.web.influence.domain.Category;
-import today.creame.web.influence.domain.Greetings;
-import today.creame.web.influence.domain.Influence;
-import today.creame.web.influence.domain.InfluenceBookmark;
-import today.creame.web.influence.domain.InfluenceCategory;
-import today.creame.web.influence.domain.InfluenceNotice;
-import today.creame.web.influence.domain.InfluenceProfileImage;
+import today.creame.web.influence.domain.*;
 import today.creame.web.share.model.BaseFileResource;
 
 @Getter
@@ -41,6 +35,7 @@ public class InfluenceResult {
     private int postPriceTime;
     private String postPriceTimeUnit;
 
+    private Rank rank;
     private String snsCompany;
     private String snsAddress;
 
@@ -85,6 +80,7 @@ public class InfluenceResult {
         this.postPriceTimeUnit = TimeUnit.SECONDS.name();
 
         this.m2NetCounselorId = influence.getM2NetCounselorId();
+        this.rank = influence.getRank();
         this.introduction = influence.getIntroduction();
         this.greetings = Optional.ofNullable(influence.getGreetings())
             .map(Greetings::getFileResourceUri)
