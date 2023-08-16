@@ -76,6 +76,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
     @Override
     @Transactional
     public void duplicateApprove(Long id) {
+        // TODO: 해당 로직 리뷰 시간 가지기 ( by 현수님 )
         InfluenceApplication application = influenceApplicationJpaRepository.findById(id)
                 .orElseThrow(NotFoundApplicationException::new);
 
@@ -83,9 +84,11 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
 
         MemberSearchParameter parameter = new MemberSearchParameter(application.getEmail(), application.getPhoneNumber(), application.getNickname());
         List<MemberSearchResult> members = memberService.findAllByEmailOrPhoneNumberOrNickname(parameter);
-        memberService.memberRoleUpdate(members.get(0).getId());
-        influenceService.create(new InfluenceCreateParameter(members.get(0).getId(), application));
+        MemberSearchResult member = members.get(0);
+        memberService.memberRoleUpdate(member.getId());
+        influenceService.create(new InfluenceCreateParameter(member.getId(), application));
 
+        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), member.getPassword()));
     }
 
     @Transactional

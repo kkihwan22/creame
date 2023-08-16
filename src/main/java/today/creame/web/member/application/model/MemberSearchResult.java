@@ -11,11 +11,13 @@ public class MemberSearchResult {
     private String email;
     private String phoneNumber;
     private String nickname;
+    private String password;
 
     public MemberSearchResult(Member member) {
         this.id = member.getId();
         this.email = member.getEmail();
         this.phoneNumber = member.getPhoneNumber();
         this.nickname = member.getNickname();
+        this.password = member.getPassword();
     }
 }

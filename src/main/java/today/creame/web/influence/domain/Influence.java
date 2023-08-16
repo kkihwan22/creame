@@ -150,7 +150,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.phoneNumber = phoneNumber;
         this.introduction = introduction;
 
-        this.rank = Rank.PURPLE;
+        this.rank = Rank.RED;
         this.connected = false;
         this.item = ItemMap.get(8);
     }
