@@ -39,7 +39,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 
 ### 인플루언스 조회
-GET {{host}}/public/v1/influences/70
+GET {{host}}/public/v1/influences/103
 Content-Type: application/json
 
 ### 북마크 조회

@@ -33,3 +33,13 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
   "banner_image_uri" : "https://s3.ap-northeast-2.amazonaws.com/today.creame.file/temp/20230217/20230217022553-10003.png",
   "order_number" : 2
 }
+
+
+###
+
+GET {{host}}/public/v1/home/influence/stat
+Content-Type: application/json
+
+{
+
+}

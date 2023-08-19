@@ -68,7 +68,7 @@ services:
 cloud:
   aws:
     credentials:
-      profile-name: creame.service
+      profile-name: creame-service
     region:
       static: ap-northeast-2
       auto: false
@@ -91,18 +91,7 @@ m2net:
   host: http://passcall.co.kr:25205
 
 logging:
-  level:
-    root: error
-    today.creame: debug
-    org.springframework: warn
-    org.springframework.web: error
-    org.hibernate:
-      SQL: debug
-      type:
-        descriptor:
-          sql: TRACE
-    springfox: error
-    com.amazonaws.util.EC2MetadataUtils: ERROR
+  config: classpath:logback/logback-dev.xml
 
 
 ## 소셜 로그인
