@@ -33,22 +33,6 @@
         </encoder>
     </appender>
 
-    <!-- ACCESSLOG -->
-    <appender name="ACCESSLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIR}/accesslog/accesslog.log</file>
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>
-                %msg%n
-            </Pattern>
-        </layout>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_DIR}/accesslog/accesslog.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-    </appender>
-
     <root level="info">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="CWLOG" />
@@ -57,10 +41,6 @@
     <logger name="today.creame" level="debug" additivity="false">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="CWLOG" />
-    </logger>
-
-    <logger name="access-log" level="info" additivity="false">
-        <appender-ref ref="ACCESSLOG" />
     </logger>
 
 </configuration>
