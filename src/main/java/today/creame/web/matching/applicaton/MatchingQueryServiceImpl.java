@@ -153,9 +153,9 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
             }else {
                 if(list.size() == 1){
                     if(list.get(0).getPaidType() == PaidType.POST){
-                        matchingStatisticsResults.add(new MatchingStatisticsResult(dateString, PaidType.PRE, 0, 0L));
-                    }else{
                         matchingStatisticsResults.add(new MatchingStatisticsResult(dateString, PaidType.POST, 0, 0L));
+                    }else{
+                        matchingStatisticsResults.add(new MatchingStatisticsResult(dateString, PaidType.PRE, 0, 0L));
                     }
                 }
             }

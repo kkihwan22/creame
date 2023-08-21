@@ -6,10 +6,15 @@ import today.creame.web.influence.entrypoint.rest.io.InfluenceQnaSearchRequest;
 @Getter
 public class InfluenceQnaSearchParameter {
     private Long memberId;
-    private String nickname;
+    private String memberNickname;
+
+    private Long influenceId;
+    private String influenceNickname;
 
     public InfluenceQnaSearchParameter(InfluenceQnaSearchRequest request) {
         this.memberId = request.getMemberId();
-        this.nickname = request.getNickname();
+        this.memberNickname = request.getMemberNickname();
+        this.influenceId = request.getInfluenceId();
+        this.influenceNickname = request.getInfluenceNickname();
     }
 }

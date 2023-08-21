@@ -346,7 +346,9 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         QueryResults<InfluenceQna> result = query
                 .selectFrom(influenceQna)
                 .where(Utils.equalsOperation(influenceQna.questioner.id, parameter.getMemberId()),
-                        Utils.equalsOperation(influenceQna.questioner.nickname, parameter.getNickname()))
+                        Utils.equalsOperation(influenceQna.questioner.nickname, parameter.getMemberNickname()),
+                        Utils.equalsOperation(influenceQna.influence.id, parameter.getInfluenceId()),
+                        Utils.equalsOperation(influenceQna.influence.nickname, parameter.getInfluenceNickname()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(getOrderSpecifier(pageable))
