@@ -6,10 +6,15 @@ import today.creame.web.matching.entrypoint.rest.io.ReviewSearchRequest;
 @Getter
 public class ReviewSearchParameter {
     private Long memberId;
-    private String nickname;
+    private String memberNickname;
+
+    private Long influenceId;
+    private String influenceNickname;
 
     public ReviewSearchParameter(ReviewSearchRequest request) {
         this.memberId = request.getMemberId();
-        this.nickname = request.getNickname();
+        this.memberNickname = request.getMemberNickname();
+        this.influenceId = request.getInfluenceId();
+        this.influenceNickname = request.getInfluenceNickname();
     }
 }

@@ -7,5 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ReviewSearchRequest {
     private Long memberId;
-    private String nickname;
+    private String memberNickname;
+
+    private Long influenceId;
+    private String influenceNickname;
 }

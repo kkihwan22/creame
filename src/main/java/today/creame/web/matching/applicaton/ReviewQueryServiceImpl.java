@@ -120,7 +120,9 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
     public Page<MatchingReview> list(ReviewSearchParameter parameter, Pageable pageable) {
         QueryResults<MatchingReview> result =  query.selectFrom(matchingReview)
                 .where(Utils.equalsOperation(matchingReview.matching.member.id, parameter.getMemberId()),
-                       Utils.equalsOperation(matchingReview.matching.member.nickname, parameter.getNickname()))
+                       Utils.equalsOperation(matchingReview.matching.member.nickname, parameter.getMemberNickname()),
+                       Utils.equalsOperation(matchingReview.matching.influence.id, parameter.getInfluenceId()),
+                       Utils.equalsOperation(matchingReview.matching.influence.nickname, parameter.getInfluenceNickname()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(getOrderSpecifier(pageable))
