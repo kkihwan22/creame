@@ -1,4 +1,4 @@
-package today.creame.web.ranking.endpoint.rest;
+package today.creame.web.ranking.entrypoint.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.ranking.application.ConsultationProductQuery;
 import today.creame.web.ranking.domain.ConsultationProduct;
-import today.creame.web.ranking.endpoint.rest.io.ConsultationProductResponse;
+import today.creame.web.ranking.entrypoint.rest.io.ConsultationProductResponse;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
 

@@ -1,4 +1,4 @@
-package today.creame.web.ranking.endpoint.rest;
+package today.creame.web.ranking.entrypoint.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +8,8 @@ import today.creame.web.ranking.application.ConsultationProductService;
 import today.creame.web.ranking.application.model.ConsultationProductRegisterParameter;
 import today.creame.web.ranking.application.model.ConsultationProductResult;
 import today.creame.web.ranking.application.model.ConsultationProductUpdateParameter;
-import today.creame.web.ranking.endpoint.rest.io.ConsultationProductRegisterRequest;
-import today.creame.web.ranking.endpoint.rest.io.ConsultationProductResponse;
+import today.creame.web.ranking.entrypoint.rest.io.ConsultationProductRegisterRequest;
+import today.creame.web.ranking.entrypoint.rest.io.ConsultationProductResponse;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;

@@ -1,4 +1,4 @@
-package today.creame.web.ranking.endpoint.rest;
+package today.creame.web.ranking.entrypoint.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.ranking.application.RankingService;
 import today.creame.web.ranking.application.model.RankingResult;
-import today.creame.web.ranking.endpoint.rest.io.RankingResponse;
+import today.creame.web.ranking.entrypoint.rest.io.RankingResponse;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
 

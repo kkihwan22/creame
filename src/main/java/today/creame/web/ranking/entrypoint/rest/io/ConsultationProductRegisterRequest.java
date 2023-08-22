@@ -1,4 +1,4 @@
-package today.creame.web.ranking.endpoint.rest.io;
+package today.creame.web.ranking.entrypoint.rest.io;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
