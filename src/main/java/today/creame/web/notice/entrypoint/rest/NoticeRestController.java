@@ -21,14 +21,14 @@ import javax.validation.Valid;
 public class NoticeRestController implements BaseRestController {
     private final NoticeService noticeService;
 
-    @GetMapping("/public/v1/notice/{id}")
+    @GetMapping("/public/v1/notices/{id}")
     public ResponseEntity<Body<NoticeResponse>> getDetail(@PathVariable Long id) {
         NoticeResult noticeResult = noticeService.getDetail(id);
         NoticeResponse response = new NoticeResponse(noticeResult);
         return ResponseEntity.ok(BodyFactory.success(response));
     }
 
-    @PostMapping("/admin/v1/notice")
+    @PostMapping("/admin/v1/notices")
     public ResponseEntity<Body<SimpleBodyData<Long>>> register(@RequestBody @Valid NoticeRegisterRequest request, BindingResult bindingResult) {
         hasError(bindingResult);
 
@@ -36,7 +36,7 @@ public class NoticeRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(noticeId)));
     }
 
-    @PatchMapping("/admin/v1/notice/{id}")
+    @PatchMapping("/admin/v1/notices/{id}")
     public ResponseEntity<Body<SimpleBodyData<String>>> update(@PathVariable Long id, @RequestBody @Valid NoticeRegisterRequest request, BindingResult bindingResult) {
         hasError(bindingResult);
 
@@ -44,7 +44,7 @@ public class NoticeRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));
     }
 
-    @DeleteMapping("/admin/v1/notice/{id}")
+    @DeleteMapping("/admin/v1/notices/{id}")
     public ResponseEntity<Body<SimpleBodyData<String>>> delete(@PathVariable Long id) {
         noticeService.delete(id);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));

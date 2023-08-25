@@ -21,14 +21,14 @@ import javax.validation.Valid;
 public class FaqRestController implements BaseRestController {
     private final FaqService faqService;
 
-    @GetMapping("/public/v1/faq/{id}")
+    @GetMapping("/public/v1/faqs/{id}")
     public ResponseEntity<Body<FaqResponse>> getDetail(@PathVariable Long id) {
         FaqResult faqResult = faqService.getDetail(id);
         FaqResponse response = new FaqResponse(faqResult);
         return ResponseEntity.ok(BodyFactory.success(response));
     }
 
-    @PostMapping("/admin/v1/faq")
+    @PostMapping("/admin/v1/faqs")
     public ResponseEntity<Body<SimpleBodyData<String>>> register(@RequestBody @Valid FaqRegisterRequest request, BindingResult bindingResult) {
         hasError(bindingResult);
 
@@ -36,7 +36,7 @@ public class FaqRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));
     }
 
-    @PatchMapping("/admin/v1/faq/{id}")
+    @PatchMapping("/admin/v1/faqs/{id}")
     public ResponseEntity<Body<SimpleBodyData<String>>> update(@PathVariable Long id, @RequestBody @Valid FaqRegisterRequest request, BindingResult bindingResult) {
         hasError(bindingResult);
 
@@ -44,7 +44,7 @@ public class FaqRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));
     }
 
-    @DeleteMapping("/admin/v1/faq/{id}")
+    @DeleteMapping("/admin/v1/faqs/{id}")
     public ResponseEntity<Body<SimpleBodyData<String>>> delete(@PathVariable Long id) {
         faqService.delete(id);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));

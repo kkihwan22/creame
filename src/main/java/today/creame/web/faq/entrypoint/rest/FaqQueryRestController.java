@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class FaqQueryRestController {
     private final FaqQuery faqQuery;
 
-    @GetMapping("/public/v1/faq")
+    @GetMapping("/public/v1/faqs")
     public ResponseEntity<PageBody<FaqResponse>> list(FaqSearchRequest searchRequest, Pageable pageable){
 
         Page<Faq> faqPage = faqQuery.list(new FaqSearchParameter(searchRequest), pageable);

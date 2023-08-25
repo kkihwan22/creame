@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 public class NoticeQueryRestController {
     private final NoticeQuery noticeQuery;
-    @GetMapping("/public/v1/notice")
+    @GetMapping("/public/v1/notices")
     public ResponseEntity<PageBody<NoticeResponse>> list(@PageableDefault(size = 10)Pageable pageable){
 
         Page<Notice> noticePage = noticeQuery.list(pageable);
