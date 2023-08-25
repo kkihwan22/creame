@@ -38,8 +38,7 @@
         <appender-ref ref="CWLOG" />
     </root>
 
-    <logger name="today.creame" level="debug" additivity="false">
-        <appender-ref ref="CONSOLE" />
+    <logger name="today.creame" level="info" additivity="false">
         <appender-ref ref="CWLOG" />
     </logger>
 
