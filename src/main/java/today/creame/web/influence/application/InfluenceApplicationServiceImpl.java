@@ -21,6 +21,7 @@ import today.creame.web.member.application.model.MemberSearchResult;
 import today.creame.web.member.domain.SignupType;
 import today.creame.web.share.event.SmsSendEvent;
 import today.creame.web.share.support.RandomString;
+import today.creame.web.sms.application.SmsTemplate;
 
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         Long influenceId = influenceService.create(new InfluenceCreateParameter(member.getId(), application));
         log.debug("member:{}, influence:{}", member.getId(), influenceId);
 
-        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), member.getPassword()));
+        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(parameter.getEmail(), member.getPassword())));
     }
 
     @Override
@@ -88,7 +89,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         memberService.memberRoleUpdate(member.getId());
         influenceService.create(new InfluenceCreateParameter(member.getId(), application));
 
-        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), member.getPassword()));
+        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(member.getEmail(), member.getPassword())));
     }
 
     @Transactional
@@ -111,4 +112,5 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
 
         application.reject();
     }
+
 }
