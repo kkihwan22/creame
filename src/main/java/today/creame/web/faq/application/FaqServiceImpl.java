@@ -3,6 +3,7 @@ package today.creame.web.faq.application;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.faq.application.model.FaqRegisterParameter;
 import today.creame.web.faq.application.model.FaqResult;
 import today.creame.web.faq.domain.Faq;
@@ -26,6 +27,7 @@ public class FaqServiceImpl implements FaqService{
         return new FaqResult(faq);
     }
 
+    @Transactional
     @Override
     public void register(FaqRegisterParameter parameter) {
         Faq faq = parameter.toEntity();
@@ -39,6 +41,7 @@ public class FaqServiceImpl implements FaqService{
         }
     }
 
+    @Transactional
     @Override
     public void update(FaqRegisterParameter parameter) {
         Faq faq = faqJpaRepository.findByIdAndDeletedIsFalse(parameter.getId()).orElseThrow(NotFoundFaqException::new);
@@ -54,6 +57,7 @@ public class FaqServiceImpl implements FaqService{
         }
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         Faq faq = faqJpaRepository.findByIdAndDeletedIsFalse(id).orElseThrow(NotFoundFaqException::new);
