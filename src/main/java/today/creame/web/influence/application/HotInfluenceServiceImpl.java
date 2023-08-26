@@ -1,11 +1,14 @@
 package today.creame.web.influence.application;
 
+import java.util.*;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import today.creame.web.influence.application.model.HotInfluenceDetailResult;
 import today.creame.web.influence.application.model.HotInfluenceParameter;
 import today.creame.web.influence.application.model.HotInfluenceUpdateParameter;
 import today.creame.web.influence.domain.Category;
@@ -14,7 +17,7 @@ import today.creame.web.influence.domain.HotInfluenceJpaRepository;
 import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
-import today.creame.web.influence.exception.NotFoundApplicationException;
+import today.creame.web.influence.exception.ExistHotInfluenceException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 
 @RequiredArgsConstructor
@@ -24,12 +27,23 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
     private final InfluenceJpaRepository influenceJpaRepository;
     private final HotInfluenceJpaRepository hotInfluenceJpaRepository;
 
-    // 인플루언스 등록 !!
+    @Override
+    public HotInfluenceDetailResult getDetail(Long id) {
+        HotInfluence hotInfluence = hotInfluenceJpaRepository.findById(id)
+                .orElseThrow(NotFoundInfluenceException::new);
+
+        return new HotInfluenceDetailResult(hotInfluence);
+    }
 
     @Transactional
     @Override
     public Long create(HotInfluenceParameter parameter) {
         Long influenceId = parameter.getInfluenceId();
+        Optional<HotInfluence> optionalHotInfluence = hotInfluenceJpaRepository.findByInfluenceId(influenceId);
+        if(optionalHotInfluence.isPresent()) {
+            throw new ExistHotInfluenceException();
+        }
+
         Influence influence = influenceJpaRepository.findById(influenceId)
                 .orElseThrow(NotFoundInfluenceException::new);
 
@@ -40,12 +54,9 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
 
         HotInfluence hotInfluence = new HotInfluence(
                 influenceId,
-                parameter.getTitle(),
-                parameter.getBannerImageUri(),
                 influence.getNickname(),
                 influence.getExtensionNumber(),
-                joinedCategories,
-                parameter.getOrderNumber());
+                joinedCategories);
 
         hotInfluenceJpaRepository.save(hotInfluence);
 
@@ -57,15 +68,73 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
     public void update(HotInfluenceUpdateParameter parameter) {
         HotInfluence hotInfluence = hotInfluenceJpaRepository.findById(parameter.getId())
                 .orElseThrow(NotFoundInfluenceException::new);
+        hotInfluence.changeHotInfluence(parameter.getTitle(), parameter.getBannerImageUri(), parameter.getOrderNumber());
 
-        hotInfluence.update(parameter.getTitle(), parameter.getBannerImageUri(), parameter.getOrderNumber());
+        List<HotInfluence> originHotInfluences = hotInfluenceJpaRepository.findAllByEnabledTrue();
+        if(CollectionUtils.isEmpty(originHotInfluences)) {
+            hotInfluence.changeOrderNumber(1);
+            hotInfluenceJpaRepository.save(hotInfluence);
+        } else {
+            List<HotInfluence> sortHotInfluences = sortHotInfluence(hotInfluence, originHotInfluences);
+            hotInfluenceJpaRepository.saveAll(sortHotInfluences);
+        }
     }
 
     @Transactional
     @Override
     public void enabled(Long id) {
         HotInfluence hotInfluence = hotInfluenceJpaRepository.findById(id)
-                .orElseThrow(NotFoundApplicationException::new);
+                .orElseThrow(NotFoundInfluenceException::new);
         hotInfluence.enabled();
+    }
+
+    @Transactional
+    @Override
+    public void delete(Long influenceId) {
+        HotInfluence hotInfluence = hotInfluenceJpaRepository.findByInfluenceId(influenceId)
+                .orElseThrow(NotFoundInfluenceException::new);
+        hotInfluenceJpaRepository.delete(hotInfluence);
+    }
+
+    public List<HotInfluence> sortHotInfluence(HotInfluence hotInfluence, List<HotInfluence> originHotInfluence){
+
+        List<HotInfluence> sortHotInfluence =
+                originHotInfluence.stream()
+                        .filter(p -> !p.getId().equals(hotInfluence.getId()))
+                        .sorted(Comparator.comparing(hotInfluence1 -> hotInfluence1.getOrderNumber()))
+                        .collect(Collectors.toList());
+
+        List<HotInfluence> saveHotInfluence = new ArrayList<>();
+        if(Objects.nonNull(hotInfluence.getOrderNumber())){
+
+            int orderNum = 1;
+            boolean isFirst = true;
+            for(HotInfluence hotInfluence1 : sortHotInfluence){
+                if(0 >= hotInfluence.getOrderNumber() && isFirst){
+                    isFirst = false;
+                    orderNum++;
+                }
+
+                if(orderNum == hotInfluence.getOrderNumber()){
+                    orderNum++;
+                }
+
+                hotInfluence1.changeOrderNumber(orderNum);
+                saveHotInfluence.add(hotInfluence1);
+                orderNum++;
+            }
+
+            if(0 >= hotInfluence.getOrderNumber()){
+                hotInfluence.changeOrderNumber(1);
+                saveHotInfluence.add(hotInfluence);
+            }else if(hotInfluence.getOrderNumber() >= orderNum){
+                hotInfluence.changeOrderNumber(orderNum);
+                saveHotInfluence.add(hotInfluence);
+            }else{
+                saveHotInfluence.add(hotInfluence);
+            }
+        }
+
+        return saveHotInfluence;
     }
 }

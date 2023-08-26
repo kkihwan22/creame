@@ -19,8 +19,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import today.creame.web.common.support.Utils;
 import today.creame.web.influence.application.model.HotInfluenceResult;
 import today.creame.web.influence.domain.*;
 
@@ -30,7 +30,6 @@ public class HotInfluenceQueryImpl implements HotInfluenceQuery {
     private final Logger log = LoggerFactory.getLogger(HotInfluenceQueryImpl.class);
     private final HotInfluenceJpaRepository hotInfluenceJpaRepository;
     private final JPAQueryFactory query;
-    private final InfluenceCategoryJpaRepository influenceCategoryJpaRepository;
     private final QHotInfluence h = hotInfluence;
     private final QInfluence i = influence;
 
@@ -43,21 +42,9 @@ public class HotInfluenceQueryImpl implements HotInfluenceQuery {
         HOTINFLUENCE_PROPERTY_MAP.put("updatedDateTime", hotInfluence.updatedDateTime);
     }
 
-    public OrderSpecifier<?> getOrderSpecifier(Pageable pageable) {
-        if (!pageable.getSort().isEmpty()) {
-            Sort.Order order = pageable.getSort().iterator().next();
-            Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
-            Expression<?> property = HOTINFLUENCE_PROPERTY_MAP.get(order.getProperty());
-            if (property != null) {
-                return new OrderSpecifier(direction, property);
-            }
-        }
-        return null;
-    }
-
     @Override
     public List<HotInfluenceResult> getEnabledHotInfluenceList() {
-        List<HotInfluence> hotInfluences = hotInfluenceJpaRepository.findHotInfluencesByEnabled(true);
+        List<HotInfluence> hotInfluences = hotInfluenceJpaRepository.findHotInfluencesByEnabledOrderByOrderNumberAsc(true);
         log.debug("hotInfluences: {}", hotInfluences);
 
         return hotInfluences.stream()
@@ -66,13 +53,14 @@ public class HotInfluenceQueryImpl implements HotInfluenceQuery {
     }
 
     @Override
-    public Page<HotInfluence> list(Pageable pageable) {
+    public Page<HotInfluence> list(Boolean enabled, Pageable pageable) {
 
     QueryResults<HotInfluence> result = query
             .selectFrom(hotInfluence)
+            .where(Utils.equalsOperation(hotInfluence.enabled, enabled))
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
-            .orderBy(getOrderSpecifier(pageable))
+            .orderBy(hotInfluence.enabled.desc(), hotInfluence.orderNumber.asc())
             .fetchResults();
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());

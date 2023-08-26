@@ -67,24 +67,26 @@ public class HotInfluence extends BaseCreatedAndUpdatedDateTimeWithAudit {
     )
     private boolean enabled;
 
-    public HotInfluence(Long influenceId, String title, String bannerImageUri, String nickname, String extensionNumber, String categories, int orderNumber) {
+    public HotInfluence(Long influenceId, String nickname, String extensionNumber, String categories) {
         this.influenceId = influenceId;
-        this.title = title;
-        this.bannerImageUri = bannerImageUri;
         this.nickname = nickname;
         this.extensionNumber = extensionNumber;
         this.categories = categories;
-        this.orderNumber = orderNumber;
-        this.enabled = true;
+        this.enabled = false;
+        this.orderNumber = 0;
     }
 
     public void enabled(){
         this.enabled = !this.enabled;
     }
 
-    public void update(String title, String bannerImageUri, int orderNumber) {
+    public void changeHotInfluence(String title, String bannerImageUri, int orderNumber) {
         this.title = title;
         this.bannerImageUri = bannerImageUri;
+        this.orderNumber = orderNumber;
+    }
+
+    public void changeOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
     }
 }

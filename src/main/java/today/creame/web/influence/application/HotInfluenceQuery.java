@@ -11,5 +11,5 @@ public interface HotInfluenceQuery {
 
     List<HotInfluenceResult> getEnabledHotInfluenceList();
 
-    Page<HotInfluence> list(Pageable pageable);
+    Page<HotInfluence> list(Boolean enabled, Pageable pageable);
 }

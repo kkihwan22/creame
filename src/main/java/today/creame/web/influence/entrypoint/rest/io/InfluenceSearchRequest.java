@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class InfluenceSearchRequest {
-    Boolean onlyHotInfluence;
+    private Boolean onlyHotInfluence;
 
     public InfluenceSearchRequest(Boolean onlyHotInfluence) {
         this.onlyHotInfluence = onlyHotInfluence;
