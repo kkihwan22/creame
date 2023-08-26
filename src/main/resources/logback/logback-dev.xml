@@ -34,13 +34,15 @@
     </appender>
 
     <root level="info">
-        <appender-ref ref="CONSOLE" />
         <appender-ref ref="CWLOG" />
     </root>
 
-    <logger name="today.creame" level="debug" additivity="false">
-        <appender-ref ref="CONSOLE" />
+    <logger name="today.creame" level="info" additivity="false">
         <appender-ref ref="CWLOG" />
+    </logger>
+
+    <logger name="com.amazonaws.util.EC2MetadataUtils" level="ERROR" additivity="false">
+        <appender-ref ref="CWLOG"/>
     </logger>
 
 </configuration>

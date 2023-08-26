@@ -78,7 +78,7 @@ services:
 cloud:
   aws:
     credentials:
-      profile-name: creame-service
+      profile-name: creame.service
     region:
       static: ap-northeast-2
       auto: false
