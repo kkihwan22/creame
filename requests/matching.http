@@ -68,3 +68,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 GET {{host}}/public/v1/influences/90/questions
 Content-Type: application/json
+
+### 통화시간
+GET {{host}}/admin/v1/matching/MEMBER
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjkzNjY5MzA0LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.3gE66G0_jGTDd5ODNUAd5l38Do5-W4djqaBCGzF-uww
+
+

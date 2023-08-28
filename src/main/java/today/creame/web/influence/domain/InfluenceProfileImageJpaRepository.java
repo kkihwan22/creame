@@ -9,4 +9,6 @@ public interface InfluenceProfileImageJpaRepository extends JpaRepository<Influe
     List<InfluenceProfileImage> findByIdIn(Set<Long> idSet);
 
     List<InfluenceProfileImage> findByInfluence_IdIn(Set<Long> idSet);
+    List<InfluenceProfileImage> findAllByFileResourceIdInAndDeletedFalse(List<Long> ids);
+    List<InfluenceProfileImage> findAllByInfluenceAndDeletedOrderByOrderNumberAsc(Influence influence, boolean deleted);
 }

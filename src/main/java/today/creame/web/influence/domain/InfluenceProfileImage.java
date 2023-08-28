@@ -57,4 +57,15 @@ public class InfluenceProfileImage extends BaseCreatedAndUpdatedDateTime {
         this.deleted = deleted;
         this.orderNumber = orderNumber;
     }
+
+    public void deleted() {
+        this.deleted = true;
+    }
+
+    public void changeOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+    public void changeInfluence(Influence influence) {
+        this.influence = influence;
+    }
 }

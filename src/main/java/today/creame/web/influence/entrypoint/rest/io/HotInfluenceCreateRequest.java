@@ -13,8 +13,13 @@ public class HotInfluenceCreateRequest {
 
     @NotNull
     private Long influenceId;
+    private String title;
+    private boolean enabled;
+    private String bannerImageUri;
+    @NotNull
+    private Integer orderNumber;
 
     public HotInfluenceParameter toParameter() {
-        return new HotInfluenceParameter(this.influenceId);
+        return new HotInfluenceParameter(this.influenceId, this.title, this.enabled, this.bannerImageUri, this.orderNumber);
     }
 }

@@ -70,4 +70,8 @@ public class FileResource extends BaseCreatedAndUpdatedDateTime {
             .append(objectKey)
             .toString();
     }
+
+    public void deleted() {
+        this.deleted = true;
+    }
 }

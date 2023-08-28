@@ -14,7 +14,9 @@ public enum InfluenceErrorCode {
     NOT_IN_REQUEST_STATUS(2007, "인플루언스 신청(REQUEST) 상태가 아닙니다."),
     BAD_REQUEST_ANSWER(2008, "답변을 달 수 없는 게시물입니다."),
     BAD_REQUEST(2009, "잘못된 요청입니다."),
-    EXIST_HOT_INFLUENCE(2010, "이미 존재하는 핫인플루언서 입니다.")
+    EXIST_HOT_INFLUENCE(2010, "이미 존재하는 핫인플루언서 입니다."),
+    BAD_REQUEST_BANNER_IMAGE(2011, "배너 이미지는 필수 입니다."),
+    BAD_REQUEST_PROFILE_IMAGE_SIZE_OVER(2012, "프로필 이미지는 4개 까지만 등록 가능 합니다.")
 
 
     ;

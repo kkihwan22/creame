@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import today.creame.web.influence.application.HotInfluenceQuery;
 import today.creame.web.influence.application.HotInfluenceService;
 import today.creame.web.influence.application.model.HotInfluenceDetailResult;
+import today.creame.web.influence.application.model.HotInfluenceTargetParameter;
+import today.creame.web.influence.application.model.HotInfluenceTargetResult;
 import today.creame.web.influence.application.model.HotInfluenceUpdateParameter;
 import today.creame.web.influence.domain.HotInfluence;
 import today.creame.web.influence.entrypoint.rest.io.*;
 import today.creame.web.share.entrypoint.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,15 +68,23 @@ public class HotInfluenceRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(response));
     }
 
-    @PatchMapping("/admin/v1/banners/hot/{id}/enabled")
-    public ResponseEntity<Body<SimpleBodyData<String>>> enabled(@PathVariable Long id) {
-        hotInfluenceService.enabled(id);
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
-    }
+//    @PatchMapping("/admin/v1/banners/hot/{id}/enabled")
+//    public ResponseEntity<Body<SimpleBodyData<String>>> enabled(@PathVariable Long id) {
+//        hotInfluenceService.enabled(id);
+//        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+//    }
 
     @DeleteMapping("/admin/v1/banners/hot")
     public ResponseEntity<Body<SimpleBodyData<String>>> delete(@RequestBody HotInfluenceDeleteRequest request) {
         hotInfluenceService.delete(request.getInfluenceId());
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @GetMapping("/admin/v1/banners/hot/target")
+    public ResponseEntity<Body<List<HotInfluenceTargetResponse>>> listByHotInfluenceRegisterTarget (HotInfluenceTargetSearchRequest request) {
+        List<HotInfluenceTargetResult> results =  hotInfluenceQuery.listByHotInfluenceRegisterTarget(new HotInfluenceTargetParameter(request.getId(), request.getName(), request.getNickname()));
+        List<HotInfluenceTargetResponse> response = results.stream().map(HotInfluenceTargetResponse::new).collect(Collectors.toList());
+
+        return ResponseEntity.ok(BodyFactory.success(response));
     }
 }

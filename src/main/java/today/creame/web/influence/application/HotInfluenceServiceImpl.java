@@ -18,6 +18,7 @@ import today.creame.web.influence.domain.Influence;
 import today.creame.web.influence.domain.InfluenceCategory;
 import today.creame.web.influence.domain.InfluenceJpaRepository;
 import today.creame.web.influence.exception.ExistHotInfluenceException;
+import today.creame.web.influence.exception.BadRequestBannerImageException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 
 @RequiredArgsConstructor
@@ -44,6 +45,10 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
             throw new ExistHotInfluenceException();
         }
 
+        if(parameter.isEnabled() && Objects.isNull(parameter.getBannerImageUri())) {
+            throw new BadRequestBannerImageException();
+        }
+
         Influence influence = influenceJpaRepository.findById(influenceId)
                 .orElseThrow(NotFoundInfluenceException::new);
 
@@ -56,8 +61,20 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
                 influenceId,
                 influence.getNickname(),
                 influence.getExtensionNumber(),
-                joinedCategories);
+                joinedCategories,
+                parameter.getTitle(),
+                parameter.isEnabled(),
+                parameter.getBannerImageUri(),
+                parameter.getOrderNumber());
 
+        List<HotInfluence> originHotInfluences = hotInfluenceJpaRepository.findAllByEnabledTrue();
+        if(CollectionUtils.isEmpty(originHotInfluences)) {
+            hotInfluence.changeOrderNumber(1);
+            hotInfluenceJpaRepository.save(hotInfluence);
+        } else {
+            List<HotInfluence> sortHotInfluences = sortHotInfluence(hotInfluence, originHotInfluences);
+            hotInfluenceJpaRepository.saveAll(sortHotInfluences);
+        }
         hotInfluenceJpaRepository.save(hotInfluence);
 
         return hotInfluence.getId();
@@ -68,7 +85,10 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
     public void update(HotInfluenceUpdateParameter parameter) {
         HotInfluence hotInfluence = hotInfluenceJpaRepository.findById(parameter.getId())
                 .orElseThrow(NotFoundInfluenceException::new);
-        hotInfluence.changeHotInfluence(parameter.getTitle(), parameter.getBannerImageUri(), parameter.getOrderNumber());
+        if(parameter.isEnabled() && Objects.isNull(parameter.getBannerImageUri())) {
+            throw new BadRequestBannerImageException();
+        }
+        hotInfluence.changeHotInfluence(parameter.getTitle(), parameter.getBannerImageUri(), parameter.getOrderNumber(), parameter.isEnabled());
 
         List<HotInfluence> originHotInfluences = hotInfluenceJpaRepository.findAllByEnabledTrue();
         if(CollectionUtils.isEmpty(originHotInfluences)) {
@@ -94,6 +114,15 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
         HotInfluence hotInfluence = hotInfluenceJpaRepository.findByInfluenceId(influenceId)
                 .orElseThrow(NotFoundInfluenceException::new);
         hotInfluenceJpaRepository.delete(hotInfluence);
+    }
+
+    @Override
+    public void updateNickname(Long influenceId, String nickname) {
+        Optional<HotInfluence> hotInfluence = hotInfluenceJpaRepository.findByInfluenceId(influenceId);
+        if(hotInfluence.isPresent()) {
+            hotInfluence.get().changeNickname(nickname);
+            hotInfluenceJpaRepository.save(hotInfluence.get());
+        }
     }
 
     public List<HotInfluence> sortHotInfluence(HotInfluence hotInfluence, List<HotInfluence> originHotInfluence){

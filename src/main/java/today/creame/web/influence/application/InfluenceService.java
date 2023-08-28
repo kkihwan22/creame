@@ -20,5 +20,7 @@ public interface InfluenceService {
     void update(SnsParameter parameter);
 
     void changeInfluenceInfo(InfluenceUpdateParameter parameter);
+    void updateBlocked(Long id);
+    void updateProfileImages(InfluenceProfileImageUpdateParameter parameter);
 
 }

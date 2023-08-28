@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @Getter
 public class InfluenceDetailResult {
     private Long id;
+    private Long hotInfluenceId;
     private String extensionNumber;
     private String nickname;
     private String name;
@@ -38,7 +39,7 @@ public class InfluenceDetailResult {
     private String snsCompany;
     private String snsAddress;
     private List<String> categories;
-    private List<String> profileImages;
+    private List<ProfileImage> profileImages;
     private String introduction;
     private String greetings;
     private String notice;
@@ -56,8 +57,11 @@ public class InfluenceDetailResult {
 
     public InfluenceDetailResult(
             Influence influence,
-            InfluenceNotice influenceNotice) {
+            InfluenceNotice influenceNotice,
+            Long hotInfluenceId,
+            List<InfluenceProfileImage> influenceProfileImages) {
         this.id = influence.getId();
+        this.hotInfluenceId = hotInfluenceId;
         this.extensionNumber = influence.getExtensionNumber();
         this.nickname = influence.getNickname();
         this.name = influence.getName();
@@ -98,8 +102,8 @@ public class InfluenceDetailResult {
                 .map(Category::name)
                 .collect(Collectors.toList());
 
-        this.profileImages = CollectionUtils.emptyIfNull(influence.getProfileImages()).stream()
-                .map(InfluenceProfileImage::getFileResourceUri)
+        this.profileImages = CollectionUtils.emptyIfNull(influenceProfileImages).stream()
+                .map(ProfileImage::of)
                 .collect(Collectors.toList());
 
         if (influence.getSns() != null) {
@@ -114,5 +118,27 @@ public class InfluenceDetailResult {
         this.qnaNotAnswerCount = influence.getQnaNotAnswerCount();
         this.createdDt = influence.getCreatedDateTime();
         this.updatedDt = influence.getUpdatedDateTime();
+    }
+
+    @Getter
+    public static class ProfileImage {
+        private Long id;
+        private Long fileResourceId;
+        private String uri;
+
+        public ProfileImage(Long id, Long fileResourceId, String uri) {
+            this.id = id;
+            this.fileResourceId = fileResourceId;
+            this.uri = uri;
+        }
+
+        public static ProfileImage of(InfluenceProfileImage influenceProfileImage) {
+            return new ProfileImage(influenceProfileImage.getId(), influenceProfileImage.getFileResourceId(), influenceProfileImage.getFileResourceUri());
+        }
+
+        public static List<ProfileImage> of(List<InfluenceProfileImage> influenceProfileImage) {
+
+            return influenceProfileImage.stream().map(ProfileImage::of).collect(Collectors.toList());
+        }
     }
 }

@@ -9,12 +9,14 @@ import today.creame.web.influence.entrypoint.rest.io.HotInfluenceUpdateRequest;
 public class HotInfluenceUpdateParameter {
     private Long id;
     private String title;
+    private boolean enabled;
     private String bannerImageUri;
     private int orderNumber;
 
     public HotInfluenceUpdateParameter(Long id, HotInfluenceUpdateRequest request) {
         this.id = id;
         this.title = request.getTitle();
+        this.enabled = request.isEnabled();
         this.bannerImageUri = request.getBannerImageUri();
         this.orderNumber = request.getOrderNumber();
     }

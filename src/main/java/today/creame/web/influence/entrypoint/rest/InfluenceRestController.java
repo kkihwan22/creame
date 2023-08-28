@@ -20,6 +20,7 @@ import today.creame.web.influence.application.InfluenceService;
 import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.Item;
 import today.creame.web.influence.domain.SNS;
+import today.creame.web.influence.entrypoint.rest.io.InfluenceProfileImageUpdateRequest;
 import today.creame.web.influence.entrypoint.rest.io.NoticeUpdateRequest;
 import today.creame.web.influence.entrypoint.rest.io.SnsGetResponse;
 import today.creame.web.influence.entrypoint.rest.io.SnsUpdateRequest;
@@ -92,6 +93,18 @@ public class InfluenceRestController implements BaseRestController {
         @PathVariable Integer index
     ) {
         influenceService.changeItem(new InfluenceItemParameter(id, index));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @PutMapping("/admin/v1/influence/{id}/blocked")
+    public ResponseEntity<Body<SimpleBodyData<String>>> updateBlocked(@PathVariable Long id) {
+        influenceService.updateBlocked(id);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @PutMapping("/admin/v1/influence/{id}/profile-images")
+    public ResponseEntity<Body<SimpleBodyData<String>>> updateProfileImages(@PathVariable Long id, @RequestBody InfluenceProfileImageUpdateRequest request) {
+        influenceService.updateProfileImages(new InfluenceProfileImageUpdateParameter(id, request.getCreateFileResourceIds(), request.getDeleteFileResourceIds()));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }

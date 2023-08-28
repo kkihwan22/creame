@@ -16,7 +16,7 @@ public class InfluenceApplicationResult {
     private String nickname;
     private String phoneNumber;
     private String email;
-    private String introduction;
+//    private String introduction;
     private List<String> categories;
     private List<Long> profileImages;
     private String status;
@@ -30,7 +30,7 @@ public class InfluenceApplicationResult {
         this.nickname = result.getNickname();
         this.phoneNumber = result.getPhoneNumber();
         this.email = result.getEmail();
-        this.introduction = result.getIntroduction();
+//        this.introduction = result.getIntroduction();
 
         this.categories = Arrays.stream(result.getCategories().split(",")).collect(Collectors.toList());
         this.profileImages = Arrays.stream(result.getProfileImages().split(",")).map(Long::valueOf).collect(Collectors.toList());

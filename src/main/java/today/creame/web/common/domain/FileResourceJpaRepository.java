@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface FileResourceJpaRepository extends JpaRepository<FileResource, Long> {
 
     List<FileResource> findFileResourceByIdIn(List<Long> ids);
+    List<FileResource> findAllByIdInAndDeletedFalse(List<Long> ids);
+
 }

@@ -22,7 +22,6 @@ import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
-import today.creame.web.matching.domain.MatchingJapRepository;
 import today.creame.web.member.domain.QMember;
 import today.creame.web.share.support.SecurityContextSupporter;
 
@@ -35,7 +34,6 @@ import static today.creame.web.influence.domain.QInfluence.influence;
 import static today.creame.web.influence.domain.QInfluenceBookmark.influenceBookmark;
 import static today.creame.web.influence.domain.QInfluenceCategory.influenceCategory;
 import static today.creame.web.influence.domain.QInfluenceNotice.influenceNotice;
-import static today.creame.web.influence.domain.QInfluenceProfileImage.influenceProfileImage;
 import static today.creame.web.influence.domain.QInfluenceQna.influenceQna;
 import static today.creame.web.member.domain.QMember.member;
 
@@ -48,6 +46,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     private final InfluenceBookmarkJpaRepository influenceBookmarkJpaRepository;
     private final InfluenceCategoryJpaRepository influenceCategoryJpaRepository;
     private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
+    private final HotInfluenceJpaRepository hotInfluenceJpaRepository;
     private final MatchingQueryService matchingQueryService;
     private final JPAQueryFactory query;
 
@@ -129,9 +128,14 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .where(influenceNotice.deleted.eq(false), influenceNotice.influenceId.eq(influence.getId()))
                 .fetchOne();
 
+        List<InfluenceProfileImage> influenceProfileImages = influenceProfileImageJpaRepository.findAllByInfluenceAndDeletedOrderByOrderNumberAsc(influence, false);
+        Optional<HotInfluence> hotInfluence = hotInfluenceJpaRepository.findByInfluenceId(id);
+        Long hotInfluenceId = null;
+        if(hotInfluence.isPresent()) {
+            hotInfluenceId = hotInfluence.get().getId();
+        }
 
-
-        return new InfluenceDetailResult(influence, notice);
+        return new InfluenceDetailResult(influence, notice, hotInfluenceId, influenceProfileImages);
     }
 
     @Override

@@ -257,4 +257,8 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     public void updatePhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public void blocked() {
+        this.blocked = true;
+    }
 }

@@ -10,4 +10,5 @@ public interface HotInfluenceService {
     void update(HotInfluenceUpdateParameter parameter);
     void enabled(Long id);
     void delete(Long influenceId);
+    void updateNickname(Long influenceId, String nickname);
 }

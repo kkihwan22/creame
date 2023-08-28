@@ -1,16 +1,18 @@
 package today.creame.web.influence.application;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import today.creame.web.influence.application.model.InfluenceCreateParameter;
-import today.creame.web.influence.application.model.InfluenceItemParameter;
-import today.creame.web.influence.application.model.InfluenceUpdateParameter;
-import today.creame.web.influence.application.model.SnsParameter;
+import today.creame.web.common.domain.FileResource;
+import today.creame.web.common.domain.FileResourceJpaRepository;
+import today.creame.web.common.support.Utils;
+import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.*;
+import today.creame.web.influence.exception.BadRequestProfileImageSizeOverException;
 import today.creame.web.influence.exception.ConflictConnectionStatusException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.m2net.application.M2netCounselorService;
@@ -21,6 +23,8 @@ import today.creame.web.share.aspect.permit.Permit;
 import today.creame.web.share.domain.OnOffCondition;
 import today.creame.web.share.event.ConnectionUpdateEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -28,7 +32,10 @@ import java.util.Optional;
 public class InfluenceServiceImpl implements InfluenceService {
     private final Logger log = LoggerFactory.getLogger(InfluenceServiceImpl.class);
     private final InfluenceJpaRepository influenceJpaRepository;
+    private final HotInfluenceService hotInfluenceService;
     private final InfluenceProfileFileResourceQuery influenceProfileFileResourceQuery;
+    private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
+    private final FileResourceJpaRepository fileResourceJpaRepository;
     private final ApplicationEventPublisher publisher;
     private final M2netCounselorClient client;
     private final M2netCounselorService m2netCounselorService;
@@ -134,5 +141,66 @@ public class InfluenceServiceImpl implements InfluenceService {
 
         influenceJpaRepository.save(influence);
         m2netCounselorService.updateInfluenceInfo(influence.getM2NetCounselorId(), new M2netCounselorInfoUpdateRequest(influence));
+        hotInfluenceService.updateNickname(influence.getId(), influence.getNickname());
+    }
+
+    @Override
+    public void updateBlocked(Long id) {
+        Influence influence = influenceJpaRepository.findById(id)
+                .orElseThrow(NotFoundInfluenceException::new);
+
+        influence.blocked();
+        influenceJpaRepository.save(influence);
+    }
+
+    @Transactional
+    @Override
+    public void updateProfileImages(InfluenceProfileImageUpdateParameter parameter) {
+        Influence influence = influenceJpaRepository.findById(parameter.getInfluenceId())
+                .orElseThrow(NotFoundInfluenceException::new);
+
+        //delete
+        int deleteImageSize = 0;
+        if(CollectionUtils.isNotEmpty(parameter.getDeleteFileResourceFileIds())) {
+            List<InfluenceProfileImage> deleteInfluenceProfileImages = influenceProfileImageJpaRepository.findAllByFileResourceIdInAndDeletedFalse(parameter.getDeleteFileResourceFileIds());
+            deleteInfluenceProfileImages.stream().forEach(v -> v.deleted());
+            influenceProfileImageJpaRepository.saveAll(deleteInfluenceProfileImages);
+            log.info("deleteInfluenceProfileImages.size() {}", deleteInfluenceProfileImages.size());
+            deleteImageSize = deleteInfluenceProfileImages.size();
+
+            List<FileResource> deleteFileResource = fileResourceJpaRepository.findAllByIdInAndDeletedFalse(parameter.getDeleteFileResourceFileIds());
+            deleteFileResource.stream().forEach(v -> v.deleted());
+            fileResourceJpaRepository.saveAll(deleteFileResource);
+        }
+
+        //insert
+        if(CollectionUtils.isNotEmpty(parameter.getCreateFileResourceFileIds())) {
+            List<InfluenceProfileImage> originInfluenceProfileImages = influenceProfileImageJpaRepository.findAllByInfluenceAndDeletedOrderByOrderNumberAsc(influence, false);
+            List<FileResource> createFileResource = fileResourceJpaRepository.findAllByIdInAndDeletedFalse(parameter.getCreateFileResourceFileIds());
+
+            int totalImageSize = originInfluenceProfileImages.size() - deleteImageSize + createFileResource.size();
+            if(totalImageSize >= 4) {
+                throw new BadRequestProfileImageSizeOverException();
+            }
+
+            int orderNum = 0;
+            for(InfluenceProfileImage influenceProfileImage : originInfluenceProfileImages) {
+                influenceProfileImage.changeOrderNumber(orderNum);
+                orderNum++;
+            }
+
+            List<InfluenceProfileImage> saveInfluenceProfileImages = new ArrayList<>();
+            for(FileResource fileResource : createFileResource) {
+                String fileImageUri = Utils.combineFileResourceUrl(fileResource);
+                InfluenceProfileImage influenceProfileImage =  new InfluenceProfileImage(fileResource.getId(), fileImageUri, false, orderNum);
+                influenceProfileImage.changeInfluence(influence);
+                saveInfluenceProfileImages.add(influenceProfileImage);
+                orderNum++;
+            }
+            log.info("saveInfluenceProfileImages.size() {}", saveInfluenceProfileImages.size());
+            influenceProfileImageJpaRepository.saveAll(saveInfluenceProfileImages);
+
+        }
+
     }
 }

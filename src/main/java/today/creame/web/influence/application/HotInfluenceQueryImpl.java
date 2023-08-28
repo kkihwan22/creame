@@ -5,15 +5,13 @@ import static today.creame.web.influence.domain.QInfluence.influence;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Expression;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,6 +20,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import today.creame.web.common.support.Utils;
 import today.creame.web.influence.application.model.HotInfluenceResult;
+import today.creame.web.influence.application.model.HotInfluenceTargetParameter;
+import today.creame.web.influence.application.model.HotInfluenceTargetResult;
 import today.creame.web.influence.domain.*;
 
 @RequiredArgsConstructor
@@ -64,5 +64,23 @@ public class HotInfluenceQueryImpl implements HotInfluenceQuery {
             .fetchResults();
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+    }
+
+    @Override
+    public List<HotInfluenceTargetResult> listByHotInfluenceRegisterTarget(HotInfluenceTargetParameter parameter) {
+        List<Influence> influences = query
+                .selectFrom(influence)
+                .where(Utils.equalsOperation(influence.id, parameter.getId()),
+                       Utils.equalsOperation(influence.name, parameter.getName()),
+                       Utils.equalsOperation(influence.nickname, parameter.getNickname()))
+                .fetch();
+
+        List<Long> hotInfluenceIds = CollectionUtils.emptyIfNull(hotInfluenceJpaRepository.findAll()).stream().map(HotInfluence::getInfluenceId).collect(Collectors.toList());
+        if(CollectionUtils.isNotEmpty(hotInfluenceIds)) {
+            List<Influence> targetInfluences = influences.stream().filter(influence -> !hotInfluenceIds.contains(influence.getId())).collect(Collectors.toList());
+            return targetInfluences.stream().map(HotInfluenceTargetResult::new).collect(Collectors.toList());
+        }
+
+        return influences.stream().map(HotInfluenceTargetResult::new).collect(Collectors.toList());
     }
 }

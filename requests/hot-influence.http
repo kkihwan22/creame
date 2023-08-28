@@ -43,3 +43,8 @@ Content-Type: application/json
 {
 
 }
+
+### 핫인플루언서 타켓 목록 조회
+GET {{host}}/admin/v1/banners/hot/target?nickname=쥬쥬
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjkzODMxNTU0LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.-qmqa55OfrL6ZyoAahmu8gki-WjUQgw4h7fMNAk9HdA
