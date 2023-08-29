@@ -5,11 +5,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import today.creame.web.matching.applicaton.model.ReviewClaimParameter;
 import today.creame.web.matching.applicaton.model.ReviewCreateParameter;
 import today.creame.web.matching.applicaton.model.ReviewReplyParameter;
 import today.creame.web.matching.domain.*;
+import today.creame.web.matching.exception.ConflictReviewClaimException;
 import today.creame.web.matching.exception.NotFoundMatchingException;
 import today.creame.web.matching.exception.NotFoundReviewException;
+import today.creame.web.member.exception.NotFoundMemberException;
 import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.Optional;
@@ -63,9 +66,12 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Transactional
     @Override
-    public void claim(Long reviewId) {
+    public void claim(ReviewClaimParameter parameter) {
         Long id = SecurityContextSupporter.getId();
-        reviewClaimJpaRepository.findReviewClaimByMatchingReview_IdAAndReporter(reviewId, id).ifPresentOrElse(reviewClaim -> { throw new RuntimeException();}, () -> new ReviewClaim());
+        MatchingReview review = matchingReviewJapRepository.findById(parameter.getReviewId()).orElseThrow(() -> new NotFoundMemberException());
+        reviewClaimJpaRepository.findReviewClaimByMatchingReview_IdAAndReporter(parameter.getReviewId(), id).ifPresentOrElse(
+                reviewClaim -> { throw new ConflictReviewClaimException(); },
+                () -> reviewClaimJpaRepository.save(new ReviewClaim(review, parameter.getKinds(), parameter.getComment(), id)));
 
 
     }
