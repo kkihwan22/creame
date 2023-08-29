@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceGreetingApproveParameter;
 import today.creame.web.influence.application.model.InfluenceGreetingCreateParameter;
-import today.creame.web.influence.domain.GreetingsProgressStatus;
-import today.creame.web.influence.domain.InfluenceGreetingsHistory;
-import today.creame.web.influence.domain.InfluenceGreetingsHistoryJpaRepository;
+import today.creame.web.influence.application.model.InfluenceGreetingRejectParameter;
+import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.NotFoundGreetingsHistoryException;
 import today.creame.web.share.aspect.permit.Permit;
 
@@ -43,5 +42,15 @@ public class InfluenceGreetingsHistoryServiceImpl implements InfluenceGreetingsH
         log.debug("find influence greeting history: {}", influenceGreetingsHistory);
 
         influenceGreetingsHistory.approve();
+    }
+
+    @Transactional
+    @Override
+    public void reject(InfluenceGreetingRejectParameter parameter) {
+        InfluenceGreetingsHistory influenceGreetingsHistory = influenceGreetingsHistoryJpaRepository
+                .findById(parameter.getRequestId())
+                .orElseThrow(NotFoundGreetingsHistoryException::new);
+
+        influenceGreetingsHistory.reject();
     }
 }

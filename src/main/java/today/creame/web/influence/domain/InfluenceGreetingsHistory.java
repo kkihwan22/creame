@@ -73,4 +73,12 @@ public class InfluenceGreetingsHistory extends BaseCreatedAndUpdatedDateTimeWith
         this.influence.putGreetings(this.fileId, this.fileUri);
         this.status = GreetingsProgressStatus.APPROVAL;
     }
+
+    public void reject() {
+        if (this.status != GreetingsProgressStatus.REQUEST) {
+            throw new IllegalReRequestGreetingsHistoryException();
+        }
+
+        this.status = GreetingsProgressStatus.REJECT;
+    }
 }

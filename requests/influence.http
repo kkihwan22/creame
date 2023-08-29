@@ -121,6 +121,11 @@ GET {{host}}/api/v1/influence/50/greetings/latest
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyZlOuKlOqwgCIsImlkIjo1MCwiZXhwIjoxNjc3NjcxMDA4LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJra2toamluMTIzNEBnbWFpbC5jb20ifQ.Ini-Rt4LMxSzomPjeDXR5kjjQtswuhxRZPHZcXFWem4
 
+### 인사말 목록 조회
+GET {{host}}/admin/v1/influence/greetings
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjkzOTIxMjE5LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.Je-3NBhqT-ezfdO1iFkX1RO44n1yw-CJCbZvG8E-nYc
+
 
 ### SNS 등록
 PUT {{host}}/api/v1/influence/70/sns
