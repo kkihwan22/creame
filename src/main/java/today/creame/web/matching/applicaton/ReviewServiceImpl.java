@@ -22,6 +22,7 @@ public class ReviewServiceImpl implements ReviewService {
     private final MatchingReviewJapRepository matchingReviewJapRepository;
     private final ReviewKindsStatJpaRepository reviewKindsStatJpaRepository;
     private final ReviewLikedJpaRepository reviewLikedJpaRepository;
+    private final ReviewClaimJpaRepository reviewClaimJpaRepository;
 
     @Transactional
     @Override
@@ -58,5 +59,14 @@ public class ReviewServiceImpl implements ReviewService {
             liked.liked();
             review.changeLikeCount(liked);
         }
+    }
+
+    @Transactional
+    @Override
+    public void claim(Long reviewId) {
+        Long id = SecurityContextSupporter.getId();
+        reviewClaimJpaRepository.findReviewClaimByMatchingReview_IdAAndReporter(reviewId, id).ifPresentOrElse(reviewClaim -> { throw new RuntimeException();}, () -> new ReviewClaim());
+
+
     }
 }

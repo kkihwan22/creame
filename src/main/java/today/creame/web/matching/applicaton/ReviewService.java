@@ -9,4 +9,6 @@ public interface ReviewService {
     void answer(ReviewReplyParameter parameter);
 
     void like(Long reviewId);
+
+    void claim(Long reviewId);
 }

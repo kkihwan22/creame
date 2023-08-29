@@ -43,4 +43,9 @@ public class ReviewRestController implements BaseRestController {
         reviewService.like(id);
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
+
+    @PatchMapping("/api/v1/reviews/{id}/claim")
+    public void claimReview(@PathVariable Long id) {
+
+    }
 }
