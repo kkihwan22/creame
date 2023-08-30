@@ -1,11 +1,21 @@
 package today.creame.web.matching.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.member.domain.Member;
 
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+@NoArgsConstructor
+@Entity
+@Table(name = "review_claim")
+@DynamicInsert
+@DynamicUpdate
+@Getter
 public class ReviewClaim {
 
     @Id
