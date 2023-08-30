@@ -47,10 +47,10 @@ public class ReviewRestController implements BaseRestController {
     }
 
     @PostMapping("/api/v1/reviews/{id}/claim")
-    public void claimReview(@PathVariable Long id,
+    public ResponseEntity<Body<SimpleBodyData<String>>> claimReview(@PathVariable Long id,
                             @RequestBody ReviewClaimRequest request) {
 
         reviewService.claim(new ReviewClaimParameter(id, request.getKinds(), request.getComment()));
-
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }

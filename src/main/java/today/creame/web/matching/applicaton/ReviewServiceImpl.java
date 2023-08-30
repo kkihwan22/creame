@@ -72,7 +72,5 @@ public class ReviewServiceImpl implements ReviewService {
         reviewClaimJpaRepository.findReviewClaimByMatchingReview_IdAAndReporter(parameter.getReviewId(), id).ifPresentOrElse(
                 reviewClaim -> { throw new ConflictReviewClaimException(); },
                 () -> reviewClaimJpaRepository.save(new ReviewClaim(review, parameter.getKinds(), parameter.getComment(), id)));
-
-
     }
 }
