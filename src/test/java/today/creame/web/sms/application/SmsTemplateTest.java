@@ -6,7 +6,7 @@ class SmsTemplateTest {
 
     @Test
     void template() {
-        String template = SmsTemplate.influenceWelcome("test@email.com", "Asbd124");
+        String template = SmsTemplate.influenceWelcome("Asbd124");
         System.out.println(template);
     }
 

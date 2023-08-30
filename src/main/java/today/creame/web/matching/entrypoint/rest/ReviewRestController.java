@@ -8,7 +8,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import retrofit2.http.Path;
 import today.creame.web.matching.applicaton.ReviewService;
+import today.creame.web.matching.applicaton.model.ReviewClaimParameter;
 import today.creame.web.matching.applicaton.model.ReviewReplyParameter;
+import today.creame.web.matching.entrypoint.rest.io.ReviewClaimRequest;
 import today.creame.web.matching.entrypoint.rest.io.ReviewCreateRequest;
 import today.creame.web.matching.entrypoint.rest.io.ReviewReplyRequest;
 import today.creame.web.share.entrypoint.BaseRestController;
@@ -41,6 +43,14 @@ public class ReviewRestController implements BaseRestController {
     @PutMapping("/api/v1/reviews/{id}/like")
     public ResponseEntity<Body<SimpleBodyData<String>>> like(@PathVariable Long id) {
         reviewService.like(id);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @PostMapping("/api/v1/reviews/{id}/claim")
+    public ResponseEntity<Body<SimpleBodyData<String>>> claimReview(@PathVariable Long id,
+                            @RequestBody ReviewClaimRequest request) {
+
+        reviewService.claim(new ReviewClaimParameter(id, request.getKinds(), request.getComment()));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }

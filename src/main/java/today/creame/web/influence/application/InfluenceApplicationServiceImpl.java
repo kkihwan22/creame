@@ -71,13 +71,12 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         Long influenceId = influenceService.create(new InfluenceCreateParameter(member.getId(), application));
         log.debug("member:{}, influence:{}", member.getId(), influenceId);
 
-        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(parameter.getEmail(), member.getPassword())));
+        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(member.getPassword())));
     }
 
     @Override
     @Transactional
     public void duplicateApprove(Long id) {
-        // TODO: 해당 로직 리뷰 시간 가지기 ( by 현수님 )
         InfluenceApplication application = influenceApplicationJpaRepository.findById(id)
                 .orElseThrow(NotFoundApplicationException::new);
 
@@ -89,7 +88,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         memberService.memberRoleUpdate(member.getId());
         influenceService.create(new InfluenceCreateParameter(member.getId(), application));
 
-        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(member.getEmail(), member.getPassword())));
+        // publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(member.getEmail(), member.getPassword())));
     }
 
     @Transactional

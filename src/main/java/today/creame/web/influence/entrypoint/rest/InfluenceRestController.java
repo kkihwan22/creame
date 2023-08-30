@@ -107,4 +107,14 @@ public class InfluenceRestController implements BaseRestController {
         influenceService.updateProfileImages(new InfluenceProfileImageUpdateParameter(id, request.getCreateFileResourceIds(), request.getDeleteFileResourceIds()));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
+
+    @PatchMapping("/api/v1/me/influence/unexposed")
+    public ResponseEntity<Body<SimpleBodyData<String>>> unexposedMe() {
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @PatchMapping("/api/v1/me/influence/exposed")
+    public ResponseEntity<Body<SimpleBodyData<String>>> exposedMe() {
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
 }
