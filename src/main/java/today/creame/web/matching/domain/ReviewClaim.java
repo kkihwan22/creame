@@ -25,12 +25,17 @@ public class ReviewClaim {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
     private MatchingReview matchingReview;
+
+    @Enumerated(EnumType.STRING)
     private ReviewClaimKinds reviewClaimKinds;
+
     private String reason;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reporter")
     private Member reporter;
+
+    @Enumerated(EnumType.STRING)
     private ReviewClaimStatus status;
     private String comment;
 
