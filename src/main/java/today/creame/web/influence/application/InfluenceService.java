@@ -22,5 +22,6 @@ public interface InfluenceService {
     void changeInfluenceInfo(InfluenceUpdateParameter parameter);
     void updateBlocked(Long id);
     void updateProfileImages(InfluenceProfileImageUpdateParameter parameter);
+    void updateInfluenceInfo(InfluenceUpdateInfoParameter parameter);
 
 }

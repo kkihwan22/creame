@@ -42,14 +42,14 @@ public class ConsultationProductRestController implements BaseRestController {
         hasError(bindingResult);
         consultationProductService.update(new ConsultationProductUpdateParameter(id, request));
 
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
     @DeleteMapping("/admin/v1/consultation-products/{id}")
     public ResponseEntity<Body<SimpleBodyData<String>>> update(@PathVariable Long id) {
         consultationProductService.delete(id);
 
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
 }

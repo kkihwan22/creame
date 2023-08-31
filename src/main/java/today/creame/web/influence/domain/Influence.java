@@ -261,4 +261,10 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     public void blocked() {
         this.blocked = true;
     }
+
+    public void updateInfo(String name, Rank rank, String introduction) {
+        this.name = name;
+        this.rank = rank;
+        this.introduction = introduction;
+    }
 }

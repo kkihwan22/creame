@@ -125,6 +125,17 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
         }
     }
 
+    @Override
+    public void updateCategories(Long influenceId, List<String> categories) {
+        String joinedCategories = categories.stream().collect(Collectors.joining(","));
+        Optional<HotInfluence> hotInfluence = hotInfluenceJpaRepository.findByInfluenceId(influenceId);
+
+        if(hotInfluence.isPresent()) {
+            hotInfluence.get().changeCategories(joinedCategories);
+            hotInfluenceJpaRepository.save(hotInfluence.get());
+        }
+    }
+
     public List<HotInfluence> sortHotInfluence(HotInfluence hotInfluence, List<HotInfluence> originHotInfluence){
 
         List<HotInfluence> sortHotInfluence =

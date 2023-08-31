@@ -20,10 +20,7 @@ import today.creame.web.influence.application.InfluenceService;
 import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.Item;
 import today.creame.web.influence.domain.SNS;
-import today.creame.web.influence.entrypoint.rest.io.InfluenceProfileImageUpdateRequest;
-import today.creame.web.influence.entrypoint.rest.io.NoticeUpdateRequest;
-import today.creame.web.influence.entrypoint.rest.io.SnsGetResponse;
-import today.creame.web.influence.entrypoint.rest.io.SnsUpdateRequest;
+import today.creame.web.influence.entrypoint.rest.io.*;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
@@ -105,6 +102,22 @@ public class InfluenceRestController implements BaseRestController {
     @PutMapping("/admin/v1/influence/{id}/profile-images")
     public ResponseEntity<Body<SimpleBodyData<String>>> updateProfileImages(@PathVariable Long id, @RequestBody InfluenceProfileImageUpdateRequest request) {
         influenceService.updateProfileImages(new InfluenceProfileImageUpdateParameter(id, request.getCreateFileResourceIds(), request.getDeleteFileResourceIds()));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @PutMapping("/admin/v1/influence/{id}/notice")
+    public ResponseEntity<Body<SimpleBodyData<String>>> updateNoticeByAdmin(
+            @PathVariable Long id,
+            @Valid @RequestBody NoticeAdminUpdateRequest request, BindingResult bindingResult
+    ) {
+        hasError(bindingResult);
+        influenceNoticeService.createOrUpdateByAdmin(new InfluenceAdminNoticeParameter(id, request.getContent(), request.getAttachFiles()));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @PutMapping("/admin/v1/influence/{id}")
+    public ResponseEntity<Body<SimpleBodyData<String>>> updateInfluenceInfo(@PathVariable Long id, @RequestBody InfluenceUpdateInfoRequest request) {
+        influenceService.updateInfluenceInfo(new InfluenceUpdateInfoParameter(id, request));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }

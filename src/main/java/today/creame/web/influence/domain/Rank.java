@@ -3,14 +3,11 @@ package today.creame.web.influence.domain;
 import lombok.Getter;
 
 public enum Rank {
-    WHITE("0단계"),
-    YELLOW("1단계"),
-    GREEN("2단계"),
-    BLUE("3단계"),
-    ORANGE("4단계"),
-    RED("5단계"),
-    PURPLE("6단계"),
-
+    WHITE("화이트"),
+    BLUE("블루"),
+    RED("레드"),
+    PURPLE("퍼플"),
+    BLACK("블랙")
     ;
 
     @Getter
