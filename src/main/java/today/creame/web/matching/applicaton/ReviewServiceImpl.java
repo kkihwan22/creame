@@ -69,8 +69,8 @@ public class ReviewServiceImpl implements ReviewService {
     public void claim(ReviewClaimParameter parameter) {
         Long id = SecurityContextSupporter.getId();
         MatchingReview review = matchingReviewJapRepository.findById(parameter.getReviewId()).orElseThrow(() -> new NotFoundMemberException());
-        reviewClaimJpaRepository.findReviewClaimByMatchingReview_IdAAndReporter(parameter.getReviewId(), id).ifPresentOrElse(
+        reviewClaimJpaRepository.findReviewClaimByMatchingReview_IdAndReporter_Id(parameter.getReviewId(), id).ifPresentOrElse(
                 reviewClaim -> { throw new ConflictReviewClaimException(); },
-                () -> reviewClaimJpaRepository.save(new ReviewClaim(review, parameter.getKinds(), parameter.getComment(), id)));
+                () -> reviewClaimJpaRepository.save(new ReviewClaim(review, parameter.getKinds(), parameter.getReason(), id)));
     }
 }

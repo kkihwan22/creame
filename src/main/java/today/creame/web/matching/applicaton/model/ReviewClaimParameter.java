@@ -8,11 +8,11 @@ import today.creame.web.matching.domain.ReviewClaimKinds;
 public class ReviewClaimParameter {
     private Long reviewId;
     private ReviewClaimKinds kinds;
-    private String comment;
+    private String reason;
 
-    public ReviewClaimParameter(Long reviewId, ReviewClaimKinds kinds, String comment) {
+    public ReviewClaimParameter(Long reviewId, ReviewClaimKinds kinds, String reason) {
         this.reviewId = reviewId;
         this.kinds = kinds;
-        this.comment = comment;
+        this.reason = reason;
     }
 }

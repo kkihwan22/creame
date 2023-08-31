@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import retrofit2.http.Path;
 import today.creame.web.matching.applicaton.ReviewService;
 import today.creame.web.matching.applicaton.model.ReviewClaimParameter;
 import today.creame.web.matching.applicaton.model.ReviewReplyParameter;
@@ -50,7 +49,7 @@ public class ReviewRestController implements BaseRestController {
     public ResponseEntity<Body<SimpleBodyData<String>>> claimReview(@PathVariable Long id,
                             @RequestBody ReviewClaimRequest request) {
 
-        reviewService.claim(new ReviewClaimParameter(id, request.getKinds(), request.getComment()));
+        reviewService.claim(new ReviewClaimParameter(id, request.getKinds(), request.getReason()));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }

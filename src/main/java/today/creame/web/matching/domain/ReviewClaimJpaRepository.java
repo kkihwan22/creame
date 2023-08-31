@@ -8,5 +8,5 @@ import java.util.Optional;
 @Repository
 public interface ReviewClaimJpaRepository extends JpaRepository<ReviewClaim, Long> {
 
-    Optional<ReviewClaim> findReviewClaimByMatchingReview_IdAAndReporter(Long reviewId, Long reporter);
+    Optional<ReviewClaim> findReviewClaimByMatchingReview_IdAndReporter_Id(Long reviewId, Long reporter);
 }

@@ -4,7 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import today.creame.web.matching.domain.converter.ReviewClaimKindsToStringConverter;
+import today.creame.web.matching.domain.converter.ReviewClaimStatusToStringConverter;
 import today.creame.web.member.domain.Member;
+import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
+import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTimeWithAudit;
 
 import javax.persistence.*;
 
@@ -16,7 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @DynamicInsert
 @DynamicUpdate
 @Getter
-public class ReviewClaim {
+public class ReviewClaim extends BaseCreatedAndUpdatedDateTimeWithAudit {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -26,17 +30,22 @@ public class ReviewClaim {
     @JoinColumn(name = "review_id")
     private MatchingReview matchingReview;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = ReviewClaimKindsToStringConverter.class)
+    @Column(name = "review_claim_kinds")
     private ReviewClaimKinds reviewClaimKinds;
 
+    @Column(name = "reason")
     private String reason;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reporter")
     private Member reporter;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = ReviewClaimStatusToStringConverter.class)
+    @Column(name = "status")
     private ReviewClaimStatus status;
+
+    @Column(name = "comment")
     private String comment;
 
     public ReviewClaim(MatchingReview review, ReviewClaimKinds kinds, String reason, Long reporterId) {
