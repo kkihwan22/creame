@@ -45,7 +45,7 @@ public class M2netUpdateCallStatusRequest {
             usetm,
             amt,
             M2netReasonCode.valueOf(reason.toUpperCase()),
-            DeductionMethod.get(this.preflag)
+            DeductionMethod.get(StringUtils.isNotBlank(this.preflag) ? this.preflag : "N")
         );
     }
 
