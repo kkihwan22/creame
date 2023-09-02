@@ -71,15 +71,26 @@ public class InfluenceResult {
         this.reviewAnswerCount = influence.getReviewAnswerCount();
         this.qnaCount = influence.getQnaCount();
         this.answerCount = influence.getQnaAnswerCount();
-        this.item = Optional.ofNullable(item).map(Item::getId).orElse(null);
 
-        this.coinPrice = item.getPrice();
-        this.coinPriceTime = item.getPricePerTime();
-        this.coinPriceTimeUnit = item.getTimeUnit().name();
+        Optional.ofNullable(item).ifPresent(i -> {
+            this.item = i.getId();
+            this.coinPrice = i.getPrice();
+            this.coinPriceTime = i.getPricePerTime();
+            this.coinPriceTimeUnit = i.getTimeUnit().name();
+            this.postPrice = this.coinPrice + 400;
+            this.postPriceTime = this.coinPriceTime;
+            this.postPriceTimeUnit = TimeUnit.SECONDS.name();
+        });
 
-        this.postPrice = item.getPrice() + 400;
-        this.postPriceTime = item.getPricePerTime();
-        this.postPriceTimeUnit = TimeUnit.SECONDS.name();
+        // this.item = Optional.ofNullable(item).map(Item::getId).orElse(null);
+
+//        this.coinPrice = item.getPrice();
+//        this.coinPriceTime = item.getPricePerTime();
+//        this.coinPriceTimeUnit = item.getTimeUnit().name();
+//
+//        this.postPrice = item.getPrice() + 400;
+//        this.postPriceTime = item.getPricePerTime();
+//        this.postPriceTimeUnit = TimeUnit.SECONDS.name();
 
         this.m2NetCounselorId = influence.getM2NetCounselorId();
         this.rank = influence.getRank();
