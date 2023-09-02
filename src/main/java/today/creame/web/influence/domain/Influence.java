@@ -68,6 +68,9 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "blocked")
     private boolean blocked;
 
+    @Column(name = "enabled")
+    private boolean enabled;
+
     @Column(
         name = "introduction",
         columnDefinition = "text"

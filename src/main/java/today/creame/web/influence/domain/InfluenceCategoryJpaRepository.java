@@ -8,11 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface InfluenceCategoryJpaRepository extends JpaRepository<InfluenceCategory, Long> {
 
-    List<InfluenceCategory> findByIdIn(Set<Long> idSet);
-
     List<InfluenceCategory> findByInfluenceIdIn(Set<Long> idSet);
 
-    List<InfluenceCategory> findByCategoryIs(Category category);
     List<InfluenceCategory> findByCategoryIs(Category category, Pageable pageable);
 
     @Query(value =
