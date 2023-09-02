@@ -99,7 +99,11 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
                 .join(matching.influence, influence).fetchJoin()
                 .leftJoin(matching.matchingReviews, matchingReview)
                 .leftJoin(influence.profileImages, influenceProfileImage)
-                .where(member.id.eq(memberId).and(matching.status.eq(MatchingProgressStatus.END)))
+                .where(member.id.eq(memberId)
+                        .and(matching.status.eq(MatchingProgressStatus.END))
+                        .and(matching.reviewable.eq(Boolean.TRUE))
+                        .and(matching.endedDateTime.before(LocalDate.now().minusDays(5L).atTime(LocalTime.MAX)))
+                )
                 .orderBy(matching.id.desc())
                 .distinct()
                 .fetch();

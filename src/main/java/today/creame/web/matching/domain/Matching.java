@@ -4,6 +4,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -71,6 +72,9 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "used_coins")
     private Integer usedCoins;
 
+    @Column(name = "reviewable")
+    private boolean reviewable;
+
     @OneToMany(mappedBy = "matching", cascade = CascadeType.PERSIST)
     private List<MatchingReview> matchingReviews = new ArrayList<>();
 
@@ -91,6 +95,7 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
         this.endedDateTime = endedDateTime;
         this.usedCoins = usedCoins;
         this.member.updateCoins(CoinsHistoryType.USING, usedCoins);
+        this.reviewable = isReviewable();
     }
 
     public void addReview(int rate, Category category, ReviewKinds kinds, String content) {
@@ -106,5 +111,9 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
 
         this.matchingReviews.add(new MatchingReview(this, rate, category, kinds, content));
         this.influence.registerReview(rate);
+    }
+
+    private boolean isReviewable() {
+        return endedDateTime.isAfter(startDateTime.plusSeconds(30L));
     }
 }
