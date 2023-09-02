@@ -71,7 +71,7 @@ public class InfluenceResult {
         this.reviewAnswerCount = influence.getReviewAnswerCount();
         this.qnaCount = influence.getQnaCount();
         this.answerCount = influence.getQnaAnswerCount();
-        this.item = item.getId();
+        this.item = Optional.ofNullable(item.getId()).orElse(null);
 
         this.coinPrice = item.getPrice();
         this.coinPriceTime = item.getPricePerTime();
