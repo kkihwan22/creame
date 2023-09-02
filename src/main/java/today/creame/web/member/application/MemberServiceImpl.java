@@ -29,6 +29,7 @@ import today.creame.web.share.aspect.permit.Permit;
 import today.creame.web.share.event.SmsSendEvent;
 import today.creame.web.share.support.MaskingSupporter;
 import today.creame.web.share.support.RandomString;
+import today.creame.web.sms.application.SmsTemplate;
 
 @RequiredArgsConstructor
 @Service
@@ -79,7 +80,7 @@ public class MemberServiceImpl implements MemberService {
 
         String password = RandomString.password().nextString();
         member.changedPassword(password);
-        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), password));
+        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.passwordReissued(password)));
     }
 
     @Transactional

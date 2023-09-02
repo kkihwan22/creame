@@ -71,7 +71,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         Long influenceId = influenceService.create(new InfluenceCreateParameter(member.getId(), application));
         log.debug("member:{}, influence:{}", member.getId(), influenceId);
 
-        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(member.getPassword())));
+        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(parameter.getEmail(), member.getPassword())));
     }
 
     @Override
