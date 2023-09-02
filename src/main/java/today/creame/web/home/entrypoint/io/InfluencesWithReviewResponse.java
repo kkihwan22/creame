@@ -20,7 +20,7 @@ public class InfluencesWithReviewResponse {
     private int rateCount;
     private int reviewCount;
     private int qnaCount;
-    private int item;
+    private Long item;
     private String m2NetCounselorId;
     // TODO: 제거하기
     private int coinPrice;

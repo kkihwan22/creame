@@ -90,7 +90,7 @@ public class InfluenceRestController implements BaseRestController {
     @PatchMapping("/api/v1/influences/{id}/item/{index}")
     public ResponseEntity<Body<SimpleBodyData<String>>> changeItem(
         @PathVariable Long id,
-        @PathVariable Integer index
+        @PathVariable Long index
     ) {
         influenceService.changeItem(new InfluenceItemParameter(id, index));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));

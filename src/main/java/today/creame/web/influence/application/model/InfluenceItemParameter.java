@@ -12,11 +12,11 @@ public class InfluenceItemParameter implements BaseParameter {
 
     @PermitRule(type = PermitRuleType.ME)
     private Long influenceId;
-    private Integer index;
+    private Long productId;
 
-    public InfluenceItemParameter(Long influenceId, Integer index) {
+    public InfluenceItemParameter(Long influenceId, Long productId) {
         this.influenceId = influenceId;
-        this.index = index;
+        this.productId = productId;
     }
 
     public InfluenceItemParameter(Long influenceId) {

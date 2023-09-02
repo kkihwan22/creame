@@ -16,7 +16,8 @@ public enum InfluenceErrorCode {
     BAD_REQUEST(2009, "잘못된 요청입니다."),
     EXIST_HOT_INFLUENCE(2010, "이미 존재하는 핫인플루언서 입니다."),
     BAD_REQUEST_BANNER_IMAGE(2011, "배너 이미지는 필수 입니다."),
-    BAD_REQUEST_PROFILE_IMAGE_SIZE_OVER(2012, "프로필 이미지는 4개 까지만 등록 가능 합니다.")
+    BAD_REQUEST_PROFILE_IMAGE_SIZE_OVER(2012, "프로필 이미지는 4개 까지만 등록 가능 합니다."),
+    NOT_FOUND_ITEM(2013, "해당 금액의 상품을 찾을 수 없습니다.")
 
 
     ;

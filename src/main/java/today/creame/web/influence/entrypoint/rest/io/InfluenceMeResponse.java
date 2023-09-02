@@ -17,7 +17,7 @@ public class InfluenceMeResponse {
     private String snsAddress;
     private List<String> categories;
     private List<String> profileImages;
-    private int item;
+    private Long item;
     private String introduction;
     private String greetings;
     private boolean connected;

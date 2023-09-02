@@ -31,6 +31,7 @@ public class Ranking extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "qualifications")
     private String qualifications;
 
-    @OneToMany(mappedBy = "ranking")
+    @OneToMany
+    @JoinColumn(name = "ranking_id")
     List<ConsultationProduct> consultationProducts = new ArrayList<>();
 }

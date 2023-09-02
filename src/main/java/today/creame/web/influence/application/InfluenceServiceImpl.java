@@ -15,10 +15,13 @@ import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.BadRequestProfileImageSizeOverException;
 import today.creame.web.influence.exception.ConflictConnectionStatusException;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
+import today.creame.web.influence.exception.NotFoundItemException;
 import today.creame.web.m2net.application.M2netCounselorService;
 import today.creame.web.m2net.infra.feign.M2netCounselorClient;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateRequest;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorInfoUpdateRequest;
+import today.creame.web.ranking.domain.ConsultationProduct;
+import today.creame.web.ranking.domain.ConsultationProductJpaRepository;
 import today.creame.web.share.aspect.permit.Permit;
 import today.creame.web.share.domain.OnOffCondition;
 import today.creame.web.share.event.ConnectionUpdateEvent;
@@ -39,6 +42,7 @@ public class InfluenceServiceImpl implements InfluenceService {
     private final ApplicationEventPublisher publisher;
     private final M2netCounselorClient client;
     private final M2netCounselorService m2netCounselorService;
+    private final ConsultationProductJpaRepository consultationProductJpaRepository;
 
     @Transactional
     @Override
@@ -57,12 +61,17 @@ public class InfluenceServiceImpl implements InfluenceService {
                 influence.updateInfluenceProfileImage(it.toEntity());
             });
 
+        Item item= consultationProductJpaRepository
+                .findById(influence.getItem())
+                .map(c -> new Item(c))
+                .orElseThrow(NotFoundItemException::new);
+
         String cId = client.create(new M2netCounselorCreateRequest(
             influence.getNickname(),
             influence.getId().toString(),
             influence.getPhoneNumber(),
-            influence.getItem().getPricePerTime(),
-            influence.getItem().getPrice())).getBody().getCsrid();
+            item.getPricePerTime(),
+            item.getPrice())).getBody().getCsrid();
 
         influence.updateCid(cId);
 
@@ -94,7 +103,9 @@ public class InfluenceServiceImpl implements InfluenceService {
     public Item getItem(InfluenceItemParameter parameter) {
         Influence influence = influenceJpaRepository.findById(parameter.getInfluenceId())
             .orElseThrow(NotFoundInfluenceException::new);
-        return influence.getItem();
+        return consultationProductJpaRepository
+                .findById(parameter.getProductId()).map(c -> new Item(c))
+                .orElseThrow(NotFoundItemException::new);
     }
 
     @Transactional
@@ -104,8 +115,13 @@ public class InfluenceServiceImpl implements InfluenceService {
         Influence influence = influenceJpaRepository.findById(parameter.getInfluenceId())
             .orElseThrow(NotFoundInfluenceException::new);
         log.debug("find influence:{}", influence);
-        influence.changeItem(parameter.getIndex());
-    } // TODO: 권한을 위해 parameter로 감싸야함.
+
+        ConsultationProduct product = consultationProductJpaRepository
+                .findById(parameter.getProductId())
+                .orElseThrow(NotFoundItemException::new);
+
+        influence.changeItem(product.getId());
+    }
 
     @Override
     public SNS getSNS(Long id) {
@@ -199,8 +215,6 @@ public class InfluenceServiceImpl implements InfluenceService {
             }
             log.info("saveInfluenceProfileImages.size() {}", saveInfluenceProfileImages.size());
             influenceProfileImageJpaRepository.saveAll(saveInfluenceProfileImages);
-
         }
-
     }
 }

@@ -21,24 +21,26 @@ public class ConsultationProduct extends BaseCreatedAndUpdatedDateTime {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "ranking_id")
-    private Ranking ranking;
+    @Column(name = "ranking_id")
+    private Long rankingId;
+
+    @JoinColumn(name = "order_no")
+    private Integer orderNo;
 
     @Column(name = "budget_amount")
-    private int budgetAmount;
+    private Integer budgetAmount;
 
     @Column(name = "consultation_amount")
-    private int consultationAmount;
+    private Integer consultationAmount;
 
     public ConsultationProduct(Ranking ranking, int budgetAmount, int consultationAmount) {
-        this.ranking = ranking;
+        this.rankingId = ranking.getId();
         this.budgetAmount = budgetAmount;
         this.consultationAmount = consultationAmount;
     }
 
     public void change(Ranking ranking, int budgetAmount, int consultationAmount) {
-        this.ranking = ranking;
+        this.rankingId = ranking.getId();
         this.budgetAmount = budgetAmount;
         this.consultationAmount = consultationAmount;
     }

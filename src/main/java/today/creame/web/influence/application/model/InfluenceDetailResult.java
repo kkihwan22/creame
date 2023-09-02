@@ -28,7 +28,7 @@ public class InfluenceDetailResult {
     private int rateCount;
     private int reviewCount;
     private int qnaCount;
-    private int item;
+    private Long item;
     private String m2NetCounselorId;
     private int coinPrice;
     private int coinPriceTime;
@@ -59,7 +59,7 @@ public class InfluenceDetailResult {
             Influence influence,
             InfluenceNotice influenceNotice,
             Long hotInfluenceId,
-            List<InfluenceProfileImage> influenceProfileImages) {
+            List<InfluenceProfileImage> influenceProfileImages, Item item) {
         this.id = influence.getId();
         this.hotInfluenceId = hotInfluenceId;
         this.extensionNumber = influence.getExtensionNumber();
@@ -74,12 +74,12 @@ public class InfluenceDetailResult {
         this.rate = influence.avgRate();
         this.reviewCount = influence.getReviewCount();
         this.qnaCount = influence.getQnaCount();
-        this.item = influence.getItem().getIndex();
-        this.coinPrice = influence.getItem().getPrice();
-        this.coinPriceTime = influence.getItem().getPricePerTime();
-        this.coinPriceTimeUnit = influence.getItem().getTimeUnit().name();
-        this.postPrice = influence.getItem().getPrice() + 400;
-        this.postPriceTime = influence.getItem().getPricePerTime();
+        this.item = item.getId();
+        this.coinPrice = item.getPrice();
+        this.coinPriceTime = item.getPricePerTime();
+        this.coinPriceTimeUnit = item.getTimeUnit().name();
+        this.postPrice = this.coinPrice + 400;
+        this.postPriceTime = this.coinPriceTime;
         this.postPriceTimeUnit = TimeUnit.SECONDS.name();
         this.m2NetCounselorId = influence.getM2NetCounselorId();
         this.introduction = influence.getIntroduction();

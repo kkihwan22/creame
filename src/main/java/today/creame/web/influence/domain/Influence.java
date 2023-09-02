@@ -1,27 +1,18 @@
 package today.creame.web.influence.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.Hibernate;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.influence.domain.converter.InfluenceRankToStringConverter;
-import today.creame.web.influence.domain.converter.ItemToIndexConverter;
+import today.creame.web.ranking.domain.ConsultationProduct;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @NoArgsConstructor
 @Entity
@@ -84,9 +75,8 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     @Embedded
     private Greetings greetings;
 
-    @Convert(converter = ItemToIndexConverter.class)
     @Column(name = "item")
-    private Item item;
+    private Long item;
 
     @Column(
         name = "notice",
@@ -155,7 +145,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
         this.rank = Rank.RED;
         this.connected = false;
-        this.item = ItemMap.get(8);
+        this.item = 51L;
     }
 
     public Influence(Long id) {
@@ -209,8 +199,8 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.greetings = new Greetings(id, uri);
     }
 
-    public void changeItem(Integer index) {
-        this.item = ItemMap.get(index);
+    public void changeItem(Long item) {
+        this.item = item;
     }
 
     public void updateCid(String cid) {

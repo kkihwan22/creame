@@ -20,9 +20,13 @@ import today.creame.web.home.application.model.HomeInfluenceStatResult;
 import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
+import today.creame.web.influence.exception.NotFoundItemException;
+import today.creame.web.m2net.domain.CounselorCondition;
 import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
 import today.creame.web.member.domain.QMember;
+import today.creame.web.ranking.domain.ConsultationProduct;
+import today.creame.web.ranking.domain.ConsultationProductJpaRepository;
 import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.*;
@@ -49,6 +53,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     private final HotInfluenceJpaRepository hotInfluenceJpaRepository;
     private final MatchingQueryService matchingQueryService;
     private final JPAQueryFactory query;
+    private final ConsultationProductJpaRepository consultationProductJpaRepository;
 
     private QInfluenceQna q = influenceQna;
     private QInfluenceBookmark b = influenceBookmark;
@@ -116,7 +121,8 @@ public class InfluenceQueryImpl implements InfluenceQuery {
 
         InfluenceBookmark bookmark = influenceBookmarkJpaRepository.findByMemberIdAndInfluenceId(SecurityContextSupporter.orElseGetEmpty(), id).orElse(null);
         InfluenceNotice notice = influenceNoticeJpaRepository.findFirstByInfluenceIdAndDeleted(id, false).orElse(null);
-        return new InfluenceResult(influence, bookmark, notice);
+        Item item = consultationProductJpaRepository.findById(influence.getItem()).map(c -> new Item(c)).orElseThrow(NotFoundItemException::new);
+        return new InfluenceResult(influence, bookmark, notice, item);
     }
 
     public InfluenceDetailResult getDetail(Long id) {
@@ -135,7 +141,11 @@ public class InfluenceQueryImpl implements InfluenceQuery {
             hotInfluenceId = hotInfluence.get().getId();
         }
 
-        return new InfluenceDetailResult(influence, notice, hotInfluenceId, influenceProfileImages);
+        Item item = consultationProductJpaRepository
+                .findById(influence.getItem()).map(c -> new Item(c))
+                .orElseThrow(NotFoundItemException::new);
+
+        return new InfluenceDetailResult(influence, notice, hotInfluenceId, influenceProfileImages, item);
     }
 
     @Override

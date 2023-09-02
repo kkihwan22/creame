@@ -17,8 +17,8 @@ public class ConsultationProductResult {
 
     public ConsultationProductResult(ConsultationProduct consultationProduct) {
         this.id = consultationProduct.getId();
-        this.description = consultationProduct.getRanking().getDescription();
-        this.qualifications = consultationProduct.getRanking().getQualifications();
+        this.description = "";
+        this.qualifications = "";
         this.budgetAmounts = consultationProduct.getBudgetAmount();
         this.consultationAmount = consultationProduct.getConsultationAmount();
         this.createdDt = consultationProduct.getCreatedDateTime();

@@ -24,7 +24,7 @@ public class InfluenceResult {
     private int reviewAnswerCount;
     private int qnaCount;
     private int answerCount;
-    private int item;
+    private Long item;
     private String m2NetCounselorId;
 
     // TODO: 제거하기
@@ -58,7 +58,9 @@ public class InfluenceResult {
         InfluenceBookmark bookmark,
         InfluenceNotice influenceNotice,
         List<InfluenceCategory> categories,
-        List<InfluenceProfileImage> profileImages) {
+        List<InfluenceProfileImage> profileImages,
+        Item item
+    ) {
         this.id = influence.getId();
         this.extensionNumber = influence.getExtensionNumber();
         this.nickname = influence.getNickname();
@@ -69,14 +71,14 @@ public class InfluenceResult {
         this.reviewAnswerCount = influence.getReviewAnswerCount();
         this.qnaCount = influence.getQnaCount();
         this.answerCount = influence.getQnaAnswerCount();
-        this.item = influence.getItem().getIndex();
+        this.item = item.getId();
 
-        this.coinPrice = influence.getItem().getPrice();
-        this.coinPriceTime = influence.getItem().getPricePerTime();
-        this.coinPriceTimeUnit = influence.getItem().getTimeUnit().name();
+        this.coinPrice = item.getPrice();
+        this.coinPriceTime = item.getPricePerTime();
+        this.coinPriceTimeUnit = item.getTimeUnit().name();
 
-        this.postPrice = influence.getItem().getPrice() + 400;
-        this.postPriceTime = influence.getItem().getPricePerTime();
+        this.postPrice = item.getPrice() + 400;
+        this.postPriceTime = item.getPricePerTime();
         this.postPriceTimeUnit = TimeUnit.SECONDS.name();
 
         this.m2NetCounselorId = influence.getM2NetCounselorId();
@@ -119,10 +121,10 @@ public class InfluenceResult {
     }
 
     public InfluenceResult(Influence influence, List<InfluenceCategory> categories, List<InfluenceProfileImage> profileImages) {
-        this(influence, null, null, categories, profileImages);
+        this(influence, null, null, categories, profileImages, null);
     }
 
-    public InfluenceResult(Influence influence, InfluenceBookmark bookmark, InfluenceNotice notice) {
-        this(influence, bookmark, notice, influence.getCategories(), influence.getProfileImages());
+    public InfluenceResult(Influence influence, InfluenceBookmark bookmark, InfluenceNotice notice, Item item) {
+        this(influence, bookmark, notice, influence.getCategories(), influence.getProfileImages(), item);
     }
 }

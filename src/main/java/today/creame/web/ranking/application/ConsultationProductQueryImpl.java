@@ -8,8 +8,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import today.creame.web.ranking.domain.ConsultationProduct;
+import today.creame.web.ranking.domain.QRanking;
 
 import static today.creame.web.ranking.domain.QConsultationProduct.consultationProduct;
+import static today.creame.web.ranking.domain.QRanking.ranking;
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +23,11 @@ public class ConsultationProductQueryImpl implements ConsultationProductQuery {
     public Page<ConsultationProduct> list(Pageable pageable) {
         QueryResults<ConsultationProduct> result = query
                 .selectFrom(consultationProduct)
+                .leftJoin(ranking)
+                .on(consultationProduct.rankingId.eq(ranking.id))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(consultationProduct.ranking.level.asc(), consultationProduct.budgetAmount.asc())
+                .orderBy(ranking.level.asc(), consultationProduct.budgetAmount.asc())
                 .fetchResults();
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
