@@ -237,21 +237,12 @@ public class InfluenceQueryImpl implements InfluenceQuery {
 
         Map<Long, List<InfluenceProfileImage>> groupByProfileImages = this.groupByProfileImages(influenceIds);
         Map<Long, List<InfluenceCategory>> groupByCategories = this.groupByCategories(influenceIds);
-
-
-
-//        List<InfluenceProfileImage> profileImages = influenceProfileImageJpaRepository.findByInfluence_IdIn(influenceIds);
-//        List<InfluenceCategory> categories = influenceCategoryJpaRepository.findByInfluenceIdIn(influenceIds);
-
         results.stream().forEach(it -> it.getInfluence()
                 .addProfileAndCategories(
                         groupByProfileImages.getOrDefault(it.getInfluence().getId(), List.of()).stream().map(InfluenceProfileImage::getFileResourceUri).collect(Collectors.toList()),
                         groupByCategories.getOrDefault(it.getInfluence().getId(), List.of()).stream().map(InfluenceCategory::getCategory).map(Category::name).collect(Collectors.toList())
         ));
 
-
-//        profileImages.stream().map(profile -> profile.getFileResourceUri()).collect(Collectors.toList()),
-//                categories.stream().map(category -> category.getCategory().name()).collect(Collectors.toList()))
 
         log.debug("results: {}", results);
         return results;
@@ -283,18 +274,20 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         Map<Long, ConsultationProduct> cpMap = consultationProductJpaRepository.findConsultationProductsByIdIn(itemIdSet).stream().collect(Collectors.toMap(ConsultationProduct::getId, Function.identity()));
 
         return influences.stream()
-            .map(i -> new InfluenceResult(
-                    i,
-                    mapCategories.getOrDefault(i.getId(), List.of()),
-                    mapProfileImages.getOrDefault(i.getId(), List.of()),
-                    new Item(cpMap.get(i.getItem()))))
+            .map(i -> {
+                InfluenceResult result = new InfluenceResult(
+                        i,
+                        mapCategories.getOrDefault(i.getId(), List.of()),
+                        mapProfileImages.getOrDefault(i.getId(), List.of()),
+                        new Item(cpMap.get(i.getItem())));
+                log.info("result: {}", result);
+                return result;
+            })
                 .collect(Collectors.toList());
     }
 
     private Map<Long, List<InfluenceCategory>> groupByCategories(Set<Long> idSet) {
         List<InfluenceCategory> results = influenceCategoryJpaRepository.findByInfluenceIdIn(idSet);
-        log.debug("results:{}", results);
-
         Map<Long, List<InfluenceCategory>> mapCategories = results
             .stream()
             .collect(groupingBy(result -> result.getInfluence().getId()));
@@ -304,8 +297,6 @@ public class InfluenceQueryImpl implements InfluenceQuery {
 
     private Map<Long, List<InfluenceProfileImage>> groupByProfileImages(Set<Long> idSet) {
         List<InfluenceProfileImage> results = influenceProfileImageJpaRepository.findByInfluence_IdIn(idSet);
-        log.debug("results:{}", results);
-
         Map<Long, List<InfluenceProfileImage>> mapProfileImages = results
             .stream()
             .collect(groupingBy(result -> result.getInfluence().getId()));

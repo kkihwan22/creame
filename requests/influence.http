@@ -37,7 +37,6 @@ PATCH {{host}}/admin/v1/influence/applications/57/approve
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjc5MTU0MzA3LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.3KP2kUNXlw19SgBVlQ8OpmJB10aXvQEwMP5CUJPejaw
 
-
 ### 인플루언스 조회
 GET {{host}}/public/v1/influences/103
 Content-Type: application/json
@@ -215,7 +214,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 GET  {{host}}/api/v1/me/influence
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY4OTQyNDIxMywiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.dNhSAMSG4sKC1xLu4viL6LOrO9LEBIJz5b1VY3xABYU
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDMwNDQwMCwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.83Lh09RU3O9TvA39H6lyK5WOwKZ7sI9l5UrD_xVY4XE
 
 
 ### 관리자 > 인플루언스 상세 조회
