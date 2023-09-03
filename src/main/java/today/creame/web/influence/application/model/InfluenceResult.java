@@ -82,16 +82,6 @@ public class InfluenceResult {
             this.postPriceTimeUnit = TimeUnit.SECONDS.name();
         });
 
-        // this.item = Optional.ofNullable(item).map(Item::getId).orElse(null);
-
-//        this.coinPrice = item.getPrice();
-//        this.coinPriceTime = item.getPricePerTime();
-//        this.coinPriceTimeUnit = item.getTimeUnit().name();
-//
-//        this.postPrice = item.getPrice() + 400;
-//        this.postPriceTime = item.getPricePerTime();
-//        this.postPriceTimeUnit = TimeUnit.SECONDS.name();
-
         this.m2NetCounselorId = influence.getM2NetCounselorId();
         this.rank = influence.getRank();
         this.introduction = influence.getIntroduction();

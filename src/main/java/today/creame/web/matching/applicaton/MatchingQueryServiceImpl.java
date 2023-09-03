@@ -134,7 +134,8 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
         List<Object[]> objects = matchingJapRepository.getConsultationHoursPerMonth(parameter.getInfluenceId(), parameter.getFromDate(), parameter.getToDate());
         List<MatchingStatisticsResult> matchingStatisticsResults = CollectionUtils.emptyIfNull(objects).stream().map(MatchingStatisticsResult::new).collect(Collectors.toList());
         if(Collections.isEmpty(matchingStatisticsResults)) {
-            throw new NotFoundMatchingStatisticsException();
+            return matchingStatisticsResults;
+            // throw new NotFoundMatchingStatisticsException();
         }
 
         for(MatchingStatisticsResult target : matchingStatisticsResults) {
