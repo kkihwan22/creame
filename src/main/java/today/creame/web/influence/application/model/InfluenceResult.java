@@ -121,8 +121,8 @@ public class InfluenceResult {
         this.createdDateTime = influence.getCreatedDateTime();
     }
 
-    public InfluenceResult(Influence influence, List<InfluenceCategory> categories, List<InfluenceProfileImage> profileImages) {
-        this(influence, null, null, categories, profileImages, null);
+    public InfluenceResult(Influence influence, List<InfluenceCategory> categories, List<InfluenceProfileImage> profileImages, Item item) {
+        this(influence, null, null, categories, profileImages, item);
     }
 
     public InfluenceResult(Influence influence, InfluenceBookmark bookmark, InfluenceNotice notice, Item item) {

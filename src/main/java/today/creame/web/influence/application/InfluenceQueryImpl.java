@@ -9,6 +9,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.SimpleExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ulisesbocchio.jasyptspringboot.util.Functional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -21,7 +22,6 @@ import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.*;
 import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.influence.exception.NotFoundItemException;
-import today.creame.web.m2net.domain.CounselorCondition;
 import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.model.MatchingHistoryResult;
 import today.creame.web.member.domain.QMember;
@@ -30,6 +30,7 @@ import today.creame.web.ranking.domain.ConsultationProductJpaRepository;
 import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -278,15 +279,16 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         Map<Long, List<InfluenceCategory>> mapCategories = this.groupByCategories(idSet);
         Map<Long, List<InfluenceProfileImage>> mapProfileImages = this.groupByProfileImages(idSet);
 
-        log.debug("map categories: {}", mapCategories);
-        log.debug("map profileImages: {}", mapProfileImages);
+        Set<Long> itemIdSet = influences.stream().map(Influence::getItem).collect(Collectors.toSet());
+        Map<Long, ConsultationProduct> cpMap = consultationProductJpaRepository.findConsultationProductsByIdIn(itemIdSet).stream().collect(Collectors.toMap(ConsultationProduct::getId, Function.identity()));
 
         return influences.stream()
             .map(i -> new InfluenceResult(
                     i,
                     mapCategories.getOrDefault(i.getId(), List.of()),
-                    mapProfileImages.getOrDefault(i.getId(), List.of())))
-            .collect(Collectors.toList());
+                    mapProfileImages.getOrDefault(i.getId(), List.of()),
+                    new Item(cpMap.get(i.getItem()))))
+                .collect(Collectors.toList());
     }
 
     private Map<Long, List<InfluenceCategory>> groupByCategories(Set<Long> idSet) {
