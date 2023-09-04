@@ -182,7 +182,7 @@ public class InfluenceServiceImpl implements InfluenceService {
             List<FileResource> createFileResource = fileResourceJpaRepository.findAllByIdInAndDeletedFalse(parameter.getCreateFileResourceFileIds());
 
             int totalImageSize = originInfluenceProfileImages.size() - deleteImageSize + createFileResource.size();
-            if(totalImageSize >= 4) {
+            if(totalImageSize > 4) {
                 throw new BadRequestProfileImageSizeOverException();
             }
 

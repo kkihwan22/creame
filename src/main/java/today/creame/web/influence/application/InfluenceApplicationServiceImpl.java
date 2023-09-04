@@ -77,7 +77,6 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
     @Override
     @Transactional
     public void duplicateApprove(Long id) {
-        // TODO: 해당 로직 리뷰 시간 가지기 ( by 현수님 )
         InfluenceApplication application = influenceApplicationJpaRepository.findById(id)
                 .orElseThrow(NotFoundApplicationException::new);
 
@@ -89,7 +88,8 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         memberService.memberRoleUpdate(member.getId());
         influenceService.create(new InfluenceCreateParameter(member.getId(), application));
 
-        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(member.getEmail(), member.getPassword())));
+        //기존 회원이 가입된 상태로 승인하는 로직이라 문자 발송하지 않음
+//        publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(member.getEmail(), member.getPassword())));
     }
 
     @Transactional

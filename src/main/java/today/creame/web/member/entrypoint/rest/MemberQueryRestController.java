@@ -17,15 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.config.security.CustomUserDetails;
 import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.model.MeResult;
-import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberNotificationPreference;
 import today.creame.web.member.entrypoint.rest.io.MeResponse;
 import today.creame.web.member.entrypoint.rest.io.MemberListResponse;
 import today.creame.web.share.entrypoint.*;
 import today.creame.web.share.support.SecurityContextSupporter;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -69,8 +65,7 @@ public class MemberQueryRestController implements BaseRestController {
     public ResponseEntity<PageBody<MemberListResponse>> list(
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable){
 
-        Page<Member> memberPage = memberQuery.getList(pageable);
-        List<MemberListResponse> responses = CollectionUtils.emptyIfNull(memberPage.getContent()).stream().map(MemberListResponse::new).collect(Collectors.toList());
-        return ResponseEntity.ok(BodyFactory.success(responses, memberPage.getTotalElements()));
+        Page<MemberListResponse> responses = memberQuery.getList(pageable);
+        return ResponseEntity.ok(BodyFactory.success(responses.getContent(), responses.getTotalElements()));
     }
 }

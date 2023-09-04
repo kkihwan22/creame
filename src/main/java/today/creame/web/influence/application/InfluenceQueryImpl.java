@@ -1,10 +1,7 @@
 package today.creame.web.influence.application;
 
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.Expression;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.*;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.SimpleExpression;
@@ -313,6 +310,8 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                         influence.rank,
                         new CaseBuilder()
                                 .when(hotInfluence.id.isNull()).then(Boolean.FALSE).otherwise(Boolean.TRUE).as("isHotInfluence"),
+                        influence.reviewCount,
+                        influence.qnaCount,
                         influence.createdDateTime,
                         influence.updatedDateTime))
                 .from(influence)

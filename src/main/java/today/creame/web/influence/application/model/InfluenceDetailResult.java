@@ -36,8 +36,7 @@ public class InfluenceDetailResult {
     private int postPrice;
     private int postPriceTime;
     private String postPriceTimeUnit;
-    private String snsCompany;
-    private String snsAddress;
+    private List<SnsResponse> snsResponses = new ArrayList<>();
     private List<String> categories;
     private List<ProfileImage> profileImages;
     private String introduction;
@@ -107,8 +106,7 @@ public class InfluenceDetailResult {
                 .collect(Collectors.toList());
 
         if (influence.getSns() != null) {
-            this.snsCompany = influence.getSns().getCompany().name();
-            this.snsAddress = influence.getSns().getAddress();
+            this.snsResponses = List.of(new SnsResponse(influence.getSns()));
         }
 
         this.bookmarkCount = influence.getBookmarkCount();
@@ -139,6 +137,17 @@ public class InfluenceDetailResult {
         public static List<ProfileImage> of(List<InfluenceProfileImage> influenceProfileImage) {
 
             return influenceProfileImage.stream().map(ProfileImage::of).collect(Collectors.toList());
+        }
+    }
+
+    @Getter
+    public static class SnsResponse {
+        private String snsCompany;
+        private String snsAddress;
+
+        public SnsResponse(SNS sns) {
+            this.snsCompany = sns.getCompany().name();
+            this.snsAddress = sns.getAddress();
         }
     }
 }

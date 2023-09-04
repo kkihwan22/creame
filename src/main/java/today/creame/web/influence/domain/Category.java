@@ -17,7 +17,8 @@ public enum Category {
     FINANCE("금융"),
     LIFE("일상/기타"),
     PET("반려동물"),
-    HEALTH("건강")
+    HEALTH("건강"),
+    HOROSCOPE("사주")  //기존 데이터 때문에 오류 발생 하여 지우지 않음
     ;
 
     @Getter
