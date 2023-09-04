@@ -142,8 +142,8 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.introduction = introduction;
 
         this.rank = Rank.WHITE;
-        this.connected = false;
         this.item = 51L;
+        this.exposed = true;
     }
 
     public Influence(Long id) {
