@@ -48,14 +48,16 @@ public class InfluenceResult {
     private List<BaseFileResource> noticeAttachFiles = new ArrayList<>();
 
     private boolean connected;
-    private boolean calling = false;
-    private boolean bookmarked = false;
+    private boolean calling;
+    private boolean bookmarked;
+    private boolean blocked;
+    private boolean exposed;
 
     private LocalDateTime createdDateTime;
 
     public InfluenceResult(
         Influence influence,
-        InfluenceBookmark bookmark,
+        InfluenceBookmark influenceBookmark,
         InfluenceNotice influenceNotice,
         List<InfluenceCategory> categories,
         List<InfluenceProfileImage> profileImages,
@@ -99,6 +101,8 @@ public class InfluenceResult {
 
         this.connected = influence.isConnected();
         this.calling = influence.isCalling();
+        this.blocked = influence.isBlocked();
+        this.exposed = influence.isExposed();
 
         this.categories = categories.stream()
             .map(InfluenceCategory::getCategory)
@@ -114,9 +118,11 @@ public class InfluenceResult {
             this.snsAddress = influence.getSns().getAddress();
         }
 
-        if (bookmark != null) {
-            this.bookmarked = bookmark.isBookmarked();
-        }
+        Optional.ofNullable(influenceBookmark).ifPresentOrElse(b -> this.bookmarked = b.isBookmarked(), () -> this.bookmarked = false);
+
+//        if (influenceBookmark != null) {
+//            this.bookmarked = influenceBookmark.isBookmarked();
+//        }
 
         this.createdDateTime = influence.getCreatedDateTime();
     }

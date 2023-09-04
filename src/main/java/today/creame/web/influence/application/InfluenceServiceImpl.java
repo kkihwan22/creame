@@ -25,6 +25,7 @@ import today.creame.web.ranking.domain.ConsultationProductJpaRepository;
 import today.creame.web.share.aspect.permit.Permit;
 import today.creame.web.share.domain.OnOffCondition;
 import today.creame.web.share.event.ConnectionUpdateEvent;
+import today.creame.web.share.support.SecurityContextSupporter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +105,7 @@ public class InfluenceServiceImpl implements InfluenceService {
         Influence influence = influenceJpaRepository.findById(parameter.getInfluenceId())
             .orElseThrow(NotFoundInfluenceException::new);
         return consultationProductJpaRepository
-                .findById(parameter.getProductId()).map(c -> new Item(c))
+                .findById(influence.getItem()).map(c -> new Item(c))
                 .orElseThrow(NotFoundItemException::new);
     }
 
@@ -216,5 +217,13 @@ public class InfluenceServiceImpl implements InfluenceService {
             log.info("saveInfluenceProfileImages.size() {}", saveInfluenceProfileImages.size());
             influenceProfileImageJpaRepository.saveAll(saveInfluenceProfileImages);
         }
+    }
+
+    @Transactional
+    @Override
+    public void changedExposeStatus(Boolean status) {
+        Long id = SecurityContextSupporter.getId();
+        Influence influence = influenceJpaRepository.findById(id).orElseThrow(NotFoundInfluenceException::new);
+        influence.changedExposeStatus(status);
     }
 }

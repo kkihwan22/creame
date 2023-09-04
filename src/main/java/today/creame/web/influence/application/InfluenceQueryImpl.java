@@ -9,7 +9,6 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.SimpleExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ulisesbocchio.jasyptspringboot.util.Functional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -93,24 +92,26 @@ public class InfluenceQueryImpl implements InfluenceQuery {
 
     @Override
     public List<InfluenceResult> listAll(Pageable pageable) {
-        List<Influence> content = influenceJpaRepository.findAllByBlocked(Boolean.FALSE, pageable);
+        List<Influence> content = influenceJpaRepository.findInfluencesByBlockedAndExposed(false, true, pageable);
         return getInfluenceResults(content);
     }
 
     @Override
     public List<InfluenceResult> listByCategory(String category, Pageable pageable) {
-        List<InfluenceCategory> results = influenceCategoryJpaRepository.findByCategoryIs(Category.valueOf(category), pageable);
+        List<Influence> results = query.selectFrom(influence).join(influenceCategory).on(influence.id.eq(influenceCategory.influence.id))
+                .where(influence.blocked.eq(false)
+                        .and(influence.exposed.eq(true)
+                        .and(influenceCategory.category.eq(Category.valueOf(category)))))
+                .orderBy(influenceQna.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .distinct()
+                .fetch();
+        log.debug("results: {}", results);
 
-        if(CollectionUtils.isEmpty(results)) {
-            return Collections.EMPTY_LIST;
-        }
+        if(CollectionUtils.isEmpty(results)) return List.of();
 
-        Set<Long> idSet = results.stream()
-            .map(result -> result.getInfluence().getId())
-            .collect(Collectors.toSet());
-
-        List<Influence> influences = influenceJpaRepository.findInfluencesByIdIn(idSet);
-        return getInfluenceResults(influences);
+        return getInfluenceResults(results);
     }
 
     @Override

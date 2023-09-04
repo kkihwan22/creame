@@ -23,4 +23,6 @@ public interface InfluenceService {
     void updateBlocked(Long id);
     void updateProfileImages(InfluenceProfileImageUpdateParameter parameter);
 
+    void changedExposeStatus(Boolean exposed);
+
 }

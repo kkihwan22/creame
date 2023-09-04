@@ -6,13 +6,11 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.influence.domain.converter.InfluenceRankToStringConverter;
-import today.creame.web.ranking.domain.ConsultationProduct;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @NoArgsConstructor
 @Entity
@@ -60,7 +58,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     private boolean blocked;
 
     @Column(name = "enabled")
-    private boolean enabled;
+    private boolean exposed;
 
     @Column(
         name = "introduction",
@@ -253,5 +251,9 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
     public void blocked() {
         this.blocked = true;
+    }
+
+    public void changedExposeStatus(boolean status) {
+        this.exposed = status;
     }
 }

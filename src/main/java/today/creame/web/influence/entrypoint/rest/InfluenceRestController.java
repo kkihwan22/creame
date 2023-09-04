@@ -20,10 +20,7 @@ import today.creame.web.influence.application.InfluenceService;
 import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.domain.Item;
 import today.creame.web.influence.domain.SNS;
-import today.creame.web.influence.entrypoint.rest.io.InfluenceProfileImageUpdateRequest;
-import today.creame.web.influence.entrypoint.rest.io.NoticeUpdateRequest;
-import today.creame.web.influence.entrypoint.rest.io.SnsGetResponse;
-import today.creame.web.influence.entrypoint.rest.io.SnsUpdateRequest;
+import today.creame.web.influence.entrypoint.rest.io.*;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
@@ -108,13 +105,9 @@ public class InfluenceRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
-    @PatchMapping("/api/v1/me/influence/unexposed")
-    public ResponseEntity<Body<SimpleBodyData<String>>> unexposedMe() {
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
-    }
-
-    @PatchMapping("/api/v1/me/influence/exposed")
-    public ResponseEntity<Body<SimpleBodyData<String>>> exposedMe() {
+    @PatchMapping("/api/v1/me/influence/changed-expose-status")
+    public ResponseEntity<Body<SimpleBodyData<String>>> changedExposeStatus(@RequestBody InfluenceChangedExposeStatusRequest request) {
+        influenceService.changedExposeStatus(request.isStatus());
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }
