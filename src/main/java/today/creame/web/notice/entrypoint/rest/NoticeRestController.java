@@ -41,13 +41,13 @@ public class NoticeRestController implements BaseRestController {
         hasError(bindingResult);
 
         noticeService.update(new NoticeRegisterParameter(id, request));
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
     @DeleteMapping("/admin/v1/notices/{id}")
     public ResponseEntity<Body<SimpleBodyData<String>>> delete(@PathVariable Long id) {
         noticeService.delete(id);
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
 }

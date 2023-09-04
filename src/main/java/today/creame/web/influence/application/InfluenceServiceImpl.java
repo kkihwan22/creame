@@ -30,12 +30,14 @@ import today.creame.web.share.support.SecurityContextSupporter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
 public class InfluenceServiceImpl implements InfluenceService {
     private final Logger log = LoggerFactory.getLogger(InfluenceServiceImpl.class);
     private final InfluenceJpaRepository influenceJpaRepository;
+    private final InfluenceCategoryJpaRepository influenceCategoryJpaRepository;
     private final HotInfluenceService hotInfluenceService;
     private final InfluenceProfileFileResourceQuery influenceProfileFileResourceQuery;
     private final InfluenceProfileImageJpaRepository influenceProfileImageJpaRepository;
@@ -161,6 +163,7 @@ public class InfluenceServiceImpl implements InfluenceService {
         hotInfluenceService.updateNickname(influence.getId(), influence.getNickname());
     }
 
+    @Transactional
     @Override
     public void updateBlocked(Long id) {
         Influence influence = influenceJpaRepository.findById(id)
@@ -196,7 +199,7 @@ public class InfluenceServiceImpl implements InfluenceService {
             List<FileResource> createFileResource = fileResourceJpaRepository.findAllByIdInAndDeletedFalse(parameter.getCreateFileResourceFileIds());
 
             int totalImageSize = originInfluenceProfileImages.size() - deleteImageSize + createFileResource.size();
-            if(totalImageSize >= 4) {
+            if(totalImageSize > 4) {
                 throw new BadRequestProfileImageSizeOverException();
             }
 
@@ -225,5 +228,25 @@ public class InfluenceServiceImpl implements InfluenceService {
         Long id = SecurityContextSupporter.getId();
         Influence influence = influenceJpaRepository.findById(id).orElseThrow(NotFoundInfluenceException::new);
         influence.changedExposeStatus(status);
+    }
+
+    @Transactional
+    @Override
+    public void updateInfluenceInfo(InfluenceUpdateInfoParameter parameter) {
+        List<InfluenceCategory> categories = influenceCategoryJpaRepository.findByInfluenceIdIn(Set.of(parameter.getId()));
+        influenceCategoryJpaRepository.deleteAll(categories);
+
+        Influence influence = influenceJpaRepository.findById(parameter.getId())
+                .orElseThrow(NotFoundInfluenceException::new);
+
+        influence.updateInfo(parameter.getName(), parameter.getRank(), parameter.getIntroduction());
+        parameter.getCategories().stream().forEach(it -> {
+            InfluenceCategory category = new InfluenceCategory(influence, Category.valueOf(it.toUpperCase()));
+            influence.updateCategory(category);
+        });
+
+        influenceJpaRepository.save(influence);
+
+        hotInfluenceService.updateCategories(influence.getId(), parameter.getCategories());
     }
 }

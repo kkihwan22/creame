@@ -11,14 +11,10 @@ import today.creame.web.payments.application.PaymentQueryService;
 import today.creame.web.payments.application.PaymentService;
 import today.creame.web.payments.application.model.CreditCardResult;
 import today.creame.web.payments.application.model.PaymentHistoryResult;
+import today.creame.web.payments.application.model.RewardPaymentParameter;
 import today.creame.web.payments.domain.AutoChargingPreference;
 import today.creame.web.payments.domain.PaymentsHistoryStatus;
-import today.creame.web.payments.entrypoint.rest.io.BillKeyIssueRequest;
-import today.creame.web.payments.entrypoint.rest.io.BillKeyPaymentRequest;
-import today.creame.web.payments.entrypoint.rest.io.CreditCardResponse;
-import today.creame.web.payments.entrypoint.rest.io.EnableAutoChargingRequest;
-import today.creame.web.payments.entrypoint.rest.io.PaymentPasswordChangeRequest;
-import today.creame.web.payments.entrypoint.rest.io.ReceiptRequest;
+import today.creame.web.payments.entrypoint.rest.io.*;
 import today.creame.web.share.entrypoint.BaseRestController;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
@@ -134,5 +130,14 @@ public class PaymentRestController implements BaseRestController {
     @GetMapping("/api/v1/payments/order-key")
     public ResponseEntity<Body<SimpleBodyData<String>>> getOrderKey() {
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>(orderKey.next())));
+    }
+
+    @PutMapping("/admin/v1/payments/reward")
+    public ResponseEntity<Body<SimpleBodyData<String>>> payByReward(
+            @RequestBody @Valid RewardPaymentRequest request,
+            BindingResult bindingResult) {
+        hasError(bindingResult);
+        paymentService.payByReward(new RewardPaymentParameter(request));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }

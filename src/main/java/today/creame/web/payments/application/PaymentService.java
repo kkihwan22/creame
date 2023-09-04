@@ -3,6 +3,7 @@ package today.creame.web.payments.application;
 import today.creame.web.payments.application.model.CreditCardResult;
 import today.creame.web.payments.application.model.PaymentFailureParameter;
 import today.creame.web.payments.application.model.PaymentSuccessParameter;
+import today.creame.web.payments.application.model.RewardPaymentParameter;
 import today.creame.web.payments.domain.AutoChargingPreference;
 import today.creame.web.payments.domain.CreditCard;
 import today.creame.web.payments.domain.PaymentsHistoryStatus;
@@ -25,4 +26,6 @@ public interface PaymentService {
     void paySuccess(PaymentsHistoryStatus type, PaymentSuccessParameter parameter);
 
     void payFailure(PaymentFailureParameter parameter);
+
+    void payByReward(RewardPaymentParameter parameter);
 }

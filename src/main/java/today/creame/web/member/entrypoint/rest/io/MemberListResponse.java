@@ -13,18 +13,20 @@ public class MemberListResponse {
     private String nickname;
     private String phoneNumber;
     private MemberStatus status;
+    private Long reviewCount;
+    private Long qnaCount;
     private LocalDateTime createdDt;
     private LocalDateTime updatedDt;
 
-    public MemberListResponse(Member member) {
-        this.id = member.getId();
-        this.email = member.getEmail();
-        this.nickname = member.getNickname();
-        this.phoneNumber = member.getPhoneNumber();
-        this.status = member.getStatus();
-        this.createdDt = member.getCreatedDateTime();
-        this.updatedDt = member.getUpdatedDateTime();
+    public MemberListResponse(Long id, String email, String nickname, String phoneNumber, MemberStatus status, Long reviewCount, Long qnaCount, LocalDateTime createdDt, LocalDateTime updatedDt) {
+        this.id = id;
+        this.email = email;
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.status = status;
+        this.reviewCount = reviewCount;
+        this.qnaCount = qnaCount;
+        this.createdDt = createdDt;
+        this.updatedDt = updatedDt;
     }
-
-
 }

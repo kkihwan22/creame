@@ -33,7 +33,7 @@ public class FaqRestController implements BaseRestController {
         hasError(bindingResult);
 
         faqService.register(new FaqRegisterParameter(request));
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
     @PatchMapping("/admin/v1/faqs/{id}")
@@ -41,12 +41,12 @@ public class FaqRestController implements BaseRestController {
         hasError(bindingResult);
 
         faqService.update(new FaqRegisterParameter(id, request));
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 
     @DeleteMapping("/admin/v1/faqs/{id}")
     public ResponseEntity<Body<SimpleBodyData<String>>> delete(@PathVariable Long id) {
         faqService.delete(id);
-        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("ok")));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 }
