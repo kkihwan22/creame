@@ -5,7 +5,7 @@ public class SmsTemplate {
     private final static String PASSWORD_REISSUED = "[크리미] 임시비밀번호가 발급되었습니다.\nPW: %s";
 
     public static String influenceWelcome(String email, String password) {
-        return String.format(SmsTemplate.INFLUENCE_WELCOME, password);
+        return String.format(SmsTemplate.INFLUENCE_WELCOME, email, password);
     }
 
     public static String passwordReissued(String password) {
