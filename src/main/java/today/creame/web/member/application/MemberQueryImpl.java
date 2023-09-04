@@ -1,9 +1,9 @@
 package today.creame.web.member.application;
 
-import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -20,12 +20,16 @@ import today.creame.web.member.application.model.MemberSearchParameter;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
 import today.creame.web.member.domain.MemberNotificationPreference;
+import today.creame.web.member.entrypoint.rest.io.MemberListResponse;
 import today.creame.web.member.exception.NotFoundMemberException;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static today.creame.web.influence.domain.QInfluenceQna.influenceQna;
+import static today.creame.web.matching.domain.QMatching.matching;
+import static today.creame.web.matching.domain.QMatchingReview.matchingReview;
 import static today.creame.web.member.domain.QMember.member;
 
 @RequiredArgsConstructor
@@ -99,15 +103,27 @@ public class MemberQueryImpl implements MemberQuery {
     }
 
     @Override
-    public Page<Member> getList(Pageable pageable) {
-        QueryResults<Member> result = query
-                .selectFrom(member)
+    public Page<MemberListResponse> getList(Pageable pageable) {
+        List<MemberListResponse> result = query
+                .select(Projections.constructor(MemberListResponse.class,
+                        member.id, member.email, member.nickname, member.phoneNumber, member.status, matchingReview.countDistinct(), influenceQna.countDistinct(), member.createdDateTime, member.updatedDateTime
+                        ))
+                .from(member)
+                .leftJoin(matching).on(matching.member.id.eq(member.id))
+                .leftJoin(matchingReview).on(matchingReview.matching.id.eq(matching.id))
+                .leftJoin(influenceQna).on(influenceQna.questioner.id.eq(member.id))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(getOrderSpecifier(pageable))
-                .fetchResults();
+                .groupBy(member.id)
+                .fetch();
 
-        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+        Long totalCount = query
+                .select(member.count())
+                .from(member)
+                .fetchOne();
+
+        return new PageImpl<>(result, pageable, totalCount);
     }
 
     @Override

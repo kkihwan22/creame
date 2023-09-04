@@ -6,9 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import today.creame.web.coin.application.CoinsService;
+import today.creame.web.coin.application.model.CoinsUpdateParameter;
+import today.creame.web.coin.domain.CoinsHistoryType;
 import today.creame.web.m2net.infra.feign.M2netClient;
 import today.creame.web.m2net.infra.feign.io.M2netBillKeyIssueResponse;
 import today.creame.web.m2net.infra.feign.io.M2netRemoveBillKeyRequest;
+import today.creame.web.m2net.infra.feign.io.M2netRewardRequest;
 import today.creame.web.m2net.infra.feign.io.M2netSimpleResponse;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberJpaRepository;
@@ -16,6 +20,7 @@ import today.creame.web.member.exception.NotFoundMemberException;
 import today.creame.web.payments.application.model.CreditCardResult;
 import today.creame.web.payments.application.model.PaymentFailureParameter;
 import today.creame.web.payments.application.model.PaymentSuccessParameter;
+import today.creame.web.payments.application.model.RewardPaymentParameter;
 import today.creame.web.payments.domain.*;
 import today.creame.web.payments.exception.*;
 import today.creame.web.share.event.AutoChargingConfigEvent;
@@ -32,6 +37,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentBillKeyJpaRepository paymentBillKeyJpaRepository;
     private final PaymentHistoryJpaRepository paymentHistoryJpaRepository;
     private final ApplicationEventPublisher publisher;
+    private final CoinsService coinsService;
 
     @Transactional
     @Override
@@ -187,6 +193,17 @@ public class PaymentServiceImpl implements PaymentService {
     public void payFailure(PaymentFailureParameter parameter) {
         Member member = memberJpaRepository.findMemberByM2netUserId(parameter.getMembid()).orElseThrow(NotFoundMemberException::new);
         paymentHistoryJpaRepository.save(new PaymentsHistory(member, PaymentsHistoryStatus.FAILED, parameter.getOid(), parameter.getTid(), parameter.getAmount(), parameter.getCoinamt(), parameter.getPaymentMethod(), parameter.getReqResult(), parameter.getResultmessage()));
+    }
+
+    @Override
+    public void payByReward(RewardPaymentParameter parameter) {
+        Member member = memberJpaRepository
+                .findById(parameter.getMemberId())
+                .orElseThrow(NotFoundMemberException::new);
+        m2netClient.payByReward(member.getM2netUserId(), new M2netRewardRequest(parameter.getAmount()));
+
+        CoinsUpdateParameter coinsUpdateParameter = new CoinsUpdateParameter(member.getId(), parameter.getAmount(), CoinsHistoryType.REWARD);
+        coinsService.update(coinsUpdateParameter);
     }
 
     private void publishPaymentResult(PaymentsHistory paymentsHistory) {

@@ -110,4 +110,20 @@ public class InfluenceRestController implements BaseRestController {
         influenceService.changedExposeStatus(request.isStatus());
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
+
+    @PutMapping("/admin/v1/influence/{id}/notice")
+    public ResponseEntity<Body<SimpleBodyData<String>>> updateNoticeByAdmin(
+            @PathVariable Long id,
+            @Valid @RequestBody NoticeAdminUpdateRequest request, BindingResult bindingResult
+    ) {
+        hasError(bindingResult);
+        influenceNoticeService.createOrUpdateByAdmin(new InfluenceAdminNoticeParameter(id, request.getContent(), request.getAttachFiles()));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @PutMapping("/admin/v1/influence/{id}")
+    public ResponseEntity<Body<SimpleBodyData<String>>> updateInfluenceInfo(@PathVariable Long id, @RequestBody InfluenceUpdateInfoRequest request) {
+        influenceService.updateInfluenceInfo(new InfluenceUpdateInfoParameter(id, request));
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
 }

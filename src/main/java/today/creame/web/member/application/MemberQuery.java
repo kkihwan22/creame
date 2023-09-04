@@ -7,6 +7,7 @@ import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.member.application.model.MemberSearchParameter;
 import today.creame.web.member.domain.Member;
 import today.creame.web.member.domain.MemberNotificationPreference;
+import today.creame.web.member.entrypoint.rest.io.MemberListResponse;
 
 public interface MemberQuery {
     MeResult getMe(Long id);
@@ -21,7 +22,7 @@ public interface MemberQuery {
 
     MemberNotificationPreference getNotificationSetting(Long id);
 
-    Page<Member> getList(Pageable pageable);
+    Page<MemberListResponse> getList(Pageable pageable);
 
     String getDuplicates(Long influenceApplicationId, MemberSearchParameter parameter);
 

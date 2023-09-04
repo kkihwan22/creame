@@ -256,4 +256,10 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
     public void changedExposeStatus(boolean status) {
         this.exposed = status;
     }
+
+    public void updateInfo(String name, Rank rank, String introduction) {
+        this.name = name;
+        this.rank = rank;
+        this.introduction = introduction;
+    }
 }

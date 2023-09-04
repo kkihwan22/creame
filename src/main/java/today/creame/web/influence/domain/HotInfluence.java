@@ -95,4 +95,8 @@ public class HotInfluence extends BaseCreatedAndUpdatedDateTimeWithAudit {
     public void changeNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    public void changeCategories(String categories) {
+        this.categories = categories;
+    }
 }

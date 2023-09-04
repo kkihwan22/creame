@@ -134,13 +134,13 @@ public class MemberRestController implements BaseRestController {
     @PatchMapping("/admin/v1/members/{id}")
     public ResponseEntity<Body<String>> changeMemberInfo(@PathVariable Long id, @RequestBody MemberInfoUpdateRequest request) {
         memberService.changeMemberInfo(new MemberInfoUpdateParameter(id, request));
-        return ResponseEntity.ok(BodyFactory.success("ok"));
+        return ResponseEntity.ok(BodyFactory.success("success"));
     }
 
     @PatchMapping("/admin/v1/members/{id}/password")
     public ResponseEntity<Body<String>> changePasswordByAdmin(@PathVariable Long id) {
         memberService.changePasswordByAdmin(id);
 
-        return ResponseEntity.ok(BodyFactory.success("ok"));
+        return ResponseEntity.ok(BodyFactory.success("success"));
     }
 }
