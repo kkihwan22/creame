@@ -23,6 +23,7 @@ public class InfluenceDetailResult {
     private String phoneNumber;
     private String rank;
     private boolean blocked;
+    private boolean exposed;
     private float rate;
     private int totalRate;
     private int rateCount;
@@ -68,6 +69,7 @@ public class InfluenceDetailResult {
         this.phoneNumber = influence.getPhoneNumber();
         this.rank = influence.getRank().name();
         this.blocked = influence.isBlocked();
+        this.exposed = influence.isExposed();
         this.totalRate = influence.getRate();
         this.rateCount = influence.getRateCount();
         this.rate = influence.avgRate();
