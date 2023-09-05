@@ -21,6 +21,8 @@ public class InfluenceMeResponse {
     private String introduction;
     private String greetings;
     private boolean connected;
+    private boolean blocked;
+    private boolean exposed;
     private Integer monthlyMatchTime = 0;
     private Long monthlyMatchAmount = 0L;
 
@@ -41,6 +43,8 @@ public class InfluenceMeResponse {
         this.introduction = result.getIntroduction();
         this.greetings = result.getGreetings();
         this.connected = result.isConnected();
+        this.blocked = result.isBlocked();
+        this.exposed = result.isExposed();
         this.reviewCount = result.getReviewCount();
         this.reviewAnswerCount = result.getReviewAnswerCount();
         this.qnaCount = result.getQnaCount();
