@@ -15,12 +15,12 @@ public class InfluenceListResult {
     private String phoneNumber;
     private Rank rank;
     private Boolean isHotInfluence;
-    private Long reviewCount;
-    private Long qnaCount;
+    private Integer reviewCount;
+    private Integer qnaCount;
     private LocalDateTime createdDt;
     private LocalDateTime updatedDt;
 
-    public InfluenceListResult(Long id, String nickname, String name, String email, String phoneNumber, Rank rank, Boolean isHotInfluence, Long reviewCount, Long qnaCount, LocalDateTime createdDt, LocalDateTime updatedDt) {
+    public InfluenceListResult(Long id, String nickname, String name, String email, String phoneNumber, Rank rank, Boolean isHotInfluence, Integer reviewCount, Integer qnaCount, LocalDateTime createdDt, LocalDateTime updatedDt) {
         this.id = id;
         this.nickname = nickname;
         this.name = name;
