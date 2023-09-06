@@ -38,6 +38,16 @@ Content-Type: application/json
   "password": "1234"
 }
 
+### 로그인 (일반유저) -- 42
+
+POST {{host}}/public/v1/login
+Content-Type: application/json
+
+{
+  "username": "p_by_me7@naver.com",
+  "password": "asdf1234"
+}
+
 ### access token 재발급 (사용자) - 80
 
 POST {{host}}/public/v1/token/refresh

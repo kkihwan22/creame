@@ -18,6 +18,7 @@ import today.creame.web.influence.exception.NotFoundInfluenceException;
 import today.creame.web.influence.exception.NotFoundItemException;
 import today.creame.web.m2net.application.M2netCounselorService;
 import today.creame.web.m2net.infra.feign.M2netCounselorClient;
+import today.creame.web.m2net.infra.feign.io.M2netCounselorChangePriceRequest;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateRequest;
 import today.creame.web.m2net.infra.feign.io.M2netCounselorInfoUpdateRequest;
 import today.creame.web.ranking.domain.ConsultationProduct;
@@ -124,6 +125,9 @@ public class InfluenceServiceImpl implements InfluenceService {
                 .orElseThrow(NotFoundItemException::new);
 
         influence.changeItem(product.getId());
+        m2netCounselorService.changePrice(
+                influence.getM2NetCounselorId(),
+                new M2netCounselorChangePriceRequest(new Item(product)));
     }
 
     @Override

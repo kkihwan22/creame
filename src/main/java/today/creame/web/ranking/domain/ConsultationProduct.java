@@ -2,6 +2,7 @@ package today.creame.web.ranking.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
@@ -16,6 +17,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @DynamicInsert
 @DynamicUpdate
 @Getter
+@ToString
 public class ConsultationProduct extends BaseCreatedAndUpdatedDateTime {
     @Id
     @GeneratedValue(strategy = IDENTITY)

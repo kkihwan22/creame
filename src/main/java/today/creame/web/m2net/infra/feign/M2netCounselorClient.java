@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import today.creame.web.m2net.infra.feign.config.M2netHeaderConfig;
-import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateRequest;
-import today.creame.web.m2net.infra.feign.io.M2netCounselorCreateResponse;
-import today.creame.web.m2net.infra.feign.io.M2netCounselorInfoUpdateRequest;
-import today.creame.web.m2net.infra.feign.io.M2netCounselorStateRequest;
+import today.creame.web.m2net.infra.feign.io.*;
 
 @FeignClient(
     name = "M2netCounselorClient",
@@ -40,5 +37,11 @@ public interface M2netCounselorClient {
     ResponseEntity<M2netCounselorCreateResponse> updateInfluenceInfo(
             @PathVariable String cid,
             @RequestBody M2netCounselorInfoUpdateRequest request
+    );
+
+    @PutMapping("/{cid}")
+    ResponseEntity<M2netCounselorCreateResponse> changePrice(
+            @PathVariable String cid,
+            @RequestBody M2netCounselorChangePriceRequest request
     );
 }
