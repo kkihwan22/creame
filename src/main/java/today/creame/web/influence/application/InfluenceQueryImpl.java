@@ -99,7 +99,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .where(influence.blocked.eq(false)
                         .and(influence.exposed.eq(true)
                         .and(influenceCategory.category.eq(Category.valueOf(category)))))
-                .orderBy(influenceQna.id.desc())
+                .orderBy(influence.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .distinct()
