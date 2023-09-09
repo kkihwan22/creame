@@ -34,7 +34,6 @@ public class M2netServiceImpl implements M2netService {
     @Override
     public void updateCallStatus(M2netUpdateCallStatusCommand command) {
         log.debug("[M2NET] CALLID : {}, telegram : {}", command.getCallId(), command.getTelegram());
-        // TODO: 해당 요청은 로깅으로 다 남기도록 한다.!!
         command.pub(publisher);
     }
 }

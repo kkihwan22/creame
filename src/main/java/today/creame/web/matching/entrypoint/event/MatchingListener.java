@@ -41,6 +41,3 @@ public class MatchingListener {
         );
     }
 }
-
-
-// 3547057a3315f98763616c6c001f5514@211.175.205.120 // varchar = 64

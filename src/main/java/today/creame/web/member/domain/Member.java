@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import today.creame.web.coin.domain.CoinsHistoryType;
 import today.creame.web.m2net.application.M2netUserService;
 import today.creame.web.m2net.application.model.M2netUserCreateParameter;
@@ -29,6 +31,7 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
     "roles"
 })
 public class Member extends BaseCreatedAndUpdatedDateTime {
+    private final static Logger log = LoggerFactory.getLogger(Member.class);
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -106,19 +109,21 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
         m2netUserId = m2netUserService.create(new M2netUserCreateParameter(nickname, phoneNumber));
     }
 
-    public void updateCoins(CoinsHistoryType type, int coins) {
+    public void updateCoins(CoinsHistoryType type, int changedCoins) {
         switch (type) {
             case USING:
-                this.coins = this.coins - coins;
+                this.coins = this.coins - changedCoins;
+                log.info("this member: {}, used changedCoins: {} balance :{}", this.id, changedCoins, this.coins);
                 break;
             case CHARGING:
-                this.coins = this.coins + coins;
+                this.coins = this.coins + changedCoins;
+                log.info("this member: {}, charging changedCoins: {} balance :{}", this.id, changedCoins, this.coins);
                 break;
             case CANCELED:
-                this.coins = this.coins + -(Math.abs(coins));
+                this.coins = this.coins + -(Math.abs(changedCoins));
                 break;
             case REWARD:
-                this.bonusCoins = this.bonusCoins + coins;
+                this.bonusCoins = this.bonusCoins + changedCoins;
                 this.coins = this.coins + this.coins;
                 break;
         }

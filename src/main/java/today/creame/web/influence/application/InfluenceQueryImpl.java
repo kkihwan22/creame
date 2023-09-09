@@ -147,8 +147,18 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         return new InfluenceDetailResult(influence, notice, hotInfluenceId, influenceProfileImages, item);
     }
 
+    // TODO: 페이징
     @Override
     public List<InfluenceResult> listByBookmarked(Long memberId, boolean called) {
+//        List<Influence> results = query.selectFrom(influence).join(influenceBookmark)
+//                .on(influence.id.eq(influenceBookmark.influenceId))
+//                .where(influenceBookmark.memberId.eq(memberId).and(influenceBookmark.bookmarked.isTrue()))
+//                .orderBy(influence.id.desc())
+////                .offset(pageRequest.getOffset())
+////                .limit(pageRequest.getPageSize())
+//                .fetch();
+//
+
         List<InfluenceBookmark> bookmarks = influenceBookmarkJpaRepository.findInfluenceBookmarksByMemberIdAndBookmarked(memberId, true);
         Set<Long> bookmarkedInfluenceIdSet = bookmarks.stream().map(InfluenceBookmark::getInfluenceId).collect(Collectors.toSet());
         log.debug("bookmarked influence sets: {}", bookmarkedInfluenceIdSet);

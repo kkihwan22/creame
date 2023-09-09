@@ -55,8 +55,6 @@ public class MatchingServiceImpl implements MatchingService {
         matching.end(parameter.getMatchingProgressStatus(), parameter.getEndDateTime(), parameter.getUsedCoins());
         matching.getInfluence().updateCalling();
         log.debug("matching: {}", matching);
-
-        // matchig end event 같은게 필요함!
         publisher.publishEvent(new MatchingEndEvent(matching.getMember().getId(), matching.getUsedCoins()));
     }
 
