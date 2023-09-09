@@ -24,6 +24,8 @@ public class InfluenceQueryByRecommend implements DisplayQuery {
     @Override
     public List<InfluenceResult> list(HomeQueryParam parameter) {
         Sort orders = Sort.by(
+            Order.desc("connected"),
+            Order.desc("calling"),
             Order.desc("rateCount"),
             Order.desc("createdDateTime")
         );

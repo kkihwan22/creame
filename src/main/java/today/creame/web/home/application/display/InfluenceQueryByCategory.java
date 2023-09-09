@@ -21,7 +21,7 @@ public class InfluenceQueryByCategory implements DisplayQuery {
 
     @Override
     public List<InfluenceResult> list(HomeQueryParam parameter) {
-        Sort orders = Sort.by(Order.desc("createdDateTime"));
+        Sort orders = Sort.by(Order.desc("createdDateTime"), Order.desc("connected"), Order.desc("calling"));
         PageRequest pageRequest = parameter.getPageRequest().withSort(orders);
 
         String category = parameter.getCategory();
