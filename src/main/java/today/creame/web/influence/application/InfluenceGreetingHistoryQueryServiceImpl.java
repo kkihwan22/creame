@@ -1,7 +1,5 @@
 package today.creame.web.influence.application;
 
-import java.util.List;
-
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +13,15 @@ import today.creame.web.common.support.Utils;
 import today.creame.web.influence.application.model.InfluenceGreetingSearchParameter;
 import today.creame.web.influence.application.model.InfluenceGreetingsHistoryResult;
 import today.creame.web.influence.application.model.InfluenceGreetingsQueryParameter;
-import today.creame.web.influence.domain.GreetingsProgressStatus;
 import today.creame.web.influence.domain.InfluenceGreetingsHistory;
 import today.creame.web.influence.domain.InfluenceGreetingsHistoryJpaRepository;
 import today.creame.web.share.aspect.permit.Permit;
 
+import java.util.List;
+import java.util.Optional;
+
+import static today.creame.web.influence.domain.GreetingsProgressStatus.APPROVAL;
+import static today.creame.web.influence.domain.GreetingsProgressStatus.REQUEST;
 import static today.creame.web.influence.domain.QInfluenceGreetingsHistory.influenceGreetingsHistory;
 
 @RequiredArgsConstructor
@@ -32,12 +34,9 @@ public class InfluenceGreetingHistoryQueryServiceImpl implements InfluenceGreeti
     @Override
     @Permit
     public InfluenceGreetingsHistoryResult queryInfluenceId(InfluenceGreetingsQueryParameter parameter) {
-        List<InfluenceGreetingsHistory> results
-            = influenceGreetingsHistoryJpaRepository.findByInfluence_IdAndStatusOrderByUpdatedByDesc(parameter.getInfluenceId(), GreetingsProgressStatus.REQUEST);
-        log.debug("results: {}", results);
-        return results.isEmpty()
-            ? null
-            : new InfluenceGreetingsHistoryResult(results.get(0));
+        Optional<InfluenceGreetingsHistory> result = influenceGreetingsHistoryJpaRepository
+                .findTopByInfluence_IdAndStatusInOrderByUpdatedDateTimeDesc(parameter.getInfluenceId(), List.of(REQUEST, APPROVAL));
+        return result.map(greetings -> new InfluenceGreetingsHistoryResult(greetings)).orElseGet(null);
     }
 
     @Override

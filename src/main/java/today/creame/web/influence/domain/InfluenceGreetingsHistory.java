@@ -81,4 +81,11 @@ public class InfluenceGreetingsHistory extends BaseCreatedAndUpdatedDateTimeWith
 
         this.status = GreetingsProgressStatus.REJECT;
     }
+
+    public void cancel() {
+        if (this.status != GreetingsProgressStatus.REQUEST) {
+            throw new IllegalReRequestGreetingsHistoryException();
+        }
+        this.status = GreetingsProgressStatus.CANCELED;
+    }
 }

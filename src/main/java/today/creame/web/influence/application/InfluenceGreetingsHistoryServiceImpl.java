@@ -1,6 +1,5 @@
 package today.creame.web.influence.application;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 import today.creame.web.influence.application.model.InfluenceGreetingApproveParameter;
 import today.creame.web.influence.application.model.InfluenceGreetingCreateParameter;
 import today.creame.web.influence.application.model.InfluenceGreetingRejectParameter;
-import today.creame.web.influence.domain.*;
+import today.creame.web.influence.domain.InfluenceGreetingsHistory;
+import today.creame.web.influence.domain.InfluenceGreetingsHistoryJpaRepository;
 import today.creame.web.influence.exception.NotFoundGreetingsHistoryException;
 import today.creame.web.share.aspect.permit.Permit;
+
+import java.util.List;
+import java.util.Optional;
+
+import static today.creame.web.influence.domain.GreetingsProgressStatus.REQUEST;
 
 @RequiredArgsConstructor
 @Service
@@ -23,14 +28,11 @@ public class InfluenceGreetingsHistoryServiceImpl implements InfluenceGreetingsH
     @Permit
     @Override
     public void create(InfluenceGreetingCreateParameter parameter) {
-        List<InfluenceGreetingsHistory> results = influenceGreetingsHistoryJpaRepository
-            .findByInfluence_IdAndStatusOrderByUpdatedByDesc(parameter.getInfluenceId(), GreetingsProgressStatus.REQUEST);
+        Optional<InfluenceGreetingsHistory> result = influenceGreetingsHistoryJpaRepository
+                .findTopByInfluence_IdAndStatusInOrderByUpdatedDateTimeDesc(parameter.getInfluenceId(), List.of(REQUEST));
 
-        if (!results.isEmpty()) {
-            results.get(0).reRequest(parameter.getFileId(), parameter.getFileUri());
-        } else {
-            influenceGreetingsHistoryJpaRepository.save(parameter.toEntity());
-        }
+        result.ifPresent(it -> it.cancel());
+        influenceGreetingsHistoryJpaRepository.save(parameter.toEntity());
     }
 
     @Transactional

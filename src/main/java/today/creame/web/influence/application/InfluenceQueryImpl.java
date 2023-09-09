@@ -64,6 +64,8 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         INFLUENCE_PROPERTY_MAP.put("email", influence.email);
         INFLUENCE_PROPERTY_MAP.put("name", influence.name);
         INFLUENCE_PROPERTY_MAP.put("nickname", influence.nickname);
+        INFLUENCE_PROPERTY_MAP.put("connected", influence.connected);
+        INFLUENCE_PROPERTY_MAP.put("calling", influence.calling);
         INFLUENCE_PROPERTY_MAP.put("createdDateTime", influence.createdDateTime);
         INFLUENCE_PROPERTY_MAP.put("updatedDateTime", influence.updatedDateTime);
     }
@@ -99,7 +101,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                 .where(influence.blocked.eq(false)
                         .and(influence.exposed.eq(true)
                         .and(influenceCategory.category.eq(Category.valueOf(category)))))
-                .orderBy(influence.id.desc())
+                .orderBy(getOrderSpecifier(pageable))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .distinct()
