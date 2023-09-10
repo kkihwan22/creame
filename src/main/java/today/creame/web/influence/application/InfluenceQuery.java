@@ -39,7 +39,7 @@ public interface InfluenceQuery {
 
     InfluenceDetailResult getDetail(Long id);
 
-    Page<InfluenceListResult> getList(Pageable pageable, Boolean onlyHotInfluence);
+    Page<InfluenceListResult> getList(Pageable pageable, InfluenceSearchParameter parameter);
 
     List<InfluenceResult> listByKeyword(Category category, String nickname, Pageable pageable);
 

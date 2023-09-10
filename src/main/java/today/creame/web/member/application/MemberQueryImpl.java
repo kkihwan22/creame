@@ -13,8 +13,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import today.creame.web.common.support.Utils;
 import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.member.application.model.MeResult;
+import today.creame.web.member.application.model.MemberListSearchParameter;
 import today.creame.web.member.application.model.MemberResult;
 import today.creame.web.member.application.model.MemberSearchParameter;
 import today.creame.web.member.domain.Member;
@@ -103,15 +105,18 @@ public class MemberQueryImpl implements MemberQuery {
     }
 
     @Override
-    public Page<MemberListResponse> getList(Pageable pageable) {
+    public Page<MemberListResponse> getList(Pageable pageable, MemberListSearchParameter parameter) {
         List<MemberListResponse> result = query
                 .select(Projections.constructor(MemberListResponse.class,
-                        member.id, member.email, member.nickname, member.phoneNumber, member.status, matchingReview.countDistinct(), influenceQna.countDistinct(), member.createdDateTime, member.updatedDateTime
+                        member.id, member.email, member.nickname, member.phoneNumber, member.status, matchingReview.countDistinct(), influenceQna.countDistinct(),
+                        matching.countDistinct(), member.createdDateTime, member.updatedDateTime
                         ))
                 .from(member)
                 .leftJoin(matching).on(matching.member.id.eq(member.id))
                 .leftJoin(matchingReview).on(matchingReview.matching.id.eq(matching.id))
                 .leftJoin(influenceQna).on(influenceQna.questioner.id.eq(member.id))
+                .where(Utils.equalsOperation(member.nickname, parameter.getNickname()),
+                        Utils.equalsOperation(member.status, parameter.getStatus()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(getOrderSpecifier(pageable))
@@ -121,6 +126,8 @@ public class MemberQueryImpl implements MemberQuery {
         Long totalCount = query
                 .select(member.count())
                 .from(member)
+                .where(Utils.equalsOperation(member.nickname, parameter.getNickname()),
+                        Utils.equalsOperation(member.status, parameter.getStatus()))
                 .fetchOne();
 
         return new PageImpl<>(result, pageable, totalCount);

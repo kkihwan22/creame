@@ -19,6 +19,7 @@ import today.creame.web.influence.application.InfluenceQuery;
 import today.creame.web.influence.application.model.InfluenceDetailResult;
 import today.creame.web.influence.application.model.InfluenceListResult;
 import today.creame.web.influence.application.model.InfluenceResult;
+import today.creame.web.influence.application.model.InfluenceSearchParameter;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceMeResponse;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceReviewStatResponse;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceSearchRequest;
@@ -108,7 +109,7 @@ public class InfluenceQueryRestController implements BaseRestController {
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable,
             InfluenceSearchRequest searchRequest){
 
-        Page<InfluenceListResult> influencePage = influenceQuery.getList(pageable, searchRequest.getOnlyHotInfluence());
+        Page<InfluenceListResult> influencePage = influenceQuery.getList(pageable, new InfluenceSearchParameter(searchRequest));
 
         return ResponseEntity.ok(BodyFactory.success(influencePage.getContent(), influencePage.getTotalElements()));
     }
