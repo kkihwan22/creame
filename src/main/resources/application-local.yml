@@ -23,12 +23,9 @@ spring:
     property-naming-strategy: SNAKE_CASE
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/creame
-#    username: creamelocal
-#    password: creame123!@#
-    url: jdbc:mysql://192.168.75.132:5748/cream
-    username: cream
-    password: cream123
+    url: jdbc:mysql://rdb-creame.c7f9pyzwo76e.ap-northeast-2.rds.amazonaws.com:3306/creame?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=Asia/Seoul
+    username: ENC(DFXaDe/wgo4HzmpZ35XZBUFe7ANBMKBL)
+    password: ENC(JdZ7/UOKRzJ2xblyENpWYGXy/mzBGBil)
     hikari:
       auto-commit: false
       connection-test-query: SELECT 1
@@ -46,6 +43,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  redis:
+    host: localhost
+    port: 6379
   thymeleaf:
     cache: false
     check-template-location: true
@@ -54,6 +54,8 @@ spring:
   devtools:
     livereload:
       enabled: true
+
+
 
 #  /resource ?? ?? schema.sql, data.sql ? ???? ??? ??
 #  sql:

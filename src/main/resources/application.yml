@@ -36,6 +36,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  redis:
+    host: creame-dev-redis-cluster.8i14vx.clustercfg.apn2.cache.amazonaws.com
+    port: 6379
   thymeleaf:
     cache: false
     check-template-location: true
@@ -91,7 +94,7 @@ m2net:
   host: http://passcall.co.kr:25205
 
 logging:
-  config: classpath:logback/logback-dev.xml
+  config: classpath:logback/logback-local.xml
 
 
 ## 소셜 로그인
