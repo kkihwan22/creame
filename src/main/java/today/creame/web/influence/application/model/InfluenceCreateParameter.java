@@ -13,6 +13,7 @@ import today.creame.web.share.model.BaseParameter;
 public class InfluenceCreateParameter implements BaseParameter<Influence> {
 
     private Long memberId;
+    private String extensionNumber;
     private String name;
     private String nickname;
     private String phoneNumber;
@@ -21,8 +22,9 @@ public class InfluenceCreateParameter implements BaseParameter<Influence> {
     private List<String> categories;
     private List<Long> profileImages;
 
-    public InfluenceCreateParameter(Long memberId, InfluenceApplication application) {
+    public InfluenceCreateParameter(Long memberId, String extensionNumber, InfluenceApplication application) {
         this.memberId = memberId;
+        this.extensionNumber = extensionNumber;
         this.name = application.getName();
         this.nickname = application.getNickname();
         this.phoneNumber = application.getPhoneNumber();
@@ -41,6 +43,6 @@ public class InfluenceCreateParameter implements BaseParameter<Influence> {
 
     @Override
     public Influence toEntity() {
-        return new Influence(memberId, name, nickname, phoneNumber, email, introduction);
+        return new Influence(memberId, extensionNumber, name, nickname, phoneNumber, email, introduction);
     }
 }

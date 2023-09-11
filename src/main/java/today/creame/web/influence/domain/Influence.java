@@ -127,6 +127,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
 
     public Influence(
         Long memberId,
+        String extensionNumber,
         String name,
         String nickname,
         String phoneNumber,
@@ -134,7 +135,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         String introduction
     ) {
         this.id = memberId;
-        this.extensionNumber = String.valueOf(memberId);
+        this.extensionNumber = extensionNumber;
         this.name = name;
         this.nickname = nickname;
         this.email = email;

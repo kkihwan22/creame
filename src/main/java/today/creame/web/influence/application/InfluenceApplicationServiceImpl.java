@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
@@ -34,6 +35,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
     private final InfluenceApplicationJpaRepository influenceApplicationJpaRepository;
     private final ApplicationEventPublisher publisher;
     private final MemberQuery memberQuery;
+    private final StringRedisTemplate stringRedisTemplate;
 
     @Transactional
     @Override
@@ -68,7 +70,7 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         MemberResult member = memberService.registerMemberInfluence(
             new MemberRegisterParameter(application.getEmail(), application.getNickname(), password, application.getPhoneNumber(), null, SignupType.EMAIL));
 
-        Long influenceId = influenceService.create(new InfluenceCreateParameter(member.getId(), application));
+        Long influenceId = influenceService.create(new InfluenceCreateParameter(member.getId(), getLastExtensionNumber(), application));
         log.debug("member:{}, influence:{}", member.getId(), influenceId);
 
         publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(parameter.getEmail(), member.getPassword())));
@@ -82,14 +84,16 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
 
         application.approve();
 
+        ;
+
         MemberSearchParameter parameter = new MemberSearchParameter(application.getEmail(), application.getPhoneNumber(), application.getNickname());
         List<MemberSearchResult> members = memberService.findAllByEmailOrPhoneNumberOrNickname(parameter);
         MemberSearchResult member = members.get(0);
         memberService.memberRoleUpdate(member.getId());
-        influenceService.create(new InfluenceCreateParameter(member.getId(), application));
-
-        // publisher.publishEvent(new SmsSendEvent(member.getPhoneNumber(), SmsTemplate.influenceWelcome(member.getEmail(), member.getPassword())));
+        influenceService.create(new InfluenceCreateParameter(member.getId(), getLastExtensionNumber(), application));
     }
+
+
 
     @Transactional
     @Override
@@ -110,6 +114,10 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
         log.debug("find application: {}", application);
 
         application.reject();
+    }
+
+    private String getLastExtensionNumber() {
+        return String.valueOf(stringRedisTemplate.opsForValue().increment("K:CREAME:NUMBERS"));
     }
 
 }
