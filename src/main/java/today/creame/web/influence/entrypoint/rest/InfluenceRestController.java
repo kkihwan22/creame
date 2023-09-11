@@ -126,4 +126,16 @@ public class InfluenceRestController implements BaseRestController {
         influenceService.updateInfluenceInfo(new InfluenceUpdateInfoParameter(id, request));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
+
+    @PutMapping("/admin/v1/influence/{id}/connection/on")
+    public ResponseEntity<Body<SimpleBodyData<String>>> onConnectionByAdmin(@PathVariable Long id) {
+        influenceService.updateConnectionStatusByAdmin(id, ON);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
+
+    @PutMapping("/admin/v1/influence/{id}/connection/off")
+    public ResponseEntity<Body<SimpleBodyData<String>>> offConnectionByAdmin(@PathVariable Long id) {
+        influenceService.updateConnectionStatusByAdmin(id, OFF);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
 }
