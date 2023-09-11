@@ -36,6 +36,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  redis:
+    host: creame-dev-redis-cluster.8i14vx.clustercfg.apn2.cache.amazonaws.com
+    port: 6379
   thymeleaf:
     cache: false
     check-template-location: true
