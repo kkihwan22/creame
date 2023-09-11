@@ -94,7 +94,7 @@ m2net:
   host: http://passcall.co.kr:25205
 
 logging:
-  config: classpath:logback/logback-local.xml
+  config: classpath:logback/logback-dev.xml
 
 
 ## 소셜 로그인
