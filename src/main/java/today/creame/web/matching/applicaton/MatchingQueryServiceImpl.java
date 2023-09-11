@@ -5,6 +5,7 @@ import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.DateExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.jsonwebtoken.lang.Collections;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
+import today.creame.web.common.support.Utils;
 import today.creame.web.influence.domain.InfluenceProfileImage;
 import today.creame.web.influence.domain.InfluenceProfileImageJpaRepository;
 import today.creame.web.matching.applicaton.model.*;
 import today.creame.web.matching.domain.*;
-import today.creame.web.matching.exception.NotFoundMatchingStatisticsException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -170,8 +171,11 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
 
     @Override
     public Page<Matching> list(MatchingSearchParameter parameter, Pageable pageable) {
+        DateExpression standardDate = Utils.dateFormat(matching.startDateTime, "%Y-%m-%d");
+
         QueryResults<Matching> result =  query.selectFrom(matching)
-                .where(eqIdOrNickname(parameter))
+                .where(eqIdOrNickname(parameter),
+                        Utils.dateBetween(standardDate, parameter.getStartDt(), parameter.getEndDt()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(getOrderSpecifier(pageable))

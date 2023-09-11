@@ -26,4 +26,5 @@ public interface InfluenceService {
 
     void changedExposeStatus(Boolean exposed);
 
+    void updateConnectionStatusByAdmin(Long id, OnOffCondition status);
 }
