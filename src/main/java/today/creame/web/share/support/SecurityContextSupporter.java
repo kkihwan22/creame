@@ -15,7 +15,6 @@ public class SecurityContextSupporter {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             log.error("[ error ] 로그인 되지 않았습니다. 확인 부탁드립니다.");
-            // todo: exception ?!?
             return null;
         }
 

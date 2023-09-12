@@ -62,11 +62,7 @@ public class CreameAuthenticationFilter extends UsernamePasswordAuthenticationFi
         CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
 
         Token refresh = TokenType.REFRESH_TOKEN.factory(user);
-        log.info("[ refresh token ] {}", refresh);
-
         Token access = TokenType.ACCESS_TOKEN.factory(user);
-        log.info("[ access token ] {}", access);
-
 
         Map<String, String> data = new HashMap<>();
         data.put("refresh_token", refresh.getValue());

@@ -72,7 +72,7 @@ public class InfluenceServiceImpl implements InfluenceService {
 
         String cId = client.create(new M2netCounselorCreateRequest(
             influence.getNickname(),
-            influence.getId().toString(),
+            influence.getExtensionNumber(),
             influence.getPhoneNumber(),
             item.getPricePerTime(),
             item.getPrice())).getBody().getCsrid();

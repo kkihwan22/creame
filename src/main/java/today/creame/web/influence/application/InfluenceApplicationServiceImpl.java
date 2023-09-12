@@ -84,8 +84,6 @@ public class InfluenceApplicationServiceImpl implements InfluenceApplicationServ
 
         application.approve();
 
-        ;
-
         MemberSearchParameter parameter = new MemberSearchParameter(application.getEmail(), application.getPhoneNumber(), application.getNickname());
         List<MemberSearchResult> members = memberService.findAllByEmailOrPhoneNumberOrNickname(parameter);
         MemberSearchResult member = members.get(0);
