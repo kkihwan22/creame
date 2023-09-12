@@ -36,6 +36,7 @@ import static today.creame.web.influence.domain.QInfluenceBookmark.influenceBook
 import static today.creame.web.influence.domain.QInfluenceCategory.influenceCategory;
 import static today.creame.web.influence.domain.QInfluenceNotice.influenceNotice;
 import static today.creame.web.influence.domain.QInfluenceQna.influenceQna;
+import static today.creame.web.matching.domain.QMatching.matching;
 import static today.creame.web.member.domain.QMember.member;
 
 @RequiredArgsConstructor
@@ -315,8 +316,8 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     }
 
     @Override
-    public Page<InfluenceListResult> getList(Pageable pageable, Boolean onlyHotInfluence) {
-        QueryResults<InfluenceListResult> result = query
+    public Page<InfluenceListResult> getList(Pageable pageable, InfluenceSearchParameter parameter) {
+        List<InfluenceListResult> result = query
                 .select(Projections.constructor(InfluenceListResult.class,
                         influence.id,
                         influence.nickname,
@@ -328,19 +329,33 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                                 .when(hotInfluence.id.isNull()).then(Boolean.FALSE).otherwise(Boolean.TRUE).as("isHotInfluence"),
                         influence.reviewCount,
                         influence.qnaCount,
+                        matching.countDistinct(),
                         influence.createdDateTime,
                         influence.updatedDateTime))
                 .from(influence)
                 .leftJoin(hotInfluence)
                 .on(influence.id.eq(hotInfluence.influenceId))
-                .where(isHotInfluence(hotInfluence, onlyHotInfluence))
+                .leftJoin(matching)
+                .on(matching.influence.id.eq(influence.id))
+                .where(isHotInfluence(hotInfluence, parameter.getOnlyHotInfluence()),
+                        Utils.equalsOperation(influence.nickname, parameter.getNickname()),
+                        Utils.equalsOperation(influence.rank, parameter.getRank()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(getOrderSpecifier(pageable))
+                .groupBy(influence.id)
                 .distinct()
-                .fetchResults();
+                .fetch();
 
-        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+        Long totalCount = query
+                .select(influence.count())
+                .from(influence)
+                .where(isHotInfluence(hotInfluence, parameter.getOnlyHotInfluence()),
+                        Utils.equalsOperation(influence.nickname, parameter.getNickname()),
+                        Utils.equalsOperation(influence.rank, parameter.getRank()))
+                .fetchOne();
+
+        return new PageImpl<>(result, pageable, totalCount);
     }
 
     @Override

@@ -236,6 +236,29 @@ public class InfluenceServiceImpl implements InfluenceService {
 
     @Transactional
     @Override
+    public void updateConnectionStatusByAdmin(Long id, OnOffCondition status) {
+        Influence influence = influenceJpaRepository.findById(id)
+                .orElseThrow(NotFoundInfluenceException::new);
+
+        if (status == OnOffCondition.ON && influence.isConnected()) {
+            throw new ConflictConnectionStatusException();
+        }
+
+        if (status == OnOffCondition.OFF && !influence.isConnected()) {
+            throw new ConflictConnectionStatusException();
+        }
+
+        influence.updateConnect();
+
+        if(status == OnOffCondition.ON) {
+            m2netCounselorService.on(influence.getM2NetCounselorId());
+        }else {
+            m2netCounselorService.off(influence.getM2NetCounselorId());
+        }
+    }
+
+    @Transactional
+    @Override
     public void updateInfluenceInfo(InfluenceUpdateInfoParameter parameter) {
         List<InfluenceCategory> categories = influenceCategoryJpaRepository.findByInfluenceIdIn(Set.of(parameter.getId()));
         influenceCategoryJpaRepository.deleteAll(categories);
