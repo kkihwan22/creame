@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import today.creame.web.ranking.application.ConsultationProductQuery;
 import today.creame.web.ranking.domain.ConsultationProduct;
+import today.creame.web.ranking.entrypoint.rest.io.ConsultationProductAdminResponse;
 import today.creame.web.ranking.entrypoint.rest.io.ConsultationProductResponse;
 import today.creame.web.share.entrypoint.Body;
 import today.creame.web.share.entrypoint.BodyFactory;
@@ -26,6 +27,13 @@ public class ConsultationProductQueryRestController {
     public ResponseEntity<Body<List<ConsultationProductResponse>>> list(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10) Pageable pageable) {
         Page<ConsultationProduct> results = consultationProductQuery.list(pageable);
         List<ConsultationProductResponse> responses = results.stream().map(ConsultationProductResponse::new).collect(Collectors.toList());
+        return ResponseEntity.ok(BodyFactory.success(responses));
+    }
+
+    @GetMapping("/admin/v1/consultation-products")
+    public ResponseEntity<Body<List<ConsultationProductAdminResponse>>> listByAdmin() {
+        List<ConsultationProduct> results = consultationProductQuery.listByAdmin();
+        List<ConsultationProductAdminResponse> responses = results.stream().map(ConsultationProductAdminResponse::new).collect(Collectors.toList());
         return ResponseEntity.ok(BodyFactory.success(responses));
     }
 

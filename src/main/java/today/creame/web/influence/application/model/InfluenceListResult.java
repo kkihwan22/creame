@@ -13,6 +13,7 @@ public class InfluenceListResult {
     private String name;
     private String email;
     private String phoneNumber;
+    private String extensionNumber;
     private Rank rank;
     private Boolean isHotInfluence;
     private Integer reviewCount;
@@ -21,13 +22,14 @@ public class InfluenceListResult {
     private LocalDateTime createdDt;
     private LocalDateTime updatedDt;
 
-    public InfluenceListResult(Long id, String nickname, String name, String email, String phoneNumber, Rank rank, Boolean isHotInfluence,
+    public InfluenceListResult(Long id, String nickname, String name, String email, String phoneNumber, String extensionNumber, Rank rank, Boolean isHotInfluence,
                                Integer reviewCount, Integer qnaCount, Long matchingCount, LocalDateTime createdDt, LocalDateTime updatedDt) {
         this.id = id;
         this.nickname = nickname;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.extensionNumber = extensionNumber;
         this.rank = rank;
         this.isHotInfluence = isHotInfluence;
         this.reviewCount = reviewCount;

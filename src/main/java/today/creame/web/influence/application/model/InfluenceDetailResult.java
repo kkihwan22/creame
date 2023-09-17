@@ -145,11 +145,11 @@ public class InfluenceDetailResult {
     @Getter
     public static class SnsResponse {
         private String snsCompany;
-        private String snsAddress;
+        private String address;
 
         public SnsResponse(SNS sns) {
             this.snsCompany = sns.getCompany().name();
-            this.snsAddress = sns.getAddress();
+            this.address = sns.getAddress();
         }
     }
 }
