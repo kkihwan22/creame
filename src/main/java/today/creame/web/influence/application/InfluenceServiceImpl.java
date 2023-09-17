@@ -284,6 +284,8 @@ public class InfluenceServiceImpl implements InfluenceService {
 
         if(CollectionUtils.isNotEmpty(parameter.getSnsRequests())) {
             influence.updateSns(new SNS(parameter.getSnsRequests().get(0).getSnsCompany(), parameter.getSnsRequests().get(0).getAddress()));
+        } else {
+            influence.updateSns(null);
         }
 
         influence.updateInfo(parameter.getName(), parameter.getRank(), parameter.isExposed(), parameter.getIntroduction());
