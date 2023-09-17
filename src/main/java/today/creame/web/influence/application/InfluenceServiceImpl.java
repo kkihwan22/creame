@@ -259,6 +259,22 @@ public class InfluenceServiceImpl implements InfluenceService {
 
     @Transactional
     @Override
+    public void changeItemByAdmin(Long id, Long productId) {
+        Influence influence = influenceJpaRepository.findById(id)
+                .orElseThrow(NotFoundInfluenceException::new);
+
+        ConsultationProduct product = consultationProductJpaRepository
+                .findById(productId)
+                .orElseThrow(NotFoundItemException::new);
+
+        influence.changeItem(product.getId());
+        m2netCounselorService.changePrice(
+                influence.getM2NetCounselorId(),
+                new M2netCounselorChangePriceRequest(new Item(product)));
+    }
+
+    @Transactional
+    @Override
     public void updateInfluenceInfo(InfluenceUpdateInfoParameter parameter) {
         List<InfluenceCategory> categories = influenceCategoryJpaRepository.findByInfluenceIdIn(Set.of(parameter.getId()));
         influenceCategoryJpaRepository.deleteAll(categories);
@@ -266,7 +282,11 @@ public class InfluenceServiceImpl implements InfluenceService {
         Influence influence = influenceJpaRepository.findById(parameter.getId())
                 .orElseThrow(NotFoundInfluenceException::new);
 
-        influence.updateInfo(parameter.getName(), parameter.getRank(), parameter.getIntroduction());
+        if(CollectionUtils.isNotEmpty(parameter.getSnsRequests())) {
+            influence.updateSns(new SNS(parameter.getSnsRequests().get(0).getSnsCompany(), parameter.getSnsRequests().get(0).getAddress()));
+        }
+
+        influence.updateInfo(parameter.getName(), parameter.getRank(), parameter.isExposed(), parameter.getIntroduction());
         parameter.getCategories().stream().forEach(it -> {
             InfluenceCategory category = new InfluenceCategory(influence, Category.valueOf(it.toUpperCase()));
             influence.updateCategory(category);

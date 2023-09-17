@@ -324,6 +324,7 @@ public class InfluenceQueryImpl implements InfluenceQuery {
                         influence.name,
                         influence.email,
                         influence.phoneNumber,
+                        influence.extensionNumber,
                         influence.rank,
                         new CaseBuilder()
                                 .when(hotInfluence.id.isNull()).then(Boolean.FALSE).otherwise(Boolean.TRUE).as("isHotInfluence"),

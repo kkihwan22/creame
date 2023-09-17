@@ -8,7 +8,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import today.creame.web.ranking.domain.ConsultationProduct;
-import today.creame.web.ranking.domain.QRanking;
+
+import java.util.List;
 
 import static today.creame.web.ranking.domain.QConsultationProduct.consultationProduct;
 import static today.creame.web.ranking.domain.QRanking.ranking;
@@ -31,5 +32,14 @@ public class ConsultationProductQueryImpl implements ConsultationProductQuery {
                 .fetchResults();
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+    }
+
+    @Override
+    public List<ConsultationProduct> listByAdmin() {
+        return query
+                .selectFrom(consultationProduct)
+                .where(consultationProduct.orderNo.isNotNull())
+                .orderBy(consultationProduct.orderNo.asc())
+                .fetch();
     }
 }

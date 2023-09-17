@@ -3,6 +3,7 @@ package today.creame.web.influence.application.model;
 import lombok.Getter;
 import today.creame.web.influence.domain.Rank;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceUpdateInfoRequest;
+import today.creame.web.influence.entrypoint.rest.io.SnsUpdateRequest;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ public class InfluenceUpdateInfoParameter {
     private Long id;
     private String name;
     private Rank rank;
+    private List<SnsUpdateRequest> snsRequests;
+    private boolean exposed;
     private List<String> categories;
     private String introduction;
 
@@ -18,6 +21,8 @@ public class InfluenceUpdateInfoParameter {
         this.id = id;
         this.name = request.getName();
         this.rank = request.getRank();
+        this.snsRequests = request.getSnsRequests();
+        this.exposed = request.isExposed();
         this.categories = request.getCategories();
         this.introduction = request.getIntroduction();
     }
