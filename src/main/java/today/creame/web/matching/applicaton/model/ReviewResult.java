@@ -28,6 +28,7 @@ public class ReviewResult {
     private LocalDateTime replyDateTime;
     private int likeCount;
     private boolean liked = false;
+    private boolean blocked;
 
     public ReviewResult(MatchingReview review) {
         Matching matching = review.getMatching();
@@ -48,6 +49,7 @@ public class ReviewResult {
         this.reviewDateTime = review.getWriteDateTime();
         this.replyDateTime = review.getReplyDateTime();
         this.likeCount = review.getLikedCount();
+        this.blocked = review.isBlocked();
 
         if (replyContent != null) this.answered = true;
     }
