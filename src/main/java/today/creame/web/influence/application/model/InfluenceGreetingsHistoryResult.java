@@ -16,14 +16,6 @@ public class InfluenceGreetingsHistoryResult {
     private String fileUri;
     private GreetingsProgressStatus status;
 
-    public InfluenceGreetingsHistoryResult(Long id, Long influenceId, Long fileId, String fileUri, GreetingsProgressStatus status) {
-        this.id = id;
-        this.influenceId = influenceId;
-        this.fileId = fileId;
-        this.fileUri = fileUri;
-        this.status = status;
-    }
-
     public InfluenceGreetingsHistoryResult(InfluenceGreetingsHistory entity) {
         this.id = entity.getId();
         this.influenceId = entity.getInfluence().getId();

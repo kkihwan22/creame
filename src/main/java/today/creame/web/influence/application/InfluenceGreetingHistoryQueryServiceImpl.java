@@ -34,9 +34,9 @@ public class InfluenceGreetingHistoryQueryServiceImpl implements InfluenceGreeti
     @Override
     @Permit
     public InfluenceGreetingsHistoryResult queryInfluenceId(InfluenceGreetingsQueryParameter parameter) {
-        Optional<InfluenceGreetingsHistory> result = influenceGreetingsHistoryJpaRepository
-                .findTopByInfluence_IdAndStatusInOrderByUpdatedDateTimeDesc(parameter.getInfluenceId(), List.of(REQUEST, APPROVAL));
-        return result.map(greetings -> new InfluenceGreetingsHistoryResult(greetings)).orElseGet(null);
+        return influenceGreetingsHistoryJpaRepository
+                .findTopByInfluence_IdAndStatusInOrderByUpdatedDateTimeDesc(parameter.getInfluenceId(), List.of(REQUEST, APPROVAL)).map(greetings -> new InfluenceGreetingsHistoryResult(greetings)).orElse(null);
+
     }
 
     @Override
