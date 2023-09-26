@@ -110,7 +110,8 @@ public class InfluenceResult {
             .collect(Collectors.toList());
 
         this.profileImages = profileImages.stream()
-            .map(InfluenceProfileImage::getFileResourceUri)
+                .filter(i -> !i.isDeleted())
+                .map(InfluenceProfileImage::getFileResourceUri)
                 .collect(Collectors.toList());
 
         if (influence.getSns() != null) {
