@@ -68,11 +68,11 @@ public class HotInfluenceRestController implements BaseRestController {
         return ResponseEntity.ok(BodyFactory.success(response));
     }
 
-//    @PatchMapping("/admin/v1/banners/hot/{id}/enabled")
-//    public ResponseEntity<Body<SimpleBodyData<String>>> enabled(@PathVariable Long id) {
-//        hotInfluenceService.enabled(id);
-//        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
-//    }
+    @PatchMapping("/admin/v1/banners/hot/{id}/enabled")
+    public ResponseEntity<Body<SimpleBodyData<String>>> enabled(@PathVariable Long id) {
+        hotInfluenceService.enabled(id);
+        return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
+    }
 
     @DeleteMapping("/admin/v1/banners/hot")
     public ResponseEntity<Body<SimpleBodyData<String>>> delete(@RequestBody HotInfluenceDeleteRequest request) {
