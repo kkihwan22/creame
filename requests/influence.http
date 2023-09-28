@@ -234,6 +234,23 @@ Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjkzNzQ0NTU2LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.nkjmPFm6L5mHDhdsa2U0mcvfaEVA-SaG0j0AXpWIICU
 
 
+### 관리자 > 인플루언스 수정
+PUT {{host}}/admin/v1/influence/170
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjk2MjYyNDgzLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.YUWK5ucCzi8GO_VS4S8EY4H60G47ZNKjhqyieSnI9-A
+
+{
+  "id": 170,
+  "name": "채하늘",
+  "rank": "RED",
+  "categories": [
+    "LIFE"
+  ],
+  "introduction": "안녕하세요 트위치 파트너 스트리머 믐므므 입니당🫶",
+  "exposed": true,
+  "sns_requests": []
+}
+
 //
 
 ###

@@ -34,7 +34,6 @@ public class CoinsServiceImpl implements CoinsService {
             .findById(parameter.getMemberId())
             .orElseThrow(NotFoundMemberException::new);
 
-        member.updateCoins(parameter.getType(), parameter.getCoins());
         CoinsHistory coinsHistory = new CoinsHistory(member, parameter.getType(), parameter.getCoins());
         coinsHistoryJpaRepository.save(coinsHistory);
     }

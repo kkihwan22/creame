@@ -54,7 +54,6 @@ public class MatchingServiceImpl implements MatchingService {
         Matching matching = matchingJapRepository.findMatchingByCallId(parameter.getCallId()).orElseThrow(NotFoundMatchingException::new);
         matching.end(parameter.getMatchingProgressStatus(), parameter.getEndDateTime(), parameter.getUsedCoins());
         matching.getInfluence().updateCalling();
-        log.debug("matching: {}", matching);
         publisher.publishEvent(new MatchingEndEvent(matching.getMember().getId(), matching.getUsedCoins()));
     }
 
@@ -62,8 +61,6 @@ public class MatchingServiceImpl implements MatchingService {
         Influence influence = influenceJpaRepository
             .findInfluenceByM2NetCounselorId(cid)
             .orElseThrow(() -> new NotFoundInfluenceException());
-
-        log.debug("find influence: {}", influence);
         return influence;
     }
 
@@ -71,8 +68,6 @@ public class MatchingServiceImpl implements MatchingService {
         Member member = memberJpaRepository
             .findMemberByM2netUserId(uid)
             .orElseThrow(() -> new NotFoundMemberException());
-
-        log.debug("find member: {}", member);
         return member;
     }
 }

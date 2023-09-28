@@ -2,8 +2,55 @@
 
 PUT {{host}}/api/v1/m2net/pre-call/70
 Content-Type: application/json
-Authorization: Be정arer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
 
+### 통화시작
+
+POST {{host}}/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+
+{
+  "callid": "336a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+### 통화종료
+
+POST {{host}}/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+
+{
+  "callid": "336a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": "2023-09-28 22:25:00",
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 300,
+  "amt": 500,
+  "telno": "01032114161",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}
 
 ### 통화내역
 

@@ -28,7 +28,7 @@ import today.creame.web.share.domain.BaseCreatedAndUpdatedDateTime;
 @DynamicUpdate
 @Getter
 @ToString(exclude = {
-    "roles"
+    "roles", "notificationPreferences"
 })
 public class Member extends BaseCreatedAndUpdatedDateTime {
     private final static Logger log = LoggerFactory.getLogger(Member.class);

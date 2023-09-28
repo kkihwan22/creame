@@ -1,13 +1,12 @@
 package today.creame.web.m2net.application.model;
 
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.ToString;
-import org.springframework.context.ApplicationEventPublisher;
 import today.creame.web.m2net.domain.DeductionMethod;
 import today.creame.web.m2net.domain.M2netReasonCode;
 import today.creame.web.matching.domain.PaidType;
-import today.creame.web.share.event.MatchingEvent;
+
+import java.time.LocalDateTime;
 
 @Getter
 @ToString
@@ -52,24 +51,7 @@ public class M2netUpdateCallStatusCommand {
         this.paidType = deductionMethod.getPaidType();
     }
 
-    public void pub(ApplicationEventPublisher publisher) {
-        if (reason.getMatchingProgressStatus() == null) {
-            return;
-        }
-
-        publisher.publishEvent(new MatchingEvent(
-            mId,
-            cId,
-            callId,
-            reason.getMatchingProgressStatus(),
-            startDateTime,
-            endDateTime,
-            this.isDeferred(deductionMethod),
-            usedAmount, paidType
-        ));
-    }
-
-    private boolean isDeferred(DeductionMethod method) {
-        return method == DeductionMethod.POST;
+    public boolean isDeferred() {
+        return DeductionMethod.POST == deductionMethod;
     }
 }

@@ -1,3 +1,913 @@
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 396
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "336a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": "2023-09-28 22:25:00",
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 300,
+  "amt": 500,
+  "telno": "01032114161",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T232148.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 376
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "336a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T232147.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 396
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "335a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": "2023-09-28 22:25:00",
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 300,
+  "amt": 500,
+  "telno": "01032114161",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T232007.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 376
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "335a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T232005.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 396
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "325a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": "2023-09-28 22:25:00",
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 300,
+  "amt": 500,
+  "telno": "01032114161",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T231624.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 376
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "325a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T231618.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 396
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "225a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": "2023-09-28 22:25:00",
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 300,
+  "amt": 500,
+  "telno": "01032114161",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T231457.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 376
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "225a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T231454.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 396
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "224a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": "2023-09-28 22:25:00",
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 300,
+  "amt": 500,
+  "telno": "01032114161",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T231406.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 376
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "224a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T231401.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 396
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "214a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": "2023-09-28 22:25:00",
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 300,
+  "amt": 500,
+  "telno": "01032114161",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T230407.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 376
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "214a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T230305.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 376
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "114a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T225510.200.txt
+
+###
+
+GET http://localhost:8888/public/v1/influences/90/reviews?direction=ASC
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-09-28T223926.200.json
+
+###
+
+GET http://localhost:8888/public/v1/influences/90/reviews?direction=ASC
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-09-28T223805.200.json
+
+###
+
+GET http://localhost:8888/api/v1/me/matching-history?since=1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjgzOTg2MjkzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.7_W857twqFOAgXGpcXFS48-ixphLVUojpjydqyFQYx8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-09-28T223757.401.json
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 396
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "113a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": "2023-09-28 22:25:00",
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 300,
+  "amt": 500,
+  "telno": "01032114161",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T223200.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 376
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "113a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T223158.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 396
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "173a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": "2023-09-28 22:25:00",
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 300,
+  "amt": 500,
+  "telno": "01032114161",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T222346.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 379
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "173a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:25:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 300,
+  "amt": 500,
+  "telno": "01032114161",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T222216.500.json
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 376
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "173a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T222156.200.txt
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 377
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "173a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "036616",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "050305",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T222103.400.json
+
+###
+
+POST http://localhost:8888/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 390
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "173a98a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "036616",
+  "dtmfno": "103", /* 쥬쥬 */
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "050305",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-28T222041.400.json
+
+###
+
+PUT http://localhost:8888/admin/v1/influence/170
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjk2MjYyNDgzLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.YUWK5ucCzi8GO_VS4S8EY4H60G47ZNKjhqyieSnI9-A
+Content-Length: 228
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "id": 170,
+  "name": "채하늘",
+  "rank": "RED",
+  "categories": [
+    "LIFE"
+  ],
+  "introduction": "안녕하세요 트위치 파트너 스트리머 믐므므 입니당🫶",
+  "exposed": true,
+  "sns_requests": []
+}
+
+//
+
+<> 2023-09-26T010830.200.json
+
+###
+
+PUT http://localhost:8888/admin/v1/influence/170
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjk2MjYyNDgzLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.YUWK5ucCzi8GO_VS4S8EY4H60G47ZNKjhqyieSnI9-A
+Content-Length: 288
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "id": 170,
+  "name": "채하늘",
+  "rank": "RED",
+  "categories": [
+    "LIFE"
+  ],
+  "introduction": "안녕하세요 트위치 파트너 스트리머 믐므므 입니당🫶",
+  "exposed": true,
+  "sns_requests": [
+    {
+      "sns_company": "",
+      "address": ""
+    }
+  ]
+}
+
+//
+
+<> 2023-09-26T010322.400.json
+
+###
+
+PUT http://localhost:8888/admin/v1/influence/170
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjk2MjYyNDgzLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.YUWK5ucCzi8GO_VS4S8EY4H60G47ZNKjhqyieSnI9-A
+Content-Length: 288
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "id": 170,
+  "name": "채하늘",
+  "rank": "RED",
+  "categories": [
+    "LIFE"
+  ],
+  "introduction": "안녕하세요 트위치 파트너 스트리머 믐므므 입니당🫶",
+  "exposed": true,
+  "sns_requests": [
+    {
+      "sns_company": "",
+      "address": ""
+    }
+  ]
+}
+
+//
+
+<> 2023-09-26T010307.400.json
+
+###
+
+GET http://localhost:8888/admin/v1/influence/170
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjk2MjYyNDgzLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.YUWK5ucCzi8GO_VS4S8EY4H60G47ZNKjhqyieSnI9-A
+Content-Length: 288
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "id": 170,
+  "name": "채하늘",
+  "rank": "RED",
+  "categories": [
+    "LIFE"
+  ],
+  "introduction": "안녕하세요 트위치 파트너 스트리머 믐므므 입니당🫶",
+  "exposed": true,
+  "sns_requests": [
+    {
+      "sns_company": "",
+      "address": ""
+    }
+  ]
+}
+
+//
+
+<> 2023-09-26T010254.200.json
+
+###
+
+POST http://localhost:8888/public/v1/login
+Content-Type: application/json
+Content-Length: 63
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "jinkh97@gmail.com",
+  "password": "11112222"
+}
+
+<> 2023-09-26T010123.200.json
+
+###
+
+GET http://localhost:8888/api/v1/influence/148/greetings/latest
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTYyNjE4MjIsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.AwZVvVHoqzQnvBRQvK7PnVlbqYAKUYD-Du60lja8FZA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-09-26T005516.200.json
+
+###
+
+GET http://localhost:8888/api/v1/influence/70/notice
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuydtOyLnOuMgOuniOyngOunieyduO2UjOujqOyWuOyKpCIsImlkIjo3MCwiZXhwIjoxNjc3OTc2OTA0LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoic2VjMjJAZ21haWwuY29tIn0.ZeEhxmLHbKR8JtOfMCjdJ0cBOt6Voh9TAhoMXVYAPUM
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-09-26T005508.401.json
+
+###
+
+GET http://localhost:8888/api/v1/influence/148/greetings/latest
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTYyNjE4MjIsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.AwZVvVHoqzQnvBRQvK7PnVlbqYAKUYD-Du60lja8FZA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-09-26T005105.500.json
+
+###
+
+GET http://localhost:8888/api/v1/influence/148/greetings/latest
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDg2MDEyMSwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.91hTlWtme6bODv1MHn6YbP1QfN4j8ztcGx7SZgixYSw
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-09-26T005059.401.json
+
+###
+
+PATCH http://localhost:8888/admin/v1/influence/148/greetings/7/approve
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTYyNjE4MjIsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.AwZVvVHoqzQnvBRQvK7PnVlbqYAKUYD-Du60lja8FZA
+Content-Length: 4
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+
+}
+
+###
+
+PATCH http://localhost:8888/admin/v1/influence/103/greetings/7/approve
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTYyNjE4MjIsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.AwZVvVHoqzQnvBRQvK7PnVlbqYAKUYD-Du60lja8FZA
+Content-Length: 4
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+
+}
+
+###
+
+POST http://localhost:8888/public/v1/login
+Content-Type: application/json
+Content-Length: 69
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "p_by_me7@naver.com",
+  "password": "Gozldgkwlak1!"
+}
+
+<> 2023-09-26T005023.200.json
+
+###
+
+POST http://localhost:8888/public/v1/login
+Content-Type: application/json
+Content-Length: 64
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "p_by_me7@naver.com",
+  "password": "asdf1234"
+}
+
+###
+
+POST https://api.creame.today/public/v1/login
+Content-Type: application/json
+Content-Length: 64
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "p_by_me7@naver.com",
+  "password": "asdf1234"
+}
+
+###
+
+POST https://api.creame.today/public/v1/login
+Content-Type: application/json
+Content-Length: 64
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "p_by_me7@naver.com",
+  "password": "asdf1234"
+}
+
+###
+
+POST https://api.creame.today/public/v1/login
+Content-Type: application/json
+Content-Length: 64
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "p_by_me7@naver.com",
+  "password": "asdf1234"
+}
+
+###
+
 GET http://localhost:8888/api/v1/influences/146/bookmark
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTUwNDI4NDYsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.I-zq3UFtcigV6Yt0OQ0syTg83racj8kWXCwTziUvcrI
@@ -146,516 +1056,6 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2023-09-11T221539.200.json
-
-###
-
-GET https://api.creame.today/public/v1/influences/146
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTUwNDI4NDYsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.I-zq3UFtcigV6Yt0OQ0syTg83racj8kWXCwTziUvcrI
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-11T221538.200.json
-
-###
-
-GET https://api.creame.today/public/v1/influences/146
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTUwNDI4NDYsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.I-zq3UFtcigV6Yt0OQ0syTg83racj8kWXCwTziUvcrI
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-11T221518.200.json
-
-###
-
-GET https://api.creame.today/public/v1/influences/146
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTUwNDI4NDYsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.I-zq3UFtcigV6Yt0OQ0syTg83racj8kWXCwTziUvcrI
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-11T221516.200.json
-
-###
-
-GET https://api.creame.today/public/v1/influences/146
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTUwNDI4NDYsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.I-zq3UFtcigV6Yt0OQ0syTg83racj8kWXCwTziUvcrI
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-11T221511.200.json
-
-###
-
-GET https://api.creame.today/public/v1/influences/103
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTUwNDI4NDYsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.I-zq3UFtcigV6Yt0OQ0syTg83racj8kWXCwTziUvcrI
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-11T221446.200.json
-
-###
-
-POST https://api.creame.today/public/v1/login
-Content-Type: application/json
-Content-Length: 64
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "p_by_me7@naver.com",
-  "password": "asdf1234"
-}
-
-<> 2023-09-11T221406.200.json
-
-###
-
-GET http://localhost:8888/api/v1/matchings/stat/selected?date=202309
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTQ4NjIyNDMsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.9f7IZhUxws7IY0ehiYs_UaMIENgzMbcLRhEwGQ0s-Uw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-10T132000.200.json
-
-###
-
-GET http://localhost:8888/api/v1/matchings/stat/selected?date=202309
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTQ4NjIyNDMsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.9f7IZhUxws7IY0ehiYs_UaMIENgzMbcLRhEwGQ0s-Uw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-09T210924.200.json
-
-###
-
-GET http://localhost:8888/api/v1/matchings/stat?from=202306&to=202309
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTQ4NjIyNDMsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.9f7IZhUxws7IY0ehiYs_UaMIENgzMbcLRhEwGQ0s-Uw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-09T210913.200.json
-
-###
-
-GET http://localhost:8888/api/v1/matchings/stat?from=202304&to=202306
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTQ4NjIyNDMsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.9f7IZhUxws7IY0ehiYs_UaMIENgzMbcLRhEwGQ0s-Uw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-09T210903.200.json
-
-###
-
-GET http://localhost:8888/api/v1/matchings/stat/selected?date=202309
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTQ4NjIyNDMsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.9f7IZhUxws7IY0ehiYs_UaMIENgzMbcLRhEwGQ0s-Uw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-09T210850.200.json
-
-###
-
-GET http://localhost:8888/api/v1/matchings/stat/selected?date=202309
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyXkOuLqCIsImlkIjo5NCwiZXhwIjoxNjg4MTkzMDEzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4ubWFjaG83QGdtYWlsLmNvbSJ9.shFS_bnE-ZeP77xQHthvZeHhg9uorFreLsPKJVw8tBY
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-09T210845.401.json
-
-###
-
-GET http://localhost:8888/api/v1/matchings/stat/selected?date=202309
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTQ4NjIyNDMsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.9f7IZhUxws7IY0ehiYs_UaMIENgzMbcLRhEwGQ0s-Uw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-09T210812.200.json
-
-###
-
-GET http://localhost:8888/api/v1/matchings/stat/selected?date=202309
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTQ4NjIyNDMsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.9f7IZhUxws7IY0ehiYs_UaMIENgzMbcLRhEwGQ0s-Uw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-09T200509.200.json
-
-###
-
-GET https://api.creame.today/api/v1/matchings/stat/selected?date=202309
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTQ4NjIyNDMsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.9f7IZhUxws7IY0ehiYs_UaMIENgzMbcLRhEwGQ0s-Uw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-09T200420.200.json
-
-###
-
-POST https://api.creame.today/public/v1/login
-Content-Type: application/json
-Content-Length: 64
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "p_by_me7@naver.com",
-  "password": "asdf1234"
-}
-
-<> 2023-09-09T200403.200.json
-
-###
-
-GET http://localhost:8888/api/v1/influence/103/greetings/latest
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDg2MDEyMSwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.91hTlWtme6bODv1MHn6YbP1QfN4j8ztcGx7SZgixYSw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-09T192912.200.json
-
-###
-
-GET http://localhost:8888/api/v1/influence/50/greetings/latest
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDg2MDEyMSwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.91hTlWtme6bODv1MHn6YbP1QfN4j8ztcGx7SZgixYSw
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-09T192906.400.json
-
-###
-
-POST https://api.creame.today/public/v1/login
-Content-Type: application/json
-Content-Length: 62
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "hyerin1006@naver.com",
-  "password": "1234"
-}
-
-<> 2023-09-09T192841.200.json
-
-###
-
-GET http://localhost:8888/public/v1/home/influences?type=CATEGORY&category=MENTALITY&page=0&size=20
-Content-Type: application/json
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-09-09T192817.200.json
-
-###
-
-GET http://localhost:8888/public/v1/home/influences?type=CATEGORY&category=MENTALITY&page=0&size=20
-Content-Type: application/json
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-09-09T192312.500.json
-
-###
-
-GET http://localhost:8888/public/v1/home/influences?type=CATEGORY&category=SPORT&page=0&size=20
-Content-Type: application/json
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-09-09T192202.500.json
-
-###
-
-GET http://localhost:8888/public/v1/home/influences?type=CATEGORY&category=SPORT&page=0&size=20
-Content-Type: application/json
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-09-09T192159.500.json
-
-###
-
-GET https://api.creame.today/api/v1/influences-bookmark
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDY3Nzk5NiwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.wRKJwrJX4LKuBAMqfUMSE-eJS6aqYDZv7QuPKVA3oH4
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-07T165332.200.json
-
-###
-
-POST https://api.creame.today/public/v1/login
-Content-Type: application/json
-Content-Length: 62
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "hyerin1006@naver.com",
-  "password": "1234"
-}
-
-<> 2023-09-07T165316.200.json
-
-###
-
-PATCH http://localhost:8888/api/v1/influence/103/connection/on
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDYxNTE0MCwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.TdRtS2Jl6LJeB6g6kEDnJ78Px7I2MwuMnNqnbUXdwQA
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-09-07T001633.200.json
-
-###
-
-PATCH http://localhost:8888/api/v1/influence/103/connection/off
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDYxNTE0MCwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.TdRtS2Jl6LJeB6g6kEDnJ78Px7I2MwuMnNqnbUXdwQA
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-09-07T001613.200.json
-
-###
-
-PATCH http://localhost:8888/api/v1/influence/103/connection/on
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDYxNTE0MCwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.TdRtS2Jl6LJeB6g6kEDnJ78Px7I2MwuMnNqnbUXdwQA
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-09-07T001509.200.json
-
-###
-
-PATCH http://localhost:8888/api/v1/influence/103/connection/off
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDYxNTE0MCwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.TdRtS2Jl6LJeB6g6kEDnJ78Px7I2MwuMnNqnbUXdwQA
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-09-07T001504.200.json
-
-###
-
-PATCH http://localhost:8888/api/v1/influence/90/connection/off
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDYxNTE0MCwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.TdRtS2Jl6LJeB6g6kEDnJ78Px7I2MwuMnNqnbUXdwQA
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-09-07T001500.400.json
-
-###
-
-PATCH http://localhost:8888/api/v1/influence/103/connection/on
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDYxNTE0MCwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.TdRtS2Jl6LJeB6g6kEDnJ78Px7I2MwuMnNqnbUXdwQA
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-09-07T001450.400.json
-
-###
-
-PATCH http://localhost:8888/api/v1/influence/103/connection/on
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDYxNTE0MCwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.TdRtS2Jl6LJeB6g6kEDnJ78Px7I2MwuMnNqnbUXdwQA
-Content-Length: 3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-}
-
-<> 2023-09-07T001432.200.json
-
-###
-
-GET http://localhost:8888/public/v1/influences/103
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-07T000502.200.json
-
-###
-
-PATCH http://localhost:8888/admin/v1/influence/103/greetings/7/approve
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjk0NjE3MTQ2LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.Am_03ju2HjkT7k9_BNvsVlTYeACNSXbOf8BCEXGRZBQ
-Content-Length: 4
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-
-}
-
-<> 2023-09-06T235918.200.json
-
-###
-
-POST https://api.creame.today/public/v1/login
-Content-Type: application/json
-Content-Length: 63
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "jinkh97@gmail.com",
-  "password": "11112222"
-}
-
-<> 2023-09-06T235907.200.json
-
-###
-
-POST https://api.creame.today/public/v1/login
-Content-Type: application/json
-Content-Length: 63
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "jinkh97@gmail.com",
-  "password": "11223344"
-}
-
-###
-
-POST https://api.creame.today/public/v1/login
-Content-Type: application/json
-Content-Length: 63
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "jinkh97@gmail.com",
-  "password": "1q2w3e4r"
-}
-
-###
-
-POST https://api.creame.today/public/v1/login
-Content-Type: application/json
-Content-Length: 63
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "jinkh97@gmail.com",
-  "password": "1q2w3e4r"
-}
-
-###
-
-PATCH http://localhost:8888/admin/v1/influence/103/greetings/7/approve
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuylrOylrCIsImlkIjoxMDMsImV4cCI6MTY5NDYxNTE0MCwiYXV0aG9yaXRpZXMiOiJST0xFX0lORkxVRU5DRSxST0xFX1VTRVIiLCJ1c2VybmFtZSI6Imh5ZXJpbjEwMDZAbmF2ZXIuY29tIn0.TdRtS2Jl6LJeB6g6kEDnJ78Px7I2MwuMnNqnbUXdwQA
-Content-Length: 4
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-
-}
 
 ###
 

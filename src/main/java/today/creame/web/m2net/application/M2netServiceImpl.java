@@ -12,6 +12,7 @@ import today.creame.web.m2net.infra.feign.M2netClient;
 import today.creame.web.m2net.infra.feign.io.M2netPrecallRequest;
 import today.creame.web.member.application.MemberQuery;
 import today.creame.web.member.application.model.MemberResult;
+import today.creame.web.share.event.MatchingEvent;
 
 @RequiredArgsConstructor
 @Service
@@ -34,6 +35,19 @@ public class M2netServiceImpl implements M2netService {
     @Override
     public void updateCallStatus(M2netUpdateCallStatusCommand command) {
         log.debug("[M2NET] CALLID : {}, telegram : {}", command.getCallId(), command.getTelegram());
-        command.pub(publisher);
+
+        if (command.getReason().getMatchingProgressStatus() != null) {
+
+            publisher.publishEvent(new MatchingEvent(
+                    command.getMId(),
+                    command.getCId(),
+                    command.getCallId(),
+                    command.getReason().getMatchingProgressStatus(),
+                    command.getStartDateTime(),
+                    command.getEndDateTime(),
+                    command.isDeferred(),
+                    command.getUsedAmount(),
+                    command.getPaidType()));
+        }
     }
 }

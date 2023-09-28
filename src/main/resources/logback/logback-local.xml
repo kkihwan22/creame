@@ -58,9 +58,9 @@
         <appender-ref ref="APPLOG" />
     </logger>
 
-    <logger name="org.hibernate" level="debug" additivity="false">
-        <appender-ref ref="CONSOLE"/>
-    </logger>
+<!--    <logger name="org.hibernate" level="debug" additivity="false">-->
+<!--        <appender-ref ref="CONSOLE"/>-->
+<!--    </logger>-->
 
     <logger name="org.hibernate.type" level="trace" additivity="false">
         <appender-ref ref="CONSOLE"/>
