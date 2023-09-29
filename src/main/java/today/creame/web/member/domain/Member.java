@@ -124,7 +124,7 @@ public class Member extends BaseCreatedAndUpdatedDateTime {
                 break;
             case REWARD:
                 this.bonusCoins = this.bonusCoins + changedCoins;
-                this.coins = this.coins + this.coins;
+                this.coins = this.coins + changedCoins;
                 break;
         }
     }

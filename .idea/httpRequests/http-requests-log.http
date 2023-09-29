@@ -1,3 +1,63 @@
+POST https://api.creame.today/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 396
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "336a00a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": "2023-09-28 22:25:00",
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 300,
+  "amt": 500,
+  "telno": "01032114161",
+  "reason": "DISCONNECT",
+  "preflag": "Y"
+}
+
+<> 2023-09-29T152544.200.txt
+
+###
+
+POST https://api.creame.today/m2net/call-status
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
+Content-Length: 376
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "callid": "336a00a02f1d361e63616c6c00279d31@211.175.205.120",
+  "cpid" : "0014",
+  "csrid" : "12805",
+  "dtmfno": "103",
+  "start": "2023-09-28 22:20:00",
+  "end": null,
+  "eventtm": "2023-09-27 23:41:27",
+  "membid" : "036616",
+  "from":"01039960399",
+  "to":"07080171700",
+  "usetm": 0,
+  "amt": 0,
+  "telno": "01032114161",
+  "reason": "CONNECT_CSR",
+  "preflag": "Y"
+}
+
+<> 2023-09-29T152450.200.txt
+
+###
+
 POST http://localhost:8888/m2net/call-status
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iuu5teq1rOuYpeq1rCIsImlkIjo0MiwiZXhwIjoxNjc2NzY3MTI2LCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsInVzZXJuYW1lIjoiZXRoYW4uYnVkOTlAZ21haWwuY29tIn0.IByis6BmsThnCqW6S0xChHctOwzhnyYy3AlOA8ag9mM
@@ -1034,28 +1094,6 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2023-09-11T222342.200.json
-
-###
-
-GET https://api.creame.today/public/v1/influences/146
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTUwNDI4NDYsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.I-zq3UFtcigV6Yt0OQ0syTg83racj8kWXCwTziUvcrI
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-11T221553.200.json
-
-###
-
-GET https://api.creame.today/public/v1/influences/146
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTUwNDI4NDYsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.I-zq3UFtcigV6Yt0OQ0syTg83racj8kWXCwTziUvcrI
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-09-11T221539.200.json
 
 ###
 
