@@ -94,7 +94,6 @@ public class Matching extends BaseCreatedAndUpdatedDateTime {
         this.status = status;
         this.endedDateTime = endedDateTime;
         this.usedCoins = usedCoins;
-        this.member.updateCoins(CoinsHistoryType.USING, usedCoins);
         this.reviewable = isReviewable();
     }
 
