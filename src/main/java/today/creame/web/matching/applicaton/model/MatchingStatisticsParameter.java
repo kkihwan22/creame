@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 public class MatchingStatisticsParameter {
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
+
     private Long influenceId;
     private String toDate;
     private String fromDate;
@@ -22,9 +24,12 @@ public class MatchingStatisticsParameter {
     }
 
     public MatchingStatisticsParameter(Long influenceId, LocalDate date) {
-        this.influenceId = influenceId;
-        String yyyyMM = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
-        this.toDate = yyyyMM;
-        this.fromDate = yyyyMM;
+        this(influenceId, date.format(formatter), date.format(formatter));
+    }
+
+    public static MatchingStatisticsParameter fromLastMonthBefore(Long influenceId, int before) {
+        LocalDate last = LocalDate.now().minusMonths(1);
+        LocalDate to = last.minusMonths(before);
+        return new MatchingStatisticsParameter(influenceId, to.format(formatter), last.format(formatter));
     }
 }

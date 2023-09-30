@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.util.StringUtils;
 import today.creame.web.home.entrypoint.io.InfluencesWithReviewResponse;
 import today.creame.web.influence.application.InfluenceQuery;
-import today.creame.web.influence.application.model.InfluenceDetailResult;
-import today.creame.web.influence.application.model.InfluenceListResult;
-import today.creame.web.influence.application.model.InfluenceResult;
-import today.creame.web.influence.application.model.InfluenceSearchParameter;
+import today.creame.web.influence.application.InfluenceRankService;
+import today.creame.web.influence.application.model.*;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceMeResponse;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceReviewStatResponse;
 import today.creame.web.influence.entrypoint.rest.io.InfluenceSearchRequest;
+import today.creame.web.influence.entrypoint.rest.io.RankConditionResponse;
 import today.creame.web.matching.applicaton.MatchingQueryService;
 import today.creame.web.matching.applicaton.ReviewQueryService;
 import today.creame.web.matching.applicaton.model.*;
@@ -46,6 +45,7 @@ public class InfluenceQueryRestController implements BaseRestController {
     private final InfluenceQuery influenceQuery;
     private final MatchingQueryService matchingQueryService;
     private final ReviewQueryService reviewQueryService;
+    private final InfluenceRankService influenceRankService;
 
     @GetMapping("/public/v1/influences/{id}")
     public ResponseEntity<Body<InfluenceResult>> getInfluence(@PathVariable Long id) {
@@ -62,6 +62,12 @@ public class InfluenceQueryRestController implements BaseRestController {
 
         List<MatchingStatisticsResult> list = matchingQueryService.getConsultationHoursPerMonth(new MatchingStatisticsParameter(id, LocalDate.now()));
         return ResponseEntity.ok(BodyFactory.success(new InfluenceMeResponse(result, list)));
+    }
+
+    @GetMapping("/api/v1/me/influence/rank-condition")
+    public ResponseEntity<Body<RankConditionResponse>> getRankCondition() {
+        RankConditionResult result = influenceRankService.getRankCondition();
+        return ResponseEntity.ok(BodyFactory.success(new RankConditionResponse(result)));
     }
 
     @GetMapping("/api/v1/influences-bookmark")

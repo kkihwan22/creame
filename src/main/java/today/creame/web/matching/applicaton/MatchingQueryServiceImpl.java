@@ -136,7 +136,6 @@ public class MatchingQueryServiceImpl implements MatchingQueryService {
         List<MatchingStatisticsResult> matchingStatisticsResults = CollectionUtils.emptyIfNull(objects).stream().map(MatchingStatisticsResult::new).collect(Collectors.toList());
         if(Collections.isEmpty(matchingStatisticsResults)) {
             return matchingStatisticsResults;
-            // throw new NotFoundMatchingStatisticsException();
         }
 
         for(MatchingStatisticsResult target : matchingStatisticsResults) {

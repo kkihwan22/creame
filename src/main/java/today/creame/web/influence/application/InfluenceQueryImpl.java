@@ -273,47 +273,6 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     }
 
 
-    private List<InfluenceResult> getInfluenceResults(List<Influence> influences) {
-        Set<Long> idSet = influences.stream()
-            .map(Influence::getId)
-            .collect(Collectors.toSet());
-
-        Map<Long, List<InfluenceCategory>> mapCategories = this.groupByCategories(idSet);
-        Map<Long, List<InfluenceProfileImage>> mapProfileImages = this.groupByProfileImages(idSet);
-
-        Set<Long> itemIdSet = influences.stream().map(Influence::getItem).collect(Collectors.toSet());
-        Map<Long, ConsultationProduct> cpMap = consultationProductJpaRepository.findConsultationProductsByIdIn(itemIdSet).stream().collect(Collectors.toMap(ConsultationProduct::getId, Function.identity()));
-
-        return influences.stream()
-            .map(i -> {
-                InfluenceResult result = new InfluenceResult(
-                        i,
-                        mapCategories.getOrDefault(i.getId(), List.of()),
-                        mapProfileImages.getOrDefault(i.getId(), List.of()),
-                        new Item(cpMap.get(i.getItem())));
-                log.info("result: {}", result);
-                return result;
-            })
-                .collect(Collectors.toList());
-    }
-
-    private Map<Long, List<InfluenceCategory>> groupByCategories(Set<Long> idSet) {
-        List<InfluenceCategory> results = influenceCategoryJpaRepository.findByInfluenceIdIn(idSet);
-        Map<Long, List<InfluenceCategory>> mapCategories = results
-            .stream()
-            .collect(groupingBy(result -> result.getInfluence().getId()));
-
-        return mapCategories;
-    }
-
-    private Map<Long, List<InfluenceProfileImage>> groupByProfileImages(Set<Long> idSet) {
-        List<InfluenceProfileImage> results = influenceProfileImageJpaRepository.findByInfluence_IdIn(idSet);
-        Map<Long, List<InfluenceProfileImage>> mapProfileImages = results
-            .stream()
-            .collect(groupingBy(result -> result.getInfluence().getId()));
-
-        return mapProfileImages;
-    }
 
     @Override
     public Page<InfluenceListResult> getList(Pageable pageable, InfluenceSearchParameter parameter) {
@@ -392,29 +351,49 @@ public class InfluenceQueryImpl implements InfluenceQuery {
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
 
-    public BooleanExpression isHotInfluence(SimpleExpression column, Boolean onlyHotInfluence) {
+    private List<InfluenceResult> getInfluenceResults(List<Influence> influences) {
+        Set<Long> idSet = influences.stream()
+                .map(Influence::getId)
+                .collect(Collectors.toSet());
+
+        Map<Long, List<InfluenceCategory>> mapCategories = this.groupByCategories(idSet);
+        Map<Long, List<InfluenceProfileImage>> mapProfileImages = this.groupByProfileImages(idSet);
+
+        Set<Long> itemIdSet = influences.stream().map(Influence::getItem).collect(Collectors.toSet());
+        Map<Long, ConsultationProduct> cpMap = consultationProductJpaRepository.findConsultationProductsByIdIn(itemIdSet).stream().collect(Collectors.toMap(ConsultationProduct::getId, Function.identity()));
+
+        return influences.stream()
+                .map(i -> {
+                    InfluenceResult result = new InfluenceResult(
+                            i,
+                            mapCategories.getOrDefault(i.getId(), List.of()),
+                            mapProfileImages.getOrDefault(i.getId(), List.of()),
+                            new Item(cpMap.get(i.getItem())));
+                    log.info("result: {}", result);
+                    return result;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private Map<Long, List<InfluenceCategory>> groupByCategories(Set<Long> idSet) {
+        List<InfluenceCategory> results = influenceCategoryJpaRepository.findByInfluenceIdIn(idSet);
+        return results
+                .stream()
+                .collect(groupingBy(result -> result.getInfluence().getId()));
+    }
+
+    private Map<Long, List<InfluenceProfileImage>> groupByProfileImages(Set<Long> idSet) {
+        List<InfluenceProfileImage> results = influenceProfileImageJpaRepository.findByInfluence_IdIn(idSet);
+        Map<Long, List<InfluenceProfileImage>> mapProfileImages = results
+                .stream()
+                .collect(groupingBy(result -> result.getInfluence().getId()));
+
+        return mapProfileImages;
+    }
+
+    private BooleanExpression isHotInfluence(SimpleExpression column, Boolean onlyHotInfluence) {
         if (Objects.isNull(onlyHotInfluence) || !onlyHotInfluence) return null;
 
         return column.isNotNull();
     }
-
-    //    private BooleanBuilder buildWhere(InfluenceQnaQueryParameter parameter) {
-//        BooleanBuilder where = new BooleanBuilder();
-//        if (parameter.requesterId != null)
-//            where.and(influenceQna.questioner.id.eq(parameter.requesterId));
-//
-//        if (parameter.influenceId != null) {
-//            where.and(influenceQna.influence.id.eq(parameter.influenceId));
-//        }
-//
-//        if (parameter.answered != null) {
-//            if (parameter.answered) {
-//                where.and(influenceQna.answers.isNotNull());
-//            } else {
-//                where.and(influenceQna.answers.isNull());
-//            }
-//        }
-//
-//        return where;
-//    }
 }
