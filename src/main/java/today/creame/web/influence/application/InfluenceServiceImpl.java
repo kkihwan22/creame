@@ -65,6 +65,7 @@ public class InfluenceServiceImpl implements InfluenceService {
                 influence.updateInfluenceProfileImage(it.toEntity());
             });
 
+        // TODO: consultation product 를 선 조회 후 influence 생성하는 동선으로 변경
         Item item= consultationProductJpaRepository
                 .findById(influence.getItem())
                 .map(c -> new Item(c))
@@ -142,7 +143,7 @@ public class InfluenceServiceImpl implements InfluenceService {
     @Transactional
     @Permit
     @Override
-    public void update(SnsParameter parameter) {
+    public void updateSns(SnsParameter parameter) {
         Influence influence = influenceJpaRepository.findById(parameter.getId())
             .orElseThrow(NotFoundInfluenceException::new);
 

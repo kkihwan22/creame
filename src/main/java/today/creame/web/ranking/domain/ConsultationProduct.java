@@ -32,6 +32,9 @@ public class ConsultationProduct extends BaseCreatedAndUpdatedDateTime {
     @Column(name = "budget_amount")
     private Integer budgetAmount;
 
+    @Column(name = "price_per_time")
+    private Integer pricePerTime;
+
     @Column(name = "consultation_amount")
     private Integer consultationAmount;
 

@@ -23,6 +23,6 @@ public class Item {
     }
 
     public Item(ConsultationProduct consultationProduct) {
-        this(consultationProduct.getId(), consultationProduct.getOrderNo(), consultationProduct.getBudgetAmount(), 30, TimeUnit.SECONDS);
+        this(consultationProduct.getId(), consultationProduct.getOrderNo(), consultationProduct.getBudgetAmount(), consultationProduct.getPricePerTime(), TimeUnit.SECONDS);
     }
 }

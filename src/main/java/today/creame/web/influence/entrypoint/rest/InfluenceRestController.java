@@ -60,7 +60,7 @@ public class InfluenceRestController implements BaseRestController {
         @PathVariable Long id,
         @Valid @RequestBody SnsUpdateRequest request, BindingResult bindingResult) {
         hasError(bindingResult);
-        influenceService.update(new SnsParameter(id, new SNS(request.getSnsCompany(), request.getAddress())));
+        influenceService.updateSns(new SnsParameter(id, new SNS(request.getSnsCompany(), request.getAddress())));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 

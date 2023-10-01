@@ -17,7 +17,7 @@ public interface InfluenceService {
 
     SNS getSNS(Long id);
 
-    void update(SnsParameter parameter);
+    void updateSns(SnsParameter parameter);
 
     void changeInfluenceInfo(InfluenceUpdateParameter parameter);
     void updateBlocked(Long id);
