@@ -1,8 +1,5 @@
 package today.creame.web.config;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,8 +24,13 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import today.creame.web.config.security.CreameAuthenticationFilter;
+import today.creame.web.config.security.CreameAuthenticationProvider;
 import today.creame.web.config.security.CreameAuthorizationFilter;
 import today.creame.web.config.security.ExceptionHandlerFilter;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @EnableWebSecurity(debug = true)
@@ -45,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(creameUserDetailsServiceImpl).passwordEncoder(passwordEncoder());
+        // auth.authenticationProvider(creameAuthenticationProvider);
         super.configure(auth);
     }
 
@@ -99,6 +103,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         final UrlBasedCorsConfigurationSource urlBasedCorsConfigSource = new UrlBasedCorsConfigurationSource();
         urlBasedCorsConfigSource.registerCorsConfiguration("/**", config);
         return urlBasedCorsConfigSource;
+    }
+
+    @Bean
+    public AuthenticationProvider creameAuthenticationProvider() {
+        CreameAuthenticationProvider authenticationProvider = new CreameAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(creameUserDetailsServiceImpl);
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+//        authenticationProvider.setHideUserNotFoundExceptions(false);
+//        authenticationProvider.setPreAuthenticationChecks(new CustomPreAuthenticationChecks());
+//        authenticationProvider.setPostAuthenticationChecks(new CustomPostAuthenticationChecks());
+
+        return authenticationProvider;
     }
 
     @Bean

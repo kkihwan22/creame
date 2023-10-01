@@ -38,9 +38,6 @@ public class CreameAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
-
-        log.debug("[ filter ] execute authentication filter.");
-
         LoginRequest loginRequest;
         try {
             loginRequest = mapper.readValue(request.getReader().lines().collect(Collectors.joining()), new TypeReference<>() {
@@ -48,8 +45,6 @@ public class CreameAuthenticationFilter extends UsernamePasswordAuthenticationFi
         } catch (IOException e) {
             throw new AuthenticationServiceException(" request parsing error. ");
         }
-
-        log.debug(" [ LoginRequest ] {}", loginRequest);
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
         return authenticationManager.authenticate(token);

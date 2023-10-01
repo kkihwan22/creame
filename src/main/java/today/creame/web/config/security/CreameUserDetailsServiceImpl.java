@@ -29,9 +29,6 @@ public class CreameUserDetailsServiceImpl implements UserDetailsService {
                     throw new UsernameNotFoundException(username + "is not found.");
                 });
 
-        log.debug("find member: {}", findMember);
-        log.debug("roles: {}", findMember.getRoles());
-
         Set<SimpleGrantedAuthority> authorities = findMember.getRoles()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_".concat(role.getCodeName().name())))

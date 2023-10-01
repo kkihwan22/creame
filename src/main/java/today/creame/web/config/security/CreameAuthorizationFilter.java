@@ -55,18 +55,15 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
         } else {
             if (!servletPath.startsWith("/m2net")) {
                 String key = BearerTokenSupporter.extract(authorizationHeader);
-                log.debug("[access token] : {}", key);
 
                 Token requestToken = new Token(key, TokenType.ACCESS_TOKEN);
                 TokenVerified verify = requestToken.verify();
 
                 if (!verify.isVerified()) {
-                    log.info("token invalid. value:{}", key);
                     throw new InvalidTokenException();
                 }
 
                 UserDetails userDetails = verify.getUserDetails();
-                log.debug("[ UserDetails ] {}", userDetails);
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
