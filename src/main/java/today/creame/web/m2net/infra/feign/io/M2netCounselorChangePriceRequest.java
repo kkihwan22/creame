@@ -11,8 +11,8 @@ public class M2netCounselorChangePriceRequest {
     private Integer dectm;  // 차감시간
 
     public M2netCounselorChangePriceRequest(Item item) {
-        this.decamt = item.getPrice();
-        this.dectm = item.getPricePerTime();
+        this.decamt = item.getPrice() / 10;
+        this.dectm = item.getPricePerTime() / 10;
     }
 
 }

@@ -21,8 +21,8 @@ public class M2netCounselorCreateRequest {
         this.csrnm = csrnm;
         this.dtmfno = dtmfno;
         this.telno = telno;
-        this.dectm = dectm;
-        this.decamt = decamt;
+        this.dectm = dectm / 10;
+        this.decamt = decamt / 10;
         this.state = CounselorCondition.IDLE.name();
         this.sortno = 1;
         this.preflag = DeductionMethod.ALL.getCode();
