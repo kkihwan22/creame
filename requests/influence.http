@@ -40,7 +40,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 ### 인플루언스 조회
 GET {{host}}/public/v1/influences/146
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6Iu2YnOyEnOuLiF8iLCJpZCI6MTQ4LCJleHAiOjE2OTUwNDI4NDYsImF1dGhvcml0aWVzIjoiUk9MRV9JTkZMVUVOQ0UsUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJwX2J5X21lN0BuYXZlci5jb20ifQ.I-zq3UFtcigV6Yt0OQ0syTg83racj8kWXCwTziUvcrI
 
 
 ### 북마크 조회

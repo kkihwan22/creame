@@ -52,6 +52,7 @@ public class InfluenceResult {
     private boolean bookmarked;
     private boolean blocked;
     private boolean exposed;
+    private boolean certified;
 
     private LocalDateTime createdDateTime;
 
@@ -103,6 +104,7 @@ public class InfluenceResult {
         this.calling = influence.isCalling();
         this.blocked = influence.isBlocked();
         this.exposed = influence.isExposed();
+        this.certified = influence.isCertified();
 
         this.categories = categories.stream()
             .map(InfluenceCategory::getCategory)
@@ -119,11 +121,9 @@ public class InfluenceResult {
             this.snsAddress = influence.getSns().getAddress();
         }
 
-        Optional.ofNullable(influenceBookmark).ifPresentOrElse(b -> this.bookmarked = b.isBookmarked(), () -> this.bookmarked = false);
-
-//        if (influenceBookmark != null) {
-//            this.bookmarked = influenceBookmark.isBookmarked();
-//        }
+        Optional.ofNullable(influenceBookmark).ifPresentOrElse(
+                b -> this.bookmarked = b.isBookmarked(),
+                () -> this.bookmarked = false);
 
         this.createdDateTime = influence.getCreatedDateTime();
     }
