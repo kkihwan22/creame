@@ -44,6 +44,7 @@ public class InfluencesWithReviewResponse {
     private boolean connected;
     private boolean calling;
     private boolean bookmarked;
+    private boolean certified;
 
     private LocalDateTime createdDateTime;
 
@@ -78,6 +79,7 @@ public class InfluencesWithReviewResponse {
         this.connected = influence.isConnected();
         this.calling = influence.isCalling();
         this.bookmarked = influence.isBookmarked();
+        this.certified = influence.isCertified();
         this.createdDateTime = influence.getCreatedDateTime();
 
         this.reviewResults = reviews;

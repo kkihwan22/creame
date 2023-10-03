@@ -250,7 +250,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
   "sns_requests": []
 }
 
-//
 
 ###
 PATCH {{host}}/api/v1/me/influence/changed-expose-status

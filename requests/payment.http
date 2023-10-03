@@ -71,9 +71,9 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 ### 결제내역
 
-GET {{host}}/api/v1/me/payments-history?since=1
+GET {{host}}/api/v1/me/payments-history?since=0
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuugiOuEiOuTnCIsImlkIjo5MCwiZXhwIjoxNjgzOTg2MjkzLCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUiIsInVzZXJuYW1lIjoiaG9wZW1hbjk3QGhhbm1haWwubmV0In0.7_W857twqFOAgXGpcXFS48-ixphLVUojpjydqyFQYx8
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuuPhOumrCIsImlkIjo5MywiZXhwIjoxNjk2ODk3NzY4LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJtc20xMHdvbkBnbWFpbC5jb20ifQ.d5eHA3TEDTH2w-DsstjZ2haxZpBqpFgJk-49Y0wqN6o
 
 ### 보유코인
 
