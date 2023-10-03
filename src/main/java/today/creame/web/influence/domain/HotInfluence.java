@@ -27,52 +27,40 @@ public class HotInfluence extends BaseCreatedAndUpdatedDateTimeWithAudit {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(
-        name = "influence_id"
-    )
+    @Column(name = "influence_id")
     private Long influenceId;
 
-    @Column(
-        name = "title"
-    )
+    @Column(name = "banner_name")
+    private String bannerName;
+
+    @Column(name = "title")
     private String title;
 
-    @Column(
-        name = "banner_image_uri"
-    )
+    @Column(name = "banner_image_uri")
     private String bannerImageUri;
 
-    @Column(
-        name = "nickname"
-    )
+    @Column(name = "nickname")
     private String nickname;
 
-    @Column(
-        name = "extension_number"
-    )
+    @Column(name = "extension_number")
     private String extensionNumber;
 
-    @Column(
-        name = "categories"
-    )
+    @Column(name = "categories")
     private String categories;
 
-    @Column(
-        name = "order_no"
-    )
+    @Column(name = "order_no")
     private int orderNumber;
 
-    @Column(
-        name = "enabled"
-    )
+    @Column(name = "enabled")
     private boolean enabled;
 
-    public HotInfluence(Long influenceId, String nickname, String extensionNumber, String categories, String title, boolean enabled, String bannerImageUri, int orderNumber) {
+    public HotInfluence(Long influenceId, String nickname, String extensionNumber, String categories, String bannerName, String title, boolean enabled, String bannerImageUri, int orderNumber) {
         this.influenceId = influenceId;
         this.nickname = nickname;
         this.extensionNumber = extensionNumber;
         this.categories = categories;
         this.orderNumber = orderNumber;
+        this.bannerName = bannerName;
         this.title = title;
         this.enabled = enabled;
         this.bannerImageUri = bannerImageUri;
@@ -82,7 +70,8 @@ public class HotInfluence extends BaseCreatedAndUpdatedDateTimeWithAudit {
         this.enabled = !this.enabled;
     }
 
-    public void changeHotInfluence(String title, String bannerImageUri, int orderNumber, boolean enabled) {
+    public void changeHotInfluence(String bannerName, String title, String bannerImageUri, int orderNumber, boolean enabled) {
+        this.bannerName = bannerName;
         this.title = title;
         this.bannerImageUri = bannerImageUri;
         this.orderNumber = orderNumber;

@@ -18,6 +18,7 @@ public class HotInfluenceResult {
     private Long influenceId;
     private String extensionNumber;
     private String nickname;
+    private String bannerName;
     private String title;
     private String bannerImageUri;
     private List<String> categories;
@@ -27,6 +28,7 @@ public class HotInfluenceResult {
         this.influenceId = hotInfluence.getInfluenceId();
         this.extensionNumber = hotInfluence.getExtensionNumber();
         this.nickname = hotInfluence.getNickname();
+        this.bannerName = hotInfluence.getBannerName();
         this.title = hotInfluence.getTitle();
         this.bannerImageUri = hotInfluence.getBannerImageUri();
         this.categories = Arrays.stream(hotInfluence.getCategories().split(",")).collect(Collectors.toList());

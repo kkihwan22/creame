@@ -10,9 +10,7 @@ import today.creame.web.influence.application.model.HotInfluenceDetailResult;
 import today.creame.web.influence.application.model.HotInfluenceParameter;
 import today.creame.web.influence.application.model.HotInfluenceUpdateParameter;
 import today.creame.web.influence.domain.*;
-import today.creame.web.influence.exception.BadRequestBannerImageException;
-import today.creame.web.influence.exception.ExistHotInfluenceException;
-import today.creame.web.influence.exception.NotFoundInfluenceException;
+import today.creame.web.influence.exception.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -48,52 +46,47 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
         Influence influence = influenceJpaRepository.findById(influenceId)
                 .orElseThrow(NotFoundInfluenceException::new);
 
-        String joinedCategories = influence.getCategories().stream()
-                .map(InfluenceCategory::getCategory)
-                .map(Category::name)
-                .collect(Collectors.joining(","));
-
-        HotInfluence hotInfluence = new HotInfluence(
-                influenceId,
-                influence.getNickname(),
-                influence.getExtensionNumber(),
-                joinedCategories,
-                parameter.getTitle(),
-                parameter.isEnabled(),
-                parameter.getBannerImageUri(),
-                parameter.getOrderNumber());
-
-        List<HotInfluence> originHotInfluences = hotInfluenceJpaRepository.findAllByEnabledTrue();
-        if(CollectionUtils.isEmpty(originHotInfluences)) {
+        HotInfluence hotInfluence = parameter.toEntity(influence);
+        List<HotInfluence> results = hotInfluenceJpaRepository.findAllByEnabled(Boolean.TRUE);
+        
+        if (results.isEmpty()) {
             hotInfluence.changeOrderNumber(1);
             hotInfluenceJpaRepository.save(hotInfluence);
-        } else {
-            List<HotInfluence> sortHotInfluences = sortHotInfluence(hotInfluence, originHotInfluences);
-            hotInfluenceJpaRepository.saveAll(sortHotInfluences);
+            return hotInfluence.getId();
         }
-        hotInfluenceJpaRepository.save(hotInfluence);
 
+        results.add(hotInfluence);
+        this.sortHotInfluences(results);
         return hotInfluence.getId();
     }
 
     @Transactional
     @Override
     public void update(HotInfluenceUpdateParameter parameter) {
-        HotInfluence hotInfluence = hotInfluenceJpaRepository.findById(parameter.getId())
-                .orElseThrow(NotFoundInfluenceException::new);
+        // TODO: 검증로직 위치 변경
         if(parameter.isEnabled() && Objects.isNull(parameter.getBannerImageUri())) {
             throw new BadRequestBannerImageException();
         }
-        hotInfluence.changeHotInfluence(parameter.getTitle(), parameter.getBannerImageUri(), parameter.getOrderNumber(), parameter.isEnabled());
 
-        List<HotInfluence> originHotInfluences = hotInfluenceJpaRepository.findAllByEnabledTrue();
-        if(CollectionUtils.isEmpty(originHotInfluences)) {
-            hotInfluence.changeOrderNumber(1);
-            hotInfluenceJpaRepository.save(hotInfluence);
-        } else {
-            List<HotInfluence> sortHotInfluences = sortHotInfluence(hotInfluence, originHotInfluences);
-            hotInfluenceJpaRepository.saveAll(sortHotInfluences);
+        List<HotInfluence> results = hotInfluenceJpaRepository.findAll();
+        if (results.isEmpty()) {
+            throw new BadRequestException();
         }
+
+        HotInfluence matchedResult = results.stream()
+                .filter(result -> result.getId().equals(parameter.getId())).findFirst().orElseThrow(NotFoundHotInfluencerException::new);
+
+        matchedResult.changeHotInfluence(
+                parameter.getBannerName(),
+                parameter.getTitle(),
+                parameter.getBannerImageUri(),
+                parameter.getOrderNumber(),
+                parameter.isEnabled());
+
+        if (!matchedResult.isEnabled()) return;
+
+        List<HotInfluence> filteredResults = results.stream().filter(HotInfluence::isEnabled).collect(Collectors.toList());
+        this.sortHotInfluences(filteredResults);
     }
 
     @Transactional
@@ -112,6 +105,8 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
         hotInfluenceJpaRepository.delete(hotInfluence);
     }
 
+    // TODO: 위치변경 - 도대체 왜..
+    @Transactional
     @Override
     public void updateNickname(Long influenceId, String nickname) {
         Optional<HotInfluence> hotInfluence = hotInfluenceJpaRepository.findByInfluenceId(influenceId);
@@ -121,6 +116,8 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
         }
     }
 
+    // TODO: 위치변경 - 도대체 왜..
+    @Transactional
     @Override
     public void updateCategories(Long influenceId, List<String> categories) {
         String joinedCategories = categories.stream().collect(Collectors.joining(","));
@@ -132,45 +129,16 @@ public class HotInfluenceServiceImpl implements HotInfluenceService {
         }
     }
 
-    public List<HotInfluence> sortHotInfluence(HotInfluence hotInfluence, List<HotInfluence> originHotInfluence){
+    private void sortHotInfluences(List<HotInfluence> hotInfluences) {
+        List<HotInfluence> sortedResults = hotInfluences.stream()
+                .sorted(Comparator.comparing(HotInfluence::getOrderNumber))
+                .collect(Collectors.toList());
 
-        List<HotInfluence> sortHotInfluence =
-                originHotInfluence.stream()
-                        .filter(p -> !p.getId().equals(hotInfluence.getId()))
-                        .sorted(Comparator.comparing(hotInfluence1 -> hotInfluence1.getOrderNumber()))
-                        .collect(Collectors.toList());
-
-        List<HotInfluence> saveHotInfluence = new ArrayList<>();
-        if(Objects.nonNull(hotInfluence.getOrderNumber())){
-
-            int orderNum = 1;
-            boolean isFirst = true;
-            for(HotInfluence hotInfluence1 : sortHotInfluence){
-                if(0 >= hotInfluence.getOrderNumber() && isFirst){
-                    isFirst = false;
-                    orderNum++;
-                }
-
-                if(orderNum == hotInfluence.getOrderNumber()){
-                    orderNum++;
-                }
-
-                hotInfluence1.changeOrderNumber(orderNum);
-                saveHotInfluence.add(hotInfluence1);
-                orderNum++;
-            }
-
-            if(0 >= hotInfluence.getOrderNumber()){
-                hotInfluence.changeOrderNumber(1);
-                saveHotInfluence.add(hotInfluence);
-            }else if(hotInfluence.getOrderNumber() >= orderNum){
-                hotInfluence.changeOrderNumber(orderNum);
-                saveHotInfluence.add(hotInfluence);
-            }else{
-                saveHotInfluence.add(hotInfluence);
-            }
+        for (int i = 0; i < sortedResults.size(); i++) {
+            HotInfluence result = sortedResults.get(i);
+            result.changeOrderNumber(i+1);
         }
 
-        return saveHotInfluence;
+        hotInfluenceJpaRepository.saveAll(sortedResults);
     }
 }

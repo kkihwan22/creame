@@ -3,12 +3,17 @@ package today.creame.web.influence.entrypoint.rest.io;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter @ToString
 public class HotInfluenceUpdateRequest {
 
+    private String bannerName;
     @NotBlank
     private String title;
     private String bannerImageUri;
@@ -16,10 +21,4 @@ public class HotInfluenceUpdateRequest {
     @NotNull
     private Integer orderNumber;
 
-    public HotInfluenceUpdateRequest(String title, String bannerImageUri, boolean enabled, int orderNumber) {
-        this.title = title;
-        this.bannerImageUri = bannerImageUri;
-        this.enabled = enabled;
-        this.orderNumber = orderNumber;
-    }
 }

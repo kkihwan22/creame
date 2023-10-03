@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface HotInfluenceJpaRepository extends JpaRepository<HotInfluence, Long> {
 
     List<HotInfluence> findHotInfluencesByEnabledOrderByOrderNumberAsc(boolean enabled);
-    List<HotInfluence> findAllByEnabledTrue();
+    List<HotInfluence> findAllByEnabled(Boolean enabled);
     Optional<HotInfluence> findByInfluenceId(Long influenceId);
 
 }

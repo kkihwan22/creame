@@ -2,19 +2,19 @@
 
 GET {{host}}/admin/v1/banners/hot?page=0&size=20&sort=id,DESC
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjgyMTY3NTQ5LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.4rsmvdJUvtLr8XP4xfrA9YW46giWHJ5S_jbAkVbyJ9c
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjk2OTQ1NTk2LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.pzKGk9RhacvkHKBqgDxsWkkMMt-t6hLRHzncKqpTH1g
 
 ### 핫 인플루언스 활성화/비활성
 
 PATCH {{host}}/admin/v1/banners/hot/6/enabled
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjgyMzQ2MTQ5LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.wgLhsODRAin_8k9vTY31c8SXAVGBUWSSqaXICUYYPnU
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjk2OTQ1NTk2LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.pzKGk9RhacvkHKBqgDxsWkkMMt-t6hLRHzncKqpTH1g
 
 
 ### 핫 인플루언스 등록
 POST {{host}}/admin/v1/banners/hot
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjgyMTY3NTQ5LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.4rsmvdJUvtLr8XP4xfrA9YW46giWHJ5S_jbAkVbyJ9c
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjk2OTQ1NTk2LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.pzKGk9RhacvkHKBqgDxsWkkMMt-t6hLRHzncKqpTH1g
 
 {
   "influence_id" : 94,
@@ -24,14 +24,16 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 }
 
 ### 핫 인플루언스 수정
-PUT {{host}}/admin/v1/banners/hot/2
+PUT {{host}}/admin/v1/banners/hot/10
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjgyMTY3NTQ5LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.4rsmvdJUvtLr8XP4xfrA9YW46giWHJ5S_jbAkVbyJ9c
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuyWtOuTnOuvvCIsImlkIjo4OCwiZXhwIjoxNjk2OTQ1NTk2LCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJ1c2VybmFtZSI6ImppbmtoOTdAZ21haWwuY29tIn0.pzKGk9RhacvkHKBqgDxsWkkMMt-t6hLRHzncKqpTH1g
 
 {
+  "banner_name": "화이팅!!",
   "title" : "인플루언스 수정111",
   "banner_image_uri" : "https://s3.ap-northeast-2.amazonaws.com/today.creame.file/temp/20230217/20230217022553-10003.png",
-  "order_number" : 2
+  "order_number" : 2,
+  "enabled": false
 }
 
 
