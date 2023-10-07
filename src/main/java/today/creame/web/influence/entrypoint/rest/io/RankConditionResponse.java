@@ -9,7 +9,7 @@ import today.creame.web.influence.domain.Rank;
 public class RankConditionResponse {
     private String currentRankName;
     private int currentRankOrder;
-    private String nextRankNameName;
+    private String nextRankName;
     private int nextRankOrder;
     private Long nextRankAmount;
     private int consecutiveNumber;
@@ -21,9 +21,9 @@ public class RankConditionResponse {
         this.currentRankOrder = rank.ordinal();
 
         Rank nextRank = rank.getNextRank();
-        this.nextRankNameName = nextRank.getLabel();
+        this.nextRankName = nextRank.getLabel();
         this.nextRankOrder = nextRank.ordinal();
-        this.nextRankAmount = nextRank.getNextRankAmount();
+        this.nextRankAmount = rank.getNextRankAmount();
 
         this.consecutiveNumber = result.getConsecutiveNumber();
         this.meetConditionCount = result.getMeetConditionCount();
