@@ -50,6 +50,7 @@ public class CreameAuthorizationFilter extends OncePerRequestFilter {
             )
 
             ) {
+                log.error("Not exist auth header. URL start with : {}", servletPath);
                 throw new TokenNotExistException();
             }
         } else {
