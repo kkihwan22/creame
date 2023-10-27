@@ -149,6 +149,7 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.item = 51L;
         this.exposed = true;
         this.connected = true;
+        this.certified = true;
     }
 
     public Influence(Long id) {
@@ -176,8 +177,12 @@ public class Influence extends BaseCreatedAndUpdatedDateTime {
         this.connected = !(this.connected);
     }
 
-    public void updateCalling() {
-        this.calling = !(this.calling);
+    public void startCall() {
+        this.calling = true;
+    }
+
+    public void endCall() {
+        this.calling = false;
     }
 
     public void updateSns(SNS sns) {

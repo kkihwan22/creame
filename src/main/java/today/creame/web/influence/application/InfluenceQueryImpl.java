@@ -186,8 +186,15 @@ public class InfluenceQueryImpl implements InfluenceQuery {
     }
 
     @Override
-    public List<InfluenceResult> listByCalling(Set<Long> callingInfluenceIds, Pageable pageable) {
-        List<Influence> results = influenceJpaRepository.findInfluencesByIdIn(callingInfluenceIds);
+    public List<InfluenceResult> listByCalling(Pageable pageable) {
+        List<Influence> results = query.selectFrom(influence)
+                .where(influence.calling.isTrue().and(influence.exposed.isTrue()))
+                .orderBy(influence.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .distinct()
+                .fetch();
+
         log.debug("results: {}", results);
         return this.getInfluenceResults(results);
     }
