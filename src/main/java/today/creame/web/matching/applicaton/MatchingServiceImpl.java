@@ -45,7 +45,7 @@ public class MatchingServiceImpl implements MatchingService {
         );
 
         matchingJapRepository.save(matching);
-        influence.updateCalling();
+        influence.startCall();
     }
 
     @Transactional
@@ -53,7 +53,7 @@ public class MatchingServiceImpl implements MatchingService {
     public void end(MatchingParameter parameter) {
         Matching matching = matchingJapRepository.findMatchingByCallId(parameter.getCallId()).orElseThrow(NotFoundMatchingException::new);
         matching.end(parameter.getMatchingProgressStatus(), parameter.getEndDateTime(), parameter.getUsedCoins());
-        matching.getInfluence().updateCalling();
+        matching.getInfluence().endCall();
         publisher.publishEvent(new MatchingEndEvent(matching.getMember().getId(), matching.getUsedCoins()));
     }
 
