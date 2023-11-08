@@ -23,10 +23,10 @@ public enum Rank {
             return Rank.PURPLE;
         }
     },
-    PURPLE("퍼플", 20000000L) {
+    PURPLE("퍼플", 0L) {
         @Override
         public Rank getNextRank() {
-            return Rank.BLACK;
+            return null;
         }
     },
     BLACK("블랙", 0L) {
