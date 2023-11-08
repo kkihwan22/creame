@@ -19,7 +19,7 @@ public class HotInfluenceQuery implements DisplayQuery {
 
     @Override
     public List<InfluenceResult> list(HomeQueryParam parameter) {
-        Sort orders = Sort.by(Order.desc("createdDateTime"), Order.desc("createdDateTime"));
+        Sort orders = Sort.by(Order.desc("reviewCount"), Order.desc("createdDateTime"));
         PageRequest pageRequest = parameter.getPageRequest().withSort(orders);
         return influenceQuery.listAll(pageRequest);
     }
