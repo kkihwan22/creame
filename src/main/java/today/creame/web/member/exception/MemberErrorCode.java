@@ -15,7 +15,8 @@ public enum MemberErrorCode {
     NOT_MATCHED_DIGIT_CODE(1008, "인증번호가 일치하지 않습니다."),
     NOT_MATCHED_PHONE_NUMBER(1009, "휴대전화 번호가 일치하지 않습니다."),
     EXCEEDED_FAILED_COUNT(1010, "인증번호 확인 시도가 초과했습니다."),
-    FORBIDDEN(1011, "허용되지 않는 요청입니다.")
+    FORBIDDEN(1011, "허용되지 않는 요청입니다."),
+    INVALID_TOKEN(1012, "인증 되지 않은 토큰입니다.")
     ;
 
     @Getter

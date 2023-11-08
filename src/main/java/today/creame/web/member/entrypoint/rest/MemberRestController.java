@@ -117,8 +117,8 @@ public class MemberRestController implements BaseRestController {
     public ResponseEntity<Body<SimpleBodyData<String>>> changedPhoneNumber(
         @RequestBody @Valid PhoneNumberUpdateRequest request,
         BindingResult bindingResult) {
-
         hasError(bindingResult);
+        memberService.changedPhoneNumber(request.getToken(), request.getPhoneNumber());
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
     }
 

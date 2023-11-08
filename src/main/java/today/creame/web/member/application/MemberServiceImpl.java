@@ -14,21 +14,13 @@ import today.creame.web.influence.application.model.InfluenceUpdateParameter;
 import today.creame.web.m2net.application.M2netUserService;
 import today.creame.web.m2net.application.model.M2netUserUpdateParameter;
 import today.creame.web.member.application.model.*;
-import today.creame.web.member.domain.Member;
-import today.creame.web.member.domain.MemberJpaRepository;
-import today.creame.web.member.domain.MemberNotificationJpaRepository;
-import today.creame.web.member.domain.MemberNotificationPreference;
-import today.creame.web.member.domain.MemberRole;
-import today.creame.web.member.domain.MemberRoleCode;
-import today.creame.web.member.domain.MemberRoleJpaRepository;
-import today.creame.web.member.exception.ConflictMemberEmailException;
-import today.creame.web.member.exception.ConflictMemberNicknameException;
-import today.creame.web.member.exception.ConflictMemberPhoneNumberException;
-import today.creame.web.member.exception.NotFoundMemberException;
+import today.creame.web.member.domain.*;
+import today.creame.web.member.exception.*;
 import today.creame.web.share.aspect.permit.Permit;
 import today.creame.web.share.event.SmsSendEvent;
 import today.creame.web.share.support.MaskingSupporter;
 import today.creame.web.share.support.RandomString;
+import today.creame.web.share.support.SecurityContextSupporter;
 import today.creame.web.sms.application.SmsTemplate;
 
 @RequiredArgsConstructor
@@ -38,6 +30,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberJpaRepository memberJpaRepository;
     private final MemberRoleJpaRepository memberRoleJpaRepository;
     private final MemberNotificationJpaRepository memberNotificationJpaRepository;
+    private final PhoneVerificationJpaRepository phoneVerificationJpaRepository;
     private final M2netUserService m2netUserService;
     private final ApplicationEventPublisher publisher;
     private final InfluenceService influenceService;
@@ -129,7 +122,17 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Override
     public void changedPhoneNumber(Long token, String phoneNumber) {
+        PhoneVerification phoneVerification = phoneVerificationJpaRepository.findPhoneVerificationByPhoneNumberAndToken(phoneNumber, token.toString())
+                .orElseThrow(NotMatchedTokenException::new);
 
+        if (phoneVerification.isVerified()) {
+            throw new InvalidTokenException();
+        }
+
+        Long id = SecurityContextSupporter.getId();
+        Member member = memberJpaRepository.findById(id)
+                .orElseThrow(NotFoundMemberException::new);
+        member.changedPhoneNumber(phoneNumber);
     }
 
     private void validation(MemberRegisterParameter parameter) {
