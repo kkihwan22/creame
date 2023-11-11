@@ -18,7 +18,8 @@ public class ReceiptRequest {
             "KAKAO_PAY", PaymentMethod.KAKAO,
             "NAVER_PAY", PaymentMethod.NAVER,
             "PAYCO_PAY", PaymentMethod.PAYCO,
-            "DIR_CARD", PaymentMethod.CARD
+            "DIR_CARD", PaymentMethod.CARD,
+            "AUTO_PAY_CARD", PaymentMethod.AUTO_PAY_CARD
     );
 
     private String membid;

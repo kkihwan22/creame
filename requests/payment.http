@@ -71,9 +71,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiL
 
 ### 결제내역
 
-GET {{host}}/api/v1/me/payments-history?since=0
+GET {{host}}/api/v1/me/payments-history?since=1
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuuPhOumrCIsImlkIjo5MywiZXhwIjoxNjk2ODk3NzY4LCJhdXRob3JpdGllcyI6IlJPTEVfSU5GTFVFTkNFLFJPTEVfVVNFUixST0xFX0FETUlOIiwidXNlcm5hbWUiOiJtc20xMHdvbkBnbWFpbC5jb20ifQ.d5eHA3TEDTH2w-DsstjZ2haxZpBqpFgJk-49Y0wqN6o
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDUkVBTUUiLCJuaWNrbmFtZSI6IuunneybkOyaqeydtCIsImlkIjoxNTUsImV4cCI6MTcwMDI5MDkyMywiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJ1c2VybmFtZSI6Im1hbm5lcnMyNTQyQG5hdGUuY29tIn0.hToWvN0n1ojJIfSEs_F6z1tn4ZTcNAdb1_vBY_ikI_g
+
 
 ### 보유코인
 

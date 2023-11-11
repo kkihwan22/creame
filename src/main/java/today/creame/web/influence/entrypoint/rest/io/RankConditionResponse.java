@@ -5,6 +5,8 @@ import lombok.ToString;
 import today.creame.web.influence.application.model.RankConditionResult;
 import today.creame.web.influence.domain.Rank;
 
+import java.util.Optional;
+
 @Getter @ToString
 public class RankConditionResponse {
     private String currentRankName;
@@ -20,10 +22,11 @@ public class RankConditionResponse {
         this.currentRankName = rank.getLabel();
         this.currentRankOrder = rank.ordinal();
 
-        Rank nextRank = rank.getNextRank();
-        this.nextRankNameName = nextRank.getLabel();
-        this.nextRankOrder = nextRank.ordinal();
-        this.nextRankAmount = nextRank.getNextRankAmount();
+        Optional.ofNullable(rank.getNextRank()).ifPresent(item -> {
+            this.nextRankNameName = item.getLabel();
+            this.nextRankOrder = item.ordinal();
+            this.nextRankAmount = item.getNextRankAmount();
+        });
 
         this.consecutiveNumber = result.getConsecutiveNumber();
         this.meetConditionCount = result.getMeetConditionCount();

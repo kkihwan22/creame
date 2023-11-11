@@ -8,6 +8,7 @@ public enum PaymentMethod {
     NAVER("네이버페이"),
     PAYCO("페이코"),
     VACCT("가상계좌"),
+    AUTO_PAY_CARD("간편결제"),
     UNKNOWN("간편결제")
 
     ;

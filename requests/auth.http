@@ -15,8 +15,8 @@ POST {{host}}/public/v1/login
 Content-Type: application/json
 
 {
-  "username": "hyerin1006@naver.com",
-  "password": "1234"
+  "username": "manners2542@nate.com",
+  "password": "lkys3071#"
 }
 
 ### 로그인 (인플루언스) -- 레너드
@@ -47,6 +47,26 @@ Content-Type: application/json
 {
   "username": "hopeman97@hanmail.net",
   "password": "1234"
+}
+
+### 로그인 (일반유저) -- 쥬쥬 103
+
+POST {{host}}/public/v1/login
+Content-Type: application/json
+
+{
+  "username": "hyerin1006@naver.com",
+  "password": "1234"
+}
+
+### 로그인 (일반유저) -- 지안 103
+
+POST {{host}}/public/v1/login
+Content-Type: application/json
+
+{
+  "username": "oidmspio@naver.com",
+  "password": "znr178800!"
 }
 
 ### 로그인 (일반유저) -- 42
