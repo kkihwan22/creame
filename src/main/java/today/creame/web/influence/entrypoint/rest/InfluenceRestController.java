@@ -44,6 +44,9 @@ public class InfluenceRestController implements BaseRestController {
         @PathVariable Long id,
         @Valid @RequestBody NoticeUpdateRequest request, BindingResult bindingResult
     ) {
+
+        log.info("[NOTICE][등록] request: {}", request);
+
         hasError(bindingResult);
         influenceNoticeService.createOrUpdate(new InfluenceNoticeParameter(id, request.getContent(), request.getAttachFiles()));
         return ResponseEntity.ok(BodyFactory.success(new SimpleBodyData<>("success")));
